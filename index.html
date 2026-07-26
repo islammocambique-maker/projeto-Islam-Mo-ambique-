@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0a0a0f">
+<title>SorteMoz</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+.hidden{display:none!important}
+.screen{min-height:100vh;display:flex;flex-direction:column}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;z-index:1000;padding:16px;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-overlay.active{opacity:1;pointer-events:all}
+.modal{background:#14141f;border:1px solid #2a2a3a;border-radius:20px;width:100%;max-width:400px;padding:32px 24px;text-align:center;animation:slideUp .3s ease}
+@keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+.age-icon{font-size:4rem;margin-bottom:16px}
+.age-modal h2{color:#ff4444;font-size:1.4rem;margin-bottom:12px}
+.age-modal p{color:#aaa;font-size:.95rem;margin-bottom:20px;line-height:1.5}
+.btn-primary{background:linear-gradient(135deg,#ffd700,#ffaa00);color:#0a0a0f;border:none;border-radius:14px;padding:16px 24px;font-size:1rem;font-weight:700;cursor:pointer;width:100%;transition:transform .15s,box-shadow .2s;box-shadow:0 4px 20px rgba(255,215,0,0.25)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(255,215,0,0.35)}
+.btn-primary:active{transform:scale(.98)}
+.btn-primary:disabled{background:#333;color:#666;box-shadow:none;cursor:not-allowed;transform:none}
+.btn-secondary{background:transparent;color:#888;border:1px solid #333;border-radius:14px;padding:14px 24px;font-size:.95rem;cursor:pointer;width:100%;margin-top:10px;transition:all .2s}
+.btn-secondary:hover{border-color:#ff4444;color:#ff4444}
+
+#auth-screen{align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at top,#1a0a2e 0%,#0a0a0f 60%)}
+.auth-container{width:100%;max-width:380px}
+.logo{text-align:center;margin-bottom:32px}
+.logo-icon{font-size:4rem;margin-bottom:8px}
+.logo h1{font-size:2.2rem;background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.logo p{color:#888;font-size:.95rem;margin-top:4px}
+.auth-tabs{display:flex;gap:8px;margin-bottom:20px;background:#14141f;border-radius:14px;padding:4px}
+.tab-btn{flex:1;background:none;border:none;color:#888;padding:12px;border-radius:12px;font-size:.95rem;cursor:pointer;transition:all .2s}
+.tab-btn.active{background:#2a2a3a;color:#ffd700;font-weight:600}
+.tab-content{display:none;flex-direction:column;gap:14px}
+.tab-content.active{display:flex}
+.tab-content input{background:#14141f;border:1px solid #2a2a3a;border-radius:14px;padding:16px;color:#fff;font-size:1rem;outline:none;transition:border-color .2s;width:100%}
+.tab-content input:focus{border-color:#ffd700}
+.auth-error{color:#ff4444;font-size:.85rem;text-align:center;min-height:20px}
+
+.app-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:linear-gradient(180deg,#14141f 0%,transparent 100%);position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
+.header-left{display:flex;align-items:center;gap:12px}
+.avatar{width:44px;height:44px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+.user-info{display:flex;flex-direction:column}
+.user-name{font-weight:600;font-size:.95rem;color:#fff}
+.user-phone{font-size:.8rem;color:#888}
+.btn-icon{background:#1a1a2a;border:1px solid #2a2a3a;border-radius:12px;padding:10px 14px;font-size:1.2rem;cursor:pointer;color:#888;transition:all .2s}
+.btn-icon:hover{background:#2a2a3a;color:#fff}
+
+.saldo-card{margin:0 16px 20px;background:linear-gradient(135deg,#1a0a2e 0%,#2d1b4e 50%,#1a0a2e 100%);border:1px solid #3d2b5e;border-radius:24px;padding:28px 24px;text-align:center;position:relative;overflow:hidden}
+.saldo-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,215,0,0.08) 0%,transparent 60%);animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.1);opacity:1}}
+.saldo-label{font-size:.85rem;color:#b8a0d8;text-transform:uppercase;letter-spacing:1px;position:relative}
+.saldo-value{font-size:2.8rem;font-weight:800;color:#ffd700;margin:8px 0 20px;position:relative}
+.saldo-value .currency{font-size:1.2rem;font-weight:500;color:#b8a0d8}
+.saldo-actions{display:flex;gap:12px;position:relative}
+.btn-action{flex:1;padding:14px;border-radius:14px;font-size:.9rem;font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.btn-recarga{background:#ffd700;color:#0a0a0f}
+.btn-lev{background:#1a1a2a;color:#ffd700;border:1px solid #ffd700}
+
+.game-section{margin:0 16px 24px;background:#14141f;border:1px solid #2a2a3a;border-radius:24px;padding:24px 20px}
+.game-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.game-header h2{font-size:1.15rem;color:#fff}
+.custo-aposta{background:#ffd700;color:#0a0a0f;padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:700}
+.numeros-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+.numero-btn{aspect-ratio:1;background:#1a1a2a;border:2px solid #2a2a3a;border-radius:50%;color:#ccc;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.numero-btn:hover{border-color:#ffd700;color:#ffd700}
+.numero-btn.selected{background:linear-gradient(135deg,#ffd700,#ff8c00);border-color:#ffd700;color:#0a0a0f;box-shadow:0 4px 16px rgba(255,215,0,0.35);transform:scale(1.08)}
+.numero-btn.disabled{opacity:.3;cursor:not-allowed;pointer-events:none}
+.aposta-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-size:.9rem;color:#888}
+.btn-apostar{width:100%;padding:18px;background:linear-gradient(135deg,#00c853,#00a344);border:none;border-radius:16px;color:#fff;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(0,200,83,0.25)}
+.btn-apostar:disabled{background:#1a2a1a;color:#555;box-shadow:none;cursor:not-allowed}
+
+.historico-section,.regras-section{margin:0 16px 24px;background:#14141f;border:1px solid #2a2a3a;border-radius:24px;padding:24px 20px}
+.historico-section h3,.regras-section h3{font-size:1.05rem;color:#ffd700;margin-bottom:16px}
+.historico-list{display:flex;flex-direction:column;gap:10px}
+.historico-item{background:#1a1a2a;border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;border-left:3px solid #2a2a3a}
+.historico-item.ganhou{border-left-color:#00c853}
+.historico-item.perdeu{border-left-color:#ff4444}
+.hist-info{display:flex;flex-direction:column;gap:4px}
+.hist-numeros{font-size:.85rem;color:#aaa}
+.hist-data{font-size:.75rem;color:#666}
+.hist-result{text-align:right;display:flex;flex-direction:column;gap:2px}
+.hist-acertos{font-size:.85rem;color:#888}
+.hist-premio{font-size:1rem;font-weight:700}
+.hist-premio.ganhou{color:#00c853}
+.hist-premio.perdeu{color:#ff4444}
+.empty-state{color:#555;text-align:center;padding:20px;font-size:.9rem}
+
+.premios-grid{display:flex;flex-direction:column;gap:10px}
+.premio-item{display:flex;justify-content:space-between;align-items:center;background:#1a1a2a;border-radius:12px;padding:14px 16px;border-left:3px solid #ffd700}
+.premio-item.jackpot{background:linear-gradient(90deg,#1a0a2e,#2d1b4e);border-left-color:#ff4444}
+.premio-item .acertos{color:#aaa;font-size:.9rem}
+.premio-item .valor{color:#ffd700;font-weight:700;font-size:1rem}
+.premio-item.jackpot .valor{color:#ff4444;font-size:1.15rem}
+
+.sorteados-bolas{display:flex;gap:10px;justify-content:center;margin:16px 0;flex-wrap:wrap}
+.bola-sorteado{width:52px;height:52px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#0a0a0f;box-shadow:0 4px 16px rgba(255,215,0,0.4);animation:popIn .4s ease backwards}
+.bola-sorteado:nth-child(1){animation-delay:.1s}
+.bola-sorteado:nth-child(2){animation-delay:.2s}
+.bola-sorteado:nth-child(3){animation-delay:.3s}
+.bola-sorteado:nth-child(4){animation-delay:.4s}
+.bola-sorteado:nth-child(5){animation-delay:.5s}
+@keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+
+.res-acertos{font-size:1.2rem;color:#fff;margin-bottom:8px}
+.res-premio{font-size:1.6rem;font-weight:800}
+.res-premio.ganhou{color:#00c853}
+.res-premio.perdeu{color:#ff4444}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:#1a1a2a;color:#fff;padding:14px 28px;border-radius:14px;border:1px solid #2a2a3a;font-size:.95rem;z-index:2000;transition:transform .3s ease,opacity .3s ease;opacity:0;pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,0.5);max-width:90vw;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.toast.success{border-color:#00c853}
+.toast.error{border-color:#ff4444}
+
+.app-footer{text-align:center;padding:24px 20px;color:#555;font-size:.8rem}
+.footer-warning{color:#ff4444;margin-top:6px;font-weight:600}
+
+.msg{font-size:.85rem;text-align:center;min-height:20px}
+.msg.success{color:#00c853}
+.msg.error{color:#ff4444}
+.info-text{color:#888;font-size:.85rem;text-align:center}
+
+.modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #2a2a3a}
+.modal-header h3{font-size:1.15rem;color:#ffd700}
+.btn-close{background:none;border:none;color:#888;font-size:1.3rem;cursor:pointer;padding:4px}
+.modal-body{padding:24px;display:flex;flex-direction:column;gap:14px}
+.modal-body.center{align-items:center;text-align:center}
+.modal-body label{font-size:.85rem;color:#888;text-transform:uppercase;letter-spacing:.5px}
+.modal-body input,.modal-body select{background:#0f0f18;border:1px solid #2a2a3a;border-radius:12px;padding:14px 16px;color:#fff;font-size:1rem;outline:none;width:100%;transition:border-color .2s}
+.modal-body input:focus,.modal-body select:focus{border-color:#ffd700}
+
+.polling-box{background:#1a1a2a;border:1px solid #2a2a3a;border-radius:14px;padding:16px;text-align:center;margin-top:10px}
+.polling-box .spinner{display:inline-block;width:20px;height:20px;border:2px solid #ffd700;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.polling-box p{color:#aaa;font-size:.9rem;margin-top:8px}
+
+@media(min-width:480px){.numeros-grid{grid-template-columns:repeat(10,1fr)}}
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<!-- +18 -->
+<div id="age-modal" class="modal-overlay active">
+  <div class="modal age-modal">
+    <div class="age-icon">🔞</div>
+    <h2>Proibido para Menores de 18 Anos</h2>
+    <p>Este site contém jogos de aposta. O acesso é estritamente proibido a menores de 18 anos.</p>
+    <p>Ao continuar, declara que tem idade legal para jogar em Moçambique.</p>
+    <button id="btn-confirm-age" class="btn-primary">Tenho 18 anos ou mais</button>
+    <button id="btn-deny-age" class="btn-secondary">Sair</button>
+  </div>
+</div>
+
+<!-- AUTH -->
+<div id="auth-screen" class="screen hidden">
+  <div class="auth-container">
+    <div class="logo">
+      <div class="logo-icon">🎱</div>
+      <h1>SorteMoz</h1>
+      <p>A sua sorte diária</p>
+    </div>
+    <div class="auth-tabs">
+      <button class="tab-btn active" data-tab="login">Entrar</button>
+      <button class="tab-btn" data-tab="register">Criar Conta</button>
+    </div>
+    <div id="tab-login" class="tab-content active">
+      <input type="email" id="login-email" placeholder="Email" autocomplete="email">
+      <input type="password" id="login-password" placeholder="Palavra-passe" autocomplete="current-password">
+      <button id="btn-login" class="btn-primary">Entrar</button>
+      <p class="auth-error" id="login-error"></p>
+    </div>
+    <div id="tab-register" class="tab-content">
+      <input type="text" id="reg-name" placeholder="Nome completo" autocomplete="name">
+      <input type="tel" id="reg-phone" placeholder="Número de telefone (+258...)" autocomplete="tel">
+      <input type="email" id="reg-email" placeholder="Email" autocomplete="email">
+      <input type="password" id="reg-password" placeholder="Palavra-passe (mín. 6 caracteres)" autocomplete="new-password">
+      <button id="btn-register" class="btn-primary">Criar Conta</button>
+      <p class="auth-error" id="reg-error"></p>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app-screen" class="screen hidden">
+  <header class="app-header">
+    <div class="header-left">
+      <div class="avatar">👤</div>
+      <div class="user-info">
+        <span id="user-name" class="user-name">...</span>
+        <span id="user-phone" class="user-phone">...</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <button id="btn-logout" class="btn-icon" title="Sair">🚪</button>
+    </div>
+  </header>
+
+  <div class="saldo-card">
+    <div class="saldo-label">Saldo Disponível</div>
+    <div class="saldo-value"><span id="saldo-display">0</span> <span class="currency">MTN</span></div>
+    <div class="saldo-actions">
+      <button id="btn-open-recarga" class="btn-action btn-recarga">💰 Recarregar</button>
+      <button id="btn-open-levantamento" class="btn-action btn-lev">💸 Levantar</button>
+    </div>
+  </div>
+
+  <div class="game-section">
+    <div class="game-header">
+      <h2>🎱 Aposte Agora</h2>
+      <span class="custo-aposta">10 MTN / aposta</span>
+    </div>
+    <div class="numeros-grid" id="numeros-grid"></div>
+    <div class="aposta-info">
+      <span id="contador-selecionados">0/5 números</span>
+      <button id="btn-limpar" class="btn-icon" style="font-size:.9rem;padding:6px 12px">Limpar</button>
+    </div>
+    <button id="btn-apostar" class="btn-apostar" disabled>🎯 Apostar 10 MTN</button>
+  </div>
+
+  <div class="historico-section">
+    <h3>📜 Histórico</h3>
+    <div id="historico-list" class="historico-list">
+      <p class="empty-state">Ainda não fez nenhuma aposta.</p>
+    </div>
+  </div>
+
+  <div class="regras-section">
+    <h3>📋 Prémios</h3>
+    <div class="premios-grid">
+      <div class="premio-item"><span class="acertos">1 acerto</span><span class="valor">10 MTN</span></div>
+      <div class="premio-item"><span class="acertos">2 acertos</span><span class="valor">50 MTN</span></div>
+      <div class="premio-item"><span class="acertos">3 acertos</span><span class="valor">500 MTN</span></div>
+      <div class="premio-item"><span class="acertos">4 acertos</span><span class="valor">5.000 MTN</span></div>
+      <div class="premio-item jackpot"><span class="acertos">5 acertos</span><span class="valor">50.000 MTN</span></div>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <p>© 2026 SorteMoz. Jogue com responsabilidade.</p>
+    <p class="footer-warning">🔞 Proibido para menores de 18 anos.</p>
+  </footer>
+</div>
+
+<!-- MODAL RECARGA -->
+<div id="modal-recarga" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>💰 Recarregar Saldo</h3>
+      <button class="btn-close" onclick="closeModal('modal-recarga')">✕</button>
+    </div>
+    <div class="modal-body">
+      <label>Método</label>
+      <select id="recarga-method">
+        <option value="mpesa">M-Pesa</option>
+        <option value="emola">e-Mola</option>
+        <option value="mkesh">mKesh</option>
+        <option value="card">Cartão Visa/Mastercard</option>
+      </select>
+      <label>Número de telefone</label>
+      <input type="tel" id="recarga-phone" placeholder="+25884...">
+      <label>Valor (MTN)</label>
+      <input type="number" id="recarga-amount" placeholder="Mín. 10 MTN" min="10">
+      <button id="btn-recarga" class="btn-primary">Confirmar Recarga</button>
+      <div id="recarga-polling" class="polling-box hidden">
+        <span class="spinner"></span> Aguardando confirmação do pagamento...
+        <p>Não feche esta janela. O saldo será creditado automaticamente.</p>
+      </div>
+      <p id="recarga-msg" class="msg"></p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL LEVANTAMENTO -->
+<div id="modal-lev" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>💸 Levantar Dinheiro</h3>
+      <button class="btn-close" onclick="closeModal('modal-lev')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="info-text">Mínimo: 100 MTN | Taxa: 10%</p>
+      <label>Método</label>
+      <select id="lev-method">
+        <option value="mpesa">M-Pesa</option>
+        <option value="emola">e-Mola</option>
+      </select>
+      <label>Número de telefone</label>
+      <input type="tel" id="lev-phone" placeholder="+25884...">
+      <label>Valor (MTN)</label>
+      <input type="number" id="lev-amount" placeholder="Mín. 100 MTN" min="100">
+      <button id="btn-lev" class="btn-primary">Solicitar Levantamento</button>
+      <p id="lev-msg" class="msg"></p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL RESULTADO -->
+<div id="modal-resultado" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header"><h3>🎲 Resultado</h3></div>
+    <div class="modal-body center">
+      <div class="sorteados-bolas" id="sorteados-bolas"></div>
+      <p id="res-acertos" class="res-acertos"></p>
+      <p id="res-premio" class="res-premio"></p>
+      <button class="btn-primary" onclick="closeModal('modal-resultado')">Continuar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script>
+// ============================================================
+// CONFIGURAÇÃO — ALTERE AQUI O SEU GOOGLE SCRIPT URL
+// ============================================================
+const GAS_URL = "https://script.google.com/macros/s/AKfycbxQbd_lnrN_jP_LXYyKgqYGTHqdQBRsxO2s6sqk7qfV5At8d6WDaBeoQOVtb12anuxuTQ/exec";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCW9ZZadm4WJ_FKtOjvkP1czsfImwzl98c",
+  authDomain: "mozcoin.firebaseapp.com",
+  databaseURL: "https://mozcoin-default-rtdb.firebaseio.com",
+  projectId: "mozcoin",
+  storageBucket: "mozcoin.firebasestorage.app",
+  messagingSenderId: "1097811611947",
+  appId: "1:1097811611947:web:476c4b2e12fc4c6529756e"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const database = firebase.database();
+
+let currentUser = null;
+let idToken = null;
+let numerosSelecionados = [];
+let isApostando = false;
+let pollingInterval = null;
+
+const $ = s => document.querySelector(s);
+
+function showToast(msg, type) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.className = 'toast ' + (type || '');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function formatNum(n) {
+  return (n || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleString('pt-MZ', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+}
+
+// ---------- GAS API ----------
+async function gasCall(action, payload) {
+  const body = { action: action, uid: currentUser?.uid, token: idToken, ...payload };
+  console.log('>>> Enviando para GAS:', action, body);
+  try {
+    const resp = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      redirect: 'follow'
+    });
+    console.log('>>> Status:', resp.status, resp.statusText);
+    const text = await resp.text();
+    console.log('>>> Raw:', text.substring(0, 300));
+    try {
+      return JSON.parse(text);
+    } catch(parseErr) {
+      console.error('>>> Parse erro:', parseErr);
+      return {error: 'Servidor respondeu erro. Tente novamente.'};
+    }
+  } catch(fetchErr) {
+    console.error('>>> FETCH ERRO:', fetchErr.name, fetchErr.message);
+    return {error: 'Erro de conexão. O app precisa estar online (não funciona como ficheiro local). Use um navegador com o site hospedado.'};
+  }
+}
+
+// ---------- AGE ----------
+$('#btn-confirm-age').onclick = () => {
+  $('#age-modal').classList.remove('active');
+  $('#auth-screen').classList.remove('hidden');
+};
+$('#btn-deny-age').onclick = () => {
+  document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0a0a0f;color:#ff4444;font-size:1.2rem;text-align:center;padding:20px">Acesso negado. Proibido para menores de 18 anos.</div>';
+};
+
+// ---------- TABS ----------
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  };
+});
+
+// ---------- LOGIN ----------
+$('#btn-login').onclick = async () => {
+  const email = $('#login-email').value.trim();
+  const pass = $('#login-password').value;
+  $('#login-error').textContent = '';
+  if (!email || !pass) { $('#login-error').textContent = 'Preencha todos os campos.'; return; }
+  try { await auth.signInWithEmailAndPassword(email, pass); }
+  catch(err) { $('#login-error').textContent = traduzErro(err.code); }
+};
+
+// ---------- REGISTRO ----------
+$('#btn-register').onclick = async () => {
+  const nome = $('#reg-name').value.trim();
+  const phone = $('#reg-phone').value.trim();
+  const email = $('#reg-email').value.trim();
+  const pass = $('#reg-password').value;
+  $('#reg-error').textContent = '';
+  if (!nome || !phone || !email || !pass) { $('#reg-error').textContent = 'Preencha todos os campos.'; return; }
+  if (pass.length < 6) { $('#reg-error').textContent = 'Palavra-passe muito curta (mín. 6).'; return; }
+
+  // Debug
+  console.log('Tentando registrar:', email);
+
+  try {
+    const cred = await auth.createUserWithEmailAndPassword(email, pass);
+    console.log('Firebase Auth OK, UID:', cred.user.uid);
+
+    await database.ref('users/' + cred.user.uid).set({
+      nome: nome, numero: phone, saldo: 0,
+      recargas: {}, levantamentos: {}, historico: []
+    });
+    console.log('Firebase Database OK');
+    showToast('Conta criada com sucesso!', 'success');
+  } catch(err) { 
+    console.error('ERRO REGISTRO:', err.code, err.message);
+    $('#reg-error').textContent = traduzErro(err.code, err.message); 
+  }
+};
+
+function traduzErro(code, message) {
+  const m = {
+    'auth/invalid-email': 'Email inválido.',
+    'auth/user-not-found': 'Utilizador não encontrado.',
+    'auth/wrong-password': 'Palavra-passe incorreta.',
+    'auth/email-already-in-use': 'Este email já está registado.',
+    'auth/weak-password': 'Palavra-passe muito fraca.',
+    'auth/invalid-credential': 'Credenciais inválidas.',
+    'auth/operation-not-allowed': 'Registro desativado no Firebase. Ative Email/Password no console.',
+    'auth/network-request-failed': 'Sem internet. Verifique a conexão.',
+    'auth/too-many-requests': 'Muitas tentativas. Aguarde alguns minutos.',
+    'auth/internal-error': 'Erro interno do Firebase. Tente novamente.'
+  };
+  return m[code] || ('Erro: ' + (message || code || 'desconhecido'));
+}
+
+$('#btn-logout').onclick = async () => { await auth.signOut(); location.reload(); };
+
+// ---------- AUTH STATE ----------
+auth.onAuthStateChanged(async (user) => {
+  if (user) {
+    currentUser = user;
+    idToken = await user.getIdToken(true);
+    $('#auth-screen').classList.add('hidden');
+    $('#app-screen').classList.remove('hidden');
+    await carregarDados();
+    // Ouve saldo em tempo real
+    database.ref('users/' + user.uid + '/saldo').on('value', snap => {
+      $('#saldo-display').textContent = formatNum(snap.val() || 0);
+    });
+  }
+});
+
+async function carregarDados() {
+  try {
+    const snap = await database.ref('users/' + currentUser.uid).once('value');
+    const data = snap.val() || {};
+    $('#user-name').textContent = data.nome || 'Jogador';
+    $('#user-phone').textContent = data.numero || '';
+    carregarHistorico(data.historico);
+  } catch(e) { showToast('Erro ao carregar dados', 'error'); }
+}
+
+function carregarHistorico(hist) {
+  const list = $('#historico-list');
+  if (!hist || (Array.isArray(hist) && hist.length === 0) || (typeof hist === 'object' && Object.keys(hist).length === 0)) {
+    list.innerHTML = '<p class="empty-state">Ainda não fez nenhuma aposta.</p>';
+    return;
+  }
+  let arr = Array.isArray(hist) ? hist : Object.values(hist);
+  arr = arr.slice(-20).reverse();
+  list.innerHTML = '';
+  arr.forEach(h => {
+    const item = document.createElement('div');
+    item.className = 'historico-item ' + (h.premio > 0 ? 'ganhou' : 'perdeu');
+    item.innerHTML = '<div class="hist-info"><div class="hist-numeros">🎱 ' + (h.numeros_escolhidos||[]).join(', ') + ' → <strong>' + (h.numeros_sorteados||[]).join(', ') + '</strong></div><div class="hist-data">' + formatDate(h.data) + '</div></div><div class="hist-result"><div class="hist-acertos">' + h.acertos + ' acerto' + (h.acertos!==1?'s':'') + '</div><div class="hist-premio ' + (h.premio>0?'ganhou':'perdeu') + '">' + (h.premio>0?'+':'') + formatNum(h.premio>0?h.premio:-10) + ' MTN</div></div>';
+    list.appendChild(item);
+  });
+}
+
+// ---------- GRID ----------
+function criarGrid() {
+  const grid = $('#numeros-grid');
+  for (let i = 1; i <= 50; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'numero-btn';
+    btn.textContent = i;
+    btn.dataset.num = i;
+    btn.onclick = () => toggleNumero(i);
+    grid.appendChild(btn);
+  }
+}
+
+function toggleNumero(n) {
+  const idx = numerosSelecionados.indexOf(n);
+  const btn = document.querySelector('.numero-btn[data-num="' + n + '"]');
+  if (idx > -1) {
+    numerosSelecionados.splice(idx, 1);
+    btn.classList.remove('selected');
+  } else {
+    if (numerosSelecionados.length >= 5) { showToast('Só 5 números!', 'error'); return; }
+    numerosSelecionados.push(n);
+    btn.classList.add('selected');
+  }
+  atualizarContador();
+}
+
+function atualizarContador() {
+  $('#contador-selecionados').textContent = numerosSelecionados.length + '/5 números';
+  $('#btn-apostar').disabled = numerosSelecionados.length !== 5 || isApostando;
+  document.querySelectorAll('.numero-btn').forEach(btn => {
+    const n = parseInt(btn.dataset.num);
+    if (numerosSelecionados.length >= 5 && !numerosSelecionados.includes(n)) btn.classList.add('disabled');
+    else btn.classList.remove('disabled');
+  });
+}
+
+$('#btn-limpar').onclick = () => {
+  numerosSelecionados = [];
+  document.querySelectorAll('.numero-btn').forEach(b => b.classList.remove('selected','disabled'));
+  atualizarContador();
+};
+
+// ---------- APOSTAR ----------
+$('#btn-apostar').onclick = async () => {
+  if (numerosSelecionados.length !== 5 || isApostando) return;
+  isApostando = true;
+  $('#btn-apostar').disabled = true;
+  $('#btn-apostar').textContent = '⏳ Processando...';
+  try {
+    const res = await gasCall('apostar', { numeros: numerosSelecionados });
+    if (res.error) {
+      showToast(res.error, 'error');
+    } else {
+      mostrarResultado(res);
+      await carregarDados();
+      numerosSelecionados = [];
+      document.querySelectorAll('.numero-btn').forEach(b => b.classList.remove('selected','disabled'));
+      atualizarContador();
+    }
+  } catch(e) { showToast('Erro na aposta', 'error'); }
+  finally {
+    isApostando = false;
+    $('#btn-apostar').textContent = '🎯 Apostar 10 MTN';
+    atualizarContador();
+  }
+};
+
+function mostrarResultado(res) {
+  const c = $('#sorteados-bolas');
+  c.innerHTML = '';
+  res.sorteados.forEach((n, i) => {
+    const d = document.createElement('div');
+    d.className = 'bola-sorteado';
+    d.textContent = n;
+    d.style.animationDelay = ((i+1)*0.1) + 's';
+    c.appendChild(d);
+  });
+  $('#res-acertos').textContent = res.acertos + ' acerto' + (res.acertos!==1?'s':'');
+  const p = $('#res-premio');
+  if (res.premio > 0) {
+    p.textContent = '+' + formatNum(res.premio) + ' MTN';
+    p.className = 'res-premio ganhou';
+    showToast('Parabéns! Ganhou ' + formatNum(res.premio) + ' MTN!', 'success');
+  } else {
+    p.textContent = 'Não foi desta vez...';
+    p.className = 'res-premio perdeu';
+  }
+  openModal('modal-resultado');
+}
+
+// ---------- MODAIS ----------
+function openModal(id) { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+$('#btn-open-recarga').onclick = () => {
+  openModal('modal-recarga');
+  $('#recarga-polling').classList.add('hidden');
+  $('#recarga-msg').textContent = '';
+  $('#btn-recarga').disabled = false;
+  if (pollingInterval) { clearInterval(pollingInterval); pollingInterval = null; }
+};
+$('#btn-open-levantamento').onclick = () => openModal('modal-lev');
+
+// ---------- RECARGA COM POLLING + WEBHOOK ----------
+$('#btn-recarga').onclick = async () => {
+  const amount = parseInt($('#recarga-amount').value);
+  const method = $('#recarga-method').value;
+  const phone = $('#recarga-phone').value.trim();
+  const msg = $('#recarga-msg');
+  const pollingBox = $('#recarga-polling');
+
+  msg.textContent = '';
+  msg.className = 'msg';
+
+  if (!amount || amount < 10) { msg.textContent = 'Mínimo: 10 MTN'; msg.className = 'msg error'; return; }
+  if (method !== 'card' && !phone) { msg.textContent = 'Informe o telefone.'; msg.className = 'msg error'; return; }
+
+  $('#btn-recarga').disabled = true;
+
+  try {
+    const res = await gasCall('recarga', { amount, method, msisdn: phone });
+
+    if (res.error) {
+      msg.textContent = res.error;
+      msg.className = 'msg error';
+      $('#btn-recarga').disabled = false;
+      return;
+    }
+
+    // Se já pagou (resposta síncrona)
+    if (res.status === 'paid') {
+      msg.textContent = '✅ Recarga confirmada! Saldo creditado.';
+      msg.className = 'msg success';
+      showToast('Saldo creditado!', 'success');
+      $('#btn-recarga').disabled = false;
+      return;
+    }
+
+    // Se for cartão, redireciona para página de pagamento
+    if (res.checkout && res.checkout.hosted_url) {
+      msg.innerHTML = '<a href="' + res.checkout.hosted_url + '" target="_blank" style="color:#ffd700;font-weight:700">👉 CLIQUE AQUI PARA PAGAR COM CARTÃO</a>';
+      msg.className = 'msg success';
+      // Inicia polling para quando voltar
+      iniciarPolling(res.id, 'recarga');
+      return;
+    }
+
+    // Se ficou pending (M-Pesa, e-Mola, mKesh)
+    if (res.status === 'pending' && res.id) {
+      pollingBox.classList.remove('hidden');
+      msg.textContent = 'Aguardando confirmação no seu telemóvel...';
+      msg.className = 'msg';
+      iniciarPolling(res.id, 'recarga');
+    }
+
+  } catch(e) {
+    msg.textContent = 'Erro na recarga.';
+    msg.className = 'msg error';
+    $('#btn-recarga').disabled = false;
+  }
+};
+
+// ---------- POLLING ----------
+function iniciarPolling(chargeId, tipo) {
+  if (pollingInterval) clearInterval(pollingInterval);
+
+  let tentativas = 0;
+  const maxTentativas = 60; // 5 minutos (a cada 5s)
+
+  pollingInterval = setInterval(async () => {
+    tentativas++;
+    if (tentativas > maxTentativas) {
+      clearInterval(pollingInterval);
+      pollingInterval = null;
+      $('#recarga-polling').classList.add('hidden');
+      $('#recarga-msg').textContent = 'Tempo esgotado. Verifique o saldo mais tarde.';
+      $('#recarga-msg').className = 'msg error';
+      $('#btn-recarga').disabled = false;
+      return;
+    }
+
+    try {
+      const res = await gasCall('verificar', { charge_id: chargeId, tipo: tipo });
+
+      if (res.status === 'paid') {
+        clearInterval(pollingInterval);
+        pollingInterval = null;
+        $('#recarga-polling').classList.add('hidden');
+        $('#recarga-msg').textContent = '✅ Pagamento confirmado! Saldo creditado.';
+        $('#recarga-msg').className = 'msg success';
+        showToast('Saldo creditado!', 'success');
+        $('#btn-recarga').disabled = false;
+      } else if (res.status === 'failed') {
+        clearInterval(pollingInterval);
+        pollingInterval = null;
+        $('#recarga-polling').classList.add('hidden');
+        $('#recarga-msg').textContent = '❌ Pagamento falhou. Tente novamente.';
+        $('#recarga-msg').className = 'msg error';
+        $('#btn-recarga').disabled = false;
+      }
+      // Se ainda pending, continua polling...
+    } catch(e) {
+      // Erro de rede, continua tentando
+    }
+  }, 5000); // a cada 5 segundos
+}
+
+// ---------- LEVANTAMENTO ----------
+$('#btn-lev').onclick = async () => {
+  const amount = parseInt($('#lev-amount').value);
+  const method = $('#lev-method').value;
+  const phone = $('#lev-phone').value.trim();
+  const msg = $('#lev-msg');
+  msg.textContent = '';
+  msg.className = 'msg';
+
+  if (!amount || amount < 100) { msg.textContent = 'Mínimo: 100 MTN'; msg.className = 'msg error'; return; }
+  if (!phone) { msg.textContent = 'Informe o telefone.'; msg.className = 'msg error'; return; }
+
+  try {
+    const res = await gasCall('levantamento', { amount, method, msisdn: phone });
+    if (res.error) { msg.textContent = res.error; msg.className = 'msg error'; }
+    else {
+      msg.textContent = '✅ Levantamento solicitado! Verifique o seu telemóvel.';
+      msg.className = 'msg success';
+      showToast('Levantamento enviado!', 'success');
+      setTimeout(() => closeModal('modal-lev'), 2000);
+    }
+  } catch(e) { msg.textContent = 'Erro no levantamento.'; msg.className = 'msg error'; }
+};
+
+// ---------- INIT ----------
+criarGrid();
+atualizarContador();
+</script>
+</body>
+</html>
