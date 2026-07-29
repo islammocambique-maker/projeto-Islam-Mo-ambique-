@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madrassa Online Islam Moçambique</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f0d78c;
+            --gold-dark: #b8941d;
+            --green: #1a5c3a;
+            --green-light: #2d8a5a;
+            --green-dark: #0d3d24;
+            --cream: #faf8f0;
+            --cream-dark: #f0ebe0;
+            --text: #2c2c2c;
+            --text-light: #666;
+            --white: #ffffff;
+            --shadow: 0 10px 40px rgba(0,0,0,0.12);
+            --shadow-hover: 0 20px 60px rgba(0,0,0,0.18);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--cream);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--text);
+        }
+
+        .bg-pattern {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='%231a5c3a'/%3E%3C/svg%3E");
+            background-size: 60px 60px;
+        }
+
+        .orb {
+            position: fixed; border-radius: 50%; filter: blur(80px); z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+        .orb-1 { width: 400px; height: 400px; background: rgba(212,175,55,0.15); top: -100px; right: -100px; }
+        .orb-2 { width: 300px; height: 300px; background: rgba(26,92,58,0.1); bottom: -50px; left: -50px; animation-delay: -7s; }
+        .orb-3 { width: 250px; height: 250px; background: rgba(212,175,55,0.08); top: 50%; left: 50%; animation-delay: -14s; }
+
+        @keyframes float {
+            0%,100% { transform: translate(0,0) scale(1); }
+            33% { transform: translate(30px,-30px) scale(1.1); }
+            66% { transform: translate(-20px,20px) scale(0.9); }
+        }
+
+        .islamic-border {
+            position: fixed; top: 0; left: 0; width: 100%; height: 8px;
+            background: linear-gradient(90deg, var(--green), var(--gold), var(--green), var(--gold), var(--green));
+            background-size: 300% 100%;
+            animation: shimmer 4s linear infinite;
+            z-index: 100;
+        }
+        @keyframes shimmer { 0%{background-position:0%50%} 100%{background-position:300%50%} }
+
+        .main-container {
+            position: relative; z-index: 1;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .brand { text-align: center; margin-bottom: 50px; animation: fadeInDown 1s ease-out; }
+        .brand-icon {
+            width: 100px; height: 100px; margin: 0 auto 25px;
+            background: linear-gradient(135deg, var(--green), var(--green-light));
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 40px rgba(26,92,58,0.3); position: relative; overflow: hidden;
+        }
+        .brand-icon::before { content: ''; position: absolute; inset: 4px; border: 2px solid var(--gold); border-radius: 50%; }
+        .brand-icon svg { width: 50px; height: 50px; fill: var(--gold); }
+        .brand h1 { font-family: 'Amiri', serif; font-size: 2.8rem; font-weight: 700; color: var(--green); letter-spacing: 1px; }
+        .brand .subtitle { font-size: 1.1rem; color: var(--gold-dark); margin-top: 8px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; }
+        .brand .arabic { font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--text-light); margin-top: 5px; opacity: 0.7; }
+        .deco-line { width: 80px; height: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 20px auto; border-radius: 2px; }
+
+        .main-buttons { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; animation: fadeInUp 1s ease-out 0.3s both; }
+
+        .btn {
+            position: relative; padding: 18px 50px; font-size: 1.1rem; font-weight: 600;
+            border: none; border-radius: 50px; cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+            text-transform: uppercase; letter-spacing: 2px; overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--green), var(--green-light));
+            color: var(--white); box-shadow: 0 8px 30px rgba(26,92,58,0.35);
+        }
+        .btn-primary:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 15px 45px rgba(26,92,58,0.45); }
+        .btn-primary::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .btn-primary:hover::after { left: 100%; }
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--green-dark); box-shadow: 0 8px 30px rgba(212,175,55,0.35);
+        }
+        .btn-secondary:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 15px 45px rgba(212,175,55,0.45); }
+
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
+            z-index: 1000; display: none; align-items: center; justify-content: center;
+            padding: 20px; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active { display: flex; opacity: 1; }
+
+        .modal-card {
+            background: var(--white); border-radius: 24px; max-width: 500px; width: 100%;
+            max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-hover);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275); position: relative;
+        }
+        .modal-overlay.active .modal-card { transform: scale(1) translateY(0); }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--green), var(--green-light));
+            color: var(--white); padding: 30px; text-align: center;
+            border-radius: 24px 24px 0 0; position: relative; overflow: hidden;
+        }
+        .modal-header::before {
+            content: ''; position: absolute; top: -50%; right: -50%;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        .modal-header h2 { font-family: 'Amiri', serif; font-size: 1.8rem; position: relative; }
+        .modal-header p { opacity: 0.9; margin-top: 5px; font-size: 0.95rem; position: relative; }
+
+        .modal-body { padding: 30px; }
+
+        .close-btn {
+            position: absolute; top: 15px; right: 15px; width: 36px; height: 36px;
+            border-radius: 50%; border: 2px solid rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.15); color: var(--white); font-size: 1.2rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; z-index: 10;
+        }
+        .close-btn:hover { background: rgba(255,255,255,0.3); transform: rotate(90deg); }
+
+        .price-tag {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--green-dark); padding: 15px 25px; border-radius: 16px;
+            text-align: center; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(212,175,55,0.3);
+        }
+        .price-tag .amount { font-size: 2.2rem; font-weight: 700; font-family: 'Amiri', serif; }
+        .price-tag .label { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; }
+
+        .payment-option {
+            background: var(--cream); border-radius: 16px; padding: 20px;
+            margin-bottom: 15px; border-left: 4px solid var(--green); transition: all 0.3s;
+        }
+        .payment-option:hover { transform: translateX(5px); box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .payment-option .method { font-weight: 600; color: var(--green); font-size: 1.1rem; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .payment-option .detail { color: var(--text-light); font-size: 0.95rem; line-height: 1.6; }
+        .payment-option .number { font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--gold-dark); font-weight: 700; letter-spacing: 1px; }
+
+        .holder-info {
+            background: linear-gradient(135deg, var(--green-dark), var(--green));
+            color: var(--white); padding: 18px; border-radius: 16px; text-align: center; margin-top: 20px;
+        }
+        .holder-info .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7; }
+        .holder-info .name { font-family: 'Amiri', serif; font-size: 1.4rem; margin-top: 5px; }
+
+        .login-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-group { position: relative; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: var(--text); font-size: 0.9rem; }
+        .form-group input {
+            width: 100%; padding: 14px 18px; border: 2px solid var(--cream-dark);
+            border-radius: 12px; font-size: 1rem; font-family: 'Poppins', sans-serif;
+            transition: all 0.3s; background: var(--cream);
+        }
+        .form-group input:focus {
+            outline: none; border-color: var(--gold);
+            box-shadow: 0 0 0 4px rgba(212,175,55,0.15); background: var(--white);
+        }
+
+        .btn-submit {
+            width: 100%; padding: 16px;
+            background: linear-gradient(135deg, var(--green), var(--green-light));
+            color: var(--white); border: none; border-radius: 12px; font-size: 1rem;
+            font-weight: 600; cursor: pointer; transition: all 0.3s;
+            text-transform: uppercase; letter-spacing: 2px; margin-top: 10px;
+        }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(26,92,58,0.35); }
+
+        .error-msg {
+            background: #fff0f0; color: #c0392b; padding: 12px 16px;
+            border-radius: 10px; font-size: 0.9rem; display: none;
+            align-items: center; gap: 8px; border-left: 3px solid #c0392b;
+        }
+        .error-msg.show { display: flex; }
+
+        .dashboard {
+            display: none; position: fixed; inset: 0; z-index: 100;
+            background: var(--cream); overflow-y: auto;
+        }
+        .dashboard.active { display: block; animation: fadeIn 0.5s ease; }
+
+        .dash-header {
+            background: linear-gradient(135deg, var(--green), var(--green-light));
+            color: var(--white); padding: 30px; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .dash-header::before {
+            content: ''; position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0L40 20L20 40L0 20Z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E");
+            background-size: 40px 40px;
+        }
+        .dash-header h2 { font-family: 'Amiri', serif; font-size: 2rem; position: relative; }
+        .dash-header .user-name { font-size: 1.1rem; opacity: 0.9; margin-top: 8px; position: relative; }
+        .dash-header .user-role {
+            display: inline-block; background: rgba(255,255,255,0.2);
+            padding: 4px 16px; border-radius: 20px; font-size: 0.8rem;
+            margin-top: 10px; text-transform: uppercase; letter-spacing: 2px; position: relative;
+        }
+
+        .dash-nav { display: flex; justify-content: center; gap: 15px; padding: 20px; flex-wrap: wrap; }
+        .dash-nav .btn { padding: 14px 30px; font-size: 0.95rem; }
+
+        .dash-content { max-width: 800px; margin: 0 auto; padding: 20px; }
+
+        .dash-card {
+            background: var(--white); border-radius: 20px; padding: 30px;
+            margin-bottom: 20px; box-shadow: var(--shadow); transition: all 0.3s;
+        }
+        .dash-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+        .dash-card h3 { font-family: 'Amiri', serif; color: var(--green); font-size: 1.4rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .dash-card p { color: var(--text-light); line-height: 1.7; }
+
+        .link-btn {
+            display: inline-flex; align-items: center; gap: 10px; margin-top: 15px;
+            padding: 12px 25px; background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--green-dark); text-decoration: none; border-radius: 12px;
+            font-weight: 600; transition: all 0.3s;
+        }
+        .link-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212,175,55,0.35); }
+
+        .admin-panel { display: none; }
+        .admin-panel.active { display: block; }
+
+        .student-list { list-style: none; }
+        .student-list li {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px; background: var(--cream); border-radius: 12px;
+            margin-bottom: 10px; transition: all 0.3s;
+        }
+        .student-list li:hover { background: var(--cream-dark); transform: translateX(5px); }
+        .student-list .student-name { font-weight: 600; color: var(--text); }
+        .student-list .student-phone { color: var(--text-light); font-size: 0.9rem; }
+        .student-list .status { padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .status.online { background: #e8f5e9; color: var(--green); }
+        .status.offline { background: #f5f5f5; color: var(--text-light); }
+
+        .add-student-form { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        .add-student-form input {
+            flex: 1; min-width: 150px; padding: 12px 16px;
+            border: 2px solid var(--cream-dark); border-radius: 10px;
+            font-family: 'Poppins', sans-serif; font-size: 0.95rem;
+        }
+        .add-student-form input:focus { outline: none; border-color: var(--gold); }
+        .add-student-form button {
+            padding: 12px 24px; background: var(--green); color: var(--white);
+            border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s;
+        }
+        .add-student-form button:hover { background: var(--green-light); }
+
+        .exercise-link-form { margin-top: 20px; }
+        .exercise-link-form textarea {
+            width: 100%; padding: 14px; border: 2px solid var(--cream-dark);
+            border-radius: 12px; font-family: 'Poppins', sans-serif; font-size: 0.95rem;
+            resize: vertical; min-height: 80px; margin-bottom: 10px;
+        }
+        .exercise-link-form textarea:focus { outline: none; border-color: var(--gold); }
+
+        .sent-links { margin-top: 20px; }
+        .sent-link-item {
+            background: var(--cream); padding: 12px 16px; border-radius: 10px;
+            margin-bottom: 8px; display: flex; justify-content: space-between;
+            align-items: center; font-size: 0.9rem;
+        }
+        .sent-link-item a { color: var(--green); text-decoration: none; font-weight: 500; }
+        .sent-link-item .time { color: var(--text-light); font-size: 0.8rem; }
+
+        .logout-btn {
+            position: fixed; bottom: 30px; right: 30px; padding: 12px 24px;
+            background: rgba(212,175,55,0.9); color: var(--green-dark);
+            border: none; border-radius: 50px; font-weight: 600; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: all 0.3s;
+            z-index: 50; font-family: 'Poppins', sans-serif;
+        }
+        .logout-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+
+        @keyframes fadeInDown { from{opacity:0;transform:translateY(-30px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+        @media (max-width: 600px) {
+            .brand h1 { font-size: 2rem; }
+            .btn { padding: 16px 35px; font-size: 1rem; }
+            .modal-card { margin: 10px; }
+            .dash-header h2 { font-size: 1.5rem; }
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--cream); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold-dark); }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="islamic-border"></div>
+    <div class="bg-pattern"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Main Page -->
+    <div class="main-container" id="mainPage">
+        <div class="brand">
+            <div class="brand-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path></svg>
+            </div>
+            <h1>Madrassa Online</h1>
+            <div class="subtitle">Islam Moçambique</div>
+            <div class="arabic">مدرسة الإسلام أونلاين موزمبيق</div>
+            <div class="deco-line"></div>
+            <p style="color:var(--text-light);font-size:1rem;max-width:400px;margin:0 auto;line-height:1.7;">
+                Educação Islâmica de qualidade ao alcance de todos. Aprenda o Alcorão, a Sunnah e os princípios do Islão de forma moderna e acessível.
+            </p>
+        </div>
+        <div class="main-buttons">
+            <button class="btn btn-secondary" onclick="openModal('inscricaoModal')">📝 Inscrever-se</button>
+            <button class="btn btn-primary" onclick="openModal('loginModal')">🔐 Entrar</button>
+        </div>
+    </div>
+
+    <!-- Inscricao Modal -->
+    <div class="modal-overlay" id="inscricaoModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <button class="close-btn" onclick="closeModal('inscricaoModal')">×</button>
+                <h2>📝 Inscrição</h2>
+                <p>Junte-se à nossa comunidade de aprendizagem</p>
+            </div>
+            <div class="modal-body">
+                <div class="price-tag">
+                    <div class="label">Taxa de Inscrição</div>
+                    <div class="amount">150 MTN</div>
+                </div>
+                <div class="payment-option">
+                    <div class="method">📱 Emola</div>
+                    <div class="detail">Número: <span class="number">860407269</span></div>
+                </div>
+                <div class="payment-option">
+                    <div class="method">💳 Agente Paga Fácil (M-Pesa)</div>
+                    <div class="detail">Número: <span class="number">1228803</span></div>
+                </div>
+                <div class="holder-info">
+                    <div class="label">Titular da Conta</div>
+                    <div class="name">Bebane</div>
+                </div>
+                <p style="margin-top:20px;color:var(--text-light);font-size:0.9rem;text-align:center;line-height:1.6;">
+                    Após o pagamento, envie o comprovativo para o número <strong>860407269</strong> via WhatsApp para ativação da sua conta.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <button class="close-btn" onclick="closeModal('loginModal')">×</button>
+                <h2>🔐 Acesso Restrito</h2>
+                <p>Digite o seu nome e PIN para entrar</p>
+            </div>
+            <div class="modal-body">
+                <div class="error-msg" id="loginError">
+                    <span>⚠️</span> <span id="errorText">Nome ou PIN incorretos.</span>
+                </div>
+                <form class="login-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="userName">Nome de Utilizador</label>
+                        <input type="text" id="userName" placeholder="Digite o seu nome" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="pin">PIN de Acesso</label>
+                        <input type="password" id="pin" placeholder="Digite o seu PIN" required maxlength="6">
+                    </div>
+                    <button type="submit" class="btn-submit">Entrar</button>
+                </form>
+                <p style="margin-top:20px;text-align:center;color:var(--text-light);font-size:0.85rem;">
+                    Não tem conta? <a href="#" onclick="closeModal('loginModal');openModal('inscricaoModal');return false;" style="color:var(--green);font-weight:600;">Inscreva-se aqui</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <div class="dash-header">
+            <h2>📚 Área do Aluno</h2>
+            <div class="user-name" id="dashUserName">Bem-vindo</div>
+            <div class="user-role" id="dashUserRole">Aluno</div>
+        </div>
+        <div class="dash-nav">
+            <button class="btn btn-primary" onclick="showSection('aulas')">🏫 Sala de Aulas</button>
+            <button class="btn btn-secondary" onclick="showSection('videos')">🎥 Vídeo Aulas</button>
+            <button class="btn btn-primary" onclick="showSection('exercicios')">✏️ Exercícios</button>
+        </div>
+        <div class="dash-content">
+            <div class="dash-card" id="sec-aulas">
+                <h3>🏫 Sala de Aulas</h3>
+                <p>Acesse o nosso grupo do Telegram para interagir com os professores e colegas em tempo real.</p>
+                <a href="https://t.me/+jwzlpbuFGjxmODI0" target="_blank" class="link-btn">📲 Entrar no Grupo Telegram</a>
+            </div>
+            <div class="dash-card" id="sec-videos" style="display:none;">
+                <h3>🎥 Vídeo Aulas</h3>
+                <p>Acesse o nosso canal do Telegram com todas as vídeo aulas gravadas.</p>
+                <a href="https://t.me/+TJY2bEtpc_NkMGU0" target="_blank" class="link-btn">▶️ Acessar Vídeo Aulas</a>
+            </div>
+            <div class="dash-card" id="sec-exercicios" style="display:none;">
+                <h3>✏️ Exercícios</h3>
+                <p>Os exercícios são disponibilizados pelo professor através de formulários do Google Forms.</p>
+                <div id="exerciseLinks">
+                    <p style="color:var(--text-light);font-style:italic;">Nenhum exercício disponível no momento.</p>
+                </div>
+            </div>
+            <div class="admin-panel" id="adminPanel">
+                <div class="dash-card">
+                    <h3>👥 Lista de Alunos</h3>
+                    <ul class="student-list" id="studentList"></ul>
+                </div>
+                <div class="dash-card">
+                    <h3>🔗 Partilhar Exercício</h3>
+                    <p>Insira o link do Google Form para enviar aos alunos:</p>
+                    <div class="exercise-link-form">
+                        <textarea id="exerciseLink" placeholder="Cole aqui o link do Google Form..."></textarea>
+                        <button class="btn-submit" onclick="shareExercise()">📤 Enviar aos Alunos</button>
+                    </div>
+                    <div class="sent-links" id="sentLinks"></div>
+                </div>
+            </div>
+        </div>
+        <button class="logout-btn" onclick="logout()">🚪 Sair</button>
+    </div>
+
+    <script>
+        // ===== USUÁRIOS EMBUTIDOS NO CÓDIGO (sem backend) =====
+        // Chave = nome do utilizador (em minúsculas para comparação case-insensitive)
+        // Valor = { pin, role, phone }
+        const USERS = {
+            'abdul fatah': { pin: '6300', role: 'admin', phone: '860407269' },
+            'abdullah':    { pin: '2222', role: 'admin', phone: '879102330' },
+            'agira muquila': { pin: '3333', role: 'student', phone: '866186976' },
+            'amadeu joão':   { pin: '4444', role: 'student', phone: '844486758' },
+            'mayra manteiga': { pin: '1122', role: 'student', phone: '843978666' },
+            'ayanda mamade': { pin: '1133', role: 'student', phone: '849118097' },
+            'bhavita ali': { pin: '1144', role: 'student', phone: '820618540' },
+            'chahide nordine zacarias': { pin: '1155', role: 'student', phone: '844117209' },
+            'jamila ibrahimo hassane': { pin: '1166', role: 'student', phone: '842957997' },
+            'manuel raul': { pin: '1177', role: 'student', phone: '848196156' },
+            'mudarrissu ar-razi': { pin: '1188', role: 'student', phone: '864133620' },
+            'muktada ali': { pin: '1199', role: 'student', phone: '864308637' },
+            'nordino uanzo': { pin: '2200', role: 'student', phone: '823033144' },
+            'neyma tamimo': { pin: '2211', role: 'student', phone: '843989406' },
+            'muaziza ruquia assane': { pin: '2233', role: 'student', phone: '864388571' },
+            'fátima salihina': { pin: '2244', role: 'student', phone: '866186976' },
+            'nordino mussa ussene': { pin: '2255', role: 'student', phone: '846799130' },
+            'fátima canana nansoma': { pin: '2266', role: 'student', phone: '842995079' },
+            'hamade esmail joão': { pin: '2277', role: 'student', phone: '844486758' },
+            'maiassa simba': { pin: '2288', role: 'student', phone: '851663683' },
+            'jamia azicane': { pin: '2299', role: 'student', phone: '857104032' },
+            'nacir buana saide': { pin: '3300', role: 'student', phone: '873591083' },
+            'imorane basilio cassimo': { pin: '3311', role: 'student', phone: '871767015' }
+        };
+
+        let currentUser = null;
+        let exerciseLinks = JSON.parse(localStorage.getItem('exLinks') || '[]');
+
+        // ===== MODAL =====
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+            document.body.style.overflow = '';
+            document.getElementById('loginError').classList.remove('show');
+        }
+        document.querySelectorAll('.modal-overlay').forEach(o => {
+            o.addEventListener('click', e => { if(e.target===o) closeModal(o.id); });
+        });
+        document.addEventListener('keydown', e => {
+            if(e.key==='Escape') document.querySelectorAll('.modal-overlay.active').forEach(m=>closeModal(m.id));
+        });
+
+        // ===== LOGIN =====
+        function handleLogin(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById('userName').value.trim().toLowerCase();
+            const pinInput = document.getElementById('pin').value.trim();
+            const errorDiv = document.getElementById('loginError');
+            const errorText = document.getElementById('errorText');
+
+            const user = USERS[nameInput];
+
+            if(!user) {
+                errorText.textContent = 'Nome de utilizador não encontrado.';
+                errorDiv.classList.add('show');
+                return;
+            }
+
+            if(user.pin !== pinInput) {
+                errorText.textContent = 'PIN incorreto. Tente novamente.';
+                errorDiv.classList.add('show');
+                return;
+            }
+
+            // Login OK — SEM restrição de dispositivo
+            currentUser = { name: nameInput, ...user };
+            localStorage.setItem('currUser', JSON.stringify(currentUser));
+
+            closeModal('loginModal');
+            showDashboard();
+        }
+
+        // ===== DASHBOARD =====
+        function showDashboard() {
+            document.getElementById('mainPage').style.display='none';
+            document.getElementById('dashboard').classList.add('active');
+
+            // Capitalizar nome para exibição
+            const displayName = currentUser.name.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+            document.getElementById('dashUserName').textContent = 'Bem-vindo, ' + displayName;
+            document.getElementById('dashUserRole').textContent = currentUser.role==='admin' ? 'Administrador' : 'Aluno';
+
+            if(currentUser.role === 'admin') {
+                document.getElementById('adminPanel').classList.add('active');
+                renderStudentList();
+                renderSentLinks();
+            }
+            renderExerciseLinks();
+        }
+
+        function showSection(sec) {
+            ['aulas','videos','exercicios'].forEach(s => {
+                document.getElementById('sec-'+s).style.display = s===sec ? 'block' : 'none';
+            });
+        }
+
+        // ===== ADMIN =====
+        function renderStudentList() {
+            const list = document.getElementById('studentList');
+            list.innerHTML = '';
+            Object.entries(USERS).forEach(([name, u]) => {
+                if(u.role === 'student') {
+                    const displayName = name.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+                    const li = document.createElement('li');
+                    li.innerHTML = `<div><div class="student-name">${displayName}</div><div class="student-phone">${u.phone}</div></div>`;
+                    list.appendChild(li);
+                }
+            });
+        }
+
+        function shareExercise() {
+            const link = document.getElementById('exerciseLink').value.trim();
+            if(!link) { alert('Insira um link válido.'); return; }
+            exerciseLinks.unshift({ url: link, time: new Date().toLocaleString('pt-MZ'), by: currentUser.name });
+            localStorage.setItem('exLinks', JSON.stringify(exerciseLinks));
+            document.getElementById('exerciseLink').value='';
+            renderSentLinks();
+            renderExerciseLinks();
+            alert('Exercício partilhado com sucesso!');
+        }
+
+        function renderSentLinks() {
+            const c = document.getElementById('sentLinks');
+            if(!exerciseLinks.length) { c.innerHTML='<p style="color:var(--text-light);font-style:italic;">Nenhum exercício partilhado ainda.</p>'; return; }
+            c.innerHTML = '<h4 style="margin-bottom:10px;color:var(--green);">Links Enviados:</h4>' +
+                exerciseLinks.map(l=>`<div class="sent-link-item"><a href="${l.url}" target="_blank">${l.url.substring(0,50)}${l.url.length>50?'...':''}</a><span class="time">${l.time}</span></div>`).join('');
+        }
+
+        function renderExerciseLinks() {
+            const c = document.getElementById('exerciseLinks');
+            if(!exerciseLinks.length) { c.innerHTML='<p style="color:var(--text-light);font-style:italic;">Nenhum exercício disponível no momento. O professor irá partilhar em breve.</p>'; return; }
+            c.innerHTML = exerciseLinks.map((l,i)=>`<div style="background:var(--cream);padding:15px;border-radius:12px;margin-bottom:10px;">
+                <div style="font-weight:600;color:var(--green);margin-bottom:5px;">Exercício #${exerciseLinks.length-i}</div>
+                <a href="${l.url}" target="_blank" class="link-btn" style="margin-top:5px;">📝 Responder Exercício</a>
+                <div style="font-size:0.8rem;color:var(--text-light);margin-top:8px;">Partilhado em: ${l.time}</div>
+            </div>`).join('');
+        }
+
+        // ===== LOGOUT =====
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currUser');
+            document.getElementById('dashboard').classList.remove('active');
+            document.getElementById('mainPage').style.display='flex';
+            document.getElementById('adminPanel').classList.remove('active');
+            document.getElementById('userName').value='';
+            document.getElementById('pin').value='';
+        }
+
+        // ===== AUTO-LOGIN =====
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('currUser');
+            if(saved) {
+                currentUser = JSON.parse(saved);
+                showDashboard();
+            }
+        });
+    </script>
+</body>
+</html>
