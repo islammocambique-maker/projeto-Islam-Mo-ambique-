@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Os 42 Hadiths de An-Nawawi — Islam Moçambique</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --surface-light: #334155;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --accent: #10b981;
+    --accent-light: #34d399;
+    --arabic: #fbbf24;
+    --border: rgba(255,255,255,0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px;
+  }
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 { font-size: 1.6rem; font-weight: 700; color: var(--accent); margin: 0 0 4px 0; letter-spacing: 0.5px; }
+  .header .sub { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
+  .progress-bar { width: 100%; max-width: 480px; height: 4px; background: var(--surface); border-radius: 2px; margin-bottom: 24px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s ease; }
+  .card { width: 100%; max-width: 680px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 28px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); animation: fadeIn 0.4s ease; flex: 1; display: flex; flex-direction: column; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  .hadith-number { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: var(--accent); color: var(--bg); font-weight: 700; font-size: 1.1rem; border-radius: 12px; margin-bottom: 20px; }
+  .arabic-text { font-family: 'Amiri', serif; font-size: 1.35rem; line-height: 2.2; color: var(--arabic); text-align: right; direction: rtl; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .section-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
+  .translation { font-size: 1rem; line-height: 1.8; color: var(--text); margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .tafsir { font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); background: var(--bg); padding: 16px; border-radius: 12px; border-left: 3px solid var(--accent); }
+  .controls { display: flex; gap: 12px; margin-top: 24px; width: 100%; max-width: 680px; }
+  .btn { flex: 1; padding: 14px 20px; border: none; border-radius: 12px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn-primary { background: var(--accent); color: var(--bg); }
+  .btn-primary:hover { background: var(--accent-light); transform: translateY(-1px); }
+  .btn-secondary { background: var(--surface-light); color: var(--text); }
+  .btn-secondary:hover { background: #475569; }
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none !important; }
+  .counter { text-align: center; margin-top: 16px; font-size: 0.8rem; color: var(--text-muted); }
+  .footer { margin-top: 32px; text-align: center; font-size: 0.75rem; color: var(--text-muted); }
+  @media (max-width: 600px) { .card { padding: 20px; } .arabic-text { font-size: 1.15rem; } .header h1 { font-size: 1.3rem; } }
+</style>
+<base target="_blank">
+</head>
+<body>
+<div class="header">
+  <h1>Os 42 Hadiths de An-Nawawi</h1>
+  <p class="sub">Projeto de Estudos — Islam Moçambique</p>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+<div class="card" id="card">
+  <div class="hadith-number" id="num">1</div>
+  <div class="section-label">Texto em Árabe</div>
+  <div class="arabic-text" id="arabic"></div>
+  <div class="section-label">Tradução</div>
+  <div class="translation" id="translation"></div>
+  <div class="section-label">Resumo do Tafsir</div>
+  <div class="tafsir" id="tafsir"></div>
+</div>
+<div class="controls">
+  <button class="btn btn-secondary" id="prevBtn" onclick="prev()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior
+  </button>
+  <button class="btn btn-primary" id="nextBtn" onclick="next()">
+    Próximo<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+  </button>
+</div>
+<div class="counter" id="counter"></div>
+<div class="footer">Islam Moçambique — Projeto de Estudos dos 42 Hadiths de An-Nawawi</div>
+<script>
+const hadiths = [
+  {
+    arabic: "إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا أَوْ امْرَأَةٍ يَتَزَوَّجُهَا فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ",
+    translation: "As ações são julgadas conforme as intenções, e cada pessoa terá o que pretendeu. Quem emigrou para Allah e Seu Mensageiro, sua emigração foi para Allah e Seu Mensageiro; e quem emigrou para obter um benefício mundano ou para casar com uma mulher, sua emigração foi para aquilo que emigrou.",
+    tafsir: "Este é o primeiro hadith do livro de An-Nawawi e um dos mais importantes do Islam. O Profeta Muhammad (S.A.W.) estabelece que a intenção (niyyah) é a base de toda ação. Uma mesma ação externa pode ser boa ou má dependendo da intenção do coração. A emigração (hijrah) é usada como exemplo: se feita por Allah, é aceita; se feita por motivos mundanos, só se recompensa o que se buscou."
+  },
+  {
+    arabic: "بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، وَإِقَامِ الصَّلاَةِ، وَإِيتَاءِ الزَّكَاةِ، وَالْحَجِّ، وَصَوْمِ رَمَضَانَ",
+    translation: "O Islam foi edificado sobre cinco pilares: testemunhar que não há divindade digna de adoração exceto Allah e que Muhammad é o Mensageiro de Allah, estabelecer a oração, pagar o zakat, realizar a peregrinação (Hajj) e jejuar no mês de Ramadã.",
+    tafsir: "Este hadith resume os pilares fundamentais do Islam, conhecidos como os Cinco Pilares. O Profeta (S.A.W.) os apresenta como a base sobre a qual toda a estrutura do Islam se ergue. Cada pilar tem regras e condições específicas, e cumpri-los é obrigatório para todo muçulmano capaz."
+  },
+  {
+    arabic: "مَنْ يُرِدِ اللَّهُ بِهِ خَيْرًا يُفَقِّهْهُ فِي الدِّينِ، وَإِنَّمَا أَنَا قَاسِمٌ وَاللَّهُ يُعْطِي",
+    translation: "Quem Allah deseja o bem, faz com que ele compreenda a religião. Eu sou apenas o distribuidor, e Allah é Quem concede.",
+    tafsir: "A compreensão da religião (fiqh ad-din) é uma das maiores bênçãos que Allah pode conceder a um servo. Não se trata apenas de memorizar regras, mas de entender os objetivos da Shariah (maqasid) e aplicar o conhecimento com sabedoria. O Profeta (S.A.W.) compara-se a um distribuidor, reconhecendo que a verdadeira graça vem de Allah."
+  },
+  {
+    arabic: "لاَ يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
+    translation: "Nenhum de vocês crerá verdadeiramente até que deseje para seu irmão o que deseja para si mesmo.",
+    tafsir: "Este hadith define um nível elevado de fé (iman): o altruísmo genuíno. Não basta acreditar intelectualmente; a fé verdadeira se manifesta no desejo sincero de bem para os outros, como se deseja para si. O termo 'irmão' abrange tanto o parente quanto o irmão em fé."
+  },
+  {
+    arabic: "مَنْ أَحْيَا سُنَّتِي فَقَدْ أَحَبَّنِي، وَمَنْ أَحَبَّنِي كَانَ مَعِي فِي الْجَنَّةِ",
+    translation: "Quem reviver a minha Sunnah, certamente me amou. E quem me ama estará comigo no Paraíso.",
+    tafsir: "Aqui o Profeta (S.A.W.) liga o amor por ele à prática de sua Sunnah. Não basta declarar amor; deve-se demonstrá-lo seguindo seu exemplo. O hadith também promete uma recompensa extraordinária: a companhia do Profeta no Paraíso, o maior desejo de todo crente."
+  },
+  {
+    arabic: "الدِّينُ النَّصِيحَةُ. قُلْنَا: لِمَنْ؟ قَالَ: لِلَّهِ، وَلِكِتَابِهِ، وَلِرَسُولِهِ، وَلأَئِمَّةِ الْمُسْلِمِينَ وَعَامَّتِهِمْ",
+    translation: "A religião é o conselho sincero (nasihah). Perguntamos: Para quem? Ele respondeu: Para Allah, para Seu Livro, para Seu Mensageiro, para os líderes dos muçulmanos e para a comunidade em geral.",
+    tafsir: "A nasihah é um conceito abrangente que inclui sinceridade, conselho honesto, dedicação e lealdade. O hadith estabelece cinco direções da nasihah: em relação a Allah (adoração pura), ao Alcorão (estudo e prática), ao Profeta (seguir sua Sunnah), aos governantes (obediência no bem e conselho) e aos muçulmanos (bondade mútua)."
+  },
+  {
+    arabic: "مَا نَهَاكُمْ عَنْهُ فَاجْتَنِبُوهُ، وَمَا أَمَرَكُمْ بِهِ فَأْتُوا مِنْهُ مَا اسْتَطَعْتُمْ",
+    translation: "Aquilo que vos proibiu, evitai-o; e aquilo que vos ordenou, fazei-o conforme a vossa capacidade.",
+    tafsir: "Este hadith estabelece dois princípios fundamentais: a proibição deve ser evitada totalmente, sem exceções, enquanto as ordens devem ser cumpridas dentro da capacidade de cada um. Allah não impõe fardo além da capacidade humana, mas as proibições são absolutas."
+  },
+  {
+    arabic: "مَنْ عَمِلَ صَالِحًا مِنْ ذَكَرٍ أَوْ أُنْثَى وَهُوَ مُؤْمِنٌ فَلَنُحْيِيَنَّهُ حَيَاةً طَيِّبَةً",
+    translation: "Quem praticar boas obras, seja homem ou mulher, estando em estado de fé, certamente o faremos viver uma vida boa e pura.",
+    tafsir: "Este versículo do Alcorão citado no contexto dos hadiths de An-Nawawi mostra que a fé combinada com boas ações gera uma vida plena e abençoada tanto neste mundo quanto no outro. A 'vida boa' (hayatan tayyibah) inclui paz interior, contentamento e barakah (bênção) nos bens e relacionamentos."
+  },
+  {
+    arabic: "اتَّقِ اللَّهَ حَيْثُمَا كُنْتَ، وَأَتْبِعِ السَّيِّئَةَ الْحَسَنَةَ تَمْحُهَا، وَخَالِقِ النَّاسَ بِخُلُقٍ حَسَنٍ",
+    translation: "Teme a Allah onde quer que estejas, segue o mal com o bem para que ele o apague, e trata as pessoas com bom caráter.",
+    tafsir: "Três conselhos profundos em um único hadith: (1) A consciência de Allah (taqwa) deve estar presente em todo momento e lugar; (2) O pecado pode ser apagado por uma boa ação subsequente; (3) O bom caráter (khuluq hasan) é a melhor forma de interação social. O Profeta (S.A.W.) disse que o melhor dos crentes é quem tem o melhor caráter."
+  },
+  {
+    arabic: "إِنَّ اللَّهَ طَيِّبٌ لاَ يَقْبَلُ إِلاَّ طَيِّبًا، وَإِنَّ اللَّهَ أَمَرَ الْمُؤْمِنِينَ بِمَا أَمَرَ بِهِ الْمُرْسَلِينَ",
+    translation: "Allah é Puro (Tayyib) e não aceita senão o que é puro. E Allah ordenou aos crentes o que ordenou aos Mensageiros.",
+    tafsir: "A pureza (tayyib) é um atributo de Allah e um requisito para que as ações sejam aceitas. Isso abrange pureza de fonte de renda, pureza de intenção, pureza de alimentos e pureza moral. O hadith conecta a obrigação dos crentes com a dos profetas, elevando o padrão de conduta."
+  },
+  {
+    arabic: "مَنْ أَحْدَثَ فِي أَمْرِنَا هَذَا مَا لَيْسَ مِنْهُ فَهُوَ رَدٌّ",
+    translation: "Quem introduzir em esta nossa religião algo que não faz parte dela, será rejeitado.",
+    tafsir: "Este hadith estabelece a proibição absoluta da inovação religiosa (bid'ah). O Islam é completo e perfeito; não há necessidade de adicionar práticas novas na adoração. O termo 'rejeitado' significa que a ação não é aceita por Allah, independentemente da boa intenção."
+  },
+  {
+    arabic: "إِنَّمَا الْمُؤْمِنُونَ إِخْوَةٌ فَأَصْلِحُوا بَيْنَ أَخَوَيْكُمْ وَاتَّقُوا اللَّهَ لَعَلَّكُمْ تُرْحَمُونَ",
+    translation: "Os crentes são irmãos uns dos outros. Reconciliai, pois, os vossos irmãos e temei a Allah, para que sejais agraciados com a Sua misericórdia.",
+    tafsir: "A fraternidade no Islam é um laço sagrado que une todos os muçulmanos. Este hadith enfatiza a obrigação de reconciliar disputas entre irmãos em fé. A unidade da comunidade (ummah) é um valor central, e a discordância é condenada. A reconciliação deve ser buscada ativamente."
+  },
+  {
+    arabic: "لاَ يَحِلُّ لِمُسْلِمٍ أَنْ يَهْجُرَ أَخَاهُ فَوْقَ ثَلاَثٍ، فَمَنْ هَجَرَ فَوْقَ ثَلاَثٍ فَمَاتَ دَخَلَ النَّارَ",
+    translation: "Não é permitido a um muçulmano abandonar seu irmão por mais de três dias. Quem o fizer por mais de três dias e morrer nesse estado, entrará no Fogo.",
+    tafsir: "Este hadith mostra a gravidade de cortar laços com um irmão muçulmano. O abandono por mais de três dias é considerado um pecado grave. O Islam valoriza os laços sociais e condena o ódio e a inimizade entre crentes. A reconciliação deve ser buscada antes que seja tarde demais."
+  },
+  {
+    arabic: "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ، وَالْمُهَاجِرُ مَنْ هَجَرَ مَا نَهَى اللَّهُ عَنْهُ",
+    translation: "O muçulmano é aquele de cuja língua e mão os outros muçulmanos estão seguros. E o emigrante é aquele que abandona o que Allah proibiu.",
+    tafsir: "Este hadith define o verdadeiro muçulmano pela segurança que proporciona aos outros — tanto nas palavras quanto nas ações. A emigração espiritual é abandonar os pecados. Não basta declarar-se muçulmano; deve-se demonstrar isso através do comportamento íntegro e da proteção dos outros."
+  },
+  {
+    arabic: "لاَ تَحْسَبَنَّ الَّذِينَ يَفْرَحُونَ بِمَا أَتَوْا وَيُحِبُّونَ أَنْ يُحْمَدُوا بِمَا لَمْ يَفْعَلُوا فَلاَ تَحْسَبَنَّهُمْ بِمَفَازَةٍ مِنَ الْعَذَابِ",
+    translation: "Não penses que aqueles que se regozijam com o que fizeram e amam ser louvados pelo que não fizeram, estão a salvo do castigo. Pelo contrário, para eles há um castigo doloroso.",
+    tafsir: "Este hadith adverte contra a vaidade e a ostentação religiosa. Algumas pessoas buscam o reconhecimento dos outros por boas ações que não praticam, ou se vangloriam de pouco que fizeram. A verdadeira devoção é silenciosa e sincera, buscando apenas o prazer de Allah, não dos humanos."
+  },
+  {
+    arabic: "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
+    translation: "Quem crê em Allah e no Último Dia, diga algo bom ou fique em silêncio.",
+    tafsir: "Este é um dos conselhos mais práticos do Profeta (S.A.W.). A língua é uma arma poderosa que pode construir ou destruir. O crente deve pensar antes de falar: se as palavras forem boas e benéficas, deve pronunciá-las; caso contrário, o silêncio é melhor. Este princípio protege a reputação dos outros e preserva a paz social."
+  },
+  {
+    arabic: "وَعَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: مَنْ يَسْتَعِفَّ يُعِفَّهُ اللَّهُ، وَمَنْ يَسْتَغْنِ يُغْنِهِ اللَّهُ",
+    translation: "Quem busca a castidade, Allah o tornará casto. E quem busca a independência (suficiência), Allah o tornará independente.",
+    tafsir: "Este hadith ensina que Allah honra os esforços sinceros do servo. A castidade (iffah) não é apenas abstinência sexual, mas pureza em todos os aspectos da vida. A independência (ghina) aqui refere-se à contentamento e não depender dos outros. Ambas são virtudes que Allah concede a quem as busca com sinceridade."
+  },
+  {
+    arabic: "إِنَّ اللَّهَ كَتَبَ الإِحْسَانَ عَلَى كُلِّ شَيْءٍ، فَإِذَا قَتَلْتُمْ فَأَحْسِنُوا الْقِتْلَةَ، وَإِذَا ذَبَحْتُمْ فَأَحْسِنُوا الذِّبْحَةَ",
+    translation: "Allah prescreveu a excelência (ihsan) em todas as coisas. Quando matais, fazei-o da melhor maneira; e quando sacrificais, fazei-o da melhor maneira.",
+    tafsir: "O conceito de ihsan (excelência) abrange todas as áreas da vida. Mesmo em ações difíceis como o abate de animais ou a guerra legítima, deve-se agir com dignidade e compaixão. Este hadith estabelece que a crueldade nunca é justificada, mesmo quando algo é permitido. A excelência é o padrão do muçulmano em tudo."
+  },
+  {
+    arabic: "اتَّقُوا النَّارَ وَلَوْ بِشِقِّ تَمْرَةٍ، وَمَنْ لَمْ يَجِدْ فَبِكَلِمَةٍ طَيِّبَةٍ",
+    translation: "Protegei-vos do Fogo, mesmo que seja com metade de uma tâmara. E quem não encontrar nada, que o faça com uma palavra boa.",
+    tafsir: "Este hadith mostra que até as menores boas ações podem salvar alguém do Fogo. A caridade não depende da quantidade, mas da intenção e consistência. Mesmo quem não tem recursos materiais pode praticar o bem através de palavras gentis e encorajadoras. Nenhuma boa ação é pequena demais aos olhos de Allah."
+  },
+  {
+    arabic: "كُلُّ مَعْرُوفٍ صَدَقَةٌ، وَإِنَّ مِنَ الْمَعْرُوفِ أَنْ تَلْقَى أَخَاكَ بِوَجْهٍ طَلْقٍ",
+    translation: "Toda bondade é caridade. E entre as formas de bondade está receber teu irmão com um rosto alegre e acolhedor.",
+    tafsir: "A caridade (sadaqah) no Islam vai muito além do dinheiro. Um sorriso sincero, uma palavra amável, ajudar alguém — tudo isso é considerado caridade. Este hadith ensina que a gentileza no trato diário é uma forma de adoração. O rosto alegre transmite paz e fortalece os laços da comunidade."
+  },
+  {
+    arabic: "عَنْ أَبِي عَمْرٍو سُفْيَانَ بْنِ عَبْدِ اللَّهِ رَضِيَ اللَّهُ عَنْهُ قَالَ: قُلْتُ: يَا رَسُولَ اللَّهِ! قُلْ لِي فِي الْإِسْلَامِ قَوْلًا لَا أَسْأَلُ عَنْهُ أَحَدًا غَيْرَكَ؛ قَالَ: قُلْ: آمَنْتُ بِاللَّهِ ثُمَّ اسْتَقِمْ",
+    translation: "Disse: Ó Mensageiro de Allah, dize-me algo sobre o Islam que eu não pergunte a ninguém além de ti. Ele disse: Dize: Creio em Allah — e depois sê firme (istaqim).",
+    tafsir: "Este hadith resume o Islam em duas palavras: fé e firmeza. A fé (iman) é o fundamento, mas sem firmeza (istiqamah) ela se enfraquece. Ser firme significa manter-se constante na obediência a Allah, sem oscilar entre o fervor e a negligência. A consistência é mais valiosa do que os picos ocasionais de devoção."
+  },
+  {
+    arabic: "عَنْ أَبِي عَبْدِ اللَّهِ جَابِرِ بْنِ عَبْدِ اللَّهِ الْأَنْصَارِيِّ رَضِيَ اللَّهُ عَنْهُمَا: أَنَّ رَجُلًا سَأَلَ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَقَالَ: أَرَأَيْتَ إِذَا صَلَّيْتُ الْمَكْتُوبَاتِ، وَصُمْتُ رَمَضَانَ، وَأَحْلَلْتُ الْحَلَالَ، وَحَرَّمْتُ الْحَرَامَ، وَلَمْ أَزِدْ عَلَى ذَلِكَ شَيْئًا؛ أَأَدْخُلُ الْجَنَّةَ؟ قَالَ: نَعَمْ",
+    translation: "Um homem perguntou ao Mensageiro de Allah: Dize-me, se eu realizar as orações obrigatórias, jejuar no Ramadã, considerar lícito o que é halal e proibido o que é haram, e não acrescentar nada a isso, entrarei no Paraíso? Ele respondeu: Sim.",
+    tafsir: "Este hadith tranquiliza o crente que cumpre as obrigações básicas do Islam. Não é necessário fazer apenas atividades extraordinárias; a fidelidade às obrigações fundamentais é suficiente para a salvação. O Profeta (S.A.W.) confirma que a entrada no Paraíso está garantida para quem cumpre os pilares e respeita os limites de Allah."
+  },
+  {
+    arabic: "عَنْ أَبِي مَالِكٍ الْحَارِثِ بْنِ عَاصِمٍ الْأَشْعَرِيِّ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: الطَّهُورُ شَطْرُ الْإِيمَانِ، وَالْحَمْدُ لِلَّهِ تَمْلَأُ الْمِيزَانَ، وَسُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ تَمْلَآنِ مَا بَيْنَ السَّمَاءِ وَالْأَرْضِ، وَالصَّلَاةُ نُورٌ، وَالصَّدَقَةُ بُرْهَانٌ، وَالصَّبْرُ ضِيَاءٌ، وَالْقُرْآنُ حُجَّةٌ لَكَ أَوْ عَلَيْكَ، كُلُّ النَّاسِ يَغْدُو، فَبَائِعٌ نَفْسَهُ فَمُعْتِقُهَا أَوْ مُوبِقُهَا",
+    translation: "A pureza (taharah) é metade da fé. O 'alhamdulillah' enche a balança. O 'subhanallah' e o 'alhamdulillah' enchem o que está entre o céu e a terra. A oração é luz, a caridade é prova, a paciência é iluminação, e o Alcorão é argumento a teu favor ou contra ti. Todos os seres humanos saem de manhã: um vende sua alma, libertando-a ou arruinando-a.",
+    tafsir: "Este hadith magnifico enumera virtudes fundamentais: a pureza ritual e espiritual como base da fé; a dhikr (recordação de Allah) como meio de acumular recompensas; e a oração, caridade, paciência e Alcorão como pilares da vida espiritual. A metáfora final — cada pessoa 'vende' sua alma diariamente — lembra que cada escolha nos aproxima da salvação ou da perdição."
+  },
+  {
+    arabic: "عَنْ أَبِي ذَرٍّ الْغِفَارِيِّ رَضِيَ اللَّهُ عَنْهُ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فِيمَا يَرْوِيهِ عَنْ رَبِّهِ تَبَارَكَ وَتَعَالَى، أَنَّهُ قَالَ: يَا عِبَادِي: إِنِّي حَرَّمْتُ الظُّلْمَ عَلَى نَفْسِي، وَجَعَلْتُهُ بَيْنَكُمْ مُحَرَّمًا؛ فَلَا تَظَالَمُوا. يَا عِبَادِي! كُلُّكُمْ ضَالٌّ إِلَّا مَنْ هَدَيْتُهُ، فَاسْتَهْدُونِي أَهْدِكُمْ...",
+    translation: "Ó Meus servos! Eu proibi a opressão para Mim Mesmo, e a tornei proibida entre vós; portanto não vos oprimais uns aos outros. Ó Meus servos! Todos vós estais perdidos exceto aqueles a quem Eu guiei; buscai de Mim a orientação e Eu vos orientarei...",
+    tafsir: "Este hadith qudsi (sagrado) contém palavras de Allah transmitidas pelo Profeta. Allah declara Sua justiça absoluta — Ele mesmo nunca oprime. O hadith enfatiza a dependência humana da orientação divina e a misericórdia de Allah em perdoar os pecados. A conclusão poderosa: cada pessoa é responsável por suas ações e será recompensada de acordo."
+  },
+  {
+    arabic: "عَنْ أَبِي ذَرٍّ رَضِيَ اللَّهُ عَنْهُ أَيْضًا، أَنَّ نَاسًا مِنْ أَصْحَابِ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالُوا لِلنَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: يَا رَسُولَ اللَّهِ! ذَهَبَ أَهْلُ الدُّثُورِ بِالْأُجُورِ؛ يُصَلُّونَ كَمَا نُصَلِّي، وَيَصُومُونَ كَمَا نَصُومُ، وَيَتَصَدَّقُونَ بِفُضُولِ أَمْوَالِهِمْ. قَالَ: أَوَلَيْسَ قَدْ جَعَلَ اللَّهُ لَكُمْ مَا تَصَّدَّقُونَ؟ إِنَّ بِكُلِّ تَسْبِيحَةٍ صَدَقَةً، وَكُلِّ تَكْبِيرَةٍ صَدَقَةً...",
+    translation: "Os ricos levaram as recompensas; eles oram como nós oramos, jejuam como nós jejuamos, e dão caridade com o excesso de suas riquezas. O Profeta respondeu: Acaso Allah não vos deu o que podeis dar em caridade? Com certeza, cada tasbih é caridade, cada takbir é caridade...",
+    tafsir: "Este hadith consola os menos abastados, mostrando que a riqueza não é necessária para acumular recompensas. A dhikr (recordação de Allah), o comando do bem, a proibição do mal, e até mesmo o ato conjugal legítimo são formas de caridade. Allah democratizou o acesso às recompensas, tornando-as disponíveis a todos, independentemente da condição financeira."
+  },
+  {
+    arabic: "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: كُلُّ سُلَامَى مِنَ النَّاسِ عَلَيْهَا صَدَقَةٌ، كُلَّ يَوْمٍ تَطْلُعُ فِيهِ الشَّمْسُ: تَعْدِلُ بَيْنَ اثْنَيْنِ صَدَقَةٌ، وَتُعِينُ الرَّجُلَ فِي دَابَّتِهِ فَتَحْمِلُهُ عَلَيْهَا أَوْ تَرْفَعُ لَهُ عَلَيْهَا مَتَاعَهُ صَدَقَةٌ، وَالْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ، وَبِكُلِّ خُطْوَةٍ تَمْشِيهَا إِلَى الصَّلَاةِ صَدَقَةٌ، وَتُمِيطُ الْأَذَى عَنِ الطَّرِيقِ صَدَقَةٌ",
+    translation: "Cada articulação do corpo humano deve praticar caridade todos os dias em que o sol nasce: julgar justamente entre duas pessoas é caridade. Ajudar um homem com sua montaria, colocando-o sobre ela ou erguendo suas bagagens sobre ela, é caridade. E a palavra boa é caridade. E cada passo que dás em direção à oração é caridade, e remover um objeto prejudicial da estrada é caridade.",
+    tafsir: "Este hadith expande radicalmente o conceito de caridade. Não se trata apenas de dinheiro — cada articulação do corpo tem a oportunidade de 'doar' através de ações benéficas. A justiça, a ajuda ao próximo, palavras gentis, caminhar para a oração e limpar o caminho são todas formas de sadaqah. O Islam transforma a vida cotidiana em adoração contínua."
+  },
+  {
+    arabic: "عَنْ النَّوَّاسِ بْنِ سَمْعَانَ رَضِيَ اللَّهُ عَنْهُ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: الْبِرُّ حُسْنُ الْخُلُقِ، وَالْإِثْمُ مَا حَاكَ فِي صَدْرِك، وَكَرِهْتَ أَنْ يَطَّلِعَ عَلَيْهِ النَّاسُ",
+    translation: "A retidão (birr) está no bom caráter, e o pecado é aquilo que te inquieta no peito e que detestas que as pessoas descubram.",
+    tafsir: "Este hadith oferece dois critérios práticos para distinguir o bem do mal: (1) O bem está ligado ao bom caráter — tratar os outros com dignidade e compaixão; (2) O mal é reconhecido pela inquietação interior e pela vergonha de ser descoberto. A consciência (fitrah) é um guia interno que Allah colocou em cada ser humano."
+  },
+  {
+    arabic: "عَنْ أَبِي نَجِيحٍ الْعِرْبَاضِ بْنِ سَارِيَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ: وَعَظَنَا رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مَوْعِظَةً وَجِلَتْ مِنْهَا الْقُلُوبُ، وَذَرَفَتْ مِنْهَا الْعُيُونُ، فَقُلْنَا: يَا رَسُولَ اللَّهِ! كَأَنَّهَا مَوْعِظَةُ مُوَدِّعٍ فَأَوْصِنَا. قَالَ: أُوصِيكُمْ بِتَقْوَى اللَّهِ، وَالسَّمْعِ وَالطَّاعَةِ وَإِنْ تَأَمَّرَ عَلَيْكُمْ عَبْدٌ... وَإِيَّاكُمْ وَمُحْدَثَاتِ الْأُمُورِ؛ فَإِنَّ كُلَّ بِدْعَةٍ ضَلَالَةٌ",
+    translation: "O Mensageiro de Allah nos pregou um sermão pelo qual nossos corações ficaram cheios de temor e nossos olhos derramaram lágrimas. Dissemos: Ó Mensageiro de Allah! É como se fosse um sermão de despedida, então aconselha-nos. Ele disse: Aconselho-vos a temer a Allah, a ouvir e obedecer, mesmo que um escravo se torne vosso governante... Acautelai-vos das coisas recém-inventadas, pois toda inovação é desvio.",
+    tafsir: "Este é um dos sermões mais importantes do Profeta (S.A.W.), frequentemente chamado de 'sermão de despedida'. Ele enfatiza: (1) A obediência aos governantes legítimos; (2) A adesão estrita à Sunnah e à Sunnah dos Califas Bem-Guiados; (3) A advertência severa contra a bid'ah (inovação religiosa)."
+  },
+  {
+    arabic: "عَنْ مُعَاذِ بْنِ جَبَلٍ رَضِيَ اللَّهُ عَنْهُ قَالَ: قُلْتُ: يَا رَسُولَ اللَّهِ! أَخْبِرْنِي بِعَمَلٍ يُدْخِلُنِي الْجَنَّةَ وَيُبَاعِدْنِي مِنَ النَّارِ. قَالَ: لَقَدْ سَأَلْتَ عَنْ عَظِيمٍ، وَإِنَّهُ لَيَسِيرٌ عَلَى مَنْ يَسَّرَهُ اللَّهُ عَلَيْهِ: تَعْبُدُ اللَّهَ لَا تُشْرِكْ بِهِ شَيْئًا... أَلَا أُخْبِرُكَ بِرَأْسِ الْأَمْرِ وَعَمُودِهِ وَذُرْوَةِ سَنَامِهِ؟ قُلْتُ: بَلَى. قَالَ: رَأْسُ الْأَمْرِ الْإِسْلَامُ، وَعَمُودُهُ الصَّلَاةُ، وَذُرْوَةُ سَنَامِهِ الْجِهَادُ... فَأَخَذَ بِلِسَانِهِ وَقَالَ: كُفَّ عَلَيْكَ هَذَا",
+    translation: "Disse: Ó Mensageiro de Allah, informa-me de uma ação que me leve ao Paraíso e me afaste do Fogo. Ele disse: Perguntaste algo grandioso, mas é fácil para quem Allah facilita: adora Allah sem associar nada a Ele... Queres que te informe da cabeça do assunto, seu pilar e seu pico? Disse: Sim. Ele disse: A cabeça do assunto é o Islam, seu pilar é a oração, e seu pico é o jihad... Então pegou em sua língua e disse: Refreia esta.",
+    tafsir: "Este hadith abrangente resume o caminho para a salvação. O Profeta (S.A.W.) estrutura a religião como um edifício: o Islam como fundação, a oração como sustentação, e o jihad como ápice. Ele também destaca meios de aproximação: jejum, caridade e oração noturna. A advertência final sobre a língua é crucial — a maioria dos pecados humanos começa com palavras."
+  },
+  {
+    arabic: "عَنْ أَبِي ثَعْلَبَةَ الْخُشَنِيِّ جُرْثُومِ بْنِ نَاشِرٍ رَضِيَ اللَّهُ عَنْهُ عَنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: إِنَّ اللَّهَ تَعَالَى فَرَضَ فَرَائِضَ فَلَا تُضَيِّعُوهَا، وَحَدَّ حُدُودًا فَلَا تَعْتَدُوهَا، وَحَرَّمَ أَشْيَاءَ فَلَا تَنْتَهِكُوهَا، وَسَكَتَ عَنْ أَشْيَاءَ رَحْمَةً لَكُمْ غَيْرَ نِسْيَانٍ فَلَا تَبْحَثُوا عَنْهَا",
+    translation: "Allah prescreveu obrigações religiosas, portanto não as negligencieis; estabeleceu limites, portanto não os transgredais; proibiu certas coisas, portanto não as violeis; e permaneceu em silêncio sobre outras coisas, por misericórdia para convosco, não por esquecimento — portanto não as busqueis.",
+    tafsir: "Este hadith estabelece quatro princípios de conduta: (1) Cumprir as obrigações (fara'id); (2) Respeitar os limites (hudud); (3) Evitar o proibido; (4) Não investigar o que Allah deixou em silêncio. O silêncio de Allah sobre certas questões é uma graça — liberta os crentes de fardos desnecessários."
+  },
+  {
+    arabic: "عَنْ أَبِي الْعَبَّاسِ سَهْلِ بْنِ سَعْدٍ السَّاعِدِيِّ رَضِيَ اللَّهُ عَنْهُ قَالَ: جَاءَ رَجُلٌ إِلَى النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فَقَالَ: يَا رَسُولَ اللَّهِ! دُلَّنِي عَلَى عَمَلٍ إِذَا عَمِلْتُهُ أَحَبَّنِي اللَّهُ وَأَحَبَّنِي النَّاسُ؛ فَقَالَ: ازْهَدْ فِي الدُّنْيَا يُحِبَّكَ اللَّهُ، وَازْهَدْ فِيمَا عِنْدَ النَّاسِ يُحِبَّكَ النَّاسُ",
+    translation: "Um homem veio ao Profeta e disse: Ó Mensageiro de Allah, indica-me uma ação que, se eu a praticar, Allah me amará e as pessoas me amarão. Ele disse: Desapega-te do mundo e Allah te amará, e desapega-te do que as pessoas possuem e as pessoas te amarão.",
+    tafsir: "Este hadith ensina que o amor de Allah e o amor das pessoas estão ligados ao zuhd (desapego) do mundo material. Quem não compete por riquezas nem inveja o que os outros têm, torna-se querido por todos. O desapego não significa abandono completo, mas sim não deixar que os bens mundanos dominem o coração."
+  },
+  {
+    arabic: "عَنْ أَبِي سَعِيدٍ سَعْدِ بْنِ مَالِكِ بْنِ سِنَانٍ الْخُدْرِيِّ رَضِيَ اللَّهُ عَنْهُ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: لَا ضَرَرَ وَلَا ضِرَارَ",
+    translation: "Não há dano (darar) nem reciprocidade de dano (dirar).",
+    tafsir: "Este hadith conciso estabelece um princípio fundamental de ética no Islam: ninguém pode causar dano a outrem, e ninguém pode retribuir com dano. É uma base para a legislação islâmica em áreas como contratos, vizinhança e direitos individuais."
+  },
+  {
+    arabic: "عَنْ ابْنِ عَبَّاسٍ رَضِيَ اللَّهُ عَنْهُمَا أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: لَوْ يُعْطَى النَّاسُ بِدَعْوَاهُمْ لَادَّعَى رِجَالٌ أَمْوَالَ قَوْمٍ وَدِمَاءَهُمْ، لَكِنَّ الْبَيِّنَةَ عَلَى الْمُدَّعِي، وَالْيَمِينَ عَلَى مَنْ أَنْكَرَ",
+    translation: "Se as pessoas fossem atendidas em suas alegações, alguns homens reivindicariam as riquezas e os sangues de outros. Mas a prova cabe ao reclamante, e o juramento cabe a quem nega.",
+    tafsir: "Este hadith estabelece um princípio crucial de justiça: o ônus da prova recai sobre quem acusa, não sobre quem é acusado. Ninguém pode ser condenado sem evidências. O juramento (yamin) é exigido de quem nega a acusação quando não há provas conclusivas."
+  },
+  {
+    arabic: "عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ رَضِيَ اللَّهُ عَنْهُ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: مَنْ رَأَى مِنْكُمْ مُنْكَرًا فَلْيُغَيِّرْهُ بِيَدِهِ، فَإِنْ لَمْ يَسْتَطِعْ فَبِلِسَانِهِ، فَإِنْ لَمْ يَسْتَطِعْ فَبِقَلْبِهِ، وَذَلِكَ أَضْعَفُ الْإِيمَانِ",
+    translation: "Quem entre vós vir um mal, que o mude com a mão; se não puder, com a língua; se não puder, com o coração — e isso é o mais fraco da fé.",
+    tafsir: "Este hadith estabelece três níveis de comando do bem e proibição do mal: (1) Ação direta — quando se tem autoridade e capacidade; (2) Palavras — quando não se pode agir fisicamente; (3) Repúdio interior — quando nem mesmo falar é possível. Mesmo o repúdio no coração é considerado fé, embora seja o nível mais fraco."
+  },
+  {
+    arabic: "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: لَا تَحَاسَدُوا، وَلَا تَنَاجَشُوا، وَلَا تَبَاغَضُوا، وَلَا تَدَابَرُوا، وَلَا يَبِعْ بَعْضُكُمْ عَلَى بَيْعِ بَعْضٍ، وَكُونُوا عِبَادَ اللَّهِ إِخْوَانًا، الْمُسْلِمُ أَخُو الْمُسْلِمِ، لَا يَظْلِمُهُ، وَلَا يَخْذُلُهُ، وَلَا يَكْذِبُهُ، وَلَا يَحْقِرُهُ، التَّقْوَى هَاهُنَا — وَيُشِيرُ إِلَى صَدْرِهِ ثَلَاثَ مَرَّاتٍ — بِحَسْبِ امْرِئٍ مِنَ الشَّرِّ أَنْ يَحْقِرَ أَخَاهُ الْمُسْلِمَ، كُلُّ الْمُسْلِمِ عَلَى الْمُسْلِمِ حَرَامٌ: دَمُهُ وَمَالُهُ وَعِرْضُهُ",
+    translation: "Não invejeis uns aos outros, não aumenteis os preços uns sobre os outros, não odieis uns aos outros, não vos afasteis uns dos outros, não vendais sobre a venda de outro, e sede servos de Allah como irmãos. O muçulmano é irmão do muçulmano: não o oprime, não o abandona, não lhe mente, não o despreza. A taqwa está aqui — apontando para seu peito três vezes. É suficiente mal para um homem desprezar seu irmão muçulmano. Tudo do muçulmano é sagrado para o muçulmano: seu sangue, sua riqueza e sua honra.",
+    tafsir: "Este hadith abrangente proíbe seis comportamentos destrutivos para a comunidade: inveja, manipulação de preços, ódio, afastamento, concorrência desleal em negócios. Em contraste, estabelece a fraternidade como norma. O Profeta (S.A.W.) aponta para o peito para mostrar que a taqwa (consciência de Allah) é o verdadeiro critério de superioridade."
+  },
+  {
+    arabic: "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: مَنْ نَفَّسَ عَنْ مُؤْمِنٍ كُرْبَةً مِنْ كُرَبِ الدُّنْيَا نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ، وَمَنْ يَسَّرَ عَلَى مُعْسِرٍ، يَسَّرَ اللَّهُ عَلَيْهِ فِي الدُّنْيَا وَالْآخِرَةِ، وَمَنْ سَتَرَ مُسْلِمًا سَتَرَهُ اللَّهُ فِي الدُّنْيَا وَالْآخِرَةِ، وَاللَّهُ فِي عَوْنِ الْعَبْدِ مَا كَانَ الْعَبْدُ فِي عَوْنِ أَخِيهِ، وَمَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ، وَمَا اجْتَمَعَ قَوْمٌ فِي بَيْتٍ مِنْ بُيُوتِ اللَّهِ يَتْلُونَ كِتَابَ اللَّهِ، وَيَتَدَارَسُونَهُ فِيمَا بَيْنَهُمْ إِلَّا نَزَلَتْ عَلَيْهِمُ السَّكِينَةُ، وَغَشِيَتْهُمُ الرَّحْمَةُ، وَحَفَّتْهُمُ الْمَلَائِكَةُ، وَذَكَرَهُمْ اللَّهُ فِيمَنْ عِنْدَهُ، وَمَنْ أَبَطَأَ بِهِ عَمَلُهُ لَمْ يُسْرِعْ بِهِ نَسَبُهُ",
+    translation: "Quem aliviar um crente de uma aflição deste mundo, Allah o aliviará de uma aflição do Dia da Ressurreição. Quem facilitar a vida de um necessitado, Allah facilitará a vida dele neste mundo e no outro. Quem encobrir um muçulmano, Allah o encobrirá neste mundo e no outro. Allah está em auxílio do servo enquanto o servo está em auxílio de seu irmão. Quem seguir um caminho buscando conhecimento, Allah lhe facilitará um caminho para o Paraíso. Nenhum povo se reúne numa das Casas de Allah recitando o Livro de Allah e estudando-o entre si, senão que desce sobre eles a tranquilidade, e os envolve a misericórdia, e os cercam os anjos, e Allah os menciona entre os que estão com Ele. E quem for retardado por suas ações, sua linhagem não o apressará.",
+    tafsir: "Este hadith magnifico contém sete promessas de Allah para quem pratica o bem: alívio das aflições, facilidade na vida, cobertura dos pecados, auxílio divino, caminho para o Paraíso através do conhecimento, bênçãos nos estudos em grupo, e a advertência final: a nobreza de nascimento não compensa a falta de boas ações."
+  },
+  {
+    arabic: "عَنْ ابْنِ عَبَّاسٍ رَضِيَ اللَّهُ عَنْهُمَا عَنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فِيمَا يَرْوِيهِ عَنْ رَبِّهِ تَبَارَكَ وَتَعَالَى، قَالَ: إِنَّ اللَّهَ كَتَبَ الْحَسَنَاتِ وَالسَّيِّئَاتِ، ثُمَّ بَيَّنَ ذَلِكَ، فَمَنْ هَمَّ بِحَسَنَةٍ فَلَمْ يَعْمَلْهَا كَتَبَهَا اللَّهُ عِنْدَهُ حَسَنَةً كَامِلَةً، وَإِنْ هَمَّ بِهَا فَعَمِلَهَا كَتَبَهَا اللَّهُ عِنْدَهُ عَشْرَ حَسَنَاتٍ إِلَى سَبْعِمِائَةِ ضِعْفٍ إِلَى أَضْعَافٍ كَثِيرَةٍ، وَإِنْ هَمَّ بِسَيِّئَةٍ فَلَمْ يَعْمَلْهَا كَتَبَهَا اللَّهُ عِنْدَهُ حَسَنَةً كَامِلَةً، وَإِنْ هَمَّ بِهَا فَعَمِلَهَا كَتَبَهَا اللَّهُ سَيِّئَةً وَاحِدَةً",
+    translation: "Allah escreveu as boas ações e as más ações, e depois explicou isso: quem pensar em fazer uma boa ação mas não a fizer, Allah escreve para ele uma boa ação completa. E se pensar nela e a fizer, Allah escreve para ele de dez a setecentas vezes, até muitas vezes mais. E quem pensar em fazer uma má ação mas não a fizer, Allah escreve para ele uma boa ação completa. E se pensar nela e a fizer, Allah escreve para ela uma má ação única.",
+    tafsir: "Este hadith qudsi revela a generosidade infinita de Allah. Mesmo o pensamento de fazer o bem é recompensado, enquanto o pensamento de fazer o mal, se reprimido, também é recompensado. O mal, se praticado, é registrado apenas uma vez. Este sistema de recompensa encoraja o bem e desencoraja o mal, mostrando a misericórdia divina."
+  },
+  {
+    arabic: "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: إِنَّ اللَّهَ تَعَالَى قَالَ: مَنْ عَادَى لِي وَلِيًّا فَقَدْ آذَنْتُهُ بِالْحَرْبِ، وَمَا تَقَرَّبَ إِلَيَّ عَبْدِي بِشَيْءٍ أَحَبَّ إِلَيَّ مِمَّا افْتَرَضْتُهُ عَلَيْهِ، وَلَا يَزَالُ عَبْدِي يَتَقَرَّبُ إِلَيَّ بِالنَّوَافِلِ حَتَّى أُحِبَّهُ، فَإِذَا أَحْبَبْتُهُ كُنْتُ سَمْعَهُ الَّذِي يَسْمَعُ بِهِ، وَبَصَرَهُ الَّذِي يُبْصِرُ بِهِ، وَيَدَهُ الَّتِي يَبْطِشُ بِهَا، وَرِجْلَهُ الَّتِي يَمْشِي بِهَا، وَلَئِنْ سَأَلَنِي لَأُعْطِيَنَّهُ، وَلَئِنْ اسْتَعَاذَنِي لَأُعِيذَنَّهُ",
+    translation: "Allah, o Altíssimo, disse: Quem mostrar hostilidade a um amigo (wali) Meu, eu lhe declaro guerra. E o que Meu servo se aproximar de Mim com algo mais amado a Mim do que o que Eu prescrevi sobre ele. E Meu servo continuará se aproximando de Mim com atos voluntários até que Eu o ame. Quando Eu o amar, Eu serei seu ouvido com que ouve, sua visão com que vê, sua mão com que golpeia, e seu pé com que caminha. Se ele Me pedir, Eu certamente lhe darei. E se ele buscar refúgio em Mim, Eu certamente o protegerei.",
+    tafsir: "Este é um dos hadiths mais profundos e belos. Allah declara guerra contra quem prejudica Seus amigos (awliya). A aproximação com Allah através de atos voluntários (nawafil) leva a um estado de amor divino onde o servo se torna um reflexo da vontade de Allah. Os sentidos e membros do servo passam a agir conforme o prazer de Allah."
+  },
+  {
+    arabic: "عَنْ ابْنِ عَبَّاسٍ رَضِيَ اللَّهُ عَنْهُمَا أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: إِنَّ اللَّهَ تَجَاوَزَ لِي عَنْ أُمَّتِي الْخَطَأَ وَالنِّسْيَانَ وَمَا اسْتُكْرِهُوا عَلَيْهِ",
+    translation: "Allah perdoou para minha comunidade os erros, o esquecimento e o que foram forçados a fazer.",
+    tafsir: "Este hadith traz uma tremenda misericórdia para os muçulmanos. Três coisas são perdoadas: erros não intencionais, esquecimento de obrigações, e ações feitas sob coação. Isso mostra que Allah leva em conta as circunstâncias e as intenções. O Islam não é uma religião de rigidez extrema, mas de compreensão e compaixão."
+  },
+  {
+    arabic: "عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا قَالَ: أَخَذَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ بِمَنْكِبِي، وَقَالَ: كُنْ فِي الدُّنْيَا كَأَنَّكَ غَرِيبٌ أَوْ عَابِرُ سَبِيلٍ. وَكَانَ ابْنُ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا يَقُولُ: إِذَا أَمْسَيْتَ فَلَا تَنْتَظِرْ الصَّبَاحَ، وَإِذَا أَصْبَحْتَ فَلَا تَنْتَظِرْ الْمَسَاءَ، وَخُذْ مِنْ صِحَّتِكَ لِمَرَضِكَ، وَمِنْ حَيَاتِكَ لِمَوْتِكَ",
+    translation: "O Mensageiro de Allah pegou em meu ombro e disse: Sê no mundo como se fosses um estrangeiro ou um viajante de passagem. E Ibn Umar costumava dizer: Se chegares à noite, não esperes pela manhã; se chegares à manhã, não esperes pela noite. Aproveita tua saúde para tua doença, e tua vida para tua morte.",
+    tafsir: "Este hadith ensina a atitude correta em relação ao mundo: não se apegue excessivamente, pois a vida é temporária. A metáfora do viajante lembra que estamos de passagem. A sabedoria de Ibn Umar enfatiza a impermanência da vida e a necessidade de aproveitar cada momento para preparar o encontro com Allah."
+  },
+  {
+    arabic: "عَنْ أَبِي مُحَمَّدٍ عَبْدِ اللَّهِ بْنِ عَمْرِو بْنِ الْعَاصِ رَضِيَ اللَّهُ عَنْهُمَا، قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يَكُونَ هَوَاهُ تَبَعًا لِمَا جِئْتُ بِهِ",
+    translation: "Nenhum de vós crerá verdadeiramente até que seus desejos sejam submissos ao que eu trouxe.",
+    tafsir: "Este hadith estabelece o critério supremo de fé: a submissão total da vontade humana à revelação. Não basta acreditar intelectualmente; deve-se amar o que Allah e Seu Mensageiro amam e odiar o que eles odeiam. Quando há conflito entre desejos pessoais e a Shariah, o crente escolhe a Shariah. Esta é a verdadeira submissão (islam)."
+  },
+  {
+    arabic: "عَنْ أَنَسِ بْنِ مَالِكٍ رَضِيَ اللَّهُ عَنْهُ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: قَالَ اللَّهُ تَعَالَى: يَا ابْنَ آدَمَ! إِنَّكَ مَا دَعَوْتَنِي وَرَجَوْتَنِي غَفَرْتُ لَكَ عَلَى مَا كَانَ مِنْكَ وَلَا أُبَالِي، يَا ابْنَ آدَمَ! لَوْ بَلَغَتْ ذُنُوبُكَ عَنَانَ السَّمَاءِ ثُمَّ اسْتَغْفَرْتَنِي غَفَرْتُ لَكَ، يَا ابْنَ آدَمَ! إِنَّكَ لَوْ أَتَيْتَنِي بِقُرَابِ الْأَرْضِ خَطَايَا ثُمَّ لَقِيتَنِي لَا تُشْرِكُ بِي شَيْئًا لَأَتَيْتُكَ بِقُرَابِهَا مَغْفِرَةً",
+    translation: "Allah disse: Ó filho de Adão! Enquanto Me invocares e esperares em Mim, Eu te perdoarei pelo que fizeste e não Me importarei. Ó filho de Adão! Se teus pecados alcançassem as nuvens do céu e depois pedisses Meu perdão, Eu te perdoaria. Ó filho de Adão! Se viesses a Mim com pecados que enchessem a terra e depois Me encontrasses sem associar nada a Mim, Eu te traria perdão que enchesse a terra.",
+    tafsir: "Este hadith qudsi é uma das expressões mais belas da misericórdia de Allah. Três vezes Allah chama 'Ó filho de Adão', mostrando Seu cuidado paternal. Não há pecado grande demais para o perdão de Allah, desde que o servo se arrependa sinceramente e não cometa shirk (associação). A misericórdia de Allah supera Sua ira."
+  }
+];
+
+let current = 0;
+
+function render() {
+  const h = hadiths[current];
+  document.getElementById('num').textContent = current + 1;
+  document.getElementById('arabic').textContent = h.arabic;
+  document.getElementById('translation').textContent = h.translation;
+  document.getElementById('tafsir').textContent = h.tafsir;
+
+  document.getElementById('prevBtn').disabled = current === 0;
+  document.getElementById('nextBtn').disabled = current === hadiths.length - 1;
+
+  document.getElementById('progress').style.width = ((current + 1) / hadiths.length * 100) + '%';
+  document.getElementById('counter').textContent = 'Hadith ' + (current + 1) + ' de ' + hadiths.length;
+
+  const card = document.getElementById('card');
+  card.style.animation = 'none';
+  card.offsetHeight;
+  card.style.animation = 'fadeIn 0.4s ease';
+}
+
+function next() {
+  if (current < hadiths.length - 1) {
+    current++;
+    render();
+  }
+}
+
+function prev() {
+  if (current > 0) {
+    current--;
+    render();
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+
+render();
+</script>
+</body>
+</html>
