@@ -1,0 +1,58 @@
+[
+  {
+    "id": "alcorao",
+    "titulo": "ALCORÃO SAGRADO",
+    "descricao": "Leitura, tradução e tafsir do Livro Sagrado do Islam.",
+    "link": "alcorao/",
+    "icon": "📖",
+    "tag": "SAGRADO"
+  },
+  {
+    "id": "nawawi",
+    "titulo": "ESTUDO DOS 42 AHADITH DE AN NAWAWI",
+    "descricao": "As quarenta e duas hadiths fundamentais compiladas pelo imã An-Nawawi.",
+    "link": "nawawi/",
+    "icon": "🕌",
+    "tag": "HADITH"
+  },
+  {
+    "id": "bukhari",
+    "titulo": "HADITH SAHIH ALBUKHARI",
+    "descricao": "Coleção autêntica de hadiths do imã Muhammad ibn Ismail Al-Bukhari.",
+    "link": "bukhari/",
+    "icon": "📜",
+    "tag": "HADITH"
+  },
+  {
+    "id": "yassarnal",
+    "titulo": "YASSARNAL QURAN",
+    "descricao": "Método simplificado para aprender a ler o Alcorão em árabe.",
+    "link": "yassarnal/",
+    "icon": "✍️",
+    "tag": "APRENDIZAGEM"
+  },
+  {
+    "id": "tauhid",
+    "titulo": "ESTUDO SOBRE TAUHID",
+    "descricao": "A unidade de Allah e os fundamentos da fé islâmica.",
+    "link": "tauhid/",
+    "icon": "☝️",
+    "tag": "AQEEDAH"
+  },
+  {
+    "id": "guia",
+    "titulo": "ISLAM GUIA",
+    "descricao": "Guia prático para novos muçulmanos e quem deseja conhecer o Islam.",
+    "link": "guia/",
+    "icon": "🧭",
+    "tag": "GUIA"
+  },
+  {
+    "id": "sahabas",
+    "titulo": "HISTÓRIA DOS SAHABAS",
+    "descricao": "As vidas exemplares dos companheiros do Profeta Muhammad ﷺ.",
+    "link": "sahabas/",
+    "icon": "🌟",
+    "tag": "HISTÓRIA"
+  }
+]
