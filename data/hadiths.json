@@ -1,16 +1,37 @@
 [
   {
     "dia": "1",
-    "arabico": "إنما الأعمال بالنيات",
+    "arabico": "إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ",
     "traducao": "As ações são julgadas pelas intenções.",
     "fonte": "Sahih Al-Bukhari",
-    "reflexao": "A intenção correta é fundamental no Islam."
+    "reflexao": "A intenção correta é fundamental no Islam. Antes de qualquer ação, purifique o teu coração."
   },
   {
     "dia": "2",
-    "arabico": "الدين النصيحة",
-    "traducao": "A religião é conselho.",
-    "fonte": "Muslim",
-    "reflexao": "Dar conselho sincero é essencial na fé."
+    "arabico": "مَنْ يُرِدِ اللَّهُ بِهِ خَيْرًا يُفَقِّهْهُ فِي الدِّينِ",
+    "traducao": "A quem Allah quer bem, dá-lhe compreensão da religião.",
+    "fonte": "Sahih Al-Bukhari",
+    "reflexao": "Buscar conhecimento é um sinal do amor de Allah por um servo."
+  },
+  {
+    "dia": "3",
+    "arabico": "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
+    "traducao": "O melhor entre vós é quem aprende o Alcorão e o ensina.",
+    "fonte": "Sahih Al-Bukhari",
+    "reflexao": "O ensino do Alcorão é das melhores ações que um muçulmano pode praticar."
+  },
+  {
+    "dia": "4",
+    "arabico": "الْمُسْلِمُ أَخُو الْمُسْلِمِ",
+    "traducao": "O muçulmano é irmão do muçulmano.",
+    "fonte": "Sahih Muslim",
+    "reflexao": "A fraternidade islâmica transcende fronteiras, línguas e etnias."
+  },
+  {
+    "dia": "5",
+    "arabico": "الدُّنْيَا سِجْنُ الْمُؤْمِنِ وَجَنَّةُ الْكَافِرِ",
+    "traducao": "O mundo é prisão para o crente e paraíso para o incrédulo.",
+    "fonte": "Sahih Muslim",
+    "reflexao": "O verdadeiro descanso e felicidade estão na vida futura, não nesta."
   }
 ]
