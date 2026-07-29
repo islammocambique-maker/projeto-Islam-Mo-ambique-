@@ -1,0 +1,50 @@
+[
+  {
+    "titulo": "Ajude o Projeto Islam Moçambique",
+    "descricao": "Apoie a divulgação do Islam, educação online e criação de novos conteúdos. Você pode contribuir com apenas 50 MTN.",
+    "botao": "APOIAR AGORA",
+    "link": "apoio.html"
+  },
+  {
+    "titulo": "Faça parte da comunidade Islam Moçambique",
+    "descricao": "Participe no desenvolvimento, dê sugestões e acompanhe o crescimento.",
+    "botao": "SER MEMBRO",
+    "link": "membros.html"
+  },
+  {
+    "titulo": "Conhecimento islâmico na palma da sua mão",
+    "descricao": "Leia livros interactivos como Sahih Al-Bukhari, Sahih Muslim, e muito mais.",
+    "botao": "ENTRAR NA BIBLIOTECA",
+    "link": "biblioteca.html"
+  },
+  {
+    "titulo": "Aprenda Qur'an online",
+    "descricao": "Estude Tajweed, Qur'an, estudos islâmicos e acompanhe suas aulas.",
+    "botao": "ENTRAR NA MADRASSA",
+    "link": "madrassa.html"
+  },
+  {
+    "titulo": "Ferramentas para a comunidade",
+    "descricao": "Horários de oração, du'as, zakat, perguntas e participação comunitária.",
+    "botao": "ACESSAR COMUNIDADE",
+    "link": "comunidade.html"
+  },
+  {
+    "titulo": "Teste seus conhecimentos",
+    "descricao": "Participe do quiz islâmico interactivo.",
+    "botao": "COMEÇAR QUIZ",
+    "link": "quiz.html"
+  },
+  {
+    "titulo": "Loja Virtual",
+    "descricao": "Adquira materiais e produtos do Projeto Islam Moçambique.",
+    "botao": "VISITAR LOJA",
+    "link": "loja.html"
+  },
+  {
+    "titulo": "Sobre Nós",
+    "descricao": "Conheça a história, missão e visão do projeto.",
+    "botao": "SABER MAIS",
+    "link": "sobre.html"
+  }
+]
