@@ -4,14 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Biblioteca Digital I.M — Islam Moçambique ®</title>
-  <meta name="description" content="Biblioteca Digital do Projeto Islam Moçambique. Acesse o Alcorão, Hadiths, Tauhid e mais.">
+  <meta name="description" content="Biblioteca Digital do Projeto Islam Moçambique. Portal de estudos islâmicos.">
   <meta name="theme-color" content="#0d4a2c">
   <style>
     :root {
       --verde-escuro: #0d4a2c;
-      --verde-medio: #1a6e42;
       --dourado: #d4af37;
-      --dourado-claro: #f0d878;
       --branco: #ffffff;
       --preto: #1a1a1a;
       --vidro-bg: rgba(255, 255, 255, 0.08);
@@ -23,7 +21,6 @@
 
     .tema-claro {
       --verde-escuro: #e8f5e9;
-      --verde-medio: #2e7d32;
       --dourado: #b8860b;
       --branco: #1a1a1a;
       --preto: #f5f5f5;
@@ -53,7 +50,6 @@
       z-index: 0;
     }
 
-    /* Header */
     header {
       position: relative;
       z-index: 10;
@@ -96,7 +92,6 @@
       transform: scale(1.05);
     }
 
-    /* Navegação topo */
     .nav-topo {
       position: relative;
       z-index: 5;
@@ -137,7 +132,6 @@
       font-style: italic;
     }
 
-    /* Grid de secções */
     .biblioteca-container {
       position: relative;
       z-index: 5;
@@ -166,7 +160,6 @@
       gap: 1.5rem;
     }
 
-    /* Card de vidro para cada secção */
     .sec-card {
       display: flex;
       flex-direction: column;
@@ -241,7 +234,6 @@
       letter-spacing: 0.5px;
     }
 
-    /* Estado vazio */
     .vazio {
       text-align: center;
       color: var(--texto-suave);
@@ -249,7 +241,6 @@
       font-style: italic;
     }
 
-    /* Footer */
     footer {
       position: relative;
       z-index: 5;
@@ -276,7 +267,6 @@
       font-size: 0.85rem;
     }
 
-    /* WhatsApp flutuante */
     .whatsapp-float {
       position: fixed;
       bottom: 20px;
@@ -303,7 +293,6 @@
       70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
     }
 
-    /* Responsivo */
     @media (max-width: 600px) {
       header h1 { font-size: 1.3rem; }
       .sec-grid { grid-template-columns: 1fr; }
@@ -311,7 +300,6 @@
       .nav-topo { justify-content: center; }
     }
 
-    /* Scroll reveal */
     .reveal {
       opacity: 0;
       transform: translateY(30px);
@@ -354,7 +342,6 @@
   </a>
 
   <script>
-    // ========== TEMA ==========
     function alternarTema() {
       document.body.classList.toggle('tema-claro');
       localStorage.setItem('tema', document.body.classList.contains('tema-claro') ? 'claro' : 'escuro');
@@ -363,14 +350,12 @@
       document.body.classList.add('tema-claro');
     }
 
-    // ========== DADOS DAS SECÇÕES ==========
-    // Fallback: se o JSON falhar, usa estes dados
     const seccoesFallback = [
       {
         "id": "alcorao",
         "titulo": "ALCORÃO SAGRADO",
         "descricao": "Leitura, tradução e tafsir do Livro Sagrado do Islam.",
-        "link": "alcorao.html",
+        "link": "alcorao/",
         "icon": "📖",
         "tag": "SAGRADO"
       },
@@ -378,7 +363,7 @@
         "id": "nawawi",
         "titulo": "ESTUDO DOS 42 AHADITH DE AN NAWAWI",
         "descricao": "As quarenta e duas hadiths fundamentais compiladas pelo imã An-Nawawi.",
-        "link": "nawawi.html",
+        "link": "nawawi/",
         "icon": "🕌",
         "tag": "HADITH"
       },
@@ -386,7 +371,7 @@
         "id": "bukhari",
         "titulo": "HADITH SAHIH ALBUKHARI",
         "descricao": "Coleção autêntica de hadiths do imã Muhammad ibn Ismail Al-Bukhari.",
-        "link": "bukhari.html",
+        "link": "bukhari/",
         "icon": "📜",
         "tag": "HADITH"
       },
@@ -394,7 +379,7 @@
         "id": "yassarnal",
         "titulo": "YASSARNAL QURAN",
         "descricao": "Método simplificado para aprender a ler o Alcorão em árabe.",
-        "link": "yassarnal.html",
+        "link": "yassarnal/",
         "icon": "✍️",
         "tag": "APRENDIZAGEM"
       },
@@ -402,7 +387,7 @@
         "id": "tauhid",
         "titulo": "ESTUDO SOBRE TAUHID",
         "descricao": "A unidade de Allah e os fundamentos da fé islâmica.",
-        "link": "tauhid.html",
+        "link": "tauhid/",
         "icon": "☝️",
         "tag": "AQEEDAH"
       },
@@ -410,7 +395,7 @@
         "id": "guia",
         "titulo": "ISLAM GUIA",
         "descricao": "Guia prático para novos muçulmanos e quem deseja conhecer o Islam.",
-        "link": "guia.html",
+        "link": "guia/",
         "icon": "🧭",
         "tag": "GUIA"
       },
@@ -418,26 +403,21 @@
         "id": "sahabas",
         "titulo": "HISTÓRIA DOS SAHABAS",
         "descricao": "As vidas exemplares dos companheiros do Profeta Muhammad ﷺ.",
-        "link": "sahabas.html",
+        "link": "sahabas/",
         "icon": "🌟",
         "tag": "HISTÓRIA"
       }
     ];
 
-    // ========== CARREGAR SECÇÕES ==========
     async function carregarSecoes() {
       let seccoes = [];
-
       try {
-        // Tenta carregar do JSON externo
         const res = await fetch('data/biblioteca.json');
         if (!res.ok) throw new Error('JSON não encontrado');
         seccoes = await res.json();
       } catch (e) {
-        // Usa fallback inline
         seccoes = seccoesFallback;
       }
-
       renderizarSecoes(seccoes);
     }
 
@@ -463,7 +443,6 @@
       `).join('');
     }
 
-    // ========== SCROLL REVEAL ==========
     function revelar() {
       const reveals = document.querySelectorAll('.reveal');
       reveals.forEach(el => {
@@ -475,7 +454,6 @@
     window.addEventListener('scroll', revelar);
     window.addEventListener('load', revelar);
 
-    // ========== INICIALIZAR ==========
     document.addEventListener('DOMContentLoaded', () => {
       carregarSecoes();
       revelar();
