@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Sahaba - Companheiros do Profeta ﷺ</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#1a5f3c;--primary-light:#2d8a5e;--primary-dark:#0f3d26;--gold:#c9a84c;--bg:#f8f6f0;--card:#fff;--text:#1e1e1e;--text-light:#666;--border:#e0ddd5;--shadow:0 2px 12px rgba(0,0,0,0.08);--shadow-lg:0 8px 30px rgba(0,0,0,0.12);--radius:16px;--radius-sm:10px;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px)}
+[data-theme="dark"]{--bg:#0f1410;--card:#1a211a;--text:#e8e4dc;--text-light:#a0a090;--border:#2a332a;--shadow:0 2px 12px rgba(0,0,0,0.3);--shadow-lg:0 8px 30px rgba(0,0,0,0.4)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;overflow-x:hidden;padding-bottom:calc(80px + var(--safe-bottom))}
+.app-header{position:fixed;top:0;left:0;right:0;z-index:100;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);padding:calc(12px + var(--safe-top)) 16px 16px;box-shadow:var(--shadow-lg)}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:40px;height:40px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.logo-text{color:white}
+.logo-text h1{font-size:1.1rem;font-weight:700;line-height:1.2}
+.logo-text span{font-size:.7rem;opacity:.8;font-weight:300}
+.header-actions{display:flex;gap:8px;align-items:center}
+.icon-btn{width:40px;height:40px;border-radius:50%;border:none;background:rgba(255,255,255,0.15);color:white;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;transition:all .2s;backdrop-filter:blur(10px)}
+.icon-btn:active{transform:scale(.92);background:rgba(255,255,255,0.25)}
+.mode-badge{font-size:.65rem;padding:4px 10px;border-radius:100px;background:rgba(255,255,255,0.2);color:white;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.search-wrap{position:relative}
+.search-wrap input{width:100%;padding:12px 16px 12px 44px;border:none;border-radius:var(--radius-sm);background:rgba(255,255,255,0.15);color:white;font-size:.95rem;backdrop-filter:blur(10px);outline:none;transition:all .2s}
+.search-wrap input::placeholder{color:rgba(255,255,255,0.6)}
+.search-wrap input:focus{background:rgba(255,255,255,0.25)}
+.search-wrap .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.6);font-size:1rem}
+.main-content{padding-top:calc(130px + var(--safe-top));padding-left:16px;padding-right:16px;max-width:800px;margin:0 auto}
+.hero{text-align:center;padding:20px 0 28px}
+.hero h2{font-family:'Amiri',serif;font-size:1.6rem;color:var(--primary);margin-bottom:8px}
+.hero p{color:var(--text-light);font-size:.9rem;max-width:320px;margin:0 auto}
+.categories{display:flex;gap:8px;overflow-x:auto;padding:4px 0 16px;margin:0 -4px;scrollbar-width:none;-ms-overflow-style:none}
+.categories::-webkit-scrollbar{display:none}
+.cat-chip{flex-shrink:0;padding:10px 20px;border-radius:100px;border:1.5px solid var(--border);background:var(--card);color:var(--text-light);font-size:.85rem;font-weight:500;cursor:pointer;transition:all .25s cubic-bezier(0.4,0,0.2,1);white-space:nowrap;user-select:none}
+.cat-chip.active{background:var(--primary);color:white;border-color:var(--primary);box-shadow:0 4px 12px rgba(26,95,60,0.3)}
+.cat-chip:active{transform:scale(.95)}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin:24px 0 16px}
+.section-title h3{font-size:1.1rem;font-weight:700}
+.section-title .count{font-size:.8rem;color:var(--text-light);background:var(--border);padding:4px 12px;border-radius:100px}
+.sahaba-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:24px}
+@media(min-width:480px){.sahaba-grid{grid-template-columns:repeat(2,1fr)}}
+.sahaba-card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);cursor:pointer;transition:all .3s cubic-bezier(0.4,0,0.2,1);position:relative;border:1px solid var(--border)}
+.sahaba-card:active{transform:scale(.98)}
+.sahaba-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.sahaba-card.locked{opacity:.5;pointer-events:none}
+.sahaba-card.locked::after{content:'🔒';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:2rem;opacity:.6}
+.card-header{padding:20px 20px 12px;display:flex;align-items:flex-start;gap:14px}
+.card-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary-light),var(--primary));display:flex;align-items:center;justify-content:center;font-family:'Amiri',serif;font-size:1.4rem;color:white;font-weight:700;flex-shrink:0;box-shadow:0 4px 12px rgba(26,95,60,0.25)}
+.card-meta{flex:1;min-width:0}
+.card-meta h4{font-size:1.05rem;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-meta .arabic-name{font-family:'Amiri',serif;font-size:.95rem;color:var(--primary);margin-bottom:6px}
+.card-tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:.7rem;padding:3px 10px;border-radius:100px;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+.tag-khalifa{background:#fef3c7;color:#92400e}
+.tag-muhajir{background:#dbeafe;color:#1e40af}
+.tag-ansar{background:#d1fae5;color:#065f46}
+.tag-scribe{background:#fce7f3;color:#9d174d}
+.tag-warrior{background:#fee2e2;color:#991b1b}
+.tag-merchant{background:#e0e7ff;color:#3730a3}
+.card-body{padding:0 20px 16px}
+.card-body p{font-size:.85rem;color:var(--text-light);line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card-footer{padding:12px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-footer .read-more{font-size:.8rem;font-weight:600;color:var(--primary);display:flex;align-items:center;gap:4px}
+.fav-btn{width:36px;height:36px;border-radius:50%;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--text-light);transition:all .2s}
+.fav-btn.favorited{color:#e11d48}
+.fav-btn:active{transform:scale(1.2)}
+
+/* ===== MODAL FIX ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;opacity:0;visibility:hidden;transition:all .3s;backdrop-filter:blur(4px)}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal-sheet{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-radius:var(--radius) var(--radius) 0 0;z-index:201;max-height:85vh;overflow-y:auto;transform:translateY(100%);transition:transform .35s cubic-bezier(0.4,0,0.2,1);padding-bottom:calc(20px + var(--safe-bottom));padding-top:48px}
+.modal-overlay.open+.modal-sheet,.modal-sheet.open{transform:translateY(0)}
+.modal-handle{width:40px;height:4px;background:var(--border);border-radius:4px;margin:12px auto;position:relative;z-index:1}
+.modal-close-btn{position:fixed;top:0;right:0;z-index:202;width:48px;height:48px;border:none;background:transparent;cursor:pointer;font-size:1.5rem;display:flex;align-items:center;justify-content:center;color:var(--text);padding:0;margin:8px 8px 0 0}
+.modal-close-btn:active{transform:scale(.9)}
+.modal-header{padding:8px 24px 20px;text-align:center;border-bottom:1px solid var(--border);position:relative}
+.modal-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--primary-light),var(--primary));display:flex;align-items:center;justify-content:center;font-family:'Amiri',serif;font-size:2rem;color:white;font-weight:700;margin:0 auto 14px;box-shadow:0 6px 20px rgba(26,95,60,0.3)}
+.modal-header h2{font-family:'Amiri',serif;font-size:1.5rem;color:var(--primary);margin-bottom:4px}
+.modal-header .modal-subtitle{color:var(--text-light);font-size:.9rem}
+.modal-body{padding:24px}
+.modal-body h4{font-size:.85rem;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin:20px 0 10px;font-weight:700}
+.modal-body h4:first-child{margin-top:0}
+.modal-body p{font-size:.95rem;line-height:1.8;color:var(--text)}
+.modal-body .fact-box{background:linear-gradient(135deg,rgba(26,95,60,0.05),rgba(201,168,76,0.05));border-left:3px solid var(--gold);padding:16px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:12px 0}
+.modal-body .fact-box p{font-style:italic;color:var(--text-light)}
+
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0 calc(8px + var(--safe-bottom));z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,0.06)}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 16px;border:none;background:none;color:var(--text-light);font-size:.65rem;font-weight:600;cursor:pointer;transition:all .2s;position:relative}
+.nav-item .nav-icon{font-size:1.4rem;transition:transform .2s}
+.nav-item.active{color:var(--primary)}
+.nav-item.active .nav-icon{transform:translateY(-2px)}
+.nav-item.active::after{content:'';position:absolute;top:-8px;width:24px;height:3px;background:var(--primary);border-radius:3px}
+.empty-state{text-align:center;padding:60px 20px}
+.empty-state .empty-icon{font-size:4rem;margin-bottom:16px;opacity:.4}
+.empty-state h3{font-size:1.1rem;margin-bottom:8px;color:var(--text)}
+.empty-state p{font-size:.9rem;color:var(--text-light)}
+.about-page{display:none}
+.about-page.active{display:block}
+.about-hero{text-align:center;padding:40px 20px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:var(--radius);margin-bottom:24px;color:white}
+.about-hero h2{font-family:'Amiri',serif;font-size:1.8rem;margin-bottom:10px}
+.about-hero p{opacity:.85;font-size:.9rem;max-width:300px;margin:0 auto}
+.info-card{background:var(--card);border-radius:var(--radius);padding:20px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.info-card h4{font-size:1rem;margin-bottom:10px;color:var(--primary);display:flex;align-items:center;gap:8px}
+.info-card p{font-size:.9rem;color:var(--text-light);line-height:1.7}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px}
+.stat-box{background:var(--card);border-radius:var(--radius-sm);padding:18px 14px;text-align:center;box-shadow:var(--shadow);border:1px solid var(--border)}
+.stat-box .stat-num{font-size:1.6rem;font-weight:700;color:var(--primary);font-family:'Amiri',serif}
+.stat-box .stat-label{font-size:.75rem;color:var(--text-light);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:white;padding:12px 24px;border-radius:100px;font-size:.85rem;font-weight:500;z-index:300;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;box-shadow:var(--shadow-lg)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.sahaba-card{animation:fadeInUp .4s ease-out both}
+.sahaba-card:nth-child(1){animation-delay:.05s}
+.sahaba-card:nth-child(2){animation-delay:.1s}
+.sahaba-card:nth-child(3){animation-delay:.15s}
+.sahaba-card:nth-child(4){animation-delay:.2s}
+.sahaba-card:nth-child(5){animation-delay:.25s}
+.sahaba-card:nth-child(6){animation-delay:.3s}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.page-section{display:none}
+.page-section.active{display:block}
+
+/* Daily Sahaba */
+.daily-card{background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:var(--radius);padding:24px;color:white;margin-bottom:24px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.daily-card::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 70%);pointer-events:none}
+.daily-card .daily-label{font-size:.7rem;text-transform:uppercase;letter-spacing:2px;opacity:.8;margin-bottom:8px;font-weight:600}
+.daily-card .daily-name{font-family:'Amiri',serif;font-size:1.8rem;margin-bottom:4px}
+.daily-card .daily-arabic{font-size:1.1rem;opacity:.7;margin-bottom:12px}
+.daily-card .daily-summary{font-size:.9rem;opacity:.9;line-height:1.6;margin-bottom:16px}
+.daily-card .daily-btn{background:rgba(255,255,255,0.2);border:none;color:white;padding:10px 24px;border-radius:100px;font-size:.85rem;font-weight:600;cursor:pointer;backdrop-filter:blur(10px);transition:all .2s}
+.daily-card .daily-btn:active{transform:scale(.95);background:rgba(255,255,255,0.3)}
+.daily-card .daily-date{position:absolute;top:16px;right:16px;font-size:.7rem;opacity:.6}
+
+/* Premium Banner */
+.premium-banner{background:linear-gradient(135deg,#c9a84c,#b8941f);border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;color:white;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 16px rgba(201,168,76,0.3)}
+.premium-banner span{font-size:.85rem;font-weight:600}
+.premium-banner button{background:rgba(255,255,255,0.25);border:none;color:white;padding:8px 16px;border-radius:100px;font-size:.75rem;font-weight:700;cursor:pointer;backdrop-filter:blur(10px)}
+.premium-banner button:active{transform:scale(.95)}
+
+/* Unlock Modal */
+.unlock-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:400;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:all .3s}
+.unlock-overlay.open{opacity:1;visibility:visible}
+.unlock-box{background:var(--card);border-radius:var(--radius);padding:28px 24px;width:100%;max-width:360px;text-align:center;box-shadow:var(--shadow-lg);border:1px solid var(--border);transform:scale(.9);transition:transform .3s}
+.unlock-overlay.open .unlock-box{transform:scale(1)}
+.unlock-box h3{font-size:1.2rem;margin-bottom:12px;color:var(--primary)}
+.unlock-box .payment-info{background:linear-gradient(135deg,rgba(26,95,60,0.05),rgba(201,168,76,0.05));border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-bottom:20px;text-align:left}
+.unlock-box .payment-info p{font-size:.85rem;color:var(--text-light);margin-bottom:8px;line-height:1.6}
+.unlock-box .payment-info p:last-child{margin-bottom:0}
+.unlock-box .payment-info strong{color:var(--primary);font-weight:700}
+.unlock-box .payment-info .price{font-size:1.4rem;font-weight:700;color:var(--gold);text-align:center;margin:12px 0}
+.unlock-box .simple-info{font-size:.8rem;color:var(--text-light);margin-bottom:20px;padding:12px;background:var(--bg);border-radius:var(--radius-sm);border-left:3px solid var(--primary)}
+.unlock-box .pin-section{margin-bottom:16px}
+.unlock-box .pin-section p{font-size:.8rem;color:var(--text-light);margin-bottom:10px}
+.pin-input{width:100%;padding:14px 16px;border:2px solid var(--border);border-radius:var(--radius-sm);font-size:1rem;font-weight:600;color:var(--text);background:var(--bg);outline:none;transition:all .2s;text-align:center;letter-spacing:2px}
+.pin-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(26,95,60,0.15)}
+.unlock-actions{display:flex;gap:10px;margin-top:16px}
+.unlock-actions button{flex:1;padding:12px;border-radius:var(--radius-sm);border:none;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s}
+.unlock-actions .btn-primary{background:var(--primary);color:white}
+.unlock-actions .btn-primary:active{transform:scale(.97)}
+.unlock-actions .btn-secondary{background:var(--border);color:var(--text)}
+.unlock-actions .btn-secondary:active{transform:scale(.97)}
+.pin-error{color:#dc2626;font-size:.8rem;margin-top:12px;display:none}
+.pin-error.show{display:block}
+
+/* Simple mode restrictions */
+body.simple-mode .icon-btn[data-action="theme"]{display:none}
+body.simple-mode .premium-banner{display:none}
+body.simple-mode .nav-item[data-page="favorites"]{display:none}
+body.simple-mode .nav-item[data-page="about"]{display:none}
+body.simple-mode .bottom-nav{justify-content:center}
+</style>
+<base target="_blank">
+</head>
+<body>
+<header class="app-header">
+<div class="header-top">
+<div class="logo"><div class="logo-icon">☪</div><div class="logo-text"><h1>Sahaba</h1><span>Companheiros do Profeta ﷺ</span></div></div>
+<div class="header-actions">
+<span class="mode-badge" id="modeBadge">SIMPLES</span>
+<button class="icon-btn" data-action="theme" id="themeToggle"><span id="themeIcon">🌙</span></button>
+<button class="icon-btn" id="unlockBtn" title="Desbloquear Premium">🔐</button>
+</div>
+</div>
+<div class="search-wrap" id="searchWrap"><span class="search-icon">🔍</span><input type="text" id="searchInput" placeholder="Pesquisar sahaba..." autocomplete="off"></div>
+</header>
+
+<main class="main-content">
+
+<div class="page-section active" id="homePage">
+<div class="hero"><h2>Os Melhores da Humanidade</h2><p>Conheca as historias inspiradoras dos companheiros do Mensageiro de Allah ﷺ</p></div>
+
+<div id="dailySahaba"></div>
+
+<div class="premium-banner" id="premiumBanner"><span>⭐ Modo Premium Ativo</span><button id="lockBtn">🔒 Bloquear</button></div>
+
+<div class="categories" id="categories">
+<button class="cat-chip active" data-cat="all">Todos</button>
+<button class="cat-chip" data-cat="khalifa">Califas</button>
+<button class="cat-chip" data-cat="muhajir">Muhajirun</button>
+<button class="cat-chip" data-cat="ansar">Ansar</button>
+<button class="cat-chip" data-cat="warrior">Guerreiros</button>
+<button class="cat-chip" data-cat="scribe">Escritores</button>
+</div>
+
+<div class="section-title"><h3 id="listTitle">Todos os Sahaba</h3><span class="count" id="sahabaCount">0</span></div>
+<div class="sahaba-grid" id="sahabaGrid"></div>
+</div>
+
+<div class="page-section" id="favoritesPage">
+<div class="hero"><h2>Meus Favoritos</h2><p>Sahaba que voce marcou como favoritos</p></div>
+<div class="sahaba-grid" id="favoritesGrid"></div>
+<div class="empty-state" id="emptyFavorites" style="display:none;"><div class="empty-icon">🤍</div><h3>Nenhum favorito ainda</h3><p>Toque no coracao nos cards para adicionar sahaba aos favoritos</p></div>
+</div>
+
+<div class="page-section about-page" id="aboutPage">
+<div class="about-hero"><h2>Sobre os Sahaba</h2><p>Quem sao os companheiros do Profeta Muhammad ﷺ</p></div>
+<div class="stats-grid">
+<div class="stat-box"><div class="stat-num">114,000+</div><div class="stat-label">Sahaba no total</div></div>
+<div class="stat-box"><div class="stat-num">10</div><div class="stat-label">Prometidos ao Paraiso</div></div>
+<div class="stat-box"><div class="stat-num">23</div><div class="stat-label">Anos de companheirismo</div></div>
+<div class="stat-box"><div class="stat-num">4</div><div class="stat-label">Califas Rightly Guided</div></div>
+</div>
+<div class="info-card"><h4>📖 Quem sao os Sahaba?</h4><p>Os Sahaba (صحابة) sao os companheiros do Profeta Muhammad ﷺ. O Profeta ﷺ disse: "Os melhores das minhas pessoas sao os da minha geracao." (Bukhari e Muslim)</p></div>
+<div class="info-card"><h4>⭐ Os 10 Prometidos ao Paraiso</h4><p>Abu Bakr, Umar, Uthman, Ali, Talha, Zubair, Abdur-Rahman ibn Awf, Sa'd ibn Abi Waqqas, Sa'id ibn Zayd e Abu Ubayda ibn al-Jarrah.</p></div>
+<div class="info-card"><h4>🕌 Muhajirun e Ansar</h4><p>Os <strong>Muhajirun</strong> emigraram de Makkah para Medina. Os <strong>Ansar</strong> sao os habitantes de Medina que os acolheram. Allah disse: "E aqueles que chegaram antes deles, que os amam..." (59:9)</p></div>
+<div class="info-card"><h4>📝 Importancia do Hadith</h4><p>Os Sahaba transmitiram o Alcorao, a Sunnah e a compreensao do Islam. Sem eles, nao teriamos acesso a revelacao divina.</p></div>
+</div>
+</main>
+
+<div class="modal-overlay" id="modalOverlay"></div>
+<button class="modal-close-btn" id="modalClose">✕</button>
+<div class="modal-sheet" id="detailModal">
+<div class="modal-handle"></div>
+<div class="modal-header">
+<div class="modal-avatar" id="modalAvatar">A</div>
+<h2 id="modalName">Nome</h2>
+<p class="modal-subtitle" id="modalSubtitle">Subtitulo</p>
+</div>
+<div class="modal-body" id="modalBody"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="unlock-overlay" id="unlockOverlay">
+<div class="unlock-box">
+<h3>⭐ Desbloquear Premium</h3>
+<div class="payment-info">
+<div class="price">100 MTN</div>
+<p><strong>Emola:</strong> 860407269</p>
+<p><strong>M-Pesa Paga Facil:</strong> 1228803</p>
+<p><strong>Titular:</strong> Bebane</p>
+</div>
+<div class="simple-info">
+💡 <strong>Modo Simples:</strong> Cada historia e desbloqueada automaticamente a cada 24h. Quando todas estiverem lidas, o ciclo recomeca. Aguarde o proximo dia para ler mais.
+</div>
+<div class="pin-section">
+<p>Insira o PIN recebido apos pagamento:</p>
+<input type="text" class="pin-input" id="pinInput" placeholder="Digite o PIN aqui" autocomplete="off">
+</div>
+<div class="unlock-actions">
+<button class="btn-secondary" id="unlockCancel">Continuar no Simples</button>
+<button class="btn-primary" id="unlockSubmit">Verificar PIN</button>
+</div>
+<div class="pin-error" id="pinError">PIN incorreto. Verifique e tente novamente.</div>
+</div>
+</div>
+
+<nav class="bottom-nav">
+<button class="nav-item active" data-page="home"><span class="nav-icon">🏠</span><span>Inicio</span></button>
+<button class="nav-item" data-page="favorites"><span class="nav-icon">❤️</span><span>Favoritos</span></button>
+<button class="nav-item" data-page="about"><span class="nav-icon">📚</span><span>Sobre</span></button>
+</nav>
+
+<script>
+const sahabaData=[
+{id:1,name:"Abu Bakr As-Sadiq",arabic:"أبو بكر الصديق",tags:["khalifa","muhajir"],tagLabels:["Califa","Muhajir"],years:"573-634 d.C.",title:"O Veraz",summary:"Primeiro califa do Islam. Foi o primeiro homem adulto a aceitar o Islam. Companheiro mais proximo do Profeta ﷺ.",bio:"Abu Bakr As-Sadiq foi o melhor amigo e confidente do Profeta Muhammad ﷺ. Nascido em Makkah em 573 d.C., era um comerciante respeitado e conhecido por sua honestidade — daí o titulo As-Sadiq (O Veraz). Quando o Profeta ﷺ recebeu a primeira revelacao, Abu Bakr foi o primeiro homem adulto a abracar o Islam sem hesitacao. Usou toda a sua riqueza para apoiar a causa do Islam, libertando escravos como Bilal ibn Rabah. Durante a Hijrah, acompanhou o Profeta ﷺ na jornada perigosa para Medina. O Profeta ﷺ disse: Nao beneficiou ninguem com sua riqueza tanto quanto eu fui beneficiado pela riqueza de Abu Bakr. Apos a morte do Profeta ﷺ, foi eleito como primeiro califa. Seu califado foi marcado pelas Guerras de Ridda e pela unificacao da Arabia. Tambem ordenou a compilacao do Alcorao em um unico mushaf. Morreu em 634 d.C. em Medina, aos 63 anos, e foi sepultado ao lado do Profeta ﷺ.",facts:"O Profeta ﷺ disse: Se eu pudesse escolher um amigo intimo deste mundo, escolheria Abu Bakr, mas o companheirismo intimo de Allah e para ele. (Bukhari)",color:"#1a5f3c"},
+{id:2,name:"Umar ibn Al-Khattab",arabic:"عمر بن الخطاب",tags:["khalifa","muhajir","warrior"],tagLabels:["Califa","Muhajir","Guerreiro"],years:"584-644 d.C.",title:"Al-Faruq (O Diferenciador)",summary:"Segundo califa do Islam. Converteu-se apos ler o Alcorao. Expandiu o imperio islamico extraordinariamente.",bio:"Umar ibn Al-Khattab, conhecido como Al-Faruq, foi o segundo califa do Islam. Antes do Islam, era hostil a nova religiao e pretendia matar o Profeta ﷺ. Mas Allah guiou seu coracao — ao ouvir sua irma recitando o Alcorao, ficou profundamente comovido e converteu-se imediatamente. Sua conversao fortaleceu os muculmanos de forma tremenda. Durante seu califado de dez anos (634-644 d.C.), o imperio islamico expandiu-se sem precedentes: conquistou o Imperio Sassanida (Persia) e grandes partes do Imperio Bizantino, incluindo Jerusalém em 638 d.C. Umar instituiu o calendario islamico (Hijri), criou o Diwan (registro administrativo), estabeleceu a justica social com o Bayt al-Mal e garantiu que nenhum muculmano passasse fome. Foi assassinado por Abu Lulu'a em 644 d.C. enquanto liderava a oracao da Fajr.",facts:"O Profeta ﷺ disse: Se houvesse um profeta depois de mim, seria Umar ibn Al-Khattab. (Tirmidhi)",color:"#7c3aed"},
+{id:3,name:"Uthman ibn Affan",arabic:"عثمان بن عفان",tags:["khalifa","muhajir","merchant"],tagLabels:["Califa","Muhajir","Comerciante"],years:"576-656 d.C.",title:"Dhul-Nurayn (O Possuidor de Duas Luzes)",summary:"Terceiro califa. Casou-se com duas filhas do Profeta ﷺ. Compilou o Alcorao em mushaf oficial.",bio:"Uthman ibn Affan, apelidado de Dhul-Nurayn porque casou-se com duas filhas do Profeta ﷺ — Ruqqayya e Umm Kulthum. Nascido em familia rica de Makkah, era comerciante extremamente bem-sucedido. Sua conversao ao Islam foi pacifica e imediata. Sofreu severamente pela causa do Islam, sendo boicotado pelos Quraysh. Liderou o primeiro grupo de muculmanos na emigracao para Abissinia. Como terceiro califa (644-656 d.C.), supervisionou a compilacao oficial do Alcorao em mushaf padronizado, enviando copias para as provincias do imperio. Tambem expandiu o imperio, conquistando Armenia e partes do norte da Africa. Foi assassinado em sua casa em Medina em 656 d.C. Morreu lendo o Alcorao, recusando-se a derramar sangue muculmano.",facts:"O Profeta ﷺ disse: Cada profeta tem um companheiro intimo no Paraiso, e meu companheiro intimo no Paraiso e Uthman. (Tirmidhi)",color:"#0891b2"},
+{id:4,name:"Ali ibn Abi Talib",arabic:"علي بن أبي طالب",tags:["khalifa","muhajir","warrior"],tagLabels:["Califa","Muhajir","Guerreiro"],years:"600-661 d.C.",title:"Asadullah (O Leao de Allah)",summary:"Quarto califa e primo do Profeta ﷺ. Primeira crianca a aceitar o Islam. Casou-se com Fatimah.",bio:"Ali ibn Abi Talib, primo e genro do Profeta Muhammad ﷺ, foi a primeira crianca a abracar o Islam. Criado desde os seis anos na casa do Profeta ﷺ, desenvolveu um vinculo inquebrantavel. Era famoso por sua bravura incomparavel. Na Batalha de Khandaq, matou o gigante Amr ibn Abd Wudd em combate singular — o Profeta ﷺ celebrou dizendo: A espada de Ali e a porta da ciencia. Casou-se com Fatimah bint Muhammad ﷺ, a filha mais amada do Profeta ﷺ. Tiveram quatro filhos: Hasan, Hussain, Zainab e Umm Kulthum. O Profeta ﷺ disse: Ali e de mim e eu sou de Ali. Como quarto califa (656-661 d.C.), enfrentou a Primeira Fitna. Foi assassinado por Abdur-Rahman ibn Muljam em Kufa em 661 d.C. Ali e reverenciado por sua profunda sabedoria e conhecimento juridico. Centenas de seus sermoes foram preservados no Nahj al-Balagha.",facts:"O Profeta ﷺ disse: Eu sou a cidade do conhecimento e Ali e a sua porta. (Tirmidhi)",color:"#059669"},
+{id:5,name:"Bilal ibn Rabah",arabic:"بلال بن رباح",tags:["muhajir"],tagLabels:["Muhajir"],years:"580-640 d.C.",title:"O Muezzin do Profeta ﷺ",summary:"Primeiro muezzin do Islam. Escravo etiope torturado brutalmente por sua fe. Abu Bakr libertou-o.",bio:"Bilal ibn Rabah, o primeiro muezzin do Islam, nasceu em Makkah como escravo de origem etiope. Seu senhor, Umayyah ibn Khalaf, torturou-o brutalmente por recusar-se a renunciar ao Islam. Sob o sol escaldante, Bilal foi arrastado com uma pedra em seu peito, dizendo: Ahad! Ahad! (Um! Um! — Allah e Unico!) Abu Bakr comprou Bilal e o libertou. O Profeta ﷺ escolheu Bilal como o primeiro muezzin do Islam. Apos a morte do Profeta ﷺ, Bilal foi para a jihad na Siria. Num sonho, viu o Profeta ﷺ perguntar: O Bilal, como e que voce nao me visita? Retornou a Medina e, ao ver os tumulos do Profeta ﷺ e Abu Bakr, chamou o Adhan pela primeira vez desde a morte do Profeta ﷺ. Sua voz fez toda Medina chorar. Depois disso, nunca mais chamou o Adhan. Morreu em 640 d.C. em Damasco.",facts:"O Profeta ﷺ disse: Bilal e o mestre dos muezzins. (Ibn Majah)",color:"#b45309"},
+{id:6,name:"Khalid ibn Al-Walid",arabic:"خالد بن الوليد",tags:["muhajir","warrior"],tagLabels:["Muhajir","Guerreiro"],years:"592-642 d.C.",title:"Sayfullah (A Espada de Allah)",summary:"Um dos maiores generais da historia. Nunca perdeu uma batalha. Conquistou Imperios Bizantino e Sassanida.",bio:"Khalid ibn Al-Walid, apelidado de Sayfullah pelo proprio Profeta ﷺ, e considerado um dos maiores generais militares de todos os tempos. Nunca perdeu uma batalha. Antes do Islam, liderou o flanco direito dos Quraysh na Batalha de Uhud. Converteu-se apos o Tratado de Hudaybiyyah. Na Batalha de Mu'tah em 629 d.C., assumiu o comando com forca numericamente inferior e conseguiu uma retirada segura. Durante o califado de Abu Bakr, liderou as Guerras de Ridda e derrotou Musaylimah, o falso profeta. Depois, na Batalha de Yarmouk (636 d.C.), derrotou um exercito bizantino muito superior. Umar destituiu-o do comando por temer que as pessoas dependessem dele em vez de Allah. Khalid aceitou com humildade. Morreu em 642 d.C. em Homs, Siria.",facts:"Khalid participou de mais de 100 batalhas e nunca foi derrotado. Na Batalha de Yarmouk, liderou 25,000-40,000 muculmanos contra 80,000-150,000 bizantinos.",color:"#dc2626"},
+{id:7,name:"Salman Al-Farsi",arabic:"سلمان الفارسي",tags:["muhajir"],tagLabels:["Muhajir"],years:"568-656 d.C.",title:"O Persa Sabio",summary:"De origem persa, foi escravo antes de encontrar o Profeta ﷺ. Propos a estrategia da trincheira que salvou Medina.",bio:"Salman Al-Farsi teve uma das jornadas mais extraordinarias para o Islam. Nascido em Isfahan, Persia, em familia zoroastriana nobre, deixou sua casa em busca da verdade. Viajou por anos, estudando com cristaos na Siria e sendo capturado como escravo por beduinos. Foi vendido para um judeu de Medina, onde ouviu descricoes de um profeta que apareceria na Arabia. Quando o Profeta ﷺ chegou a Medina, Salman reconheceu-o imediatamente. O Profeta ﷺ pagou seu resgate e libertou-o. Durante o Cerco de Medina (Ahzab) em 627 d.C., Salman propos cavar uma trincheira profunda ao redor de Medina — tatica desconhecida na Arabia. O Profeta ﷺ aceitou, e a estrategia salvou os muculmanos. Foi nomeado governador de Al-Mada'in. Morreu em 656 d.C. aos 88 anos.",facts:"O Profeta ﷺ disse: Se a fe estivesse na Pleiades, homens dele a alcancariam. Referindo-se a Salman.",color:"#7c2d12"},
+{id:8,name:"Abu Hurairah",arabic:"أبو هريرة",tags:["ansar","scribe"],tagLabels:["Ansar","Escritor"],years:"603-681 d.C.",title:"O Maior Narrador de Hadith",summary:"Narrador de mais hadiths que qualquer outro companheiro — cerca de 5,374. Dedicou sua vida ao Profeta ﷺ.",bio:"Abu Hurairah (Pai do Gatinho) foi o maior narrador de hadiths, transmitindo aproximadamente 5,374 hadiths. Nascido em Yemen, chegou a Medina em 629 d.C. Em apenas tres anos de companheirismo, memorizou mais hadiths do que qualquer outro. Era tao pobre que vivia na mesquita do Profeta ﷺ, comendo o que sobrava. Passava todo o tempo com o Profeta ﷺ. Quando questionado por Umar, explicou que os outros estavam ocupados com comercio, enquanto ele permanecia com o Profeta ﷺ. O Profeta ﷺ orou por ele: O Allah, faca-o amar e amado, e guie-o ao bem. Serviu como governador de Bahrein. Morreu em 681 d.C. em Medina, aos 78 anos.",facts:"Abu Hurairah transmitiu 5,374 hadiths. Para comparar: Aisha 2,210, Abdullah ibn Umar 1,630, Anas ibn Malik 2,286.",color:"#4d7c0f"},
+{id:9,name:"Aisha bint Abu Bakr",arabic:"عائشة بنت أبي بكر",tags:["muhajir","scribe"],tagLabels:["Muhajir","Escritora"],years:"613-678 d.C.",title:"Umm Al-Mu'minin (Mae dos Crentes)",summary:"Esposa do Profeta ﷺ e maior erudita entre as mulheres do Islam. Narradora de 2,210 hadiths.",bio:"Aisha bint Abu Bakr, filha de Abu Bakr As-Sadiq, foi a esposa mais amada do Profeta Muhammad ﷺ. Casou-se com o Profeta ﷺ aos 9 anos e viveu com ele por nove anos. Era excepcionalmente inteligente, com memoria prodigiosa. Narrou 2,210 hadiths — mais do que qualquer outra mulher — e tornou-se principal autoridade em fiqh e historia. Apos a morte do Profeta ﷺ, lideres vinham consulta-la sobre questoes juridicas. Ensinou centenas de estudantes. Durante a Primeira Fitna, liderou o exercito na Batalha do Camelo (656 d.C.) contra Ali, exigindo justica pelo assassinato de Uthman. Descreveu detalhadamente a vida domestica do Profeta ﷺ. Morreu em 678 d.C. em Medina.",facts:"O Profeta ﷺ disse: A superioridade de Aisha sobre outras mulheres e como a superioridade do tharid sobre outras comidas. (Bukhari)",color:"#be185d"},
+{id:10,name:"Hamza ibn Abdul-Muttalib",arabic:"حمزة بن عبد المطلب",tags:["muhajir","warrior"],tagLabels:["Muhajir","Guerreiro"],years:"568-625 d.C.",title:"Asadullah (O Leao de Allah)",summary:"Tio paterno do Profeta ﷺ e seu protetor em Makkah. Martirizado na Batalha de Uhud.",bio:"Hamza ibn Abdul-Muttalib, tio paterno do Profeta ﷺ, era conhecido como Asadullah e Sayyid al-Shuhada (O Mestre dos Martires). Era cacador habilidoso e guerreiro temido em Makkah. Converteu-se dramaticamente quando Abu Jahl insultou o Profeta ﷺ. Hamza foi ate a Kaaba e declarou: Voce insulta meu sobrinho enquanto eu sigo a mesma religiao que ele? Bata em mim se puder! Foi o protetor do Profeta ﷺ em Makkah. Na Batalha de Uhud em 625 d.C., lutou bravamente mas foi assassinado traicoeiramente por Wahshi, um escravo etiope prometido a liberdade. O Profeta ﷺ chorou amargamente: Nunca senti tanta dor por nenhuma outra perda quanto senti pela de Hamza. Mais tarde, o Profeta ﷺ perdoou Wahshi apos a conquista de Makkah.",facts:"O Profeta ﷺ disse: Nunca senti tanta dor por nenhuma outra perda quanto senti pela de Hamza. (Bukhari)",color:"#991b1b"},
+{id:11,name:"Abdullah ibn Mas'ud",arabic:"عبد الله بن مسعود",tags:["muhajir","scribe"],tagLabels:["Muhajir","Escritor"],years:"594-653 d.C.",title:"O Portador do Alcorao",summary:"Um dos primeiros a aceitar o Islam. Aprendeu 70+ suras diretamente do Profeta ﷺ. Voz melodiosa.",bio:"Abdullah ibn Mas'ud foi o sexto pessoa a aceitar o Islam. De estatura pequena, era desprezado pelos idolatras, mas honrado pelo Profeta ﷺ. O Profeta ﷺ disse: Recebam o conhecimento de quatro pessoas: Abdullah ibn Mas'ud, Salim, Ubayy ibn Ka'b e Mu'adh ibn Jabal. Abdullah memorizou mais de 70 suras diretamente do Profeta ﷺ. Os Quraysh zombavam de sua aparencia, mas o Profeta ﷺ defendia: A voz de Abdullah e mais doce para mim do que o canto dos passaros. Durante o califado de Umar, foi enviado a Kufa como professor e juiz, ensinando fiqh a milhares. Quando Uthman compilou o mushaf oficial, Abdullah foi um dos consultores. Morreu em 653 d.C. em Kufa.",facts:"O Profeta ﷺ disse: Quem deseja recitar o Alcorao fresco como foi revelado, que o recite como Abdullah ibn Mas'ud o recita. (Bukhari)",color:"#4338ca"},
+{id:12,name:"Anas ibn Malik",arabic:"أنس بن مالك",tags:["ansar","scribe"],tagLabels:["Ansar","Escritor"],years:"612-712 d.C.",title:"O Servo do Profeta ﷺ",summary:"Serviu o Profeta ﷺ por 10 anos desde os 10 anos de idade. Narrador de 2,286 hadiths. Viveu 103 anos.",bio:"Anas ibn Malik serviu o Profeta Muhammad ﷺ por dez anos, desde os dez anos de idade ate a morte do Profeta ﷺ. Sua mae, Umm Sulaym, ofereceu seu servico ao Profeta ﷺ quando ele chegou a Medina. Anas descreveu minuciosamente a vida cotidiana do Profeta ﷺ — como ele comia, dormia e tratava as pessoas. Suas narrativas sao inestimaveis. O Profeta ﷺ orou por Anas: O Allah, aumente sua riqueza e seus filhos, e abencoe-o no que lhe deres. A oracao foi respondida — Anas teve mais de 80 filhos e netos. Participou de todas as batalhas apos a morte do Profeta ﷺ e serviu como governador de Bahrein. Viveu mais de 100 anos, sendo um dos ultimos companheiros a morrer. Morreu em 712 d.C. em Basra, aos 103 anos.",facts:"O Profeta ﷺ disse sobre Anas: Este e o mais servicial dos meus companheiros para com seus pais. Anas foi o ultimo companheiro a falecer.",color:"#0f766e"}
+];
+let favorites=JSON.parse(localStorage.getItem('sahaba_favorites')||'[]');
+let currentCategory='all',searchQuery='',currentPage='home',darkMode=localStorage.getItem('sahaba_dark')==='true';
+let isPremium=localStorage.getItem('sahaba_premium')==='true';
+let unlockedSahaba=JSON.parse(localStorage.getItem('sahaba_unlocked')||'[]');
+
+const sahabaGrid=document.getElementById('sahabaGrid'),favoritesGrid=document.getElementById('favoritesGrid'),emptyFavorites=document.getElementById('emptyFavorites'),sahabaCount=document.getElementById('sahabaCount'),listTitle=document.getElementById('listTitle'),searchInput=document.getElementById('searchInput'),categoriesEl=document.getElementById('categories'),modalOverlay=document.getElementById('modalOverlay'),detailModal=document.getElementById('detailModal'),modalClose=document.getElementById('modalClose'),toast=document.getElementById('toast'),themeToggle=document.getElementById('themeToggle'),themeIcon=document.getElementById('themeIcon'),modeBadge=document.getElementById('modeBadge'),premiumBanner=document.getElementById('premiumBanner'),unlockOverlay=document.getElementById('unlockOverlay'),unlockBtn=document.getElementById('unlockBtn'),lockBtn=document.getElementById('lockBtn'),unlockCancel=document.getElementById('unlockCancel'),unlockSubmit=document.getElementById('unlockSubmit'),pinError=document.getElementById('pinError'),pinInput=document.getElementById('pinInput'),dailySahabaEl=document.getElementById('dailySahaba'),searchWrap=document.getElementById('searchWrap');
+
+function getTodayKey(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1).toString().padStart(2,'0')+'-'+d.getDate().toString().padStart(2,'0');}
+function getDailySahaba(){const today=getTodayKey();const idx=parseInt(today.replace(/-/g,''),10)%sahabaData.length;return sahabaData[idx];}
+function getExpectedPin(){const d=new Date();const dd=String(d.getDate()).padStart(2,'0');const mm=String(d.getMonth()+1).padStart(2,'0');const yy=String(d.getFullYear()).slice(-2);return 'his63sah'+dd+mm+yy;}
+
+function init(){checkDailyUnlock();applyMode();renderDailySahaba();renderSahaba();renderFavorites();setupEventListeners();}
+
+function checkDailyUnlock(){const today=getTodayKey();const lastUnlock=localStorage.getItem('sahaba_last_unlock');if(lastUnlock!==today){const daily=getDailySahaba();if(!unlockedSahaba.includes(daily.id)){unlockedSahaba.push(daily.id);}localStorage.setItem('sahaba_unlocked',JSON.stringify(unlockedSahaba));localStorage.setItem('sahaba_last_unlock',today);}}
+
+function applyMode(){if(isPremium){document.body.classList.remove('simple-mode');modeBadge.textContent='PREMIUM';modeBadge.style.background='linear-gradient(135deg,#c9a84c,#b8941f)';premiumBanner.style.display='flex';searchWrap.style.display='block';if(darkMode){document.documentElement.setAttribute('data-theme','dark');themeIcon.textContent='☀️';}}else{document.body.classList.add('simple-mode');modeBadge.textContent='SIMPLES';modeBadge.style.background='rgba(255,255,255,0.2)';premiumBanner.style.display='none';searchWrap.style.display='none';document.documentElement.removeAttribute('data-theme');themeIcon.textContent='🌙';}}
+
+function renderDailySahaba(){const s=getDailySahaba();const todayKey=getTodayKey();const isUnlocked=unlockedSahaba.includes(s.id)||isPremium;dailySahabaEl.innerHTML=`<div class="daily-card"><div class="daily-date">${new Date().toLocaleDateString('pt-PT')}</div><div class="daily-label">Sahaba do Dia</div><div class="daily-name">${s.name}</div><div class="daily-arabic">${s.arabic}</div><div class="daily-summary">${s.summary}</div><button class="daily-btn" id="dailyReadBtn">${isUnlocked?'Ler historia completa →':'🔒 Desbloqueado amanha'}</button></div>`;const btn=document.getElementById('dailyReadBtn');if(isUnlocked){btn.addEventListener('click',()=>openModal(s.id));}else{btn.style.opacity='0.6';btn.style.cursor='not-allowed';}}
+
+function renderSahaba(){let filtered=sahabaData;if(!isPremium){filtered=filtered.map(s=>{const isUnlocked=unlockedSahaba.includes(s.id);return{...s,_locked:!isUnlocked};});}if(currentCategory!=='all')filtered=filtered.filter(s=>s.tags.includes(currentCategory));if(searchQuery&&isPremium)filtered=filtered.filter(s=>s.name.toLowerCase().includes(searchQuery.toLowerCase())||s.arabic.includes(searchQuery));sahabaCount.textContent=filtered.length;listTitle.textContent=currentCategory==='all'?'Todos os Sahaba':categoriesEl.querySelector('.active').textContent;sahabaGrid.innerHTML=filtered.map(s=>createCard(s)).join('');attachCardEvents();}
+
+function createCard(s){const isFav=favorites.includes(s.id);const initials=s.name.split(' ').map(w=>w[0]).slice(0,2).join('');const locked=s._locked&&!isPremium;return`<div class="sahaba-card ${locked?'locked':''}" data-id="${s.id}"><div class="card-header"><div class="card-avatar" style="background:linear-gradient(135deg,${s.color},${s.color}dd)">${initials}</div><div class="card-meta"><h4>${s.name}</h4><div class="arabic-name">${s.arabic}</div><div class="card-tags">${s.tagLabels.map((t,i)=>`<span class="tag tag-${s.tags[i]}">${t}</span>`).join('')}</div></div></div><div class="card-body"><p>${s.summary}</p></div><div class="card-footer"><span class="read-more">${locked?'Bloqueado':'Ler mais →'}</span>${isPremium?`<button class="fav-btn ${isFav?'favorited':''}" data-fav="${s.id}">${isFav?'❤️':'🤍'}</button>`:''}</div></div>`;}
+
+function renderFavorites(){const favSahaba=sahabaData.filter(s=>favorites.includes(s.id));if(favSahaba.length===0){favoritesGrid.innerHTML='';emptyFavorites.style.display='block';}else{emptyFavorites.style.display='none';favoritesGrid.innerHTML=favSahaba.map(s=>createCard(s)).join('');attachCardEvents();}}
+
+function attachCardEvents(){document.querySelectorAll('.sahaba-card').forEach(card=>{card.addEventListener('click',e=>{if(e.target.closest('.fav-btn'))return;if(card.classList.contains('locked')){showToast('Aguarde o desbloqueio diario!');return;}openModal(parseInt(card.dataset.id));});});document.querySelectorAll('.fav-btn').forEach(btn=>{btn.addEventListener('click',e=>{e.stopPropagation();toggleFavorite(parseInt(btn.dataset.fav));});});}
+
+function toggleFavorite(id){const idx=favorites.indexOf(id);if(idx>-1){favorites.splice(idx,1);showToast('Removido dos favoritos');}else{favorites.push(id);showToast('Adicionado aos favoritos');}localStorage.setItem('sahaba_favorites',JSON.stringify(favorites));renderSahaba();if(currentPage==='favorites')renderFavorites();}
+
+function openModal(id){const s=sahabaData.find(x=>x.id===id);if(!s)return;document.getElementById('modalAvatar').textContent=s.name.split(' ').map(w=>w[0]).slice(0,2).join('');document.getElementById('modalAvatar').style.background=`linear-gradient(135deg,${s.color},${s.color}dd)`;document.getElementById('modalName').textContent=s.name;document.getElementById('modalSubtitle').textContent=`${s.arabic} · ${s.years}`;const bioParas=s.bio.split('. ').map(p=>p.trim()).filter(p=>p.length>0).map(p=>`<p>${p}${p.endsWith('.')?'':'.'}</p>`).join('');document.getElementById('modalBody').innerHTML=`<h4>Biografia</h4>${bioParas}<div class="fact-box"><p>"${s.facts}"</p></div><h4>Titulo</h4><p>${s.title}</p>`;modalOverlay.classList.add('open');detailModal.classList.add('open');modalClose.style.display='flex';document.body.style.overflow='hidden';}
+
+function closeModal(){modalOverlay.classList.remove('open');detailModal.classList.remove('open');modalClose.style.display='none';document.body.style.overflow='';}
+
+function showToast(msg){toast.textContent=msg;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2000);}
+
+function switchPage(page){currentPage=page;document.querySelectorAll('.page-section').forEach(p=>p.classList.remove('active'));document.getElementById(page+'Page').classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.page===page));if(page==='favorites')renderFavorites();window.scrollTo({top:0,behavior:'smooth'});}
+
+function openUnlockModal(){unlockOverlay.classList.add('open');pinInput.value='';pinInput.focus();pinError.classList.remove('show');}
+function closeUnlockModal(){unlockOverlay.classList.remove('open');}
+
+function checkPin(){const entered=pinInput.value.trim();const expected=getExpectedPin();if(entered===expected){isPremium=true;localStorage.setItem('sahaba_premium','true');closeUnlockModal();applyMode();renderDailySahaba();renderSahaba();showToast('⭐ Premium ativado!');}else{pinError.classList.add('show');pinInput.value='';pinInput.style.borderColor='#dc2626';pinInput.focus();setTimeout(()=>pinInput.style.borderColor='',1000);}}
+
+function setupEventListeners(){categoriesEl.querySelectorAll('.cat-chip').forEach(chip=>{chip.addEventListener('click',()=>{if(!isPremium&&chip.dataset.cat!=='all'){showToast('Atualize para Premium!');return;}categoriesEl.querySelectorAll('.cat-chip').forEach(c=>c.classList.remove('active'));chip.classList.add('active');currentCategory=chip.dataset.cat;renderSahaba();});});searchInput.addEventListener('input',e=>{searchQuery=e.target.value.trim();renderSahaba();});modalOverlay.addEventListener('click',closeModal);modalClose.addEventListener('click',closeModal);document.querySelectorAll('.nav-item').forEach(item=>{item.addEventListener('click',()=>{if(!isPremium&&item.dataset.page!=='home'){showToast('Atualize para Premium!');return;}switchPage(item.dataset.page);});});themeToggle.addEventListener('click',()=>{if(!isPremium)return;darkMode=!darkMode;document.documentElement.setAttribute('data-theme',darkMode?'dark':'');themeIcon.textContent=darkMode?'☀️':'🌙';localStorage.setItem('sahaba_dark',darkMode);});unlockBtn.addEventListener('click',openUnlockModal);lockBtn.addEventListener('click',()=>{isPremium=false;localStorage.removeItem('sahaba_premium');applyMode();renderDailySahaba();renderSahaba();showToast('Modo Simples ativado');});unlockCancel.addEventListener('click',closeUnlockModal);unlockSubmit.addEventListener('click',checkPin);pinInput.addEventListener('keydown',e=>{if(e.key==='Enter')checkPin();});document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeUnlockModal();}});}
+
+init();
+</script>
+</body>
+</html>
