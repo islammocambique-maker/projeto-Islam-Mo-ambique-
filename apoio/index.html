@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Islam Moçambique - Pagamentos seguros">
+    <meta name="theme-color" content="#0B6623">
+    <title>Islam Moçambique — Pagamentos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <style>
+        :root {
+            --green-primary:#0B6623; --green-dark:#074B19; --green-light:#1A8C3A; --green-pale:#E8F5E9;
+            --gold:#C5A028; --gold-light:#E8D68B; --gold-dark:#9A7B1A;
+            --white:#FFFFFF; --off-white:#FAFBFC; --gray-50:#F5F6F7; --gray-100:#E8EAED;
+            --gray-200:#D1D5DB; --gray-400:#9CA3AF; --gray-600:#4B5563; --gray-800:#1F2937; --gray-900:#111827;
+            --shadow-sm:0 1px 2px rgba(0,0,0,0.04); --shadow-md:0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg:0 12px 32px rgba(0,0,0,0.12); --shadow-gold:0 4px 16px rgba(197,160,40,0.25);
+            --radius-sm:10px; --radius-md:14px; --radius-lg:18px; --radius-xl:28px;
+            --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+        body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--gray-800);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+        .header{background:linear-gradient(135deg,var(--green-primary) 0%,var(--green-dark) 100%);position:relative;overflow:hidden;padding:14px 0 0;text-align:center}
+        .header-pattern{position:absolute;inset:0;opacity:0.05;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+        .header-inner{position:relative;z-index:2;padding:0 20px 16px}
+        .logo{display:inline-flex;align-items:center;gap:8px;margin-bottom:8px}
+        .logo-icon{width:32px;height:32px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 6px rgba(0,0,0,0.2)}
+        .logo-text{color:var(--white);font-weight:700;font-size:1rem;letter-spacing:0.5px}
+        .logo-sub{color:var(--gold-light);font-size:0.6rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;opacity:0.9}
+        .header-tagline{color:var(--gold-light);font-size:0.7rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;opacity:0.9}
+        .header-title{font-family:'Amiri',serif;color:var(--white);font-size:1.25rem;font-weight:700;margin-bottom:3px;text-shadow:0 2px 6px rgba(0,0,0,0.15)}
+        .header-desc{color:rgba(255,255,255,0.8);font-size:0.78rem;max-width:360px;margin:0 auto;line-height:1.5}
+        .header-wave{position:absolute;bottom:-1px;left:0;width:100%;line-height:0}
+        .header-wave svg{display:block;width:100%;height:32px}
+
+        .container{max-width:520px;margin:0 auto;padding:0 16px}
+
+        .form-section{background:var(--white);border-radius:var(--radius-lg);padding:20px;margin-top:16px;box-shadow:var(--shadow-md);border:1px solid var(--gray-100)}
+        .form-section h2{font-size:0.95rem;font-weight:700;color:var(--gray-900);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+        .form-section h2 .icon{width:28px;height:28px;background:linear-gradient(135deg,var(--green-primary),var(--green-light));border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--white)}
+
+        .form-group{margin-bottom:14px}
+        .form-group label{display:block;font-size:0.78rem;font-weight:600;color:var(--gray-600);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px}
+        .form-group input{width:100%;padding:12px 14px;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-size:0.9rem;font-family:inherit;color:var(--gray-900);background:var(--white);transition:var(--transition);-webkit-appearance:none}
+        .form-group input:focus{outline:none;border-color:var(--green-primary);box-shadow:0 0 0 3px rgba(11,102,35,0.1)}
+        .form-group input::placeholder{color:var(--gray-400)}
+        .form-group .hint{font-size:0.72rem;color:var(--gray-400);margin-top:3px}
+
+        .type-grid{display:grid;gap:8px;margin-bottom:4px}
+        .type-card{display:flex;align-items:center;gap:12px;padding:12px 14px;border:2px solid var(--gray-200);border-radius:var(--radius-md);cursor:pointer;transition:var(--transition);background:var(--white);position:relative}
+        .type-card:hover{border-color:var(--green-light)}
+        .type-card.selected{border-color:var(--green-primary);background:var(--green-pale)}
+        .type-card .radio{width:20px;height:20px;min-width:20px;border:2px solid var(--gray-300);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:var(--transition)}
+        .type-card.selected .radio{border-color:var(--green-primary);background:var(--green-primary)}
+        .type-card.selected .radio::after{content:'';width:8px;height:8px;background:var(--white);border-radius:50%}
+        .type-info{flex:1}
+        .type-name{font-size:0.88rem;font-weight:600;color:var(--gray-900)}
+        .type-price{font-size:0.8rem;color:var(--green-primary);font-weight:700;margin-top:1px}
+        .type-card input[type="radio"]{position:absolute;opacity:0}
+
+        .custom-amount{display:none;margin-top:10px}
+        .custom-amount.active{display:block}
+        .custom-amount input{width:100%;padding:12px 14px;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-size:1rem;font-weight:600;color:var(--gray-900);text-align:center}
+        .custom-amount input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(197,160,40,0.1)}
+
+        .method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:4px}
+        .method-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px;border:2px solid var(--gray-200);border-radius:var(--radius-md);cursor:pointer;transition:var(--transition);background:var(--white);position:relative}
+        .method-card:hover{border-color:var(--green-light)}
+        .method-card.selected{border-color:var(--green-primary);background:var(--green-pale)}
+        .method-card .method-icon{font-size:26px}
+        .method-card .method-name{font-size:0.78rem;font-weight:600;color:var(--gray-700)}
+        .method-card input[type="radio"]{position:absolute;opacity:0}
+
+        .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 20px;border-radius:var(--radius-md);font-size:0.9rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;letter-spacing:0.3px}
+        .btn-primary{background:linear-gradient(135deg,var(--green-primary),var(--green-light));color:var(--white);box-shadow:0 4px 14px rgba(11,102,35,0.3);margin-top:8px}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(11,102,35,0.4)}
+        .btn-primary:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+        .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--white);box-shadow:var(--shadow-gold)}
+        .btn-gold:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(197,160,40,0.35)}
+        .btn-outline{background:var(--white);color:var(--green-primary);border:2px solid var(--green-primary)}
+        .btn-outline:hover{background:var(--green-pale)}
+        .btn-link{background:transparent;color:var(--green-primary);padding:8px;font-size:0.82rem;font-weight:600}
+        .btn-link:hover{text-decoration:underline}
+        .btn-danger{background:linear-gradient(135deg,#DC2626,#B91C1C);color:var(--white);box-shadow:0 4px 14px rgba(220,38,38,0.25)}
+        .btn-danger:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(220,38,38,0.35)}
+
+        .status-screen{display:none;text-align:center;padding:30px 20px}
+        .status-screen.active{display:block}
+        .status-icon{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px}
+        .status-icon.success{background:var(--green-pale);color:var(--green-primary)}
+        .status-icon.pending{background:#FEF9E7;color:var(--gold)}
+        .status-icon.error{background:#FEF2F2;color:#DC2626}
+        .status-icon.processing{background:#E0F2FE;color:#0284C7}
+        .status-title{font-size:1.1rem;font-weight:700;color:var(--gray-900);margin-bottom:6px}
+        .status-desc{font-size:0.85rem;color:var(--gray-600);margin-bottom:20px;line-height:1.6}
+        .status-details{background:var(--gray-50);border-radius:var(--radius-md);padding:14px;margin-bottom:20px;text-align:left}
+        .status-details .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--gray-100);font-size:0.82rem}
+        .status-details .row:last-child{border-bottom:none}
+        .status-details .row .label{color:var(--gray-400);font-weight:500}
+        .status-details .row .value{color:var(--gray-800);font-weight:600}
+
+        .loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,0.85);display:none;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(4px)}
+        .loading-overlay.active{display:flex}
+        .spinner{width:40px;height:40px;border:3px solid var(--gray-200);border-top-color:var(--green-primary);border-radius:50%;animation:spin 0.8s linear infinite}
+
+        .footer{margin-top:24px;padding:20px 16px 24px;text-align:center;background:var(--gray-900);color:var(--gray-400)}
+        .footer-brand{font-weight:700;color:var(--white);font-size:0.9rem;margin-bottom:3px}
+        .footer-rights{font-size:0.7rem;margin-bottom:4px}
+        .footer-mission{font-size:0.72rem;color:var(--gray-500);font-style:italic}
+        .footer-heart{color:var(--gold)}
+
+        .auth-screen{display:none}
+        .auth-screen.active{display:block}
+        .auth-tabs{display:flex;gap:8px;margin-bottom:16px;border-bottom:2px solid var(--gray-100);padding-bottom:4px}
+        .auth-tab{flex:1;padding:10px;text-align:center;font-size:0.85rem;font-weight:600;color:var(--gray-400);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-6px;transition:var(--transition)}
+        .auth-tab.active{color:var(--green-primary);border-bottom-color:var(--green-primary)}
+        .user-badge{display:flex;align-items:center;gap:10px;background:var(--green-pale);border:1.5px solid var(--green-light);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:16px}
+        .user-badge .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--green-primary),var(--green-light));color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem}
+        .user-badge .user-info{flex:1}
+        .user-badge .user-name{font-size:0.9rem;font-weight:700;color:var(--gray-900)}
+        .user-badge .user-email{font-size:0.75rem;color:var(--gray-600)}
+
+        .pulse-dot{width:10px;height:10px;background:var(--gold);border-radius:50%;display:inline-block;margin-right:6px;animation:pulse 1.5s infinite}
+        @keyframes pulse{0%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
+
+        @keyframes spin{to{transform:rotate(360deg)}}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+        .animate-in{animation:fadeInUp 0.4s ease-out forwards;opacity:0}
+        .delay-1{animation-delay:0.05s}.delay-2{animation-delay:0.1s}.delay-3{animation-delay:0.15s}
+
+        @media(min-width:480px){.header-title{font-size:1.4rem}.header-desc{font-size:0.82rem}.container{padding:0 20px}.form-section{padding:24px}}
+        @media(min-width:640px){.header-title{font-size:1.6rem}}
+    </style>
+<base target="_blank">
+<base target="_blank">
+</head>
+<body>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <header class="header">
+        <div class="header-pattern"></div>
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-icon">☪</div>
+                <div>
+                    <div class="logo-text">ISLAM MOÇAMBIQUE</div>
+                    <div class="logo-sub">Pagamentos Seguros</div>
+                </div>
+            </div>
+            <div class="header-tagline">Conhecimento • Educação • Desenvolvimento da Ummah</div>
+            <h1 class="header-title">Efetue o seu Pagamento</h1>
+            <p class="header-desc">Preencha os dados abaixo para processar o pagamento de forma segura.</p>
+        </div>
+        <div class="header-wave">
+            <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path fill="#FAFBFC" d="M0,40L48,45.3C96,51,192,61,288,58.7C384,56,480,40,576,37.3C672,35,768,45,864,50.7C960,56,1056,56,1152,50.7C1248,45,1344,35,1392,29.3L1440,24L1440,80L1392,80C1344,80,1248,80,1152,80C1056,80,960,80,864,80C768,80,672,80,576,80C480,80,384,80,288,80C192,80,96,80,48,80L0,80Z"></path></svg>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- LOGIN / REGISTER -->
+        <div id="authScreen" class="form-section auth-screen animate-in delay-1">
+            <h2><div class="icon">🔐</div> Acesse a sua Conta</h2>
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Entrar</div>
+                <div class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Criar Conta</div>
+            </div>
+            <div id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="nome@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Palavra-passe</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+                <button class="btn btn-primary" onclick="loginUser()">Entrar</button>
+                <div style="text-align:center;margin-top:10px">
+                    <button class="btn btn-link" onclick="showForgotPassword()">Esqueceu a palavra-passe?</button>
+                </div>
+            </div>
+            <div id="registerForm" style="display:none">
+                <div class="form-group">
+                    <label for="regName">Nome Completo *</label>
+                    <input type="text" id="regName" placeholder="Ex: Ahmed Mohamed" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email *</label>
+                    <input type="email" id="regEmail" placeholder="nome@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Palavra-passe * (min. 6)</label>
+                    <input type="password" id="regPassword" placeholder="••••••••" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPhone">Telefone *</label>
+                    <input type="tel" id="regPhone" placeholder="Ex: +258 84 123 4567" required>
+                    <div class="hint">Formato: +258XXXXXXXXX</div>
+                </div>
+                <button class="btn btn-primary" onclick="registerUser()">Criar Conta</button>
+            </div>
+        </div>
+
+        <!-- FORGOT PASSWORD -->
+        <div id="forgotScreen" class="form-section auth-screen animate-in delay-1" style="display:none">
+            <h2><div class="icon">📧</div> Recuperar Palavra-passe</h2>
+            <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:14px">Insira o seu email e enviaremos um link para redefinir a palavra-passe.</p>
+            <div class="form-group">
+                <label for="forgotEmail">Email</label>
+                <input type="email" id="forgotEmail" placeholder="nome@email.com" required>
+            </div>
+            <button class="btn btn-primary" onclick="resetPassword()">Enviar Link</button>
+            <div style="text-align:center;margin-top:10px">
+                <button class="btn btn-link" onclick="showAuthScreen()">Voltar ao login</button>
+            </div>
+        </div>
+
+        <!-- PAYMENT FORM -->
+        <div id="paymentForm" class="form-section animate-in delay-1" style="display:none">
+            <div class="user-badge" id="userBadge">
+                <div class="avatar" id="userAvatar">U</div>
+                <div class="user-info">
+                    <div class="user-name" id="userDisplayName">Utilizador</div>
+                    <div class="user-email" id="userDisplayEmail">email@exemplo.com</div>
+                </div>
+                <button class="btn btn-danger" style="width:auto;padding:8px 14px;font-size:0.75rem" onclick="logoutUser()">Sair</button>
+            </div>
+
+            <h2><div class="icon">👤</div> Dados do Pagante</h2>
+            <div class="form-group">
+                <label for="fullName">Nome Completo *</label>
+                <input type="text" id="fullName" placeholder="Ex: Ahmed Mohamed" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Número de Telefone *</label>
+                <input type="tel" id="phone" placeholder="Ex: +258 84 123 4567" required>
+                <div class="hint">Formato: +258XXXXXXXXX</div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email (opcional)</label>
+                <input type="email" id="email" placeholder="Ex: nome@email.com">
+            </div>
+
+            <h2 style="margin-top:20px"><div class="icon">📋</div> Tipo de Pagamento</h2>
+            <div class="type-grid">
+                <label class="type-card selected" onclick="selectType(this, 'inscricao', 150)">
+                    <input type="radio" name="paymentType" value="inscricao" checked>
+                    <div class="radio"></div>
+                    <div class="type-info">
+                        <div class="type-name">Inscrição na Madrassa</div>
+                        <div class="type-price">150 MTN</div>
+                    </div>
+                </label>
+                <label class="type-card" onclick="selectType(this, 'mensalidade', 100)">
+                    <input type="radio" name="paymentType" value="mensalidade">
+                    <div class="radio"></div>
+                    <div class="type-info">
+                        <div class="type-name">Mensalidade da Madrassa</div>
+                        <div class="type-price">100 MTN</div>
+                    </div>
+                </label>
+                <label class="type-card" onclick="selectType(this, 'apoio', 0)">
+                    <input type="radio" name="paymentType" value="apoio">
+                    <div class="radio"></div>
+                    <div class="type-info">
+                        <div class="type-name">Apoio ao Projeto</div>
+                        <div class="type-price">Valor livre</div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="custom-amount" id="customAmountBox">
+                <div class="form-group" style="margin-bottom:0">
+                    <label for="customValue">Valor da Doação (MTN)</label>
+                    <input type="number" id="customValue" placeholder="Ex: 500" min="10">
+                </div>
+            </div>
+
+            <h2 style="margin-top:20px"><div class="icon">💳</div> Método de Pagamento</h2>
+            <div class="method-grid">
+                <label class="method-card selected" onclick="selectMethod(this, 'mpesa')">
+                    <input type="radio" name="paymentMethod" value="mpesa" checked>
+                    <div class="method-icon">📱</div>
+                    <div class="method-name">M-Pesa</div>
+                </label>
+                <label class="method-card" onclick="selectMethod(this, 'mkesh')">
+                    <input type="radio" name="paymentMethod" value="mkesh">
+                    <div class="method-icon">🏦</div>
+                    <div class="method-name">mKesh</div>
+                </label>
+                <label class="method-card" onclick="selectMethod(this, 'card')">
+                    <input type="radio" name="paymentMethod" value="card">
+                    <div class="method-icon">💳</div>
+                    <div class="method-name">Visa/MC</div>
+                </label>
+            </div>
+
+            <button class="btn btn-primary" id="submitBtn" onclick="processPayment()">
+                <span>Continuar Pagamento</span>
+                <span style="font-size:1.1rem">→</span>
+            </button>
+        </div>
+
+        <!-- PROCESSING -->
+        <div id="processingScreen" class="form-section status-screen">
+            <div class="status-icon processing">⏳</div>
+            <div class="status-title">Aguardando Confirmação</div>
+            <div class="status-desc">O pagamento foi iniciado. Estamos a verificar o estado em tempo real. Verifique o seu telemóvel e confirme se solicitado.</div>
+            <div class="status-details" id="processingDetails"></div>
+            <div style="margin-bottom:16px">
+                <span class="pulse-dot"></span>
+                <span id="processingText" style="font-size:0.8rem;color:var(--gray-600)">A verificar estado do pagamento...</span>
+            </div>
+            <button class="btn btn-outline" onclick="resetForm()">Voltar ao Início</button>
+        </div>
+
+        <div id="successScreen" class="form-section status-screen">
+            <div class="status-icon success">✓</div>
+            <div class="status-title">Pagamento Iniciado!</div>
+            <div class="status-desc">Verifique o seu telemóvel e confirme o pagamento.</div>
+            <div class="status-details" id="successDetails"></div>
+            <button class="btn btn-outline" onclick="resetForm()">Novo Pagamento</button>
+        </div>
+
+        <div id="cardScreen" class="form-section status-screen">
+            <div class="status-icon pending">↗</div>
+            <div class="status-title">Redirecionando...</div>
+            <div class="status-desc">Será redirecionado para a página segura da NetShop.</div>
+            <div class="status-details" id="cardDetails"></div>
+            <a class="btn btn-gold" id="cardLink" href="#" target="_blank">Ir para Pagamento Seguro</a>
+            <button class="btn btn-outline" style="margin-top:8px" onclick="resetForm()">Cancelar</button>
+        </div>
+
+        <div id="errorScreen" class="form-section status-screen">
+            <div class="status-icon error">✕</div>
+            <div class="status-title">Erro no Pagamento</div>
+            <div class="status-desc" id="errorMessage">Ocorreu um erro. Tente novamente.</div>
+            <button class="btn btn-outline" onclick="resetForm()">Tentar Novamente</button>
+        </div>
+
+        <div class="form-section" style="margin-top:16px;background:linear-gradient(135deg,#FEF9E7,#FDF6E3);border-color:rgba(197,160,40,0.15);text-align:center;padding:22px 18px">
+            <p style="font-family:'Amiri',serif;font-size:1rem;font-weight:700;color:var(--gray-900);line-height:1.7">Quem guia uma pessoa para o bem terá uma recompensa semelhante à daquele que o pratica.</p>
+            <p style="margin-top:6px;font-size:0.72rem;color:var(--gold-dark);font-weight:600">— Sahih Muslim</p>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-brand">© Islam Moçambique</div>
+        <div class="footer-rights">Todos os direitos reservados.</div>
+        <div class="footer-mission">Feito com <span class="footer-heart">♥</span> para servir a Ummah através da educação.</div>
+    </footer>
+
+    <script>
+        // ===== CONFIGURAÇÃO - ALTERE AQUI =====
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzjzjdAn-Tthdd-Abvy9Lirp5YneNKI-3nvm9hYz7Css2KP-f4RJvZCd7Ukc11zIssA/exec";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD2rNS7HSJyek3OCrRquudFgqQSWXZJYrY",
+            authDomain: "madrassa-online-b851c.firebaseapp.com",
+            databaseURL: "https://madrassa-online-b851c-default-rtdb.firebaseio.com",
+            projectId: "madrassa-online-b851c",
+            storageBucket: "madrassa-online-b851c.firebasestorage.app",
+            messagingSenderId: "360782668012",
+            appId: "1:360782668012:web:d501ef187911db632445c9"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
+
+        let selectedType = 'inscricao';
+        let selectedAmount = 150;
+        let selectedMethod = 'mpesa';
+        let currentUser = null;
+        let activePaymentRef = null;
+        let activeListener = null;
+        let processingTimer = null;
+        let lastShownScreen = null;
+
+        auth.onAuthStateChanged((user) => {
+            currentUser = user;
+            if (user) showPaymentScreen(user);
+            else showAuthScreen();
+        });
+
+        function showAuthScreen() {
+            hideAllScreens();
+            document.getElementById('authScreen').style.display = 'block';
+            document.getElementById('authScreen').classList.add('active');
+            lastShownScreen = 'authScreen';
+        }
+
+        function showPaymentScreen(user) {
+            hideAllScreens();
+            document.getElementById('paymentForm').style.display = 'block';
+            document.getElementById('paymentForm').classList.add('active');
+            lastShownScreen = 'paymentForm';
+            const displayName = user.displayName || localStorage.getItem('userName') || 'Utilizador';
+            const email = user.email || '';
+            document.getElementById('userDisplayName').textContent = displayName;
+            document.getElementById('userDisplayEmail').textContent = email;
+            document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase();
+            const savedName = localStorage.getItem('userName');
+            const savedPhone = localStorage.getItem('userPhone');
+            if (savedName) document.getElementById('fullName').value = savedName;
+            if (savedPhone) document.getElementById('phone').value = savedPhone;
+            if (email) document.getElementById('email').value = email;
+        }
+
+        function hideAllScreens() {
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('forgotScreen').style.display = 'none';
+            document.getElementById('paymentForm').style.display = 'none';
+            ['successScreen','cardScreen','errorScreen','processingScreen'].forEach(s => {
+                const el = document.getElementById(s);
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            stopProcessingTimer();
+        }
+
+        function showForgotPassword() {
+            hideAllScreens();
+            document.getElementById('forgotScreen').style.display = 'block';
+            document.getElementById('forgotScreen').classList.add('active');
+            lastShownScreen = 'forgotScreen';
+        }
+
+        function switchAuthTab(tab) {
+            document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+            document.getElementById('tabRegister').classList.toggle('active', tab === 'register');
+            document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+            document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
+        }
+
+        async function loginUser() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            if (!email || !password) { alert('Por favor, preencha o email e a palavra-passe.'); return; }
+            showLoading(true);
+            try { await auth.signInWithEmailAndPassword(email, password); }
+            catch (error) {
+                showLoading(false);
+                let msg = 'Erro ao entrar. Verifique os dados.';
+                if (error.code === 'auth/user-not-found') msg = 'Conta não encontrada.';
+                if (error.code === 'auth/wrong-password') msg = 'Palavra-passe incorreta.';
+                if (error.code === 'auth/invalid-email') msg = 'Email inválido.';
+                alert(msg);
+            }
+        }
+
+        async function registerUser() {
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const phone = document.getElementById('regPhone').value.trim();
+            if (!name || !email || !password || !phone) { alert('Preencha todos os campos.'); return; }
+            if (password.length < 6) { alert('Palavra-passe mínima: 6 caracteres.'); return; }
+            if (phone.length < 9) { alert('Telefone inválido.'); return; }
+            showLoading(true);
+            try {
+                const cred = await auth.createUserWithEmailAndPassword(email, password);
+                await cred.user.updateProfile({ displayName: name });
+                await db.ref('users/' + cred.user.uid).set({ name, email, phone, createdAt: Date.now() });
+                localStorage.setItem('userName', name);
+                localStorage.setItem('userPhone', phone);
+            } catch (error) {
+                showLoading(false);
+                let msg = 'Erro ao criar conta.';
+                if (error.code === 'auth/email-already-in-use') msg = 'Email já registado. Use Entrar.';
+                alert(msg);
+            }
+        }
+
+        async function resetPassword() {
+            const email = document.getElementById('forgotEmail').value.trim();
+            if (!email) { alert('Insira o email.'); return; }
+            showLoading(true);
+            try {
+                await auth.sendPasswordResetEmail(email);
+                showLoading(false);
+                alert('Link enviado! Verifique o email.');
+                showAuthScreen();
+            } catch (error) {
+                showLoading(false);
+                alert('Erro ao enviar email.');
+            }
+        }
+
+        async function logoutUser() {
+            showLoading(true);
+            try {
+                await auth.signOut();
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userPhone');
+                localStorage.removeItem('lastPaymentRef');
+            } catch (e) { showLoading(false); alert('Erro ao sair.'); }
+        }
+
+        function selectType(el, type, amount) {
+            document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedType = type;
+            selectedAmount = amount;
+            const customBox = document.getElementById('customAmountBox');
+            if (type === 'apoio') { customBox.classList.add('active'); selectedAmount = 0; }
+            else customBox.classList.remove('active');
+        }
+
+        function selectMethod(el, method) {
+            document.querySelectorAll('.method-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedMethod = method;
+        }
+
+        function showLoading(show) { document.getElementById('loadingOverlay').classList.toggle('active', show); }
+
+        function showScreen(id) {
+            hideAllScreens();
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (id === 'paymentForm') {
+                el.style.display = 'block';
+                el.classList.add('active');
+            } else {
+                el.style.display = 'block';
+                // Força reflow para garantir que a transição funcione
+                void el.offsetWidth;
+                el.classList.add('active');
+            }
+            lastShownScreen = id;
+        }
+
+        function resetForm() {
+            detachAllListeners();
+            document.getElementById('customValue').value = '';
+            selectType(document.querySelector('.type-card'), 'inscricao', 150);
+            selectMethod(document.querySelector('.method-card'), 'mpesa');
+            if (currentUser) showPaymentScreen(currentUser); else showAuthScreen();
+        }
+
+        function detachAllListeners() {
+            if (activeListener && activePaymentRef) {
+                try { db.ref('payments/' + activePaymentRef).off('value', activeListener); } catch(e){}
+            }
+            activeListener = null;
+            activePaymentRef = null;
+            stopProcessingTimer();
+        }
+
+        function stopProcessingTimer() {
+            if (processingTimer) {
+                clearTimeout(processingTimer);
+                processingTimer = null;
+            }
+        }
+
+        function startProcessingTimer(ref) {
+            stopProcessingTimer();
+            processingTimer = setTimeout(() => {
+                if (lastShownScreen === 'processingScreen') {
+                    detachAllListeners();
+                    document.getElementById('errorMessage').textContent = 'O tempo de espera foi excedido. Se já confirmou no telemóvel, o pagamento será registado em breve.';
+                    showScreen('errorScreen');
+                }
+            }, 300000); // 5 minutos
+        }
+
+        function validate() {
+            const name = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            if (!name) { alert('Insira o nome completo.'); return false; }
+            if (!phone || phone.length < 9) { alert('Telefone inválido.'); return false; }
+            if (selectedType === 'apoio') { const c = parseInt(document.getElementById('customValue').value); if (!c || c < 10) { alert('Doação mínima: 10 MTN.'); return false; } selectedAmount = c; }
+            return true;
+        }
+
+        async function processPayment() {
+            if (!validate()) return;
+            if (!currentUser) { alert('Sessão expirada.'); showAuthScreen(); return; }
+            showLoading(true);
+
+            const name = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phone').value.trim().replace(/\s/g,'');
+            const email = document.getElementById('email').value.trim();
+            const reference = 'ISLAM-' + Date.now() + '-' + Math.random().toString(36).substr(2,6).toUpperCase();
+
+            const paymentData = { name, msisdn: phone, email: email || null, type: selectedType, amount: selectedAmount, method: selectedMethod, currency: 'MZN', reference, userId: currentUser.uid, userEmail: currentUser.email };
+
+            try {
+                await db.ref('payments/' + reference).set({ ...paymentData, status: 'processing', timestamp: Date.now(), netshopId: null });
+                await db.ref('users/' + currentUser.uid + '/payments/' + reference).set({ type: selectedType, amount: selectedAmount, method: selectedMethod, status: 'processing', timestamp: Date.now(), reference });
+            } catch (dbErr) { showLoading(false); alert('Erro ao guardar dados.'); return; }
+
+            localStorage.setItem('lastPaymentRef', reference);
+
+            let result = null, fetchFailed = false;
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 25000);
+                const response = await fetch(APPS_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(paymentData), signal: controller.signal });
+                clearTimeout(timeoutId);
+                result = await response.json();
+            } catch (err) { fetchFailed = true; console.warn('Fetch falhou:', err); }
+
+            showLoading(false);
+
+            if (!fetchFailed && result && result.success) {
+                await db.ref('payments/' + reference).update({ status: 'pending', netshopId: result.netshopId || null });
+                await db.ref('users/' + currentUser.uid + '/payments/' + reference).update({ status: 'pending' });
+                if (selectedMethod === 'card' && result.checkoutUrl) {
+                    document.getElementById('cardDetails').innerHTML = `<div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div><div class="row"><span class="label">Valor</span><span class="value">${selectedAmount} MTN</span></div><div class="row"><span class="label">Método</span><span class="value">Visa/Mastercard</span></div>`;
+                    document.getElementById('cardLink').href = result.checkoutUrl;
+                    showScreen('cardScreen');
+                } else {
+                    document.getElementById('successDetails').innerHTML = `<div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div><div class="row"><span class="label">Valor</span><span class="value">${selectedAmount} MTN</span></div><div class="row"><span class="label">Método</span><span class="value">${selectedMethod.toUpperCase()}</span></div><div class="row"><span class="label">Telefone</span><span class="value">${phone}</span></div>`;
+                    showScreen('successScreen');
+                    listenPayment(reference);
+                }
+            } else if (!fetchFailed && result && !result.success) {
+                document.getElementById('errorMessage').textContent = result.error || 'Erro no servidor.';
+                showScreen('errorScreen');
+            } else {
+                document.getElementById('processingDetails').innerHTML = `<div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div><div class="row"><span class="label">Valor</span><span class="value">${selectedAmount} MTN</span></div><div class="row"><span class="label">Método</span><span class="value">${selectedMethod.toUpperCase()}</span></div><div class="row"><span class="label">Telefone</span><span class="value">${phone}</span></div>`;
+                showScreen('processingScreen');
+                listenPayment(reference);
+                startProcessingTimer(reference);
+            }
+        }
+
+        function listenPayment(ref) {
+            // Sempre limpa listener anterior antes de criar novo
+            detachAllListeners();
+            activePaymentRef = ref;
+            const paymentRef = db.ref('payments/' + ref);
+            activeListener = paymentRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (!data) return;
+
+                if (data.status === 'paid') {
+                    detachAllListeners();
+                    document.getElementById('successDetails').innerHTML = `<div class="row"><span class="label">Referência</span><span class="value">${ref}</span></div><div class="row"><span class="label">Valor</span><span class="value">${data.amount} MTN</span></div><div class="row"><span class="label">Método</span><span class="value">${(data.method || '').toUpperCase()}</span></div><div class="row"><span class="label">Estado</span><span class="value" style="color:var(--green-primary)">Confirmado ✓</span></div>`;
+                    document.querySelector('#successScreen .status-title').textContent = 'Pagamento Confirmado!';
+                    document.querySelector('#successScreen .status-desc').textContent = 'O seu pagamento foi recebido com sucesso. JazakAllahu Khairan!';
+                    showScreen('successScreen');
+                }
+                else if (data.status === 'failed' || data.status === 'error') {
+                    detachAllListeners();
+                    document.getElementById('errorMessage').textContent = data.errorMessage || 'Pagamento recusado.';
+                    showScreen('errorScreen');
+                }
+                else if (data.status === 'pending' || data.status === 'processing') {
+                    // Se estivermos numa tela diferente do processing, volta para lá
+                    if (lastShownScreen !== 'processingScreen' && lastShownScreen !== 'successScreen') {
+                        showScreen('processingScreen');
+                        startProcessingTimer(ref);
+                    }
+                }
+            });
+        }
+
+        // Restaura listener de pagamento anterior se a página for recarregada
+        const lastRef = localStorage.getItem('lastPaymentRef');
+        if (lastRef) {
+            // Verifica o estado actual antes de mostrar qualquer coisa
+            db.ref('payments/' + lastRef).once('value').then((snap) => {
+                const data = snap.val();
+                if (data && (data.status === 'processing' || data.status === 'pending')) {
+                    listenPayment(lastRef);
+                }
+                // Se já estiver pago/falhado, não faz nada — deixa o user continuar normalmente
+            });
+        }
+    </script>
+
+</body>
+</html>
