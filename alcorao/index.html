@@ -319,7 +319,6 @@
             box-shadow: 0 4px 12px rgba(30, 58, 95, 0.3);
         }
 
-        /* ===== SURAH DETAIL ===== */
         .surah-detail {
             display: none;
             background: var(--card-bg);
@@ -378,7 +377,6 @@
 
         .surah-detail-header p { opacity: 0.9; }
 
-        /* Audio Player */
         .audio-player-container {
             background: #f1f5f9;
             padding: 1.5rem 2rem;
@@ -460,7 +458,6 @@
             accent-color: var(--primary-color);
         }
 
-        /* Verses */
         .verses-container {
             padding: 2rem;
             max-height: 60vh;
@@ -808,10 +805,11 @@
         async function openSurah(number) {
             currentSurah = surahs.find(s => s.number === number);
             try {
+                // CORREÇÃO: identificador português correto é pt.elhayek
                 const arabicRes = await fetch(`${API_BASE}/surah/${number}/quran-uthmani`);
                 const arabicData = await arabicRes.json();
                 
-                const transRes = await fetch(`${API_BASE}/surah/${number}/pt.portuguese`);
+                const transRes = await fetch(`${API_BASE}/surah/${number}/pt.elhayek`);
                 const transData = await transRes.json();
                 
                 const audioRes = await fetch(`${API_BASE}/surah/${number}/ar.alafasy`);
@@ -827,27 +825,27 @@
 
                     renderSurahDetail();
                     setupSurahAudio(audioData.data?.ayahs?.map(a => a.audio) || []);
+                } else {
+                    throw new Error('Falha ao carregar dados da sura');
                 }
             } catch (error) {
-                showToast('Erro ao carregar a sura');
+                showToast('Erro ao carregar a sura. Verifique a ligação.');
                 console.error('Error:', error);
+                backToList();
             }
         }
 
-        /* ===== NOVO: SISTEMA DE MODO DE LEITURA ===== */
+        /* ===== SISTEMA DE MODO DE LEITURA ===== */
         function setModo(modo) {
             modoAtual = modo;
             
-            // Atualiza botões
             document.querySelectorAll('.btn-modo').forEach(btn => btn.classList.remove('ativo'));
             document.getElementById(`btn-modo-${modo}`).classList.add('ativo');
             
-            // Atualiza container de versículos
             const container = document.getElementById('versesContainer');
             container.classList.remove('modo-ambos', 'modo-arabe', 'modo-portugues');
             container.classList.add(`modo-${modo}`);
             
-            // Guarda preferência
             localStorage.setItem('modoLeituraAlcorao', modo);
         }
 
@@ -862,7 +860,6 @@
 
             const container = document.getElementById('versesContainer');
             
-            // Aplica o modo guardado ou padrão
             const modoGuardado = localStorage.getItem('modoLeituraAlcorao') || 'ambos';
             setModo(modoGuardado);
 
