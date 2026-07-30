@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUIZ ISLAM MOÇAMBIQUE — Alcorão: Ayat e Suratas</title>
+<style>
+  :root {
+    --bg: #0c1220; --surface: #151e32; --surface-light: #1e2a45; --surface-hover: #2a3a5c;
+    --text: #e8ecf4; --text-muted: #8b9bb4; --text-dim: #5a6a85;
+    --accent: #e8b923; --accent-light: #f5d76e; --accent-glow: rgba(232,185,35,0.12);
+    --danger: #e85d5d; --danger-light: #f08080; --danger-glow: rgba(232,93,93,0.12);
+    --success: #4ecdc4; --success-glow: rgba(78,205,196,0.12);
+    --border: rgba(255,255,255,0.06); --border-hover: rgba(255,255,255,0.12);
+    --shadow: 0 24px 80px rgba(0,0,0,0.55); --shadow-sm: 0 8px 24px rgba(0,0,0,0.35);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { min-height: 100vh; background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px 14px; }
+  .container { width: 100%; max-width: 720px; }
+
+  .top-bar { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; }
+  .top-bar svg { color: var(--accent); }
+  .top-bar span { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); }
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 { font-size: 1.9rem; font-weight: 700; color: var(--text); margin: 0 0 6px 0; letter-spacing: -0.5px; }
+  .header p { font-size: 0.95rem; color: var(--text-muted); margin: 0; }
+
+  .progress-wrap { margin-bottom: 20px; }
+  .progress-track { width: 100%; height: 5px; background: var(--surface-light); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
+  .progress-meta { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: var(--text-dim); }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 28px; box-shadow: var(--shadow); animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes shake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-7px); } 40%,80% { transform: translateX(7px); } }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+  @keyframes pulse-soft { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+  .q-badge { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .q-num-pill { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; background: var(--accent); color: #0c1220; font-weight: 700; font-size: 15px; border-radius: 10px; }
+  .q-tag { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); font-weight: 600; }
+  .q-question { font-size: 1.12rem; line-height: 1.7; color: var(--text); font-weight: 500; margin-bottom: 22px; }
+
+  .option { display: flex; align-items: center; gap: 14px; width: 100%; padding: 16px 18px; margin-bottom: 10px; background: transparent; border: 1.5px solid var(--border); border-radius: 14px; color: var(--text); font-size: 1rem; line-height: 1.5; text-align: left; cursor: pointer; transition: all 0.18s ease; }
+  .option:hover:not(.disabled) { border-color: var(--border-hover); background: var(--surface-light); transform: translateX(3px); }
+  .option-letter { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; min-width: 34px; background: var(--surface-light); color: var(--text-dim); font-size: 14px; font-weight: 600; border-radius: 10px; transition: all 0.18s ease; }
+  .option:hover:not(.disabled) .option-letter { background: var(--surface-hover); color: var(--text-muted); }
+
+  .option.correct { border-color: var(--success); background: var(--success-glow); }
+  .option.correct .option-letter { background: var(--success); color: #0c1220; }
+  .option.wrong { border-color: var(--danger); background: var(--danger-glow); animation: shake 0.45s ease; }
+  .option.wrong .option-letter { background: var(--danger); color: #0c1220; }
+  .option.disabled { pointer-events: none; opacity: 0.65; }
+
+  .explanation { margin-top: 18px; padding: 16px 18px; border-radius: 14px; background: rgba(78,205,196,0.05); border-left: 3px solid var(--success); font-size: 0.93rem; line-height: 1.7; color: var(--text-muted); animation: popIn 0.35s ease; }
+  .explanation.wrong-ex { background: var(--danger-glow); border-left-color: var(--danger); }
+  .ex-title { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
+  .ex-title.correct { color: var(--success); }
+  .ex-title.wrong { color: var(--danger); }
+
+  .controls { display: flex; gap: 12px; margin-top: 24px; }
+  .btn { flex: 1; padding: 14px 20px; border: none; border-radius: 14px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.18s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn-gold { background: var(--accent); color: #0c1220; }
+  .btn-gold:hover:not(:disabled) { background: var(--accent-light); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+  .btn-ghost { background: var(--surface-light); color: var(--text-muted); border: 1px solid var(--border); }
+  .btn-ghost:hover:not(:disabled) { background: var(--surface-hover); color: var(--text); }
+  .btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none !important; }
+
+  .start-screen { text-align: center; padding: 48px 20px; }
+  .start-ornament { width: 80px; height: 80px; margin: 0 auto 28px; position: relative; }
+  .start-ornament::before { content: ""; position: absolute; inset: 0; border: 2px solid var(--accent); border-radius: 50%; opacity: 0.3; animation: pulse-soft 2.5s infinite; }
+  .start-ornament svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 40px; height: 40px; color: var(--accent); }
+  .start-screen h2 { font-size: 1.8rem; font-weight: 700; margin: 0 0 10px 0; }
+  .start-screen p { font-size: 1rem; color: var(--text-muted); line-height: 1.7; margin: 0 0 32px 0; }
+  .start-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 32px; }
+  .start-cell { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 8px; }
+  .start-cell-val { font-size: 1.7rem; font-weight: 700; color: var(--accent); }
+  .start-cell-lbl { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1.2px; margin-top: 6px; }
+
+  .results-screen { text-align: center; padding: 32px 16px; }
+  .score-ring { width: 170px; height: 170px; margin: 0 auto 28px; position: relative; }
+  .score-ring svg { transform: rotate(-90deg); }
+  .ring-bg { fill: none; stroke: var(--surface-light); stroke-width: 10; }
+  .ring-fill { fill: none; stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset 1.3s cubic-bezier(0.4,0,0.2,1); }
+  .ring-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  .ring-pct { font-size: 2.4rem; font-weight: 700; line-height: 1; }
+  .ring-sub { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+  .results-msg { font-size: 1.15rem; font-weight: 600; margin-bottom: 24px; }
+  .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .res-cell { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 8px; }
+  .res-val { font-size: 1.8rem; font-weight: 700; }
+  .res-val.good { color: var(--success); }
+  .res-val.bad { color: var(--danger); }
+  .res-val.neut { color: var(--text); }
+  .res-lbl { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+
+  .review-section { text-align: left; margin-bottom: 24px; }
+  .review-title { font-size: 13px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-dim); margin: 0 0 14px 0; }
+  .review-row { padding: 16px; margin-bottom: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; border-left: 3px solid var(--danger); }
+  .review-row.ok { border-left-color: var(--success); }
+  .review-q { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+  .review-a { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 10px; }
+  .review-a strong { color: var(--text); }
+  .review-a .ok-ans { color: var(--success); }
+  .review-ex { font-size: 13px; color: var(--text-dim); line-height: 1.7; padding-top: 10px; border-top: 1px solid var(--border); }
+  .review-ex-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 4px; }
+
+  .perfect-banner { display: inline-flex; align-items: center; gap: 10px; background: var(--accent-glow); border: 1px solid var(--accent); color: var(--accent); padding: 12px 24px; border-radius: 12px; font-size: 15px; font-weight: 600; margin-bottom: 20px; }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 520px) {
+    .header h1 { font-size: 1.35rem; }
+    .card { padding: 20px; border-radius: 14px; }
+    .q-question { font-size: 1rem; }
+    .option { padding: 14px; font-size: 0.92rem; }
+    .start-grid { gap: 8px; }
+    .start-cell { padding: 14px 4px; }
+    .start-cell-val { font-size: 1.4rem; }
+    .results-grid { gap: 8px; }
+    .res-cell { padding: 14px 4px; }
+    .res-val { font-size: 1.5rem; }
+    .score-ring { width: 140px; height: 140px; }
+    .ring-pct { font-size: 2rem; }
+  }
+</style>
+<base target="_blank">
+</head>
+<body>
+<div class="container">
+
+<div id="startScreen" class="start-screen">
+  <div class="top-bar">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+    <span>Projeto de Estudos — Islam Moçambique</span>
+  </div>
+  <div class="start-ornament">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path><path d="M8 14l4-2" opacity="0.4"></path></svg>
+  </div>
+  <h2>QUIZ ALCORÃO</h2>
+  <p>Ayat, Suratas e Conhecimentos Fundamentais<br>Teste sua compreensão do Livro Sagrado do Islam</p>
+  <div class="start-grid">
+    <div class="start-cell"><div class="start-cell-val">50</div><div class="start-cell-lbl">perguntas</div></div>
+    <div class="start-cell"><div class="start-cell-val">4</div><div class="start-cell-lbl">opções</div></div>
+    <div class="start-cell"><div class="start-cell-val">100%</div><div class="start-cell-lbl">máximo</div></div>
+  </div>
+  <button class="btn btn-gold" onclick="startQuiz()" style="width:100%;max-width:300px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    Iniciar Quiz
+  </button>
+</div>
+
+<div id="quizScreen" class="hidden">
+  <div class="top-bar">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+    <span>Alcorão — Ayat e Suratas</span>
+  </div>
+  <div class="header">
+    <h1>Quiz Islam Moçambique</h1>
+    <p>Conhecimentos sobre o Livro Sagrado</p>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <div class="progress-meta">
+      <span id="progressLabel">Pergunta 1 de 50</span>
+      <span id="scoreLabel">Pontos: 0</span>
+    </div>
+  </div>
+  <div class="card" id="questionCard">
+    <div class="q-badge">
+      <div class="q-num-pill" id="qNum">1</div>
+      <div>
+        <div class="q-tag">Alcorão</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:2px;">Escolha a resposta correta</div>
+      </div>
+    </div>
+    <div class="q-question" id="qText"></div>
+    <div id="optionsContainer"></div>
+    <div id="explanationBox" class="hidden"></div>
+  </div>
+  <div class="controls">
+    <button class="btn btn-ghost" id="prevBtn" onclick="prevQuestion()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      Anterior
+    </button>
+    <button class="btn btn-gold" id="nextBtn" onclick="nextQuestion()">
+      <span id="nextBtnText">Próximo</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+  </div>
+</div>
+
+<div id="resultsScreen" class="hidden">
+  <div class="results-screen">
+    <div class="top-bar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+      <span>Quiz Concluído</span>
+    </div>
+    <div class="score-ring">
+      <svg width="170" height="170" viewBox="0 0 170 170">
+        <circle class="ring-bg" cx="85" cy="85" r="75"></circle>
+        <circle class="ring-fill" id="ringFill" cx="85" cy="85" r="75"
+          stroke-dasharray="471" stroke-dashoffset="471" stroke="var(--accent)"></circle>
+      </svg>
+      <div class="ring-label">
+        <div class="ring-pct" id="ringText" style="color:var(--accent);">0%</div>
+        <div class="ring-sub">acertos</div>
+      </div>
+    </div>
+    <div class="results-msg" id="resultsMessage"></div>
+    <div class="results-grid">
+      <div class="res-cell"><div class="res-val good" id="statCorrect">0</div><div class="res-lbl">corretas</div></div>
+      <div class="res-cell"><div class="res-val bad" id="statWrong">0</div><div class="res-lbl">erradas</div></div>
+      <div class="res-cell"><div class="res-val neut" id="statTotal">50</div><div class="res-lbl">total</div></div>
+    </div>
+    <div id="reviewContainer" class="review-section"></div>
+    <button class="btn btn-gold" onclick="restartQuiz()" style="max-width:300px;margin:0 auto;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+      Tentar Novamente
+    </button>
+    <p style="margin-top:24px;font-size:12px;color:var(--text-dim);">Islam Moçambique — Projeto de Estudos do Alcorão</p>
+  </div>
+</div>
+
+</div>
+
+<script>
+const quizData = [{"question": "Qual é a primeira surata do Alcorão?", "options": ["Al-Ikhlas (A Sinceridade)", "Al-Fatiha (A Abertura)", "An-Nas (Os Homens)", "Al-Baqarah (A Vaca)"], "correct": 1, "explanation": "Al-Fatiha (A Abertura) é a primeira surata do Alcorão, composta por 7 ayat. É considerada a surata mais importante e é recitada em todas as unidades de oração (rak'ahs)."}, {"question": "Quantos ayat (versículos) possui a Surata Al-Ikhlas?", "options": ["3 ayat", "6 ayat", "5 ayat", "4 ayat"], "correct": 3, "explanation": "A Surata Al-Ikhlas (A Sinceridade) possui 4 ayat. Apesar de ser curta, equivale a um terço do Alcorão em recompensa devido à sua declaração da unicidade de Allah (Tawhid)."}, {"question": "Qual surata é conhecida como 'O Coração do Alcorão'?", "options": ["Al-Fatiha", "Ar-Rahman", "Al-Mulk", "Ya-Sin"], "correct": 3, "explanation": "Ya-Sin (Surata 36) é conhecida como 'O Coração do Alcorão' devido à sua importância espiritual. O Profeta Muhammad (S.A.W.) recomendava sua leitura para os enfermos e falecidos."}, {"question": "Quantas suratas (capítulos) possui o Alcorão completo?", "options": ["114 suratas", "110 suratas", "100 suratas", "120 suratas"], "correct": 0, "explanation": "O Alcorão possui 114 suratas (capítulos). A maior é Al-Baqarah com 286 ayat, e a menor é Al-Kawthar com apenas 3 ayat."}, {"question": "Qual é a surata mais longa do Alcorão?", "options": ["Al-An'am", "Al-Baqarah", "An-Nisa", "Aal-E-Imran"], "correct": 1, "explanation": "Al-Baqarah (A Vaca) é a surata mais longa do Alcorão, com 286 ayat. Ocupa cerca de 2.5 juz (partes) do Alcorão e contém o Ayat al-Kursi, o versículo mais elevado."}, {"question": "Qual ayat é conhecido como 'Ayat al-Kursi' (O Versículo do Trono)?", "options": ["O versículo 1 da Surata Al-Fatiha", "O versículo 100 da Surata Aal-E-Imran", "O versículo 255 da Surata Al-Baqarah", "O versículo 50 da Surata An-Nisa"], "correct": 2, "explanation": "O Ayat al-Kursi é o versículo 255 da Surata Al-Baqarah. É considerado o versículo mais elevado do Alcorão. Quem o recita antes de dormir, Allah envia um anjo para protegê-lo durante a noite."}, {"question": "Qual surata é inteiramente dedicada à descrição do Paraíso (Jannah)?", "options": ["Ar-Rahman", "At-Takathur", "Al-Jumu'ah", "Al-Waqi'ah"], "correct": 0, "explanation": "Ar-Rahman (O Misericordioso) é conhecida como 'A Noiva do Alcorão' e descreve extensivamente as bênçãos do Paraíso. Sua frase refrão 'Então, qual das bênçãos do vosso Senhor negareis?' é repetida 31 vezes."}, {"question": "Quantos juz (partes) o Alcorão é dividido para facilitar a leitura no Ramadã?", "options": ["30 juz", "20 juz", "35 juz", "25 juz"], "correct": 0, "explanation": "O Alcorão é dividido em 30 juz (partes) para facilitar a leitura completa durante o mês de Ramadã, sendo um juz por dia. Cada juz contém aproximadamente 20 páginas."}, {"question": "Qual surata foi revelada inteiramente em Makkah (Meca)?", "options": ["Al-Ikhlas", "Al-Ma'idah", "An-Nisa", "Al-Baqarah"], "correct": 0, "explanation": "Al-Ikhlas é uma surata makkiyah (revelada em Meca). As suratas makkiyahs geralmente tratam de temas de fé, Tawhid e vida após a morte. As suratas medianas e longas como Al-Baqarah são majoritariamente madaniyyah (reveladas em Madinah)."}, {"question": "Qual é o significado da palavra 'Alcorão' (Qur'an)?", "options": ["Guia", "Livro Sagrado", "Luz", "Recitação"], "correct": 3, "explanation": "'Alcorão' vem da raiz árabe 'qara'a' que significa 'ler' ou 'recitar'. Portanto, Alcorão significa 'A Recitação'. Foi revelado ao Profeta Muhammad (S.A.W.) através da recitação do Anjo Gabriel."}, {"question": "Qual surata termina pedindo proteção contra o mal do invejoso?", "options": ["Al-Fil", "An-Nas", "Al-Falaq", "Al-Ikhlas"], "correct": 2, "explanation": "Al-Falaq (A Alvorada) termina pedindo proteção contra o mal do invejoso quando ele inveja (113:5). Junto com An-Nas, forma as 'Mu'awwidhatan' (as duas suratas de refúgio). An-Nas, por sua vez, pede proteção contra o sussurrador (al-waswās al-khannās) que insufla o mal nos corações."}, {"question": "Qual surata narra a história do povo de 'Ad e seu profeta Hud?", "options": ["Surata Nuh", "Surata Ibrahim", "Surata Yusuf", "Surata Hud"], "correct": 3, "explanation": "Surata Hud (Surata 11) narra a história do povo de 'Ad e seu profeta Hud. O povo de 'Ad foi destruído por um vento furioso devido à sua desobediência a Allah."}, {"question": "Quantos ayat possui a Surata Al-Kawthar, a menor surata do Alcorão?", "options": ["1 ayah", "3 ayat", "4 ayat", "2 ayat"], "correct": 1, "explanation": "Al-Kawthar (A Abundância) é a surata mais curta do Alcorão, com apenas 3 ayat. Foi revelada para consolar o Profeta (S.A.W.) após a morte de seu filho Ibrahim, quando seus inimigos o chamavam de 'abtar' (sem descendência)."}, {"question": "Qual surata é conhecida como 'A Mãe do Livro' (Umm al-Kitab)?", "options": ["Ya-Sin", "Al-Fatiha", "Al-Baqarah", "Al-Ikhlas"], "correct": 1, "explanation": "Al-Fatiha é chamada de 'Umm al-Kitab' (A Mãe do Livro) porque resume todos os temas do Alcorão: adoração, orientação, graças e súplica. Também é conhecida como 'As-Sab' al-Mathani' (Os Sete Versículos Repetidos)."}, {"question": "Qual é o último ayah revelado do Alcorão?", "options": ["O último ayah da Surata Al-Baqarah", "O Ayat al-Kursi", "O último ayah da Surata Al-Ma'idah", "O último ayah da Surata An-Nisa"], "correct": 0, "explanation": "O último ayah revelado completo foi o 281 da Surata Al-Baqarah: 'E temei um Dia em que sereis levados a Allah...' Alguns estudiosos consideram o ayah 3:195 ou 5:3, mas a opinião majoritária aponta para Al-Baqarah 281."}, {"question": "Qual surata menciona o milagre da divisão da lua?", "options": ["Surata An-Nisa", "Surata Al-Qamar", "Aal-E-Imran", "Surata Al-Baqarah"], "correct": 1, "explanation": "Surata Al-Qamar (A Lua) começa com a menção ao milagre da divisão da lua: 'Aproximou-se a Hora e a lua se fendeu.' Este foi um dos grandes milagres concedidos ao Profeta Muhammad (S.A.W.) em Meca."}, {"question": "Qual é o nome da surata que descreve a Batalha de Badr?", "options": ["Surata Al-Ahzab", "Surata Al-Fath", "Surata At-Tawbah", "Surata Al-Anfal"], "correct": 3, "explanation": "Surata Al-Anfal (Os Espólios de Guerra) descreve a Batalha de Badr, a primeira grande batalha do Islam em 624 d.C. Allah prometeu aos muçulmanos vitória mesmo sendo numericamente inferiores."}, {"question": "Quantos ayat possui a Surata Al-Fatiha?", "options": ["8 ayat", "5 ayat", "7 ayat", "6 ayat"], "correct": 2, "explanation": "Al-Fatiha possui 7 ayat. É a única surata que deve ser recitada integralmente em cada unidade de oração (rak'ah). Sem ela, a oração é considerada inválida segundo a maioria dos estudiosos."}, {"question": "Qual surata proíbe o consumo de carne de porco e sangue?", "options": ["Surata Al-An'am", "Surata An-Nahl", "Surata Al-Baqarah", "Surata Al-Ma'idah"], "correct": 3, "explanation": "Surata Al-Ma'idah (A Mesa Servida) proíbe explicitamente o consumo de carne de porco, sangue, carne de animal morto (não abatido ritualmente) e o que foi sacrificado para outros além de Allah."}, {"question": "Qual é o tema central da Surata Ar-Rahman?", "options": ["As bênçãos de Allah e a gratidão", "A história dos antigos povos", "A vida do Profeta Musa", "As regras do comércio"], "correct": 0, "explanation": "Ar-Rahman (O Misericordioso) tem como tema central as incontáveis bênçãos de Allah sobre a humanidade e a criação. Sua frase refrão 'Então, qual das bênçãos do vosso Senhor negareis?' enfatiza a gratidão."}, {"question": "Qual surata começa com as letras árabes 'Alif-Lam-Mim'?", "options": ["Nenhuma surata", "Apenas Aal-E-Imran", "Várias suratas, incluindo Al-Baqarah e Aal-E-Imran", "Apenas Al-Baqarah"], "correct": 2, "explanation": "As letras 'Alif-Lam-Mim' aparecem no início de várias suratas (Al-Baqarah, Aal-E-Imran, Al-Ankabut, Ar-Rum, Luqman, As-Sajdah). São chamadas de 'Al-Huruf al-Muqatta'at' (Letras Cortadas) e seu significado exato é conhecido apenas por Allah."}, {"question": "Qual surata descreve a noite de Al-Isra wal-Mi'raj (Viagem Noturna e Ascensão)?", "options": ["Surata An-Najm", "Surata Al-Isra", "Surata At-Takwir", "Surata Al-Baqarah"], "correct": 1, "explanation": "Surata Al-Isra (A Viagem Noturna) descreve a jornada do Profeta (S.A.W.) de Meca a Jerusalém (Isra) e sua ascensão aos céus (Mi'raj). Foi nesta jornada que as 5 orações diárias foram prescritas."}, {"question": "Qual é o nome do capítulo que fala sobre a criação do ser humano a partir de 'alaq' (coágulo de sangue)?", "options": ["Surata Al-Mu'minun", "Surata Al-Insan", "Surata Al-Alaq", "Surata At-Tin"], "correct": 2, "explanation": "Surata Al-Alaq (O Coágulo) é a primeira surata revelada ao Profeta (S.A.W.) na Caverna Hira. Começa com 'Lê! Em nome do teu Senhor Que criou, criou o homem de um coágulo de sangue.'"}, {"question": "Qual surata é conhecida como 'A Surata da Luz' devido ao seu ayat sobre a luz de Allah?", "options": ["Surata Ya-Sin", "Surata An-Nur", "Surata Al-Fatiha", "Surata Al-Ikhlas"], "correct": 1, "explanation": "Surata An-Nur (A Luz) contém o famoso 'Ayat an-Nur' (Versículo da Luz) que descreve a luz de Allah como uma lâmpada dentro de um nicho de cristal. Também estabelece regras de modestia e conduta social."}, {"question": "Quantos profetas são mencionados pelo nome no Alcorão?", "options": ["30 profetas", "15 profetas", "20 profetas", "25 profetas"], "correct": 3, "explanation": "25 profetas são mencionados pelo nome no Alcorão, incluindo Adão, Nuh, Ibrahim, Musa, Isa e Muhammad (S.A.W.). O Profeta Muhammad é o último e selo dos profetas (Khatam an-Nabiyyin)."}, {"question": "Qual surata proíbe a usura (riba) de forma explícita?", "options": ["Todas as anteriores", "Surata An-Nisa", "Surata Aal-E-Imran", "Surata Al-Baqarah"], "correct": 0, "explanation": "A proibição da usura (riba) aparece em várias suratas. Al-Baqarah 275-279 é a passagem mais detalhada, declarando que 'Allah permitiu o comércio e proibiu a usura'. Também é mencionada em Aal-E-Imran 130 e An-Nisa 161."}, {"question": "Qual é a surata que fala sobre a história do Profeta Yusuf (José) completa?", "options": ["Surata Al-An'am", "Surata Yusuf", "Surata Hud", "Surata Ibrahim"], "correct": 1, "explanation": "Surata Yusuf (Surata 12) narra a história completa do Profeta José, desde seus sonhos na infância até sua ascensão como governador do Egito. É a única surata que conta uma história profética do início ao fim."}, {"question": "Qual surata é recomendada para recitar na sexta-feira (Jumu'ah)?", "options": ["Surata Ar-Rahman", "Surata Ya-Sin", "Surata Al-Kahf", "Surata Al-Jumu'ah"], "correct": 2, "explanation": "Surata Al-Kahf (A Caverna) é fortemente recomendada para recitar toda sexta-feira. O Profeta (S.A.W.) disse: 'Quem lê Surata Al-Kahf na sexta-feira, terá uma luz entre esta sexta e a próxima.'"}, {"question": "Qual é o nome da surata que descreve o Dia do Juízo Final com grande detalhe?", "options": ["Surata At-Takwir", "Surata Al-Waqi'ah", "Todas as anteriores", "Surata Al-Qari'ah"], "correct": 2, "explanation": "Várias suratas descrevem o Dia do Juízo: Al-Waqi'ah (O Evento Inevitável), Al-Qari'ah (O Grande Estouro), At-Takwir (O Enrolamento). Cada uma apresenta diferentes aspectos da ressurreição e recompensa."}, {"question": "Qual surata estabelece as regras do jejum (Sawm) no Ramadã?", "options": ["Surata An-Nisa", "Surata At-Tawbah", "Surata Al-Baqarah", "Surata Al-Ma'idah"], "correct": 2, "explanation": "Surata Al-Baqarah (versículos 183-185) estabelece as regras do jejum obrigatório no mês de Ramadã. Também menciona as exceções para viajantes, enfermos, grávidas e amamentantes."}, {"question": "Qual é o significado de 'Bismillahir-Rahmanir-Rahim'?", "options": ["Em nome de Allah, o Misericordioso, o Compassionado", "Não há divindade exceto Allah", "Louvado seja Allah", "Allah é o Maior"], "correct": 0, "explanation": "'Bismillahir-Rahmanir-Rahim' significa 'Em nome de Allah, o Misericordioso, o Compassionado'. É a frase de abertura de todas as suratas exceto At-Tawbah. Também é dita antes de qualquer ação importante."}, {"question": "Qual surata proíbe o álcool (khamr) de forma gradual?", "options": ["Surata An-Nahl", "Surata Al-Ma'idah", "Surata Al-Baqarah", "Surata An-Nisa"], "correct": 1, "explanation": "Surata Al-Ma'idah (versículo 90) proíbe definitivamente o álcool: 'Ó vós que credes! A bebida alcoólica, o jogo de azar, as pedras de ídolos e as setas de adivinhação são uma abominação da obra de Satanás.' A proibição foi revelada gradualmente em 3 etapas."}, {"question": "Qual surata é conhecida como 'A Surata do Tawhid' (Unicidade de Allah)?", "options": ["Surata Al-Ikhlas", "Surata Al-Kafirun", "Surata Al-Fatiha", "Surata An-Nas"], "correct": 0, "explanation": "Al-Ikhlas é chamada de 'Surata do Tawhid' porque declara a unicidade absoluta de Allah: 'Dize: Ele é Allah, Único. Allah, o Absoluto. Não gerou, nem foi gerado. E não há ninguém igual a Ele.'"}, {"question": "Qual é a ordem correta das suratas finais do Alcorão (112-114)?", "options": ["Al-Ikhlas, Al-Falaq, An-Nas", "Al-Falaq, Al-Ikhlas, An-Nas", "An-Nas, Al-Falaq, Al-Ikhlas", "Al-Ikhlas, An-Nas, Al-Falaq"], "correct": 0, "explanation": "As últimas três suratas são: 112-Al-Ikhlas (A Sinceridade), 113-Al-Falaq (A Alvorada) e 114-An-Nas (Os Homens). Al-Falaq e An-Nas formam as 'Mu'awwidhatan' (as duas suratas de refúgio) e são recitadas para proteção."}, {"question": "Qual surata menciona a história dos 'Companheiros da Caverna' (Ashab al-Kahf)?", "options": ["Surata Al-An'am", "Surata Al-Kahf", "Surata Al-A'raf", "Surata Yunus"], "correct": 1, "explanation": "Surata Al-Kahf (A Caverna) narra a história dos jovens cristãos que fugiram da perseguição religiosa e dormiram na caverna por 309 anos. Também contém a parábola dos dois homens com jardins e a história de Musa e Al-Khidr."}, {"question": "Qual é o nome do capítulo que fala sobre a 'Noite do Decreto' (Laylat al-Qadr)?", "options": ["Surata Al-Qadr", "Surata Ad-Dukhan", "Surata Al-Baqarah", "Surata Al-Alaq"], "correct": 0, "explanation": "Surata Al-Qadr (O Decreto) descreve a Laylat al-Qadr, uma noite no último terço do Ramadã que é 'melhor que mil meses'. É a noite em que o Alcorão foi revelado do Lauh al-Mahfuz (Tabuleta Preservada) para o céu mais baixo."}, {"question": "Qual surata proíbe a apropriação indébita dos bens dos órfãos?", "options": ["Surata Al-Baqarah", "Surata At-Tawbah", "Surata An-Nisa", "Surata Al-Ma'idah"], "correct": 2, "explanation": "Surata An-Nisa (As Mulheres) contém extensas regras sobre os direitos dos órfãos, proibindo a apropriação indevida de seus bens. Também estabelece regras de herança, casamento e tratamento justo das mulheres."}, {"question": "Qual é o nome da surata que inicia com o juramento pelas estrelas?", "options": ["Surata Adh-Dhariyat", "Surata Al-Buruj", "Surata At-Tariq", "Surata An-Najm"], "correct": 3, "explanation": "Surata An-Najm (A Estrela) começa com 'Pelo astro quando se oculta.' Nesta surata, o Profeta (S.A.W.) viu Gabriel em sua forma original com 600 asas. Também nega a acusação de que o Alcorão é poesia."}, {"question": "Qual surata fala sobre a importância da paciência (sabr) e a oração?", "options": ["Surata Al-Asr", "Surata Al-Baqarah 153", "Todas as anteriores", "Surata Al-Baqarah 45"], "correct": 2, "explanation": "A paciência e a oração são mencionadas juntas em várias passagens. Al-Baqarah 45: 'E buscai auxílio na paciência e na oração.' Al-Baqarah 153: 'Ó vós que credes! Buscai auxílio na paciência e na oração.' Al-Asr declara que a humanidade está em perda exceto aqueles que têm fé, praticam boas obras, recomendam a verdade e recomendam a paciência."}, {"question": "Qual surata descreve a batalha do fosso (Al-Khandaq) ou dos Confederados?", "options": ["Surata At-Tawbah", "Surata Al-Anfal", "Surata Al-Fath", "Surata Al-Ahzab"], "correct": 3, "explanation": "Surata Al-Ahzab (Os Confederados) descreve a Batalha do Fosso (627 d.C.), onde várias tribos uniram-se contra os muçulmanos em Madinah. Os muçulmanos cavaram um fosso defensivo e Allah enviou vento e pânico para derrotar os inimigos."}, {"question": "Qual é a surata que contém o 'Versículo da Purificação' (Ayat al-Tathir)?", "options": ["Surata An-Nisa 34", "Surata Al-Ahzab 33", "Surata Aal-E-Imran 61", "Surata Al-Baqarah 255"], "correct": 1, "explanation": "O Ayat al-Tathir está em Al-Ahzab 33: 'Allah apenas quer afastar de vós a impureza, ó povo da Casa (Ahl al-Bayt), e purificar-vos completamente.' Este versículo é amplamente citado pelos estudiosos em referência à pureza da família do Profeta (S.A.W.)."}, {"question": "Qual surata menciona o 'Dia em que a humanidade será como mariposas dispersas'?", "options": ["Surata Al-Waqi'ah", "Surata Al-Haqqah", "Surata At-Takwir", "Surata Al-Qari'ah"], "correct": 3, "explanation": "Surata Al-Qari'ah (O Grande Estouro) descreve o Dia da Ressurreição: 'E a humanidade será como mariposas dispersas, e as montanhas como lã cardada.' É uma das suratas mais curtas sobre o Juízo Final."}, {"question": "Qual surata começa com o juramento pelo tempo (Al-Asr)?", "options": ["Surata Al-Adiyat", "Surata Al-Qari'ah", "Surata Al-Asr", "Surata At-Takathur"], "correct": 2, "explanation": "Surata Al-Asr (O Tempo) é uma das suratas mais concisas e profundas do Alcorão. Em apenas 3 ayat, resume a condição da humanidade e os critérios de salvação: fé, boas obras, recomendar a verdade e a paciência."}, {"question": "Qual surata proíbe o adultério (zina) e estabelece o castigo?", "options": ["Surata Al-Ma'idah", "Surata Al-Baqarah", "Surata An-Nisa", "Surata An-Nur"], "correct": 3, "explanation": "Surata An-Nur (A Luz) estabelece a proibição do adultério e prescreve o castigo de 100 chicotadas para os solteiros. Também estabelece regras rigorosas sobre acusações de adultério sem provas (qadhf), puníveis com 80 chicotadas."}, {"question": "Qual é o nome da surata que narra a história do Profeta Nuh (Noé) e a Arca?", "options": ["Surata Al-Ankabut", "Surata Hud", "Surata Al-Mu'minun", "Surata Nuh"], "correct": 3, "explanation": "Surata Nuh (Surata 71) é inteiramente dedicada à história do Profeta Noé. Ele pregou por 950 anos, mas poucos acreditaram. A Arca salvou os crentes e um par de cada espécie animal do dilúvio."}, {"question": "Qual surata é conhecida como 'A Surata da Vitória' (Al-Fath)?", "options": ["Surata Al-Hashr", "Surata As-Saff", "Surata Al-Fath", "Surata An-Nasr"], "correct": 2, "explanation": "Surata Al-Fath (A Vitória) foi revelada após o Tratado de Hudaybiyyah (628 d.C.). Apesar de parecer uma concessão aos pagãos de Meca, o Profeta (S.A.W.) a chamou de 'vitória manifesta'. Pouco depois, Meca foi conquistada sem derramamento de sangue."}, {"question": "Qual surata contém a ordem de mudança da Qibla (direção de oração) de Jerusalém para Meca?", "options": ["Surata An-Nisa", "Surata Aal-E-Imran", "Surata Al-Anfal", "Surata Al-Baqarah"], "correct": 3, "explanation": "Surata Al-Baqarah (versículos 142-145) relata a mudança da Qibla de Jerusalém (Bayt al-Maqdis) para a Kaaba em Meca. Esta mudança ocorreu 16-17 meses após a Hijra para Madinah e consolidou a identidade islâmica independente."}, {"question": "Qual é a surata que descreve a criação dos céus e da terra em 6 períodos (ayyam)?", "options": ["Todas as anteriores", "Surata Fussilat", "Surata As-Sajdah", "Surata Al-A'raf"], "correct": 0, "explanation": "A criação em 6 períodos é mencionada em várias suratas: Al-A'raf 54, Yunus 3, Hud 7, Al-Furqan 59, As-Sajdah 4, Fussilat 9-12, e Al-Hadid 4. O termo 'ayyam' pode significar dias longos (eras) no contexto cosmológico."}, {"question": "Qual surata proíbe a calúnia e a espionagem entre muçulmanos?", "options": ["Surata Al-Hujurat", "Surata An-Nur", "Surata At-Tawbah", "Surata An-Nisa"], "correct": 0, "explanation": "Surata Al-Hujurat (Os Aposentos) estabelece regras de etiqueta social: proíbe a calúnia (backbiting), a espionagem, a desconfiança mútua e ordena que os muçulmanos se saúdem com 'As-Salamu Alaikum'."}, {"question": "Qual é a surata que fala sobre a 'Paz' (Salam) como saudação dos habitantes do Paraíso?", "options": ["Surata Ar-Rahman", "Todas as anteriores", "Surata Ya-Sin", "Surata Al-Waqi'ah"], "correct": 1, "explanation": "A saudação 'Salam' (Paz) é mencionada como a saudação do Paraíso em várias suratas: Ya-Sin 58, Ar-Rahman 46, Al-Waqi'ah 26, e An-Nur 27. Os anjos também saúdam os crentes com 'Salam' quando chegam ao Paraíso."}];
+
+let currentQ = 0, answers = [], score = 0;
+
+function startQuiz() {
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('quizScreen').classList.remove('hidden');
+  currentQ = 0; answers = new Array(quizData.length).fill(null); score = 0;
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const answered = answers[currentQ] !== null;
+  const q = quizData[currentQ];
+  document.getElementById('qNum').textContent = currentQ + 1;
+  document.getElementById('qText').textContent = q.question;
+  const optsDiv = document.getElementById('optionsContainer');
+  optsDiv.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.innerHTML = '<span class="option-letter">' + letters[i] + '</span><span>' + opt + '</span>';
+    btn.onclick = () => selectAnswer(i);
+    if (answered) {
+      btn.classList.add('disabled');
+      if (i === q.correct) btn.classList.add('correct');
+      else if (i === answers[currentQ] && i !== q.correct) btn.classList.add('wrong');
+    }
+    optsDiv.appendChild(btn);
+  });
+  const exBox = document.getElementById('explanationBox');
+  if (answered) {
+    exBox.classList.remove('hidden');
+    const isCorrect = answers[currentQ] === q.correct;
+    exBox.className = 'explanation ' + (isCorrect ? '' : 'wrong-ex');
+    exBox.innerHTML = '<div class="ex-title ' + (isCorrect ? 'correct' : 'wrong') + '">' + (isCorrect
+      ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Resposta correta'
+      : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Resposta errada'
+    ) + '</div>' + q.explanation;
+  } else { exBox.classList.add('hidden'); }
+  document.getElementById('progressBar').style.width = ((currentQ + 1) / quizData.length * 100) + '%';
+  document.getElementById('progressLabel').textContent = 'Pergunta ' + (currentQ + 1) + ' de ' + quizData.length;
+  document.getElementById('scoreLabel').textContent = 'Pontos: ' + score;
+  document.getElementById('prevBtn').disabled = currentQ === 0;
+  document.getElementById('nextBtnText').textContent = currentQ === quizData.length - 1 ? 'Ver resultado' : 'Próximo';
+  const card = document.getElementById('questionCard');
+  card.style.animation = 'none'; void card.offsetWidth; card.style.animation = 'fadeIn 0.35s ease';
+}
+
+function selectAnswer(idx) {
+  if (answers[currentQ] !== null) return;
+  answers[currentQ] = idx;
+  if (idx === quizData[currentQ].correct) score++;
+  renderQuestion();
+}
+
+function nextQuestion() {
+  if (currentQ < quizData.length - 1) { currentQ++; renderQuestion(); }
+  else { showResults(); }
+}
+
+function prevQuestion() {
+  if (currentQ > 0) { currentQ--; renderQuestion(); }
+}
+
+function showResults() {
+  document.getElementById('quizScreen').classList.add('hidden');
+  document.getElementById('resultsScreen').classList.remove('hidden');
+  const pct = Math.round((score / quizData.length) * 100);
+  document.getElementById('ringText').textContent = pct + '%';
+  const circumference = 2 * Math.PI * 75;
+  const offset = circumference - (pct / 100) * circumference;
+  setTimeout(() => { document.getElementById('ringFill').style.strokeDashoffset = offset; }, 150);
+  let msg = '', color = '';
+  if (pct >= 90) { msg = 'MashaAllah! Domínio excepcional do Alcorão!'; color = 'var(--success)'; }
+  else if (pct >= 70) { msg = 'Excelente! Grande conhecimento do Livro Sagrado.'; color = 'var(--accent)'; }
+  else if (pct >= 50) { msg = 'Bom trabalho! Continue aprofundando seus estudos.'; color = 'var(--accent-light)'; }
+  else { msg = 'Não desista! O estudo do Alcorão é uma jornada contínua.'; color = 'var(--danger-light)'; }
+  const msgEl = document.getElementById('resultsMessage');
+  msgEl.textContent = msg; msgEl.style.color = color;
+  document.getElementById('statCorrect').textContent = score;
+  document.getElementById('statWrong').textContent = quizData.length - score;
+  const reviewDiv = document.getElementById('reviewContainer');
+  const wrongCount = answers.filter((a, i) => a !== quizData[i].correct).length;
+  if (wrongCount === 0) {
+    reviewDiv.innerHTML = '<div class="perfect-banner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Parabéns! Acertou todas as perguntas!</div>';
+  } else {
+    reviewDiv.innerHTML = '<h3 class="review-title">Revisão das respostas erradas (' + wrongCount + ')</h3>';
+    quizData.forEach((q, i) => {
+      if (answers[i] === q.correct) return;
+      const item = document.createElement('div');
+      item.className = 'review-row';
+      item.innerHTML = '<div class="review-q">' + (i + 1) + '. ' + q.question + '</div>' +
+        '<div class="review-a">Sua resposta: <strong>' + q.options[answers[i]] + '</strong><br>' +
+        'Correta: <strong class="ok-ans">' + q.options[q.correct] + '</strong></div>' +
+        '<div class="review-ex"><div class="review-ex-label">Explicação</div>' + q.explanation + '</div>';
+      reviewDiv.appendChild(item);
+    });
+  }
+}
+
+function restartQuiz() {
+  document.getElementById('resultsScreen').classList.add('hidden');
+  document.getElementById('startScreen').classList.remove('hidden');
+  document.getElementById('ringFill').style.strokeDashoffset = 471;
+}
+
+document.addEventListener('keydown', (e) => {
+  if (document.getElementById('quizScreen').classList.contains('hidden')) return;
+  if (e.key === 'ArrowRight') nextQuestion();
+  if (e.key === 'ArrowLeft') prevQuestion();
+  if (e.key >= '1' && e.key <= '4' && answers[currentQ] === null) { selectAnswer(parseInt(e.key) - 1); }
+});
+</script>
+</body>
+</html>
