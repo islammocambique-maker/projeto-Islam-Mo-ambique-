@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loja Virtual — Islam Moçambique ®</title>
+  <meta name="description" content="Loja Virtual do Projeto Islam Moçambique. Livros, roupas, acessórios islâmicos, comidas e mais.">
+  <meta name="theme-color" content="#0d4a2c">
+  <style>
+    :root {
+      --verde-escuro: #0d4a2c;
+      --verde-medio: #1a6e42;
+      --dourado: #d4af37;
+      --dourado-claro: #f0d878;
+      --branco: #ffffff;
+      --preto: #1a1a1a;
+      --vidro-bg: rgba(255, 255, 255, 0.08);
+      --vidro-borda: rgba(255, 255, 255, 0.18);
+      --vidro-sombra: rgba(0, 0, 0, 0.25);
+      --texto: #f5f5f5;
+      --texto-suave: #cccccc;
+    }
+
+    .tema-claro {
+      --verde-escuro: #e8f5e9;
+      --verde-medio: #2e7d32;
+      --dourado: #b8860b;
+      --branco: #1a1a1a;
+      --preto: #f5f5f5;
+      --vidro-bg: rgba(255, 255, 255, 0.45);
+      --vidro-borda: rgba(0, 0, 0, 0.08);
+      --vidro-sombra: rgba(0, 0, 0, 0.1);
+      --texto: #1a1a1a;
+      --texto-suave: #444444;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, var(--verde-escuro) 0%, #0a2e1b 100%);
+      color: var(--texto);
+      min-height: 100vh;
+      transition: background 0.4s, color 0.4s;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    header {
+      position: relative;
+      z-index: 10;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid var(--vidro-borda);
+      background: var(--vidro-bg);
+      backdrop-filter: blur(12px);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      color: var(--dourado);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      letter-spacing: 1px;
+    }
+
+    header p {
+      font-size: 0.9rem;
+      color: var(--texto-suave);
+      margin-top: 0.3rem;
+    }
+
+    .btn-tema {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--vidro-bg);
+      border: 1px solid var(--vidro-borda);
+      color: var(--dourado);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      font-size: 0.85rem;
+      transition: all 0.3s;
+    }
+    .btn-tema:hover {
+      background: rgba(212, 175, 55, 0.15);
+      transform: scale(1.05);
+    }
+
+    .nav-topo {
+      position: relative;
+      z-index: 5;
+      max-width: 900px;
+      margin: 1.5rem auto 0;
+      padding: 0 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn-voltar {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.5rem;
+      background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(212,175,55,0.05));
+      border: 1px solid var(--dourado);
+      color: var(--dourado);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+    }
+    .btn-voltar:hover {
+      background: var(--dourado);
+      color: var(--preto);
+      transform: translateY(-2px);
+    }
+
+    /* ===== CARROSSEL DESTAQUES ===== */
+    .carousel-container {
+      position: relative;
+      z-index: 5;
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .carousel {
+      background: var(--vidro-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--vidro-borda);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px var(--vidro-sombra);
+      position: relative;
+      min-height: 380px;
+    }
+
+    .carousel-slide {
+      display: none;
+      padding: 3rem 2rem;
+      text-align: center;
+      animation: fadeSlide 0.8s ease;
+      position: relative;
+    }
+
+    .carousel-slide.ativo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 380px;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .slide-icon {
+      font-size: 5rem;
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 4px 12px rgba(212,175,55,0.3));
+      animation: floatIcon 3s ease-in-out infinite;
+    }
+
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .slide-gradient {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      opacity: 0.15;
+      z-index: -1;
+    }
+
+    .carousel h2 {
+      color: var(--dourado);
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .carousel p {
+      color: var(--texto-suave);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 600px;
+      margin-bottom: 1.8rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-slide {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2.2rem;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(212, 175, 55, 0.08));
+      border: 1.5px solid var(--dourado);
+      color: var(--dourado);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+    .btn-slide:hover {
+      background: var(--dourado);
+      color: var(--preto);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
+    }
+
+    .carousel-indicadores {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 1.2rem;
+      background: rgba(0,0,0,0.15);
+    }
+
+    .indicador {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--vidro-borda);
+      border: 1px solid var(--vidro-borda);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .indicador.ativo {
+      background: var(--dourado);
+      width: 32px;
+      border-radius: 10px;
+    }
+
+    /* ===== GRID CATEGORIAS ===== */
+    .loja-container {
+      position: relative;
+      z-index: 5;
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .loja-container h2 {
+      text-align: center;
+      color: var(--dourado);
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+
+    .loja-container .subtitulo {
+      text-align: center;
+      color: var(--texto-suave);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .sec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .sec-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-top: 1px solid rgba(255,255,255,0.3);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      color: var(--texto);
+      text-decoration: none;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      min-height: 200px;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .sec-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+      transition: left 0.6s;
+    }
+
+    .sec-card:hover::before { left: 100%; }
+
+    .sec-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+      border-color: var(--dourado);
+    }
+
+    .sec-card .icon {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 0 8px rgba(212,175,55,0.3));
+    }
+
+    .sec-card h3 {
+      color: var(--dourado);
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+
+    .sec-card p {
+      color: var(--texto-suave);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .sec-card .tag {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.3rem 0.9rem;
+      background: rgba(212,175,55,0.15);
+      border: 1px solid var(--dourado);
+      color: var(--dourado);
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .vazio {
+      text-align: center;
+      color: var(--texto-suave);
+      padding: 3rem;
+      font-style: italic;
+    }
+
+    /* ===== MODAL "ABRIRÁ BREVEMENTE" ===== */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 5000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .modal-overlay.ativo {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-top: 1px solid rgba(255,255,255,0.35);
+      border-radius: 28px;
+      padding: 3rem 2.5rem;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+      transform: scale(0.85) translateY(20px);
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal-overlay.ativo .modal-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-card::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+      animation: rotateGlow 8s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes rotateGlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .modal-icon {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      animation: pulseIcon 2s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes pulseIcon {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(212,175,55,0.3)); }
+      50% { transform: scale(1.1); filter: drop-shadow(0 0 25px rgba(212,175,55,0.6)); }
+    }
+
+    .modal-card h3 {
+      color: var(--dourado);
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .modal-card p {
+      color: var(--texto-suave);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .modal-contacto {
+      background: rgba(212,175,55,0.12);
+      border: 1px solid var(--dourado);
+      border-radius: 16px;
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .modal-contacto a {
+      color: var(--dourado);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      display: block;
+      margin: 0.3rem 0;
+      transition: color 0.3s;
+    }
+    .modal-contacto a:hover { color: var(--dourado-claro); text-decoration: underline; }
+
+    .modal-contacto span {
+      color: var(--texto-suave);
+      font-size: 0.85rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-fechar {
+      padding: 0.7rem 2rem;
+      background: linear-gradient(135deg, var(--dourado), #b8960b);
+      border: none;
+      border-radius: 50px;
+      color: var(--preto);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: inherit;
+      position: relative;
+      z-index: 1;
+    }
+    .btn-fechar:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+      border-top: 1px solid var(--vidro-borda);
+      background: var(--vidro-bg);
+      backdrop-filter: blur(10px);
+    }
+
+    .contacto-numero {
+      color: var(--dourado);
+      font-size: 1.2rem;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+    .contacto-numero:hover { text-decoration: underline; }
+
+    footer p {
+      color: var(--texto-suave);
+      font-size: 0.85rem;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 55px;
+      height: 55px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      transition: transform 0.3s;
+      animation: pulseW 2s infinite;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); }
+    .whatsapp-float svg { width: 28px; height: 28px; }
+
+    @keyframes pulseW {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+      70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.4rem; }
+      .carousel { min-height: 320px; }
+      .carousel-slide.ativo { min-height: 320px; padding: 2rem 1.2rem; }
+      .carousel h2 { font-size: 1.3rem; }
+      .slide-icon { font-size: 3.5rem; }
+      .sec-grid { grid-template-columns: 1fr; }
+      .sec-card { min-height: 180px; padding: 1.5rem 1rem; }
+      .nav-topo { justify-content: center; }
+      .modal-card { padding: 2rem 1.5rem; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    .reveal.visivel {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <button class="btn-tema" onclick="alternarTema()" title="Alternar tema">🌙/☀️</button>
+    <h1>🛒 Loja Virtual I.M</h1>
+    <p>Produtos islâmicos de qualidade para toda a família</p>
+  </header>
+
+  <div class="nav-topo">
+    <a href="index.html" class="btn-voltar">← Voltar ao Início</a>
+  </div>
+
+  <!-- CARROSSEL DESTAQUES -->
+  <section class="carousel-container reveal">
+    <div class="carousel" id="carousel">
+      <div class="carousel-slide ativo">
+        <div class="slide-gradient" style="background: linear-gradient(135deg, #1e3a5f, #2c5282);"></div>
+        <div class="slide-icon">📚</div>
+        <h2>Livros Islâmicos em Destaque</h2>
+        <p>Encontre o melhor da literatura islâmica: Tafsir, Fiqh, Aqeedah, história e livros para crianças. Tudo em árabe, português e inglês.</p>
+        <button class="btn-slide" onclick="abrirBrevemente()">Ver Livros <i class="fas fa-arrow-right">→</i></button>
+      </div>
+      <div class="carousel-slide">
+        <div class="slide-gradient" style="background: linear-gradient(135deg, #2d3748, #4a5568);"></div>
+        <div class="slide-icon">👕</div>
+        <h2>Roupas Islâmicas Modestas</h2>
+        <p>Thobes, hijabs, jilbabs, kufis e muito mais. Vestuário que honra a fé e a elegância para homens, mulheres e crianças.</p>
+        <button class="btn-slide" onclick="abrirBrevemente()">Ver Roupas <i class="fas fa-arrow-right">→</i></button>
+      </div>
+      <div class="carousel-slide">
+        <div class="slide-gradient" style="background: linear-gradient(135deg, #744210, #975a16);"></div>
+        <div class="slide-icon">🧴</div>
+        <h2>Acessórios Islâmicos</h2>
+        <p>Tasbihs, tapetes de oração, perfumes árabes, datas, azeite de Jerusalém e artigos de decoração islâmica.</p>
+        <button class="btn-slide" onclick="abrirBrevemente()">Ver Acessórios <i class="fas fa-arrow-right">→</i></button>
+      </div>
+      <div class="carousel-slide">
+        <div class="slide-gradient" style="background: linear-gradient(135deg, #276749, #2f855a);"></div>
+        <div class="slide-icon">🍯</div>
+        <h2>Comidas Halal & Saudáveis</h2>
+        <p>Datas Medjool, mel do Iêmen, especiarias, chás árabes, snacks halal e produtos naturais para o seu bem-estar.</p>
+        <button class="btn-slide" onclick="abrirBrevemente()">Ver Comidas <i class="fas fa-arrow-right">→</i></button>
+      </div>
+      <div class="carousel-slide">
+        <div class="slide-gradient" style="background: linear-gradient(135deg, #702459, #97266d);"></div>
+        <div class="slide-icon">🎁</div>
+        <h2>Outros Produtos Especiais</h2>
+        <p>Presentes islâmicos, material escolar, brinquedos educativos, eletrónica e muito mais para o seu dia a dia.</p>
+        <button class="btn-slide" onclick="abrirBrevemente()">Ver Produtos <i class="fas fa-arrow-right">→</i></button>
+      </div>
+    </div>
+    <div class="carousel-indicadores" id="indicadores"></div>
+  </section>
+
+  <!-- CATEGORIAS -->
+  <section class="loja-container reveal">
+    <h2>🛍️ Categorias da Loja</h2>
+    <p class="subtitulo">Escolha uma categoria para explorar os nossos produtos</p>
+    <div class="sec-grid" id="sec-grid">
+      <div class="vazio">A carregar conteúdo...</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="https://wa.me/258860407269" class="contacto-numero">📞 +258 86 040 7269</a>
+    <p>© 2026 Islam Moçambique ® — Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- WHATSAPP -->
+  <a href="https://wa.me/258860407269" class="whatsapp-float" title="Fale connosco pelo WhatsApp" target="_blank">
+    <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- MODAL ABRIRÁ BREVEMENTE -->
+  <div class="modal-overlay" id="modalBreve" onclick="fecharModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-icon">⏳</div>
+      <h3>Abrirá brevemente...</h3>
+      <p>Estamos a preparar esta secção com os melhores produtos para si. Volte em breve!</p>
+      <div class="modal-contacto">
+        <span>📢 Para anunciar o seu produto aqui:</span>
+        <a href="mailto:Islammocambique@gmail.com">Islammocambique@gmail.com</a>
+        <a href="https://wa.me/258860404269">+258 86 040 4269</a>
+      </div>
+      <button class="btn-fechar" onclick="fecharModal()">Entendido</button>
+    </div>
+  </div>
+
+  <script>
+    // ========== TEMA ==========
+    function alternarTema() {
+      document.body.classList.toggle('tema-claro');
+      localStorage.setItem('tema', document.body.classList.contains('tema-claro') ? 'claro' : 'escuro');
+    }
+    if (localStorage.getItem('tema') === 'claro') {
+      document.body.classList.add('tema-claro');
+    }
+
+    // ========== CARROSSEL ==========
+    const slides = document.querySelectorAll('.carousel-slide');
+    const indicadoresContainer = document.getElementById('indicadores');
+    let slideAtual = 0;
+    let timerCarousel;
+
+    // Criar indicadores
+    slides.forEach((_, i) => {
+      const ind = document.createElement('span');
+      ind.className = 'indicador' + (i === 0 ? ' ativo' : '');
+      ind.onclick = () => mostrarSlide(i);
+      indicadoresContainer.appendChild(ind);
+    });
+
+    function mostrarSlide(index) {
+      slides.forEach((el, i) => {
+        el.classList.toggle('ativo', i === index);
+        indicadoresContainer.children[i].classList.toggle('ativo', i === index);
+      });
+      slideAtual = index;
+    }
+
+    function proximoSlide() {
+      slideAtual = (slideAtual + 1) % slides.length;
+      mostrarSlide(slideAtual);
+    }
+
+    function iniciarCarousel() {
+      clearInterval(timerCarousel);
+      timerCarousel = setInterval(proximoSlide, 6000);
+    }
+
+    // Pausar ao passar o rato
+    const carouselEl = document.getElementById('carousel');
+    carouselEl.addEventListener('mouseenter', () => clearInterval(timerCarousel));
+    carouselEl.addEventListener('mouseleave', iniciarCarousel);
+
+    iniciarCarousel();
+
+    // ========== CATEGORIAS VIA JSON ==========
+    const seccoesFallback = [
+      {
+        "id": "livros",
+        "titulo": "📚 Livros",
+        "descricao": "Tafsir, Fiqh, Aqeedah, história islâmica e literatura infantil em vários idiomas.",
+        "link": "livros/",
+        "icon": "📚",
+        "tag": "LIVROS"
+      },
+      {
+        "id": "roupas",
+        "titulo": "👕 Roupas",
+        "descricao": "Thobes, hijabs, jilbabs, kufis e vestuário modesto para toda a família.",
+        "link": "roupas/",
+        "icon": "👕",
+        "tag": "MODA"
+      },
+      {
+        "id": "acessorios",
+        "titulo": "🧴 Acessórios Islâmicos",
+        "descricao": "Tasbihs, tapetes de oração, perfumes árabes, datas e decoração islâmica.",
+        "link": "acessorios/",
+        "icon": "🧴",
+        "tag": "ACESSÓRIOS"
+      },
+      {
+        "id": "comidas",
+        "titulo": "🍯 Comidas",
+        "descricao": "Dates Medjool, mel, especiarias, chás, snacks halal e produtos naturais.",
+        "link": "comidas/",
+        "icon": "🍯",
+        "tag": "HALAL"
+      },
+      {
+        "id": "outros",
+        "titulo": "🎁 Outros Produtos",
+        "descricao": "Presentes islâmicos, material escolar, brinquedos educativos e eletrónica.",
+        "link": "outros-produtos/",
+        "icon": "🎁",
+        "tag": "GERAL"
+      }
+    ];
+
+    async function carregarSecoes() {
+      let seccoes = [];
+      try {
+        const res = await fetch('data/loja.json');
+        if (!res.ok) throw new Error('JSON não encontrado');
+        seccoes = await res.json();
+      } catch (e) {
+        seccoes = seccoesFallback;
+      }
+      renderizarSecoes(seccoes);
+    }
+
+    function renderizarSecoes(seccoes) {
+      const grid = document.getElementById('sec-grid');
+      if (!seccoes || seccoes.length === 0) {
+        grid.innerHTML = '<div class="vazio">Nenhuma categoria disponível de momento.</div>';
+        return;
+      }
+      grid.innerHTML = seccoes.map(sec => `
+        <div class="sec-card" onclick="abrirBrevemente()">
+          <span class="icon">${sec.icon || '📦'}</span>
+          <h3>${sec.titulo}</h3>
+          <p>${sec.descricao}</p>
+          <span class="tag">${sec.tag || 'GERAL'}</span>
+        </div>
+      `).join('');
+    }
+
+    // ========== MODAL ==========
+    function abrirBrevemente() {
+      const modal = document.getElementById('modalBreve');
+      modal.classList.add('ativo');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function fecharModal(event) {
+      if (event && event.target !== event.currentTarget && event.type === 'click') return;
+      const modal = document.getElementById('modalBreve');
+      modal.classList.remove('ativo');
+      document.body.style.overflow = '';
+    }
+
+    // Fechar com ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') fecharModal();
+    });
+
+    // ========== SCROLL REVEAL ==========
+    function revelar() {
+      const reveals = document.querySelectorAll('.reveal');
+      reveals.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        const trigger = window.innerHeight - 100;
+        if (top < trigger) el.classList.add('visivel');
+      });
+    }
+    window.addEventListener('scroll', revelar);
+    window.addEventListener('load', revelar);
+
+    // ========== INICIALIZAR ==========
+    document.addEventListener('DOMContentLoaded', () => {
+      carregarSecoes();
+      revelar();
+    });
+  </script>
+</body>
+</html>
