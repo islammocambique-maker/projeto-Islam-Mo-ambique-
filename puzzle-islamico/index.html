@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puzzle Islâmico — Islam Moçambique</title>
+<style>
+  :root {
+    --primary: #1a1a2e;
+    --secondary: #16213e;
+    --accent: #0f3460;
+    --gold: #e8c547;
+    --gold-light: #f5e6a3;
+    --green: #2d6a4f;
+    --green-light: #52b788;
+    --danger: #c0392b;
+    --light: #f8f9fa;
+    --dark: #0d1b2a;
+    --card-bg: #ffffff;
+    --text: #1b1b1b;
+    --text-light: #6c757d;
+    --border: #dee2e6;
+    --shadow: 0 4px 20px rgba(0,0,0,0.12);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font);
+    background: var(--light);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: var(--primary);
+    color: #fff;
+    padding: 20px 16px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  header p {
+    font-size: 0.85rem;
+    color: var(--gold-light);
+    margin-top: 4px;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 16px;
+    width: 100%;
+    flex: 1;
+  }
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  .home-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .home-card h2 {
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-size: 1.25rem;
+  }
+  .home-card p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+  }
+  .levels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .level-btn {
+    border: 2px solid var(--border);
+    background: var(--card-bg);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    position: relative;
+  }
+  .level-btn:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+  .level-btn.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .level-btn.locked:hover {
+    transform: none;
+    border-color: var(--border);
+  }
+  .level-btn .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .badge-facil { background: #d4edda; color: #155724; }
+  .badge-medio { background: #fff3cd; color: #856404; }
+  .badge-dificil { background: #f8d7da; color: #721c24; }
+  .level-btn h3 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+  .level-btn .stars {
+    color: var(--gold);
+    font-size: 1.1rem;
+    margin-top: 4px;
+  }
+  .level-btn .best-time {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 2px;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--secondary); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .btn-secondary:hover { background: var(--accent); color: #fff; }
+  .btn-danger {
+    background: var(--danger);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  .stats-bar {
+    display: flex;
+    justify-content: space-around;
+    background: var(--card-bg);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .stat-item { text-align: center; }
+  .stat-item .value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .stat-item .label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+  }
+
+  .puzzle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .puzzle-header h2 { font-size: 1.1rem; }
+  .timer {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .puzzle-board {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .puzzle-grid {
+    display: grid;
+    gap: 4px;
+    margin: 0 auto;
+  }
+  .puzzle-cell {
+    background: var(--light);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    position: relative;
+    text-align: center;
+    line-height: 1.2;
+    padding: 4px;
+  }
+  .puzzle-cell:hover {
+    border-color: var(--gold);
+    background: #fff;
+  }
+  .puzzle-cell.selected {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+  .puzzle-cell.correct {
+    border-color: var(--green);
+    background: #d4edda;
+    color: var(--green);
+  }
+  .puzzle-cell.wrong {
+    border-color: var(--danger);
+    background: #f8d7da;
+    color: var(--danger);
+    animation: shake 0.4s;
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+  .puzzle-cell.empty {
+    background: transparent;
+    border: 2px dashed var(--border);
+    cursor: default;
+  }
+  .puzzle-cell.empty:hover { border-color: var(--border); background: transparent; }
+  .puzzle-cell .cell-num {
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    font-size: 0.6rem;
+    color: var(--text-light);
+    font-weight: 400;
+  }
+  .puzzle-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hint-box {
+    background: var(--card-bg);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    font-size: 0.9rem;
+    color: var(--text-light);
+    border-left: 4px solid var(--gold);
+  }
+  .hint-box strong { color: var(--text); }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 16px;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 28px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: modalIn 0.3s ease-out;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal h2 { color: var(--accent); margin-bottom: 8px; }
+  .modal .stars-big {
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin: 12px 0;
+  }
+  .modal p { color: var(--text-light); margin-bottom: 16px; }
+
+  footer {
+    background: var(--dark);
+    color: #aaa;
+    text-align: center;
+    padding: 16px;
+    font-size: 0.8rem;
+  }
+  footer a { color: var(--gold-light); text-decoration: none; }
+  footer .project-info {
+    color: var(--gold);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 480px) {
+    .levels-grid { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.2rem; }
+    .puzzle-cell { font-size: 0.8rem; }
+  }
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<header>
+  <h1>🕌 Puzzle Islâmico</h1>
+  <p>Islam Moçambique — Apoio ao Projeto 860407269</p>
+</header>
+
+<div class="container">
+
+  <!-- HOME SCREEN -->
+  <div id="screen-home" class="screen active">
+    <div class="home-card">
+      <h2>Bem-vindo ao Puzzle Islâmico!</h2>
+      <p>Teste os teus conhecimentos sobre o Islam. Completa os 6 níveis e aprende enquanto jogas.</p>
+      <button class="btn-primary" onclick="showScreen('levels')">Começar a Jogar</button>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="value" id="stat-completed">0</div>
+        <div class="label">Níveis completados</div>
+      </div>
+      <div class="stat-item">
+        <div class="value" id="stat-stars">0</div>
+        <div class="label">Estrelas totais</div>
+      </div>
+      <div class="stat-item">
+        <div class="value" id="stat-best">--</div>
+        <div class="label">Melhor tempo</div>
+      </div>
+    </div>
+
+    <div class="home-card">
+      <h2>📖 Sobre o Projeto</h2>
+      <p>Este jogo educativo foi desenvolvido para promover o conhecimento do Islam em Moçambique. Apoia o projeto <strong>860407269</strong> e ajuda-nos a espalhar a mensagem da paz e do conhecimento.</p>
+      <button class="btn-secondary" onclick="resetProgress()">Reiniciar Progresso</button>
+    </div>
+  </div>
+
+  <!-- LEVELS SCREEN -->
+  <div id="screen-levels" class="screen">
+    <div class="puzzle-header">
+      <h2>Escolhe um Nível</h2>
+      <button class="btn-secondary" onclick="showScreen('home')">Voltar</button>
+    </div>
+    <div class="levels-grid" id="levels-grid"></div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="screen-game" class="screen">
+    <div class="puzzle-header">
+      <h2 id="game-title">Nível 1</h2>
+      <div class="timer" id="timer">00:00</div>
+    </div>
+    <div class="hint-box" id="hint-box">
+      <strong>Dica:</strong> <span id="hint-text">...</span>
+    </div>
+    <div class="puzzle-board">
+      <div class="puzzle-grid" id="puzzle-grid"></div>
+    </div>
+    <div class="puzzle-controls">
+      <button class="btn-primary" onclick="checkAnswer()">Verificar Resposta</button>
+      <button class="btn-secondary" onclick="showHint()">Dica (-1 estrela)</button>
+      <button class="btn-secondary" onclick="quitLevel()">Desistir</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal-content">
+    <h2 id="modal-title">Parabéns!</h2>
+    <div class="stars-big" id="modal-stars">⭐⭐⭐</div>
+    <p id="modal-message">Completaste o nível!</p>
+    <div id="modal-buttons"></div>
+  </div>
+</div>
+
+<footer>
+  <div>🕌 Puzzle Islâmico — Islam Moçambique</div>
+  <div class="project-info">Apoio ao Projeto: 860407269</div>
+  <div style="margin-top:4px;">Desenvolvido com ❤️ para a comunidade muçulmana de Moçambique</div>
+</footer>
+
+<script>
+// ===================== DATA =====================
+// Each level defines the CORRECT order. The game shuffles the non-empty cells.
+// correctIndex = the position (0-based) where this item SHOULD be in the solved puzzle.
+const levels = [
+  {
+    id: 1,
+    title: "Os Cinco Pilares do Islam",
+    difficulty: "facil",
+    grid: [3, 3], // 3 cols x 3 rows = 9 cells
+    hint: "Ordena os 5 pilares do Islam na sequência correta.",
+    // correctIndex tells us WHERE each item should be placed (0-8)
+    items: [
+      { text: "Shahada", correctIndex: 0 },
+      { text: "Salah", correctIndex: 1 },
+      { text: "Zakat", correctIndex: 2 },
+      { text: "Sawm", correctIndex: 3 },
+      { text: "Hajj", correctIndex: 4 },
+    ],
+    emptyCount: 4,
+    description: "Ordena os Cinco Pilares do Islam na sequência correta."
+  },
+  {
+    id: 2,
+    title: "Os Profetas (Anbiya)",
+    difficulty: "facil",
+    grid: [3, 3],
+    hint: "Ordena os profetas por ordem cronológica de revelação.",
+    items: [
+      { text: "Adão (A.S.)", correctIndex: 0 },
+      { text: "Nuh (A.S.)", correctIndex: 1 },
+      { text: "Ibrahim (A.S.)", correctIndex: 2 },
+      { text: "Musa (A.S.)", correctIndex: 3 },
+      { text: "Isa (A.S.)", correctIndex: 4 },
+      { text: "Muhammad (S.A.W.)", correctIndex: 5 },
+    ],
+    emptyCount: 3,
+    description: "Ordena os profetas principais por ordem cronológica."
+  },
+  {
+    id: 3,
+    title: "Os Livros Sagrados (Kutub)",
+    difficulty: "medio",
+    grid: [3, 3],
+    hint: "Ordena os livros sagrados revelados por Allah.",
+    items: [
+      { text: "Tawrat", correctIndex: 0 },
+      { text: "Zabur", correctIndex: 1 },
+      { text: "Injil", correctIndex: 2 },
+      { text: "Quran", correctIndex: 3 },
+    ],
+    emptyCount: 5,
+    description: "Ordena os 4 livros sagrados do Islam."
+  },
+  {
+    id: 4,
+    title: "Os Anjos (Malaika)",
+    difficulty: "medio",
+    grid: [3, 3],
+    hint: "Ordena os anjos principais por ordem de importância.",
+    items: [
+      { text: "Jibril", correctIndex: 0 },
+      { text: "Mikail", correctIndex: 1 },
+      { text: "Israfil", correctIndex: 2 },
+      { text: "Azrael", correctIndex: 3 },
+      { text: "Munkar", correctIndex: 4 },
+      { text: "Nakir", correctIndex: 5 },
+    ],
+    emptyCount: 3,
+    description: "Ordena os anjos principais por ordem de importância."
+  },
+  {
+    id: 5,
+    title: "A História do Islam em Moçambique",
+    difficulty: "dificil",
+    grid: [4, 3], // 4 cols x 3 rows = 12 cells
+    hint: "Ordena os eventos históricos do Islam em Moçambique.",
+    items: [
+      { text: "Chegada dos comerciantes árabes", correctIndex: 0 },
+      { text: "Construção das mesquitas na costa", correctIndex: 1 },
+      { text: "Influência swahili na Ilha de Moçambique", correctIndex: 2 },
+      { text: "Período colonial português", correctIndex: 3 },
+      { text: "Independência de Moçambique", correctIndex: 4 },
+      { text: "Crescimento das comunidades islâmicas", correctIndex: 5 },
+      { text: "Formação da CISLAMO", correctIndex: 6 },
+      { text: "Atualidade do Islam em Moçambique", correctIndex: 7 },
+    ],
+    emptyCount: 4,
+    description: "Ordena os marcos históricos do Islam em Moçambique."
+  },
+  {
+    id: 6,
+    title: "Os Meses do Calendário Islâmico (Hijri)",
+    difficulty: "dificil",
+    grid: [4, 3],
+    hint: "Ordena os meses do calendário islâmico (Hijri).",
+    items: [
+      { text: "Muharram", correctIndex: 0 },
+      { text: "Safar", correctIndex: 1 },
+      { text: "Rabi' al-awwal", correctIndex: 2 },
+      { text: "Rabi' al-thani", correctIndex: 3 },
+      { text: "Jumada al-awwal", correctIndex: 4 },
+      { text: "Jumada al-thani", correctIndex: 5 },
+      { text: "Rajab", correctIndex: 6 },
+      { text: "Sha'ban", correctIndex: 7 },
+      { text: "Ramadan", correctIndex: 8 },
+      { text: "Shawwal", correctIndex: 9 },
+      { text: "Dhu al-Qi'dah", correctIndex: 10 },
+      { text: "Dhu al-Hijjah", correctIndex: 11 },
+    ],
+    emptyCount: 0,
+    description: "Ordena os 12 meses do calendário islâmico (Hijri)."
+  }
+];
+
+// ===================== STATE =====================
+let currentLevel = null;
+let gameState = []; // array of { text, correctIndex, isEmpty } for each grid position
+let timerInterval = null;
+let startTime = null;
+let selectedCell = null;
+let hintsUsed = 0;
+
+function loadProgress() {
+  const saved = localStorage.getItem('islamPuzzleProgress_v2');
+  if (saved) return JSON.parse(saved);
+  return { completed: {}, totalStars: 0, bestTime: null };
+}
+
+function saveProgress(progress) {
+  localStorage.setItem('islamPuzzleProgress_v2', JSON.stringify(progress));
+}
+
+let progress = loadProgress();
+
+// ===================== NAVIGATION =====================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  if (id === 'home') updateHomeStats();
+  if (id === 'levels') renderLevels();
+}
+
+function updateHomeStats() {
+  const completedCount = Object.keys(progress.completed).length;
+  document.getElementById('stat-completed').textContent = completedCount;
+  document.getElementById('stat-stars').textContent = progress.totalStars;
+  document.getElementById('stat-best').textContent = progress.bestTime ? formatTime(progress.bestTime) : '--';
+}
+
+// ===================== LEVELS =====================
+function renderLevels() {
+  const grid = document.getElementById('levels-grid');
+  grid.innerHTML = '';
+  levels.forEach((lvl, idx) => {
+    const isUnlocked = idx === 0 || progress.completed[levels[idx-1].id];
+    const completed = progress.completed[lvl.id];
+    const btn = document.createElement('div');
+    btn.className = 'level-btn' + (isUnlocked ? '' : ' locked');
+    const badgeClass = lvl.difficulty === 'facil' ? 'badge-facil' : lvl.difficulty === 'medio' ? 'badge-medio' : 'badge-dificil';
+    const stars = completed ? '⭐'.repeat(completed.stars) : '';
+    const bestTime = completed ? `<div class="best-time">⏱ ${formatTime(completed.time)}</div>` : '';
+    btn.innerHTML = `
+      <div class="badge ${badgeClass}">${lvl.difficulty}</div>
+      <h3>Nível ${lvl.id}: ${lvl.title}</h3>
+      <div style="font-size:0.8rem;color:var(--text-light);">${lvl.description}</div>
+      <div class="stars">${stars}</div>
+      ${bestTime}
+    `;
+    if (isUnlocked) {
+      btn.onclick = () => startLevel(lvl.id);
+    }
+    grid.appendChild(btn);
+  });
+}
+
+// ===================== GAME =====================
+function startLevel(levelId) {
+  currentLevel = levels.find(l => l.id === levelId);
+  if (!currentLevel) return;
+
+  const totalCells = currentLevel.grid[0] * currentLevel.grid[1];
+  const items = [...currentLevel.items]; // copy
+
+  // Shuffle items
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+
+  // Build gameState: place shuffled items first, then empty cells
+  gameState = [];
+  for (let i = 0; i < items.length; i++) {
+    gameState.push({
+      text: items[i].text,
+      correctIndex: items[i].correctIndex,
+      isEmpty: false
+    });
+  }
+  for (let i = 0; i < currentLevel.emptyCount; i++) {
+    gameState.push({ text: '', correctIndex: null, isEmpty: true });
+  }
+
+  // If no empty cells, we need to fill all positions
+  // But items.length + emptyCount should equal totalCells
+  while (gameState.length < totalCells) {
+    gameState.push({ text: '', correctIndex: null, isEmpty: true });
+  }
+
+  hintsUsed = 0;
+  selectedCell = null;
+  document.getElementById('game-title').textContent = `Nível ${currentLevel.id}: ${currentLevel.title}`;
+  document.getElementById('hint-text').textContent = currentLevel.hint;
+  renderGrid();
+  startTimer();
+  showScreen('game');
+}
+
+function renderGrid() {
+  const grid = document.getElementById('puzzle-grid');
+  const [cols, rows] = currentLevel.grid;
+  grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  grid.innerHTML = '';
+
+  const containerWidth = Math.min(window.innerWidth - 64, 600);
+  const cellSize = Math.min(90, Math.floor((containerWidth - (cols - 1) * 4) / cols));
+
+  gameState.forEach((cell, idx) => {
+    const div = document.createElement('div');
+    div.className = 'puzzle-cell' + (cell.isEmpty ? ' empty' : '');
+    div.style.width = cellSize + 'px';
+    div.style.height = cellSize + 'px';
+    div.style.fontSize = Math.max(9, cellSize * 0.18) + 'px';
+    if (selectedCell === idx) div.classList.add('selected');
+
+    if (!cell.isEmpty) {
+      // Show the item number (1-based) for reference
+      const itemNum = currentLevel.items.findIndex(it => it.text === cell.text) + 1;
+      div.innerHTML = `<span class="cell-num">${itemNum}</span>${cell.text}`;
+      div.onclick = () => onCellClick(idx);
+    }
+    grid.appendChild(div);
+  });
+}
+
+function onCellClick(idx) {
+  if (gameState[idx].isEmpty) return;
+
+  if (selectedCell === null) {
+    selectedCell = idx;
+  } else if (selectedCell === idx) {
+    selectedCell = null;
+  } else {
+    // Swap the two cells
+    const temp = gameState[selectedCell];
+    gameState[selectedCell] = gameState[idx];
+    gameState[idx] = temp;
+    selectedCell = null;
+  }
+  renderGrid();
+}
+
+function startTimer() {
+  startTime = Date.now();
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    document.getElementById('timer').textContent = formatTime(elapsed);
+  }, 1000);
+}
+
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+  const s = (seconds % 60).toString().padStart(2, '0');
+  return `${m}:${s}`;
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  return Math.floor((Date.now() - startTime) / 1000);
+}
+
+function checkAnswer() {
+  let allCorrect = true;
+  const grid = document.getElementById('puzzle-grid');
+  const cells = grid.querySelectorAll('.puzzle-cell');
+
+  // For each cell, check if the item at this position has correctIndex matching this position
+  gameState.forEach((cell, idx) => {
+    if (cell.isEmpty) return;
+    // The item is correct if its correctIndex equals the current grid position (idx)
+    const isCorrect = cell.correctIndex === idx;
+    if (!isCorrect) allCorrect = false;
+    cells[idx].classList.add(isCorrect ? 'correct' : 'wrong');
+  });
+
+  if (allCorrect) {
+    const time = stopTimer();
+    // Calculate stars
+    let stars = 3;
+    if (hintsUsed > 0) stars--;
+    if (time > 120) stars--;
+    if (stars < 1) stars = 1;
+
+    // Save progress
+    if (!progress.completed[currentLevel.id] || progress.completed[currentLevel.id].stars < stars) {
+      progress.totalStars -= (progress.completed[currentLevel.id]?.stars || 0);
+      progress.totalStars += stars;
+      progress.completed[currentLevel.id] = { stars, time };
+    }
+    if (!progress.bestTime || time < progress.bestTime) progress.bestTime = time;
+    saveProgress(progress);
+
+    showModal('Parabéns!', '⭐'.repeat(stars), `Completaste o Nível ${currentLevel.id} em ${formatTime(time)}!`, true);
+  } else {
+    setTimeout(() => {
+      cells.forEach(c => c.classList.remove('correct', 'wrong'));
+    }, 1500);
+  }
+}
+
+function showHint() {
+  // Find a misplaced cell and tell where it should go
+  const misplaced = [];
+  gameState.forEach((cell, idx) => {
+    if (!cell.isEmpty && cell.correctIndex !== idx) {
+      misplaced.push({ cell, currentIdx: idx });
+    }
+  });
+
+  if (misplaced.length === 0) {
+    document.getElementById('hint-text').textContent = "Tudo parece estar no lugar certo! Verifica a tua resposta.";
+    return;
+  }
+
+  // Pick first misplaced item
+  const m = misplaced[0];
+  const targetPos = m.cell.correctIndex;
+  const [cols] = currentLevel.grid;
+  const row = Math.floor(targetPos / cols) + 1;
+  const col = (targetPos % cols) + 1;
+
+  document.getElementById('hint-text').textContent = `"${m.cell.text}" deve estar na linha ${row}, coluna ${col}.`;
+  hintsUsed++;
+}
+
+function quitLevel() {
+  stopTimer();
+  showScreen('levels');
+}
+
+// ===================== MODAL =====================
+function showModal(title, stars, message, isWin) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-stars').textContent = stars;
+  document.getElementById('modal-message').textContent = message;
+
+  const btns = document.getElementById('modal-buttons');
+  btns.innerHTML = '';
+
+  if (isWin) {
+    const nextLevel = levels.find(l => l.id === currentLevel.id + 1);
+    if (nextLevel) {
+      const btnNext = document.createElement('button');
+      btnNext.className = 'btn-primary';
+      btnNext.textContent = 'Próximo Nível →';
+      btnNext.onclick = () => { closeModal(); startLevel(nextLevel.id); };
+      btns.appendChild(btnNext);
+    }
+    const btnMenu = document.createElement('button');
+    btnMenu.className = 'btn-secondary';
+    btnMenu.textContent = 'Menu Principal';
+    btnMenu.onclick = () => { closeModal(); showScreen('levels'); };
+    btns.appendChild(btnMenu);
+  } else {
+    const btnRetry = document.createElement('button');
+    btnRetry.className = 'btn-primary';
+    btnRetry.textContent = 'Tentar Novamente';
+    btnRetry.onclick = () => { closeModal(); startLevel(currentLevel.id); };
+    btns.appendChild(btnRetry);
+  }
+
+  document.getElementById('modal-overlay').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('active');
+}
+
+function resetProgress() {
+  if (confirm('Tens a certeza que queres reiniciar todo o progresso?')) {
+    progress = { completed: {}, totalStars: 0, bestTime: null };
+    saveProgress(progress);
+    updateHomeStats();
+    alert('Progresso reiniciado!');
+  }
+}
+
+// Close modal on overlay click
+document.getElementById('modal-overlay').onclick = function(e) {
+  if (e.target === this) closeModal();
+};
+
+// Init
+updateHomeStats();
+</script>
+</body>
+</html>
