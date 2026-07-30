@@ -28,7 +28,6 @@
         html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
         body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--gray-800);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-        /* ===== HEADER ===== */
         .header{background:linear-gradient(135deg,var(--green-primary) 0%,var(--green-dark) 100%);position:relative;overflow:hidden;padding:18px 0 0;text-align:center}
         .header-pattern{position:absolute;inset:0;opacity:0.06;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
         .header-inner{position:relative;z-index:2;padding:0 20px 20px}
@@ -41,12 +40,10 @@
         .header-wave{position:absolute;bottom:-1px;left:0;width:100%;line-height:0}
         .header-wave svg{display:block;width:100%;height:40px}
 
-        /* ===== LAYOUT ===== */
         .container{max-width:1200px;margin:0 auto;padding:0 16px}
         .section-title{font-size:1.15rem;font-weight:700;color:var(--gray-900);margin:28px 0 16px;display:flex;align-items:center;gap:10px}
         .section-title .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block}
 
-        /* ===== CARROSSEL ===== */
         .carousel-wrapper{position:relative;margin-bottom:32px}
         .carousel{ display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth; padding:4px 4px 20px; scrollbar-width:none; -ms-overflow-style:none; }
         .carousel::-webkit-scrollbar{display:none}
@@ -73,7 +70,6 @@
         .carousel-dot{ width:8px; height:8px; border-radius:50%; background:var(--gray-200); cursor:pointer; transition:var(--transition); }
         .carousel-dot.active{ background:var(--green-primary); width:24px; border-radius:4px; }
 
-        /* ===== MODAL ===== */
         .modal-overlay{ position:fixed; inset:0; background:rgba(10,10,10,0.6); backdrop-filter:blur(6px); z-index:2000; display:none; align-items:center; justify-content:center; padding:16px; opacity:0; transition:opacity 0.3s ease; }
         .modal-overlay.active{ display:flex; opacity:1; }
         .modal{ background:var(--white); border-radius:var(--radius-lg); width:100%; max-width:520px; max-height:90vh; overflow-y:auto; box-shadow:var(--shadow-lg); transform:translateY(20px); transition:transform 0.3s ease; position:relative; }
@@ -84,7 +80,6 @@
         .modal-close:hover{ background:var(--gray-100); color:var(--gray-900); }
         .modal-body{ padding:16px 20px 20px; }
 
-        /* ===== FORM COMPONENTS (reutilizados do original) ===== */
         .form-section{background:var(--white);border-radius:var(--radius-lg);padding:20px;margin-top:0;box-shadow:none;border:none}
         .form-section h2{font-size:0.95rem;font-weight:700;color:var(--gray-900);margin-bottom:16px;display:flex;align-items:center;gap:8px}
         .form-section h2 .icon{width:28px;height:28px;background:linear-gradient(135deg,var(--green-primary),var(--green-light));border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--white)}
@@ -96,24 +91,13 @@
         .form-group input::placeholder{color:var(--gray-400)}
         .form-group .hint{font-size:0.72rem;color:var(--gray-400);margin-top:3px}
 
-        .type-grid{display:grid;gap:8px;margin-bottom:4px}
-        .type-card{display:flex;align-items:center;gap:12px;padding:12px 14px;border:2px solid var(--gray-200);border-radius:var(--radius-md);cursor:pointer;transition:var(--transition);background:var(--white);position:relative}
-        .type-card:hover{border-color:var(--green-light)}
-        .type-card.selected{border-color:var(--green-primary);background:var(--green-pale)}
-        .type-card .radio{width:20px;height:20px;min-width:20px;border:2px solid var(--gray-300);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:var(--transition)}
-        .type-card.selected .radio{border-color:var(--green-primary);background:var(--green-primary)}
-        .type-card.selected .radio::after{content:'';width:8px;height:8px;background:var(--white);border-radius:50%}
-        .type-info{flex:1}
-        .type-name{font-size:0.88rem;font-weight:600;color:var(--gray-900)}
-        .type-price{font-size:0.8rem;color:var(--green-primary);font-weight:700;margin-top:1px}
-        .type-card input[type="radio"]{position:absolute;opacity:0}
-
-        .method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:4px}
-        .method-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px;border:2px solid var(--gray-200);border-radius:var(--radius-md);cursor:pointer;transition:var(--transition);background:var(--white);position:relative}
+        .method-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:4px}
+        @media(min-width:400px){.method-grid{grid-template-columns:repeat(4,1fr)}}
+        .method-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 4px;border:2px solid var(--gray-200);border-radius:var(--radius-md);cursor:pointer;transition:var(--transition);background:var(--white);position:relative}
         .method-card:hover{border-color:var(--green-light)}
         .method-card.selected{border-color:var(--green-primary);background:var(--green-pale)}
-        .method-card .method-icon{font-size:26px}
-        .method-card .method-name{font-size:0.78rem;font-weight:600;color:var(--gray-700)}
+        .method-card .method-icon{font-size:22px}
+        .method-card .method-name{font-size:0.72rem;font-weight:600;color:var(--gray-700);text-align:center}
         .method-card input[type="radio"]{position:absolute;opacity:0}
 
         .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 20px;border-radius:var(--radius-md);font-size:0.9rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;letter-spacing:0.3px}
@@ -177,6 +161,8 @@
         .product-summary .info .name{ font-size:0.85rem; font-weight:700; color:var(--gray-900); }
         .product-summary .info .price{ font-size:0.8rem; color:var(--green-primary); font-weight:600; }
 
+        .min-hint{ font-size:0.72rem; color:var(--gray-400); margin-top:4px; text-align:center; }
+
         .footer{margin-top:40px;padding:24px 16px 28px;text-align:center;background:var(--black);color:var(--gray-400)}
         .footer-brand{font-weight:700;color:var(--white);font-size:0.95rem;margin-bottom:4px}
         .footer-rights{font-size:0.72rem;margin-bottom:6px}
@@ -212,7 +198,6 @@
 
     <main class="container">
         <h2 class="section-title animate-in delay-1"><span class="dot"></span> Livros Disponíveis</h2>
-
         <div class="carousel-wrapper animate-in delay-2">
             <button class="carousel-nav prev" onclick="scrollCarousel(-1)" aria-label="Anterior">‹</button>
             <div class="carousel" id="productCarousel"></div>
@@ -278,8 +263,10 @@
                     <div class="method-grid">
                         <label class="method-card selected" onclick="selectMethod(this, 'mpesa')"><input type="radio" name="paymentMethod" value="mpesa" checked><div class="method-icon">📱</div><div class="method-name">M-Pesa</div></label>
                         <label class="method-card" onclick="selectMethod(this, 'mkesh')"><input type="radio" name="paymentMethod" value="mkesh"><div class="method-icon">🏦</div><div class="method-name">mKesh</div></label>
+                        <label class="method-card" onclick="selectMethod(this, 'emola')"><input type="radio" name="paymentMethod" value="emola"><div class="method-icon">💰</div><div class="method-name">e-Mola</div></label>
                         <label class="method-card" onclick="selectMethod(this, 'card')"><input type="radio" name="paymentMethod" value="card"><div class="method-icon">💳</div><div class="method-name">Visa/MC</div></label>
                     </div>
+                    <div class="min-hint" id="methodHint">Mínimo: 10 MTN (M-Pesa / mKesh) | 50 MTN (e-Mola / Cartão)</div>
 
                     <button class="btn btn-primary" id="submitBtn" onclick="processPayment()">
                         <span>Pagar Agora</span><span style="font-size:1.1rem">→</span>
@@ -321,6 +308,7 @@
                     <div class="status-icon error">✕</div>
                     <div class="status-title">Erro no Pagamento</div>
                     <div class="status-desc" id="errorMessage">Ocorreu um erro. Tente novamente.</div>
+                    <div id="errorDetails" style="background:var(--gray-50);border-radius:var(--radius-md);padding:12px;margin-bottom:16px;text-align:left;font-size:0.78rem;color:var(--gray-600);display:none"></div>
                     <button class="btn btn-outline" onclick="resetModal()">Tentar Novamente</button>
                 </div>
             </div>
@@ -335,67 +323,16 @@
 
     <script>
         // ===== PRODUTOS (JSON) =====
-        // SUBSTITUA OS LINKS DE IMAGEM PELOS SEUS DO GITHUB
         const products = [
-           {
-        id: "livro-tauhid-001",
-        type: "image",
-        media: "https://raw.githubusercontent.com/islammocambique-maker/projeto-Islam-Mocambique-/main/os_100_capitulos_de_tuhid.png",
-        institution: "Islam Moçambique",
-        name: "Os 100 Capítulos de Tauhid",
-        description: "Obra clássica sobre a unidade de Deus (Tauhid) dividida em 100 capítulos...",
-        price: 120,
-        downloadUrl: "https://raw.githubusercontent.com/islammocambique-maker/projeto-Islam-Mocambique-/main/Os%20100%20CAPITULOS%20DE%20TAHUID%20_%202_030002.pdf"
-            },
             {
-                id: "livro-002",
+                id: "livro-tauhid-001",
                 type: "image",
-                media: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&h=400&fit=crop",
-                institution: "Madrassa Al-Ihsan",
-                name: "História dos Profetas",
-                description: "Narrativas ilustradas das histórias dos profetas, destinadas a todas as idades. Linguagem acessível e rica em ensinamentos.",
-                price: 180,
-                downloadUrl: "https://exemplo.com/downloads/historia-profetas.pdf"
-            },
-            {
-                id: "livro-003",
-                type: "video",
-                media: "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=600&h=400&fit=crop",
-                institution: "Instituto Islâmico da Beira",
-                name: "Fiqh do Cotidiano",
-                description: "Guia prático de jurisprudência islâmica para o dia a dia. Oração, jejum, zakat e transações comerciais explicados de forma clara.",
-                price: 300,
-                downloadUrl: "https://exemplo.com/downloads/fiqh-cotidiano.pdf"
-            },
-            {
-                id: "livro-004",
-                type: "image",
-                media: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&h=400&fit=crop",
-                institution: "Associação Al-Furqan",
-                name: "Tajweed Simplificado",
-                description: "Manual completo de recitação corânica com regras de tajweed. Acompanha áudios e exercícios práticos para cada capítulo.",
+                media: "https://raw.githubusercontent.com/islammocambique-maker/projeto-Islam-Mocambique-/main/os_100_capitulos_de_tuhid.png",
+                institution: "Islam Moçambique",
+                name: "Os 100 Capítulos de Tauhid",
+                description: "Obra clássica sobre a unidade de Deus (Tauhid) dividida em 100 capítulos. Fundamento essencial da fé islâmica, com explicações claras baseadas no Alcorão e na Sunnah.",
                 price: 200,
-                downloadUrl: "https://exemplo.com/downloads/tajweed-simplificado.pdf"
-            },
-            {
-                id: "livro-005",
-                type: "image",
-                media: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=600&h=400&fit=crop",
-                institution: "Centro Educativo Al-Huda",
-                name: "Árabe para Iniciantes",
-                description: "Curso completo de língua árabe desde o alfabeto até conversação básica. Ideal para estudantes de teologia e comunicação.",
-                price: 350,
-                downloadUrl: "https://exemplo.com/downloads/arabe-iniciantes.pdf"
-            },
-            {
-                id: "livro-006",
-                type: "video",
-                media: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=600&h=400&fit=crop",
-                institution: "Darul Uloom Moçambique",
-                name: "Aqeedah Fundamentos",
-                description: "Exposição sistemática dos artigos de fé islâmica baseada no Al-Qur'an e na Sunnah segundo o entendimento dos Salaf.",
-                price: 150,
-                downloadUrl: "https://exemplo.com/downloads/aqeedah-fundamentos.pdf"
+                downloadUrl: "https://raw.githubusercontent.com/islammocambique-maker/projeto-Islam-Mocambique-/main/Os%20100%20CAPITULOS%20DE%20TAHUID%20_%202_030002.pdf"
             }
         ];
 
@@ -424,6 +361,14 @@
         let currentProduct = null;
         let autoScrollInterval = null;
         let currentSlide = 0;
+
+        // ===== MÍNIMOS POR MÉTODO (NetShop) =====
+        const METHOD_MINIMUMS = {
+            mpesa: 10,
+            mkesh: 10,
+            emola: 50,
+            card: 50
+        };
 
         // ===== RENDERIZAR PRODUTOS =====
         function renderProducts() {
@@ -659,6 +604,14 @@
             document.querySelectorAll('.method-card').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
             selectedMethod = method;
+            updateMethodHint();
+        }
+
+        function updateMethodHint() {
+            const hint = document.getElementById('methodHint');
+            const min = METHOD_MINIMUMS[selectedMethod] || 10;
+            const methodNames = { mpesa: 'M-Pesa', mkesh: 'mKesh', emola: 'e-Mola', card: 'Cartão' };
+            hint.textContent = `Mínimo para ${methodNames[selectedMethod]}: ${min} MTN`;
         }
 
         function showLoading(show) { document.getElementById('loadingOverlay').classList.toggle('active', show); }
@@ -711,6 +664,12 @@
             const phone = document.getElementById('phone').value.trim();
             if (!name) { alert('Insira o nome completo.'); return false; }
             if (!phone || phone.length < 9) { alert('Telefone inválido.'); return false; }
+            if (!currentProduct) { alert('Erro: produto não selecionado.'); return false; }
+            const minAmount = METHOD_MINIMUMS[selectedMethod] || 10;
+            if (currentProduct.price < minAmount) {
+                alert(`O valor mínimo para ${selectedMethod.toUpperCase()} é ${minAmount} MTN. Este produto custa ${currentProduct.price} MTN — insuficiente.`);
+                return false;
+            }
             return true;
         }
 
@@ -726,52 +685,142 @@
             const reference = 'LIVRO-' + Date.now() + '-' + Math.random().toString(36).substr(2,6).toUpperCase();
             const amount = currentProduct.price;
 
+            // Dados compatíveis com documentação NetShop
             const paymentData = {
-                name, msisdn: phone, email: email || null,
+                name, 
+                msisdn: phone, 
+                email: email || null,
                 type: 'produto',
                 productId: currentProduct.id,
                 productName: currentProduct.name,
-                amount, method: selectedMethod,
-                currency: 'MZN', reference,
+                amount: amount,
+                method: selectedMethod,
+                currency: 'MZN', 
+                reference: reference,
                 userId: currentUser.uid,
-                userEmail: currentUser.email
+                userEmail: currentUser.email,
+                // Campos extra para o Apps Script mapear para NetShop
+                customer_email: email || currentUser.email || null,
+                metadata: { 
+                    order_id: reference, 
+                    product_id: currentProduct.id,
+                    product_name: currentProduct.name,
+                    user_id: currentUser.uid 
+                }
             };
 
             try {
-                await db.ref('payments/' + reference).set({ ...paymentData, status: 'processing', timestamp: Date.now(), netshopId: null });
-                await db.ref('users/' + currentUser.uid + '/payments/' + reference).set({ type: 'produto', productId: currentProduct.id, productName: currentProduct.name, amount, method: selectedMethod, status: 'processing', timestamp: Date.now(), reference });
-            } catch (dbErr) { showLoading(false); alert('Erro ao guardar dados.'); return; }
+                await db.ref('payments/' + reference).set({ 
+                    ...paymentData, 
+                    status: 'processing', 
+                    timestamp: Date.now(), 
+                    netshopId: null 
+                });
+                await db.ref('users/' + currentUser.uid + '/payments/' + reference).set({ 
+                    type: 'produto', 
+                    productId: currentProduct.id, 
+                    productName: currentProduct.name, 
+                    amount, 
+                    method: selectedMethod, 
+                    status: 'processing', 
+                    timestamp: Date.now(), 
+                    reference 
+                });
+            } catch (dbErr) { 
+                showLoading(false); 
+                alert('Erro ao guardar dados no Firebase.'); 
+                console.error(dbErr);
+                return; 
+            }
 
             localStorage.setItem('lastPaymentRef', reference);
 
-            let result = null, fetchFailed = false;
+            let result = null, fetchFailed = false, fetchError = null;
             try {
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 25000);
-                const response = await fetch(APPS_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(paymentData), signal: controller.signal });
+                const response = await fetch(APPS_SCRIPT_URL, { 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, 
+                    body: JSON.stringify(paymentData), 
+                    signal: controller.signal 
+                });
                 clearTimeout(timeoutId);
-                result = await response.json();
-            } catch (err) { fetchFailed = true; console.warn('Fetch falhou:', err); }
+
+                const text = await response.text();
+                console.log('Resposta raw do Apps Script:', text);
+
+                try {
+                    result = JSON.parse(text);
+                } catch (parseErr) {
+                    console.error('Erro ao parsear JSON:', parseErr);
+                    fetchError = 'Resposta inválida do servidor: ' + text.substring(0, 200);
+                    fetchFailed = true;
+                }
+            } catch (err) { 
+                fetchFailed = true; 
+                fetchError = err.message || 'Erro de rede';
+                console.warn('Fetch falhou:', err); 
+            }
 
             showLoading(false);
 
-            if (!fetchFailed && result && result.success) {
-                await db.ref('payments/' + reference).update({ status: 'pending', netshopId: result.netshopId || null });
+            if (fetchFailed) {
+                // Modo fallback: mostrar processing e aguardar Firebase
+                console.log('Fallback para Firebase. Erro:', fetchError);
+                document.getElementById('processingDetails').innerHTML = `
+                    <div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div>
+                    <div class="row"><span class="label">Valor</span><span class="value">${amount} MTN</span></div>
+                    <div class="row"><span class="label">Método</span><span class="value">${selectedMethod.toUpperCase()}</span></div>
+                    <div class="row"><span class="label">Telefone</span><span class="value">${phone}</span></div>
+                `;
+                showModalScreen('processingScreen');
+                listenPayment(reference);
+                startProcessingTimer(reference);
+                return;
+            }
+
+            if (result && result.success) {
+                await db.ref('payments/' + reference).update({ status: 'pending', netshopId: result.netshopId || result.id || null });
                 await db.ref('users/' + currentUser.uid + '/payments/' + reference).update({ status: 'pending' });
-                if (selectedMethod === 'card' && result.checkoutUrl) {
-                    document.getElementById('cardDetails').innerHTML = `<div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div><div class="row"><span class="label">Valor</span><span class="value">${amount} MTN</span></div><div class="row"><span class="label">Método</span><span class="value">Visa/Mastercard</span></div>`;
-                    document.getElementById('cardLink').href = result.checkoutUrl;
+
+                if (selectedMethod === 'card' && (result.checkoutUrl || result.hosted_url)) {
+                    const checkoutUrl = result.checkoutUrl || result.hosted_url;
+                    document.getElementById('cardDetails').innerHTML = `
+                        <div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div>
+                        <div class="row"><span class="label">Valor</span><span class="value">${amount} MTN</span></div>
+                        <div class="row"><span class="label">Método</span><span class="value">Visa/Mastercard</span></div>
+                    `;
+                    document.getElementById('cardLink').href = checkoutUrl;
                     showModalScreen('cardScreen');
                 } else {
-                    document.getElementById('successDetails').innerHTML = `<div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div><div class="row"><span class="label">Valor</span><span class="value">${amount} MTN</span></div><div class="row"><span class="label">Método</span><span class="value">${selectedMethod.toUpperCase()}</span></div><div class="row"><span class="label">Telefone</span><span class="value">${phone}</span></div>`;
+                    document.getElementById('successDetails').innerHTML = `
+                        <div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div>
+                        <div class="row"><span class="label">Valor</span><span class="value">${amount} MTN</span></div>
+                        <div class="row"><span class="label">Método</span><span class="value">${selectedMethod.toUpperCase()}</span></div>
+                        <div class="row"><span class="label">Telefone</span><span class="value">${phone}</span></div>
+                    `;
                     showModalScreen('successScreen');
                     listenPayment(reference);
                 }
-            } else if (!fetchFailed && result && !result.success) {
-                document.getElementById('errorMessage').textContent = result.error || 'Erro no servidor.';
+            } else if (result && !result.success) {
+                const errorDetails = document.getElementById('errorDetails');
+                const errorMsg = result.error || result.message || 'Erro no servidor.';
+                document.getElementById('errorMessage').textContent = errorMsg;
+                if (result.details || result.netshopError) {
+                    errorDetails.style.display = 'block';
+                    errorDetails.textContent = JSON.stringify(result.details || result.netshopError, null, 2);
+                } else {
+                    errorDetails.style.display = 'none';
+                }
                 showModalScreen('errorScreen');
             } else {
-                document.getElementById('processingDetails').innerHTML = `<div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div><div class="row"><span class="label">Valor</span><span class="value">${amount} MTN</span></div><div class="row"><span class="label">Método</span><span class="value">${selectedMethod.toUpperCase()}</span></div><div class="row"><span class="label">Telefone</span><span class="value">${phone}</span></div>`;
+                document.getElementById('processingDetails').innerHTML = `
+                    <div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div>
+                    <div class="row"><span class="label">Valor</span><span class="value">${amount} MTN</span></div>
+                    <div class="row"><span class="label">Método</span><span class="value">${selectedMethod.toUpperCase()}</span></div>
+                    <div class="row"><span class="label">Telefone</span><span class="value">${phone}</span></div>
+                `;
                 showModalScreen('processingScreen');
                 listenPayment(reference);
                 startProcessingTimer(reference);
@@ -788,10 +837,14 @@
 
                 if (data.status === 'paid') {
                     detachAllListeners();
-                    document.getElementById('successDetails').innerHTML = `<div class="row"><span class="label">Referência</span><span class="value">${ref}</span></div><div class="row"><span class="label">Valor</span><span class="value">${data.amount} MTN</span></div><div class="row"><span class="label">Método</span><span class="value">${(data.method || '').toUpperCase()}</span></div><div class="row"><span class="label">Estado</span><span class="value" style="color:var(--green-primary)">Confirmado ✓</span></div>`;
+                    document.getElementById('successDetails').innerHTML = `
+                        <div class="row"><span class="label">Referência</span><span class="value">${ref}</span></div>
+                        <div class="row"><span class="label">Valor</span><span class="value">${data.amount} MTN</span></div>
+                        <div class="row"><span class="label">Método</span><span class="value">${(data.method || '').toUpperCase()}</span></div>
+                        <div class="row"><span class="label">Estado</span><span class="value" style="color:var(--green-primary)">Confirmado ✓</span></div>
+                    `;
                     document.querySelector('#successScreen .status-title').textContent = 'Pagamento Confirmado!';
                     document.querySelector('#successScreen .status-desc').textContent = 'O seu pagamento foi recebido com sucesso. JazakAllahu Khairan!';
-                    // Mostrar botão de download
                     const prod = products.find(p => p.id === data.productId) || currentProduct;
                     if (prod) {
                         document.getElementById('downloadBtn').href = prod.downloadUrl;
@@ -801,7 +854,7 @@
                 }
                 else if (data.status === 'failed' || data.status === 'error') {
                     detachAllListeners();
-                    document.getElementById('errorMessage').textContent = data.errorMessage || 'Pagamento recusado.';
+                    document.getElementById('errorMessage').textContent = data.errorMessage || data.netshopError || 'Pagamento recusado.';
                     showModalScreen('errorScreen');
                 }
                 else if (data.status === 'pending' || data.status === 'processing') {
@@ -826,6 +879,7 @@
         // ===== INIT =====
         renderProducts();
         startAutoScroll();
+        updateMethodHint();
     </script>
 </body>
 </html>
