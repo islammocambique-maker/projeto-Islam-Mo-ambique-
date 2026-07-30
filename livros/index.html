@@ -1,885 +1,624 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Livro Digital — Loja Online">
-    <meta name="theme-color" content="#0B6623">
-    <title>Livro Digital — Loja Online</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-    <style>
-        :root {
-            --green-primary:#0B6623; --green-dark:#074B19; --green-light:#1A8C3A; --green-pale:#E8F5E9;
-            --gold:#C5A028; --gold-light:#E8D68B; --gold-dark:#9A7B1A;
-            --blue-primary:#2563EB; --blue-dark:#1D4ED8; --blue-light:#3B82F6; --blue-pale:#DBEAFE;
-            --black:#0A0A0A; --white:#FFFFFF; --off-white:#FAFBFC;
-            --gray-50:#F5F6F7; --gray-100:#E8EAED; --gray-200:#D1D5DB;
-            --gray-400:#9CA3AF; --gray-600:#4B5563; --gray-800:#1F2937; --gray-900:#111827;
-            --shadow-sm:0 1px 2px rgba(0,0,0,0.04); --shadow-md:0 4px 12px rgba(0,0,0,0.08);
-            --shadow-lg:0 12px 32px rgba(0,0,0,0.12); --shadow-gold:0 4px 16px rgba(197,160,40,0.25);
-            --shadow-blue:0 4px 16px rgba(37,99,235,0.25);
-            --radius-sm:10px; --radius-md:14px; --radius-lg:18px; --radius-xl:28px;
-            --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
-        }
-        *{margin:0;padding:0;box-sizing:border-box}
-        html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
-        body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--gray-800);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0B6623">
+<title>Livro Digital — Loja Online</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+<style>
+:root{
+  --verde:#0B6623;--verde-escuro:#074B19;--verde-claro:#1A8C3A;--verde-pale:#E8F5E9;
+  --dourado:#C5A028;--dourado-claro:#E8D68B;--dourado-escuro:#9A7B1A;
+  --azul:#2563EB;--azul-escuro:#1D4ED8;--azul-pale:#DBEAFE;
+  --preto:#0A0A0A;--branco:#FFFFFF;--off-white:#FAFBFC;
+  --cinza-50:#F5F6F7;--cinza-100:#E8EAED;--cinza-200:#D1D5DB;--cinza-400:#9CA3AF;--cinza-600:#4B5563;--cinza-800:#1F2937;
+  --sombra-sm:0 1px 2px rgba(0,0,0,0.04);--sombra-md:0 4px 12px rgba(0,0,0,0.08);--sombra-lg:0 12px 32px rgba(0,0,0,0.12);--sombra-azul:0 4px 16px rgba(37,99,235,0.25);
+  --raio-sm:10px;--raio-md:14px;--raio-lg:18px;--raio-xl:28px;
+  --transicao:all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--cinza-800);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-        .header{background:linear-gradient(135deg,var(--green-primary) 0%,var(--green-dark) 100%);position:relative;overflow:hidden;padding:18px 0 0;text-align:center}
-        .header-pattern{position:absolute;inset:0;opacity:0.06;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
-        .header-inner{position:relative;z-index:2;padding:0 20px 20px}
-        .logo{display:inline-flex;align-items:center;gap:10px;margin-bottom:10px}
-        .logo-icon{width:36px;height:36px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 8px rgba(0,0,0,0.25)}
-        .logo-text{color:var(--white);font-weight:700;font-size:1.1rem;letter-spacing:0.5px}
-        .logo-sub{color:var(--gold-light);font-size:0.65rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;opacity:0.9}
-        .header-title{font-family:'Amiri',serif;color:var(--white);font-size:1.6rem;font-weight:700;margin-bottom:6px;text-shadow:0 2px 8px rgba(0,0,0,0.2)}
-        .header-desc{color:rgba(255,255,255,0.85);font-size:0.82rem;max-width:420px;margin:0 auto;line-height:1.5}
-        .header-wave{position:absolute;bottom:-1px;left:0;width:100%;line-height:0}
-        .header-wave svg{display:block;width:100%;height:40px}
+/* HEADER */
+.header{background:linear-gradient(135deg,var(--verde) 0%,var(--verde-escuro) 100%);position:relative;overflow:hidden;padding:18px 0 0;text-align:center}
+.header-pattern{position:absolute;inset:0;opacity:0.06;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.header-inner{position:relative;z-index:2;padding:0 20px 20px}
+.logo{display:inline-flex;align-items:center;gap:10px;margin-bottom:10px}
+.logo-icon{width:36px;height:36px;background:var(--dourado);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 8px rgba(0,0,0,0.25)}
+.logo-text{color:var(--branco);font-weight:700;font-size:1.1rem;letter-spacing:0.5px}
+.logo-sub{color:var(--dourado-claro);font-size:0.65rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;opacity:0.9}
+.header-title{font-family:'Amiri',serif;color:var(--branco);font-size:1.7rem;font-weight:700;margin-bottom:6px;text-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.header-desc{color:rgba(255,255,255,0.85);font-size:0.82rem;max-width:420px;margin:0 auto;line-height:1.5}
+.header-wave{position:absolute;bottom:-1px;left:0;width:100%;line-height:0}
+.header-wave svg{display:block;width:100%;height:40px}
 
-        .container{max-width:1200px;margin:0 auto;padding:0 16px}
-        .section-title{font-size:1.15rem;font-weight:700;color:var(--gray-900);margin:28px 0 16px;display:flex;align-items:center;gap:10px}
-        .section-title .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block}
+/* LAYOUT */
+.container{max-width:1200px;margin:0 auto;padding:0 16px}
+.secao-titulo{font-size:1.15rem;font-weight:700;color:var(--cinza-900);margin:28px 0 16px;display:flex;align-items:center;gap:10px}
+.secao-titulo .ponto{width:8px;height:8px;border-radius:50%;background:var(--dourado);display:inline-block}
 
-        .carousel-wrapper{position:relative;margin-bottom:32px}
-        .carousel{ display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth; padding:4px 4px 20px; scrollbar-width:none; -ms-overflow-style:none; }
-        .carousel::-webkit-scrollbar{display:none}
-        .product-card{ flex:0 0 300px; scroll-snap-align:start; background:var(--white); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-md); border:1px solid var(--gray-100); display:flex; flex-direction:column; transition:var(--transition); position:relative; }
-        .product-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--green-light); }
-        .product-media{ width:100%; height:220px; object-fit:cover; display:block; background:var(--gray-100); }
-        .product-video{ width:100%; height:220px; object-fit:cover; display:block; background:var(--black); }
-        .product-body{ padding:16px; flex:1; display:flex; flex-direction:column; }
-        .product-institution{ font-size:0.72rem; font-weight:700; color:var(--green-primary); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
-        .product-name{ font-family:'Amiri',serif; font-size:1.15rem; font-weight:700; color:var(--gray-900); margin-bottom:8px; line-height:1.3; }
-        .product-desc{ font-size:0.82rem; color:var(--gray-600); line-height:1.5; margin-bottom:14px; flex:1; }
-        .product-footer{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:auto; padding-top:12px; border-top:1px solid var(--gray-100); }
-        .product-price{ font-size:1.1rem; font-weight:700; color:var(--green-primary); }
-        .product-price span{ font-size:0.75rem; color:var(--gray-400); font-weight:500; }
-        .btn-pay{ background:linear-gradient(135deg,var(--blue-primary),var(--blue-dark)); color:var(--white); border:none; padding:8px 18px; border-radius:var(--radius-sm); font-size:0.82rem; font-weight:600; cursor:pointer; transition:var(--transition); box-shadow:var(--shadow-blue); display:inline-flex; align-items:center; gap:6px; }
-        .btn-pay:hover{ transform:translateY(-2px); box-shadow:0 6px 20px rgba(37,99,235,0.35); }
-        .btn-pay:disabled{ opacity:0.6; cursor:not-allowed; transform:none; }
+/* CARROSSEL */
+.carrossel-wrap{position:relative;margin-bottom:32px}
+.carrossel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 4px 20px;scrollbar-width:none;-ms-overflow-style:none}
+.carrossel::-webkit-scrollbar{display:none}
+.produto-card{flex:0 0 300px;scroll-snap-align:start;background:var(--branco);border-radius:var(--raio-lg);overflow:hidden;box-shadow:var(--sombra-md);border:1px solid var(--cinza-100);display:flex;flex-direction:column;transition:var(--transicao);position:relative}
+.produto-card:hover{transform:translateY(-4px);box-shadow:var(--sombra-lg);border-color:var(--verde-claro)}
+.produto-media{width:100%;height:240px;object-fit:cover;display:block;background:var(--cinza-100)}
+.produto-corpo{padding:18px;flex:1;display:flex;flex-direction:column}
+.produto-instituicao{font-size:0.72rem;font-weight:700;color:var(--verde);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.produto-nome{font-family:'Amiri',serif;font-size:1.2rem;font-weight:700;color:var(--cinza-900);margin-bottom:8px;line-height:1.3}
+.produto-desc{font-size:0.84rem;color:var(--cinza-600);line-height:1.55;margin-bottom:16px;flex:1}
+.produto-pe{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:14px;border-top:1px solid var(--cinza-100)}
+.produto-preco{font-size:1.15rem;font-weight:700;color:var(--verde)}
+.produto-preco span{font-size:0.75rem;color:var(--cinza-400);font-weight:500}
+.btn-pagar{background:linear-gradient(135deg,var(--azul),var(--azul-escuro));color:var(--branco);border:none;padding:10px 22px;border-radius:var(--raio-sm);font-size:0.85rem;font-weight:600;cursor:pointer;transition:var(--transicao);box-shadow:var(--sombra-azul);display:inline-flex;align-items:center;gap:6px}
+.btn-pagar:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,99,235,0.35)}
+.btn-pagar:disabled{opacity:0.6;cursor:not-allowed;transform:none}
 
-        .carousel-nav{ position:absolute; top:50%; transform:translateY(-50%); width:40px; height:40px; border-radius:50%; background:var(--white); border:1px solid var(--gray-200); box-shadow:var(--shadow-md); display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:10; font-size:18px; color:var(--gray-800); transition:var(--transition); }
-        .carousel-nav:hover{ background:var(--green-primary); color:var(--white); border-color:var(--green-primary); }
-        .carousel-nav.prev{ left:-8px; }
-        .carousel-nav.next{ right:-8px; }
-        .carousel-dots{ display:flex; justify-content:center; gap:8px; margin-top:8px; }
-        .carousel-dot{ width:8px; height:8px; border-radius:50%; background:var(--gray-200); cursor:pointer; transition:var(--transition); }
-        .carousel-dot.active{ background:var(--green-primary); width:24px; border-radius:4px; }
+.carrossel-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--branco);border:1px solid var(--cinza-200);box-shadow:var(--sombra-md);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;font-size:20px;color:var(--cinza-800);transition:var(--transicao)}
+.carrossel-nav:hover{background:var(--verde);color:var(--branco);border-color:var(--verde)}
+.carrossel-nav.ant{left:-8px}
+.carrossel-nav.prox{right:-8px}
+.carrossel-dots{display:flex;justify-content:center;gap:8px;margin-top:8px}
+.carrossel-dot{width:8px;height:8px;border-radius:50%;background:var(--cinza-200);cursor:pointer;transition:var(--transicao)}
+.carrossel-dot.ativo{background:var(--verde);width:24px;border-radius:4px}
 
-        .modal-overlay{ position:fixed; inset:0; background:rgba(10,10,10,0.6); backdrop-filter:blur(6px); z-index:2000; display:none; align-items:center; justify-content:center; padding:16px; opacity:0; transition:opacity 0.3s ease; }
-        .modal-overlay.active{ display:flex; opacity:1; }
-        .modal{ background:var(--white); border-radius:var(--radius-lg); width:100%; max-width:520px; max-height:90vh; overflow-y:auto; box-shadow:var(--shadow-lg); transform:translateY(20px); transition:transform 0.3s ease; position:relative; }
-        .modal-overlay.active .modal{ transform:translateY(0); }
-        .modal-header{ padding:18px 20px 0; display:flex; align-items:center; justify-content:space-between; }
-        .modal-title{ font-size:1rem; font-weight:700; color:var(--gray-900); display:flex; align-items:center; gap:8px; }
-        .modal-close{ width:32px; height:32px; border-radius:50%; border:none; background:var(--gray-50); color:var(--gray-600); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:var(--transition); }
-        .modal-close:hover{ background:var(--gray-100); color:var(--gray-900); }
-        .modal-body{ padding:16px 20px 20px; }
+/* DESTAQUE */
+.destaques{display:grid;grid-template-columns:1fr;gap:16px;margin:24px 0}
+@media(min-width:640px){.destaques{grid-template-columns:repeat(3,1fr)}}
+.destaque-card{background:var(--branco);border-radius:var(--raio-md);padding:20px;text-align:center;border:1px solid var(--cinza-100);box-shadow:var(--sombra-sm)}
+.destaque-icone{font-size:32px;margin-bottom:8px}
+.destaque-titulo{font-size:0.9rem;font-weight:700;color:var(--cinza-900);margin-bottom:4px}
+.destaque-texto{font-size:0.78rem;color:var(--cinza-600)}
 
-        .form-section{background:var(--white);border-radius:var(--radius-lg);padding:20px;margin-top:0;box-shadow:none;border:none}
-        .form-section h2{font-size:0.95rem;font-weight:700;color:var(--gray-900);margin-bottom:16px;display:flex;align-items:center;gap:8px}
-        .form-section h2 .icon{width:28px;height:28px;background:linear-gradient(135deg,var(--green-primary),var(--green-light));border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--white)}
+/* CITAÇÃO */
+.citacao{background:linear-gradient(135deg,#FEF9E7,#FDF6E3);border:1px solid rgba(197,160,40,0.15);border-radius:var(--raio-lg);text-align:center;padding:28px 20px;margin:24px 0}
+.citacao p{font-family:'Amiri',serif;font-size:1.05rem;font-weight:700;color:var(--cinza-900);line-height:1.7}
+.citacao small{display:block;margin-top:8px;font-size:0.72rem;color:var(--dourado-escuro);font-weight:600}
 
-        .form-group{margin-bottom:14px}
-        .form-group label{display:block;font-size:0.78rem;font-weight:600;color:var(--gray-600);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px}
-        .form-group input, .form-group select{width:100%;padding:12px 14px;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-size:0.9rem;font-family:inherit;color:var(--gray-900);background:var(--white);transition:var(--transition);-webkit-appearance:none}
-        .form-group input:focus, .form-group select:focus{outline:none;border-color:var(--green-primary);box-shadow:0 0 0 3px rgba(11,102,35,0.1)}
-        .form-group input::placeholder{color:var(--gray-400)}
-        .form-group .hint{font-size:0.72rem;color:var(--gray-400);margin-top:3px}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(10,10,10,0.6);backdrop-filter:blur(6px);z-index:2000;display:none;align-items:center;justify-content:center;padding:16px;opacity:0;transition:opacity 0.3s ease}
+.modal-overlay.ativo{display:flex;opacity:1}
+.modal-box{background:var(--branco);border-radius:var(--raio-lg);width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:var(--sombra-lg);transform:translateY(20px);transition:transform 0.3s ease;position:relative}
+.modal-overlay.ativo .modal-box{transform:translateY(0)}
+.modal-header{padding:18px 20px 0;display:flex;align-items:center;justify-content:space-between}
+.modal-titulo{font-size:1rem;font-weight:700;color:var(--cinza-900);display:flex;align-items:center;gap:8px}
+.modal-fechar{width:32px;height:32px;border-radius:50%;border:none;background:var(--cinza-50);color:var(--cinza-600);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transicao)}
+.modal-fechar:hover{background:var(--cinza-100);color:var(--cinza-900)}
+.modal-body{padding:16px 20px 20px}
 
-        .method-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:4px}
-        @media(min-width:400px){.method-grid{grid-template-columns:repeat(4,1fr)}}
-        .method-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 4px;border:2px solid var(--gray-200);border-radius:var(--radius-md);cursor:pointer;transition:var(--transition);background:var(--white);position:relative}
-        .method-card:hover{border-color:var(--green-light)}
-        .method-card.selected{border-color:var(--green-primary);background:var(--green-pale)}
-        .method-card .method-icon{font-size:22px}
-        .method-card .method-name{font-size:0.72rem;font-weight:600;color:var(--gray-700);text-align:center}
-        .method-card input[type="radio"]{position:absolute;opacity:0}
+/* FORM */
+.form-sec{background:var(--branco);border-radius:var(--raio-lg);padding:20px}
+.form-sec h2{font-size:0.95rem;font-weight:700;color:var(--cinza-900);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.form-sec h2 .icone{width:28px;height:28px;background:linear-gradient(135deg,var(--verde),var(--verde-claro));border-radius:var(--raio-sm);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--branco)}
+.form-grupo{margin-bottom:14px}
+.form-grupo label{display:block;font-size:0.78rem;font-weight:600;color:var(--cinza-600);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px}
+.form-grupo input{width:100%;padding:12px 14px;border:1.5px solid var(--cinza-200);border-radius:var(--raio-sm);font-size:0.9rem;font-family:inherit;color:var(--cinza-900);background:var(--branco);transition:var(--transicao);-webkit-appearance:none}
+.form-grupo input:focus{outline:none;border-color:var(--verde);box-shadow:0 0 0 3px rgba(11,102,35,0.1)}
+.form-grupo input::placeholder{color:var(--cinza-400)}
+.form-grupo .hint{font-size:0.72rem;color:var(--cinza-400);margin-top:3px}
 
-        .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 20px;border-radius:var(--radius-md);font-size:0.9rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;letter-spacing:0.3px}
-        .btn-primary{background:linear-gradient(135deg,var(--green-primary),var(--green-light));color:var(--white);box-shadow:0 4px 14px rgba(11,102,35,0.3);margin-top:8px}
-        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(11,102,35,0.4)}
-        .btn-primary:disabled{opacity:0.6;cursor:not-allowed;transform:none}
-        .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--white);box-shadow:var(--shadow-gold)}
-        .btn-gold:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(197,160,40,0.35)}
-        .btn-outline{background:var(--white);color:var(--green-primary);border:2px solid var(--green-primary)}
-        .btn-outline:hover{background:var(--green-pale)}
-        .btn-link{background:transparent;color:var(--green-primary);padding:8px;font-size:0.82rem;font-weight:600}
-        .btn-link:hover{text-decoration:underline}
-        .btn-danger{background:linear-gradient(135deg,#DC2626,#B91C1C);color:var(--white);box-shadow:0 4px 14px rgba(220,38,38,0.25)}
-        .btn-danger:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(220,38,38,0.35)}
-        .btn-blue{background:linear-gradient(135deg,var(--blue-primary),var(--blue-dark));color:var(--white);box-shadow:var(--shadow-blue)}
-        .btn-blue:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,99,235,0.35)}
+.metodos{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:4px}
+@media(min-width:400px){.metodos{grid-template-columns:repeat(4,1fr)}}
+.metodo{border:2px solid var(--cinza-200);border-radius:var(--raio-md);padding:14px 4px;text-align:center;cursor:pointer;transition:var(--transicao);background:var(--branco);position:relative}
+.metodo:hover{border-color:var(--verde-claro)}
+.metodo.ativo{border-color:var(--verde);background:var(--verde-pale)}
+.metodo .metodo-icone{font-size:22px}
+.metodo .metodo-nome{font-size:0.72rem;font-weight:600;color:var(--cinza-700)}
+.metodo input{position:absolute;opacity:0}
 
-        .status-screen{display:none;text-align:center;padding:30px 20px}
-        .status-screen.active{display:block}
-        .status-icon{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px}
-        .status-icon.success{background:var(--green-pale);color:var(--green-primary)}
-        .status-icon.pending{background:#FEF9E7;color:var(--gold)}
-        .status-icon.error{background:#FEF2F2;color:#DC2626}
-        .status-icon.processing{background:#E0F2FE;color:#0284C7}
-        .status-title{font-size:1.1rem;font-weight:700;color:var(--gray-900);margin-bottom:6px}
-        .status-desc{font-size:0.85rem;color:var(--gray-600);margin-bottom:20px;line-height:1.6}
-        .status-details{background:var(--gray-50);border-radius:var(--radius-md);padding:14px;margin-bottom:20px;text-align:left}
-        .status-details .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--gray-100);font-size:0.82rem}
-        .status-details .row:last-child{border-bottom:none}
-        .status-details .row .label{color:var(--gray-400);font-weight:500}
-        .status-details .row .value{color:var(--gray-800);font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 20px;border-radius:var(--raio-md);font-size:0.9rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:var(--transicao);position:relative;overflow:hidden;letter-spacing:0.3px}
+.btn-verde{background:linear-gradient(135deg,var(--verde),var(--verde-claro));color:var(--branco);box-shadow:0 4px 14px rgba(11,102,35,0.3);margin-top:8px}
+.btn-verde:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(11,102,35,0.4)}
+.btn-verde:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.btn-dourado{background:linear-gradient(135deg,var(--dourado),var(--dourado-escuro));color:var(--branco);box-shadow:0 4px 16px rgba(197,160,40,0.25)}
+.btn-dourado:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(197,160,40,0.35)}
+.btn-outline{background:var(--branco);color:var(--verde);border:2px solid var(--verde)}
+.btn-outline:hover{background:var(--verde-pale)}
+.btn-link{background:transparent;color:var(--verde);padding:8px;font-size:0.82rem;font-weight:600}
+.btn-link:hover{text-decoration:underline}
+.btn-perigo{background:linear-gradient(135deg,#DC2626,#B91C1C);color:var(--branco);box-shadow:0 4px 14px rgba(220,38,38,0.25)}
+.btn-perigo:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(220,38,38,0.35)}
 
-        .loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,0.85);display:none;align-items:center;justify-content:center;z-index:3000;backdrop-filter:blur(4px)}
-        .loading-overlay.active{display:flex}
-        .spinner{width:40px;height:40px;border:3px solid var(--gray-200);border-top-color:var(--green-primary);border-radius:50%;animation:spin 0.8s linear infinite}
+/* STATUS */
+.status-box{display:none;text-align:center;padding:24px 16px}
+.status-box.ativo{display:block}
+.status-icone{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px}
+.status-icone.ok{background:var(--verde-pale);color:var(--verde)}
+.status-icone.erro{background:#FEF2F2;color:#DC2626}
+.status-icone.processo{background:#E0F2FE;color:#0284C7}
+.status-titulo{font-size:1.1rem;font-weight:700;color:var(--cinza-900);margin-bottom:6px}
+.status-desc{font-size:0.85rem;color:var(--cinza-600);margin-bottom:20px;line-height:1.6}
+.status-detalhes{background:var(--cinza-50);border-radius:var(--raio-md);padding:14px;margin-bottom:20px;text-align:left}
+.status-detalhes .linha{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--cinza-100);font-size:0.82rem}
+.status-detalhes .linha:last-child{border-bottom:none}
+.status-detalhes .linha .rotulo{color:var(--cinza-400);font-weight:500}
+.status-detalhes .linha .valor{color:var(--cinza-800);font-weight:600}
 
-        .auth-tabs{display:flex;gap:8px;margin-bottom:16px;border-bottom:2px solid var(--gray-100);padding-bottom:4px}
-        .auth-tab{flex:1;padding:10px;text-align:center;font-size:0.85rem;font-weight:600;color:var(--gray-400);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-6px;transition:var(--transition)}
-        .auth-tab.active{color:var(--green-primary);border-bottom-color:var(--green-primary)}
-        .user-badge{display:flex;align-items:center;gap:10px;background:var(--green-pale);border:1.5px solid var(--green-light);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:16px}
-        .user-badge .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--green-primary),var(--green-light));color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem}
-        .user-badge .user-info{flex:1}
-        .user-badge .user-name{font-size:0.9rem;font-weight:700;color:var(--gray-900)}
-        .user-badge .user-email{font-size:0.75rem;color:var(--gray-600)}
+.pulse-dot{width:10px;height:10px;background:var(--dourado);border-radius:50%;display:inline-block;margin-right:6px;animation:pulse 1.5s infinite}
+@keyframes pulse{0%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
 
-        .pulse-dot{width:10px;height:10px;background:var(--gold);border-radius:50%;display:inline-block;margin-right:6px;animation:pulse 1.5s infinite}
-        @keyframes pulse{0%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
-        @keyframes spin{to{transform:rotate(360deg)}}
-        @keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-        .animate-in{animation:fadeInUp 0.4s ease-out forwards;opacity:0}
-        .delay-1{animation-delay:0.05s}.delay-2{animation-delay:0.1s}.delay-3{animation-delay:0.15s}
+/* DOWNLOAD */
+.download-sec{display:none;text-align:center;padding:20px;background:linear-gradient(135deg,var(--verde-pale),#F0FDF4);border-radius:var(--raio-md);border:1.5px solid var(--verde-claro);margin-top:16px}
+.download-sec.ativo{display:block}
+.download-btn{background:linear-gradient(135deg,var(--verde),var(--verde-claro));color:var(--branco);padding:14px 28px;border-radius:var(--raio-md);font-size:0.95rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:10px;box-shadow:0 4px 14px rgba(11,102,35,0.3);transition:var(--transicao);border:none;cursor:pointer}
+.download-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(11,102,35,0.4)}
 
-        .download-section{ display:none; text-align:center; padding:20px; background:linear-gradient(135deg,var(--green-pale),#F0FDF4); border-radius:var(--radius-md); border:1.5px solid var(--green-light); margin-top:16px; }
-        .download-section.active{ display:block; }
-        .download-btn{ background:linear-gradient(135deg,var(--green-primary),var(--green-light)); color:var(--white); padding:14px 28px; border-radius:var(--radius-md); font-size:0.95rem; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:10px; box-shadow:0 4px 14px rgba(11,102,35,0.3); transition:var(--transition); border:none; cursor:pointer; }
-        .download-btn:hover{ transform:translateY(-2px); box-shadow:0 6px 20px rgba(11,102,35,0.4); }
+/* RESUMO PRODUTO */
+.resumo-prod{display:flex;gap:12px;align-items:center;background:var(--cinza-50);border-radius:var(--raio-md);padding:12px;margin-bottom:16px}
+.resumo-prod img{width:56px;height:56px;object-fit:cover;border-radius:var(--raio-sm)}
+.resumo-prod .info{flex:1}
+.resumo-prod .info .nome{font-size:0.85rem;font-weight:700;color:var(--cinza-900)}
+.resumo-prod .info .preco{font-size:0.8rem;color:var(--verde);font-weight:600}
 
-        .product-summary{ display:flex; gap:12px; align-items:center; background:var(--gray-50); border-radius:var(--radius-md); padding:12px; margin-bottom:16px; }
-        .product-summary img{ width:56px; height:56px; object-fit:cover; border-radius:var(--radius-sm); }
-        .product-summary .info{ flex:1; }
-        .product-summary .info .name{ font-size:0.85rem; font-weight:700; color:var(--gray-900); }
-        .product-summary .info .price{ font-size:0.8rem; color:var(--green-primary); font-weight:600; }
+/* ABAS */
+.abas{display:flex;gap:8px;margin-bottom:16px;border-bottom:2px solid var(--cinza-100);padding-bottom:4px}
+.aba{flex:1;padding:10px;text-align:center;font-size:0.85rem;font-weight:600;color:var(--cinza-400);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-6px;transition:var(--transicao)}
+.aba.ativa{color:var(--verde);border-bottom-color:var(--verde)}
 
-        .min-hint{ font-size:0.72rem; color:var(--gray-400); margin-top:4px; text-align:center; }
+/* USER BADGE */
+.user-badge{display:flex;align-items:center;gap:10px;background:var(--verde-pale);border:1.5px solid var(--verde-claro);border-radius:var(--raio-md);padding:12px 16px;margin-bottom:16px}
+.user-badge .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--verde),var(--verde-claro));color:var(--branco);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem}
+.user-badge .user-info{flex:1}
+.user-badge .user-name{font-size:0.9rem;font-weight:700;color:var(--cinza-900)}
+.user-badge .user-email{font-size:0.75rem;color:var(--cinza-600)}
 
-        .footer{margin-top:40px;padding:24px 16px 28px;text-align:center;background:var(--black);color:var(--gray-400)}
-        .footer-brand{font-weight:700;color:var(--white);font-size:0.95rem;margin-bottom:4px}
-        .footer-rights{font-size:0.72rem;margin-bottom:6px}
-        .footer-mission{font-size:0.75rem;color:var(--gray-500);font-style:italic}
-        .footer-heart{color:var(--gold)}
+/* MIN HINT */
+.min-hint{font-size:0.72rem;color:var(--cinza-400);margin-top:4px;text-align:center}
 
-        @media(min-width:640px){.header-title{font-size:2rem}.product-card{flex:0 0 340px}.carousel-nav.prev{left:-16px}.carousel-nav.next{right:-16px}}
-        @media(min-width:1024px){.product-card{flex:0 0 380px}}
-    </style>
+/* LOADING */
+.loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,0.85);display:none;align-items:center;justify-content:center;z-index:3000;backdrop-filter:blur(4px)}
+.loading-overlay.ativo{display:flex}
+.spinner{width:40px;height:40px;border:3px solid var(--cinza-200);border-top-color:var(--verde);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* FOOTER */
+.footer{margin-top:40px;padding:28px 16px 32px;text-align:center;background:var(--preto);color:var(--cinza-400)}
+.footer-brand{font-weight:700;color:var(--branco);font-size:0.95rem;margin-bottom:4px}
+.footer-rights{font-size:0.72rem;margin-bottom:6px}
+.footer-mission{font-size:0.75rem;color:var(--cinza-500);font-style:italic}
+.footer-heart{color:var(--dourado)}
+
+/* ANIM */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.animar{animation:fadeInUp 0.4s ease-out forwards;opacity:0}
+.atraso-1{animation-delay:0.05s}.atraso-2{animation-delay:0.1s}.atraso-3{animation-delay:0.15s}
+
+@media(min-width:640px){.header-title{font-size:2rem}.produto-card{flex:0 0 340px}.carrossel-nav.ant{left:-16px}.carrossel-nav.prox{right:-16px}}
+@media(min-width:1024px){.produto-card{flex:0 0 380px}}
+</style>
 <base target="_blank">
 </head>
 <body>
 
-    <div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div></div>
+<div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div></div>
 
-    <header class="header">
-        <div class="header-pattern"></div>
-        <div class="header-inner">
-            <div class="logo">
-                <div class="logo-icon">📚</div>
-                <div>
-                    <div class="logo-text">LIVRO DIGITAL</div>
-                    <div class="logo-sub">Loja Online</div>
-                </div>
-            </div>
-            <h1 class="header-title">Descubra o Conhecimento</h1>
-            <p class="header-desc">Livros digitais de instituições de confiança. Adquira, pague e descarregue em poucos segundos.</p>
-        </div>
-        <div class="header-wave">
-            <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path fill="#FAFBFC" d="M0,40L48,45.3C96,51,192,61,288,58.7C384,56,480,40,576,37.3C672,35,768,45,864,50.7C960,56,1056,56,1152,50.7C1248,45,1344,35,1392,29.3L1440,24L1440,80L1392,80C1344,80,1248,80,1152,80C1056,80,960,80,864,80C768,80,672,80,576,80C480,80,384,80,288,80C192,80,96,80,48,80L0,80Z"></path></svg>
-        </div>
-    </header>
-
-    <main class="container">
-        <h2 class="section-title animate-in delay-1"><span class="dot"></span> Livros Disponíveis</h2>
-        <div class="carousel-wrapper animate-in delay-2">
-            <button class="carousel-nav prev" onclick="scrollCarousel(-1)" aria-label="Anterior">‹</button>
-            <div class="carousel" id="productCarousel"></div>
-            <button class="carousel-nav next" onclick="scrollCarousel(1)" aria-label="Próximo">›</button>
-            <div class="carousel-dots" id="carouselDots"></div>
-        </div>
-    </main>
-
-    <!-- MODAL DE PAGAMENTO -->
-    <div class="modal-overlay" id="paymentModal" onclick="closeModalOnBackdrop(event)">
-        <div class="modal">
-            <div class="modal-header">
-                <div class="modal-title"><div class="icon" style="width:28px;height:28px;background:linear-gradient(135deg,var(--green-primary),var(--green-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--white)">💳</div> Finalizar Compra</div>
-                <button class="modal-close" onclick="closePaymentModal()">×</button>
-            </div>
-            <div class="modal-body">
-                <div id="modalProductSummary"></div>
-
-                <!-- AUTH -->
-                <div id="authScreen" class="form-section auth-screen">
-                    <h2><div class="icon">🔐</div> Acesse a sua Conta</h2>
-                    <div class="auth-tabs">
-                        <div class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Entrar</div>
-                        <div class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Criar Conta</div>
-                    </div>
-                    <div id="loginForm">
-                        <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="nome@email.com" required></div>
-                        <div class="form-group"><label>Palavra-passe</label><input type="password" id="loginPassword" placeholder="••••••••" required></div>
-                        <button class="btn btn-primary" onclick="loginUser()">Entrar</button>
-                        <div style="text-align:center;margin-top:10px"><button class="btn btn-link" onclick="showForgotPassword()">Esqueceu a palavra-passe?</button></div>
-                    </div>
-                    <div id="registerForm" style="display:none">
-                        <div class="form-group"><label>Nome Completo *</label><input type="text" id="regName" placeholder="Ex: Ahmed Mohamed" required></div>
-                        <div class="form-group"><label>Email *</label><input type="email" id="regEmail" placeholder="nome@email.com" required></div>
-                        <div class="form-group"><label>Palavra-passe * (min. 6)</label><input type="password" id="regPassword" placeholder="••••••••" required></div>
-                        <div class="form-group"><label>Telefone *</label><input type="tel" id="regPhone" placeholder="Ex: +258 84 123 4567" required><div class="hint">Formato: +258XXXXXXXXX</div></div>
-                        <button class="btn btn-primary" onclick="registerUser()">Criar Conta</button>
-                    </div>
-                </div>
-
-                <div id="forgotScreen" class="form-section auth-screen" style="display:none">
-                    <h2><div class="icon">📧</div> Recuperar Palavra-passe</h2>
-                    <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:14px">Insira o seu email e enviaremos um link para redefinir a palavra-passe.</p>
-                    <div class="form-group"><label>Email</label><input type="email" id="forgotEmail" placeholder="nome@email.com" required></div>
-                    <button class="btn btn-primary" onclick="resetPassword()">Enviar Link</button>
-                    <div style="text-align:center;margin-top:10px"><button class="btn btn-link" onclick="showAuthModalScreen()">Voltar ao login</button></div>
-                </div>
-
-                <!-- PAYMENT FORM -->
-                <div id="paymentForm" class="form-section" style="display:none">
-                    <div class="user-badge" id="userBadge">
-                        <div class="avatar" id="userAvatar">U</div>
-                        <div class="user-info"><div class="user-name" id="userDisplayName">Utilizador</div><div class="user-email" id="userDisplayEmail">email@exemplo.com</div></div>
-                        <button class="btn btn-danger" style="width:auto;padding:8px 14px;font-size:0.75rem" onclick="logoutUser()">Sair</button>
-                    </div>
-
-                    <h2><div class="icon">👤</div> Dados do Pagante</h2>
-                    <div class="form-group"><label>Nome Completo *</label><input type="text" id="fullName" placeholder="Ex: Ahmed Mohamed" required></div>
-                    <div class="form-group"><label>Número de Telefone *</label><input type="tel" id="phone" placeholder="Ex: +258 84 123 4567" required><div class="hint">Formato: +258XXXXXXXXX</div></div>
-                    <div class="form-group"><label>Email (opcional)</label><input type="email" id="email" placeholder="Ex: nome@email.com"></div>
-
-                    <h2 style="margin-top:20px"><div class="icon">💳</div> Método de Pagamento</h2>
-                    <div class="method-grid">
-                        <label class="method-card selected" onclick="selectMethod(this, 'mpesa')"><input type="radio" name="paymentMethod" value="mpesa" checked><div class="method-icon">📱</div><div class="method-name">M-Pesa</div></label>
-                        <label class="method-card" onclick="selectMethod(this, 'mkesh')"><input type="radio" name="paymentMethod" value="mkesh"><div class="method-icon">🏦</div><div class="method-name">mKesh</div></label>
-                        <label class="method-card" onclick="selectMethod(this, 'emola')"><input type="radio" name="paymentMethod" value="emola"><div class="method-icon">💰</div><div class="method-name">e-Mola</div></label>
-                        <label class="method-card" onclick="selectMethod(this, 'card')"><input type="radio" name="paymentMethod" value="card"><div class="method-icon">💳</div><div class="method-name">Visa/MC</div></label>
-                    </div>
-                    <div class="min-hint" id="methodHint">Mínimo: 10 MTN (M-Pesa / mKesh) | 50 MTN (e-Mola / Cartão)</div>
-
-                    <button class="btn btn-primary" id="submitBtn" onclick="processPayment()">
-                        <span>Pagar Agora</span><span style="font-size:1.1rem">→</span>
-                    </button>
-                </div>
-
-                <!-- STATUS SCREENS -->
-                <div id="processingScreen" class="form-section status-screen">
-                    <div class="status-icon processing">⏳</div>
-                    <div class="status-title">Aguardando Confirmação</div>
-                    <div class="status-desc">O pagamento foi iniciado. Estamos a verificar o estado em tempo real. Verifique o seu telemóvel e confirme se solicitado.</div>
-                    <div class="status-details" id="processingDetails"></div>
-                    <div style="margin-bottom:16px"><span class="pulse-dot"></span><span id="processingText" style="font-size:0.8rem;color:var(--gray-600)">A verificar estado do pagamento...</span></div>
-                    <button class="btn btn-outline" onclick="resetModal()">Voltar</button>
-                </div>
-
-                <div id="successScreen" class="form-section status-screen">
-                    <div class="status-icon success">✓</div>
-                    <div class="status-title">Pagamento Confirmado!</div>
-                    <div class="status-desc">O seu pagamento foi recebido com sucesso. JazakAllahu Khairan!</div>
-                    <div class="status-details" id="successDetails"></div>
-                    <div id="downloadSection" class="download-section">
-                        <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:12px">O seu livro está pronto para download.</p>
-                        <a class="download-btn" id="downloadBtn" href="#" target="_blank" download>📥 Descarregar Livro</a>
-                    </div>
-                    <button class="btn btn-outline" style="margin-top:12px" onclick="closePaymentModal()">Fechar</button>
-                </div>
-
-                <div id="cardScreen" class="form-section status-screen">
-                    <div class="status-icon pending">↗</div>
-                    <div class="status-title">Redirecionando...</div>
-                    <div class="status-desc">Será redirecionado para a página segura da NetShop.</div>
-                    <div class="status-details" id="cardDetails"></div>
-                    <a class="btn btn-gold" id="cardLink" href="#" target="_blank">Ir para Pagamento Seguro</a>
-                    <button class="btn btn-outline" style="margin-top:8px" onclick="resetModal()">Cancelar</button>
-                </div>
-
-                <div id="errorScreen" class="form-section status-screen">
-                    <div class="status-icon error">✕</div>
-                    <div class="status-title">Erro no Pagamento</div>
-                    <div class="status-desc" id="errorMessage">Ocorreu um erro. Tente novamente.</div>
-                    <div id="errorDetails" style="background:var(--gray-50);border-radius:var(--radius-md);padding:12px;margin-bottom:16px;text-align:left;font-size:0.78rem;color:var(--gray-600);display:none"></div>
-                    <button class="btn btn-outline" onclick="resetModal()">Tentar Novamente</button>
-                </div>
-            </div>
-        </div>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-pattern"></div>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">📚</div>
+      <div>
+        <div class="logo-text">LIVRO DIGITAL</div>
+        <div class="logo-sub">Loja Online</div>
+      </div>
     </div>
+    <h1 class="header-title">Descubra o Conhecimento</h1>
+    <p class="header-desc">Livros digitais de instituições de confiança. Adquira, pague e descarregue em poucos segundos.</p>
+  </div>
+  <div class="header-wave">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path fill="#FAFBFC" d="M0,40L48,45.3C96,51,192,61,288,58.7C384,56,480,40,576,37.3C672,35,768,45,864,50.7C960,56,1056,56,1152,50.7C1248,45,1344,35,1392,29.3L1440,24L1440,80L1392,80C1344,80,1248,80,1152,80C1056,80,960,80,864,80C768,80,672,80,576,80C480,80,384,80,288,80C192,80,96,80,48,80L0,80Z"></path></svg>
+  </div>
+</header>
 
-    <footer class="footer">
-        <div class="footer-brand">© Livro Digital</div>
-        <div class="footer-rights">Todos os direitos reservados.</div>
-        <div class="footer-mission">Feito com <span class="footer-heart">♥</span> para disseminar o conhecimento.</div>
-    </footer>
+<!-- DESTAQUES -->
+<div class="container">
+  <div class="destaques animar atraso-1">
+    <div class="destaque-card">
+      <div class="destaque-icone">🔒</div>
+      <div class="destaque-titulo">Pagamento Seguro</div>
+      <div class="destaque-texto">Processado via NetShop com encriptação total</div>
+    </div>
+    <div class="destaque-card">
+      <div class="destaque-icone">⚡</div>
+      <div class="destaque-titulo">Entrega Imediata</div>
+      <div class="destaque-texto">Download automático após confirmação</div>
+    </div>
+    <div class="destaque-card">
+      <div class="destaque-icone">📖</div>
+      <div class="destaque-titulo">Conteúdo Autêntico</div>
+      <div class="destaque-texto">Obras revisadas por estudiosos qualificados</div>
+    </div>
+  </div>
 
-    <script>
-        // ===== PRODUTOS (JSON) =====
-        const products = [
-            {
-                id: "livro-tauhid-001",
-                type: "image",
-                media: "https://raw.githubusercontent.com/islammocambique-maker/projeto-Islam-Mocambique-/main/os_100_capitulos_de_tuhid.png",
-                institution: "Islam Moçambique",
-                name: "Os 100 Capítulos de Tauhid",
-                description: "Obra clássica sobre a unidade de Deus (Tauhid) dividida em 100 capítulos. Fundamento essencial da fé islâmica, com explicações claras baseadas no Alcorão e na Sunnah.",
-                price: 200,
-                downloadUrl: "https://raw.githubusercontent.com/islammocambique-maker/projeto-Islam-Mocambique-/main/Os%20100%20CAPITULOS%20DE%20TAHUID%20_%202_030002.pdf"
-            }
-        ];
+  <!-- CARROSSEL -->
+  <h2 class="secao-titulo animar atraso-2"><span class="ponto"></span> Livros Disponíveis</h2>
+  <div class="carrossel-wrap animar atraso-2">
+    <button class="carrossel-nav ant" onclick="scrollCarrossel(-1)" aria-label="Anterior">‹</button>
+    <div class="carrossel" id="carrossel"></div>
+    <button class="carrossel-nav prox" onclick="scrollCarrossel(1)" aria-label="Próximo">›</button>
+    <div class="carrossel-dots" id="carrosselDots"></div>
+  </div>
 
-        // ===== CONFIGURAÇÃO FIREBASE & APPS SCRIPT =====
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzjzjdAn-Tthdd-Abvy9Lirp5YneNKI-3nvm9hYz7Css2KP-f4RJvZCd7Ukc11zIssA/exec";
-        const firebaseConfig = {
-            apiKey: "AIzaSyD2rNS7HSJyek3OCrRquudFgqQSWXZJYrY",
-            authDomain: "madrassa-online-b851c.firebaseapp.com",
-            databaseURL: "https://madrassa-online-b851c-default-rtdb.firebaseio.com",
-            projectId: "madrassa-online-b851c",
-            storageBucket: "madrassa-online-b851c.firebasestorage.app",
-            messagingSenderId: "360782668012",
-            appId: "1:360782668012:web:d501ef187911db632445c9"
-        };
+  <!-- CITAÇÃO -->
+  <div class="citacao animar atraso-3">
+    <p>Quem guia uma pessoa para o bem terá uma recompensa semelhante à daquele que o pratica.</p>
+    <small>— Sahih Muslim</small>
+  </div>
+</div>
 
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.database();
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="fecharFora(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-titulo"><div class="icone" style="width:28px;height:28px;background:linear-gradient(135deg,var(--verde),var(--verde-claro));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--branco)">💳</div> Finalizar Compra</div>
+      <button class="modal-fechar" onclick="fecharModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div id="resumoProduto"></div>
 
-        let currentUser = null;
-        let selectedMethod = 'mpesa';
-        let activePaymentRef = null;
-        let activeListener = null;
-        let processingTimer = null;
-        let lastShownScreen = null;
-        let currentProduct = null;
-        let autoScrollInterval = null;
-        let currentSlide = 0;
+      <!-- LOGIN -->
+      <div id="telaLogin" class="form-sec">
+        <h2><div class="icone">🔐</div> Acesse a sua Conta</h2>
+        <div class="abas">
+          <div class="aba ativa" onclick="mudarAba('entrar')">Entrar</div>
+          <div class="aba" onclick="mudarAba('criar')">Criar Conta</div>
+        </div>
+        <div id="formEntrar">
+          <div class="form-grupo"><label>Email</label><input type="email" id="loginEmail" placeholder="nome@email.com"></div>
+          <div class="form-grupo"><label>Palavra-passe</label><input type="password" id="loginPassword" placeholder="••••••••"></div>
+          <button class="btn btn-verde" onclick="entrar()">Entrar</button>
+          <div style="text-align:center;margin-top:10px"><button class="btn btn-link" onclick="mostrarEsqueci()">Esqueceu a palavra-passe?</button></div>
+        </div>
+        <div id="formCriar" style="display:none">
+          <div class="form-grupo"><label>Nome Completo *</label><input type="text" id="regNome" placeholder="Ex: Ahmed Mohamed"></div>
+          <div class="form-grupo"><label>Email *</label><input type="email" id="regEmail" placeholder="nome@email.com"></div>
+          <div class="form-grupo"><label>Palavra-passe * (min. 6)</label><input type="password" id="regPassword" placeholder="••••••••"></div>
+          <div class="form-grupo"><label>Telefone *</label><input type="tel" id="regTelefone" placeholder="Ex: +258 84 123 4567"><div class="hint">Formato: +258XXXXXXXXX</div></div>
+          <button class="btn btn-verde" onclick="criarConta()">Criar Conta</button>
+        </div>
+      </div>
 
-        // ===== MÍNIMOS POR MÉTODO (NetShop) =====
-        const METHOD_MINIMUMS = {
-            mpesa: 10,
-            mkesh: 10,
-            emola: 50,
-            card: 50
-        };
+      <div id="telaEsqueci" class="form-sec" style="display:none">
+        <h2><div class="icone">📧</div> Recuperar Palavra-passe</h2>
+        <p style="font-size:0.85rem;color:var(--cinza-600);margin-bottom:14px">Insira o seu email e enviaremos um link para redefinir a palavra-passe.</p>
+        <div class="form-grupo"><label>Email</label><input type="email" id="esqueciEmail" placeholder="nome@email.com"></div>
+        <button class="btn btn-verde" onclick="recuperarSenha()">Enviar Link</button>
+        <div style="text-align:center;margin-top:10px"><button class="btn btn-link" onclick="mostrarLogin()">Voltar ao login</button></div>
+      </div>
 
-        // ===== RENDERIZAR PRODUTOS =====
-        function renderProducts() {
-            const carousel = document.getElementById('productCarousel');
-            const dots = document.getElementById('carouselDots');
-            carousel.innerHTML = '';
-            dots.innerHTML = '';
+      <!-- PAGAMENTO -->
+      <div id="telaPagamento" class="form-sec" style="display:none">
+        <div class="user-badge" id="userBadge">
+          <div class="avatar" id="userAvatar">U</div>
+          <div class="user-info"><div class="user-name" id="userDisplayName">Utilizador</div><div class="user-email" id="userDisplayEmail">email@exemplo.com</div></div>
+          <button class="btn btn-perigo" style="width:auto;padding:8px 14px;font-size:0.75rem" onclick="sair()">Sair</button>
+        </div>
 
-            products.forEach((p, i) => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.dataset.index = i;
-                const media = p.type === 'video'
-                    ? `<video class="product-video" src="${p.media}" muted loop playsinline poster="${p.media}"></video>`
-                    : `<img class="product-media" src="${p.media}" alt="${p.name}" loading="lazy">`;
-                card.innerHTML = `
-                    ${media}
-                    <div class="product-body">
-                        <div class="product-institution">${p.institution}</div>
-                        <div class="product-name">${p.name}</div>
-                        <div class="product-desc">${p.description}</div>
-                        <div class="product-footer">
-                            <div class="product-price">${p.price} <span>MTN</span></div>
-                            <button class="btn-pay" onclick="openPaymentModal('${p.id}')">Pagar →</button>
-                        </div>
-                    </div>
-                `;
-                carousel.appendChild(card);
+        <h2><div class="icone">👤</div> Dados do Pagante</h2>
+        <div class="form-grupo"><label>Nome Completo *</label><input type="text" id="nome" placeholder="Ex: Ahmed Mohamed"></div>
+        <div class="form-grupo"><label>Número de Telefone *</label><input type="tel" id="telefone" placeholder="Ex: +258 84 123 4567"><div class="hint">Formato: +258XXXXXXXXX</div></div>
+        <div class="form-grupo"><label>Email (opcional)</label><input type="email" id="email" placeholder="Ex: nome@email.com"></div>
 
-                const dot = document.createElement('div');
-                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-                dot.onclick = () => goToSlide(i);
-                dots.appendChild(dot);
-            });
-        }
+        <h2 style="margin-top:20px"><div class="icone">💳</div> Método de Pagamento</h2>
+        <div class="metodos">
+          <label class="metodo ativo" onclick="escolherMetodo(this,'mpesa')"><input type="radio" name="metodo" value="mpesa" checked><div class="metodo-icone">📱</div><div class="metodo-nome">M-Pesa</div></label>
+          <label class="metodo" onclick="escolherMetodo(this,'mkesh')"><input type="radio" name="metodo" value="mkesh"><div class="metodo-icone">🏦</div><div class="metodo-nome">mKesh</div></label>
+          <label class="metodo" onclick="escolherMetodo(this,'emola')"><input type="radio" name="metodo" value="emola"><div class="metodo-icone">💰</div><div class="metodo-nome">e-Mola</div></label>
+          <label class="metodo" onclick="escolherMetodo(this,'card')"><input type="radio" name="metodo" value="card"><div class="metodo-icone">💳</div><div class="metodo-nome">Visa/MC</div></label>
+        </div>
+        <div class="min-hint" id="methodHint">Mínimo para M-Pesa: 10 MTN</div>
 
-        // ===== CARROSSEL =====
-        function getCardWidth() {
-            const card = document.querySelector('.product-card');
-            return card ? card.offsetWidth + 16 : 316;
-        }
+        <button class="btn btn-verde" id="btnPagar" onclick="pedirPagamento()">Pagar Agora</button>
+      </div>
 
-        function goToSlide(index) {
-            const carousel = document.getElementById('productCarousel');
-            const dots = document.querySelectorAll('.carousel-dot');
-            const maxIndex = products.length - 1;
-            currentSlide = Math.max(0, Math.min(index, maxIndex));
-            carousel.scrollTo({ left: currentSlide * getCardWidth(), behavior: 'smooth' });
-            dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-        }
+      <!-- STATUS -->
+      <div id="telaStatus" style="display:none">
+        <div class="status-box" id="statusProcessando">
+          <div class="status-icone processo">⏳</div>
+          <div class="status-titulo">Pagamento Iniciado</div>
+          <div class="status-desc">Verifique o seu telemóvel e confirme se solicitado. Estamos a processar em tempo real...</div>
+          <div class="status-detalhes" id="detalhesProcesso"></div>
+          <div style="margin-bottom:16px"><span class="pulse-dot"></span><span style="font-size:0.8rem;color:var(--cinza-600)">A aguardar confirmação...</span></div>
+          <button class="btn btn-outline" onclick="resetarModal()">Cancelar</button>
+        </div>
+        <div class="status-box" id="statusPago">
+          <div class="status-icone ok">✓</div>
+          <div class="status-titulo">Pagamento Confirmado!</div>
+          <div class="status-desc">O seu pagamento foi recebido com sucesso. JazakAllahu Khairan!</div>
+          <div class="status-detalhes" id="detalhesPago"></div>
+          <div id="secDownload" class="download-sec">
+            <p style="font-size:0.85rem;color:var(--cinza-600);margin-bottom:12px">O seu livro está pronto para download.</p>
+            <a class="download-btn" id="linkDownload" href="#" target="_blank">📥 Descarregar Livro</a>
+          </div>
+          <button class="btn btn-outline" style="margin-top:12px" onclick="fecharModal()">Fechar</button>
+        </div>
+        <div class="status-box" id="statusErro">
+          <div class="status-icone erro">✕</div>
+          <div class="status-titulo">Erro no Pagamento</div>
+          <div class="status-desc" id="msgErro">Ocorreu um erro. Tente novamente.</div>
+          <div id="detalhesErro" style="background:var(--cinza-50);border-radius:var(--raio-md);padding:12px;margin-bottom:16px;text-align:left;font-size:0.78rem;color:var(--cinza-600);display:none"></div>
+          <button class="btn btn-outline" onclick="voltarPagamento()">Tentar Novamente</button>
+        </div>
+      </div>
 
-        function scrollCarousel(dir) {
-            goToSlide(currentSlide + dir);
-        }
+    </div>
+  </div>
+</div>
 
-        function startAutoScroll() {
-            stopAutoScroll();
-            autoScrollInterval = setInterval(() => {
-                const next = currentSlide + 1 >= products.length ? 0 : currentSlide + 1;
-                goToSlide(next);
-            }, 8000);
-        }
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-brand">© Livro Digital</div>
+  <div class="footer-rights">Todos os direitos reservados.</div>
+  <div class="footer-mission">Feito com <span class="footer-heart">♥</span> para disseminar o conhecimento.</div>
+</footer>
 
-        function stopAutoScroll() {
-            if (autoScrollInterval) { clearInterval(autoScrollInterval); autoScrollInterval = null; }
-        }
+<script>
+// ===== PRODUTOS =====
+const produtos = [
+  {
+    id:"livro-tauhid-001",
+    tipo:"imagem",
+    media:"https://raw.githubusercontent.com/islammocambique-maker/projeto-Islam-Mocambique-/main/os_100_capitulos_de_tuhid.png",
+    instituicao:"Islam Moçambique",
+    nome:"Os 100 Capítulos de Tauhid",
+    descricao:"Obra clássica sobre a unidade de Deus (Tauhid) dividida em 100 capítulos. Fundamento essencial da fé islâmica, com explicações claras baseadas no Alcorão e na Sunnah.",
+    preco:200,
+    download:"https://raw.githubusercontent.com/islammocambique-maker/projeto-Islam-Mocambique-/main/Os%20100%20CAPITULOS%20DE%20TAHUID%20_%202_030002.pdf"
+  }
+];
 
-        document.getElementById('productCarousel').addEventListener('scroll', () => {
-            const carousel = document.getElementById('productCarousel');
-            const cardW = getCardWidth();
-            const idx = Math.round(carousel.scrollLeft / cardW);
-            if (idx !== currentSlide) {
-                currentSlide = idx;
-                document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-            }
-        });
+// ===== FIREBASE =====
+const firebaseConfig = {
+  apiKey:"AIzaSyD2rNS7HSJyek3OCrRquudFgqQSWXZJYrY",
+  authDomain:"madrassa-online-b851c.firebaseapp.com",
+  databaseURL:"https://madrassa-online-b851c-default-rtdb.firebaseio.com",
+  projectId:"madrassa-online-b851c",
+  storageBucket:"madrassa-online-b851c.firebasestorage.app",
+  messagingSenderId:"360782668012",
+  appId:"1:360782668012:web:d501ef187911db632445c9"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
 
-        document.getElementById('productCarousel').addEventListener('mouseenter', stopAutoScroll);
-        document.getElementById('productCarousel').addEventListener('mouseleave', startAutoScroll);
-        document.getElementById('productCarousel').addEventListener('touchstart', stopAutoScroll, {passive:true});
-        document.getElementById('productCarousel').addEventListener('touchend', () => { setTimeout(startAutoScroll, 3000); });
+let metodo = 'mpesa';
+let pedidoAtual = null;
+let listenerAtual = null;
+let produtoAtual = null;
+let autoScroll = null;
+let slideAtual = 0;
 
-        // ===== MODAL =====
-        function openPaymentModal(productId) {
-            currentProduct = products.find(p => p.id === productId);
-            if (!currentProduct) return;
-            const summary = document.getElementById('modalProductSummary');
-            summary.innerHTML = `
-                <div class="product-summary">
-                    <img src="${currentProduct.media}" alt="${currentProduct.name}">
-                    <div class="info">
-                        <div class="name">${currentProduct.name}</div>
-                        <div class="price">${currentProduct.price} MTN — ${currentProduct.institution}</div>
-                    </div>
-                </div>
-            `;
-            document.getElementById('paymentModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            resetModal();
-        }
+const MINIMOS = {mpesa:10,mkesh:10,emola:50,card:50};
 
-        function closePaymentModal() {
-            document.getElementById('paymentModal').classList.remove('active');
-            document.body.style.overflow = '';
-            detachAllListeners();
-            currentProduct = null;
-        }
+// ===== RENDER CARROSSEL =====
+function renderCarrossel(){
+  const c = document.getElementById('carrossel');
+  const d = document.getElementById('carrosselDots');
+  c.innerHTML=''; d.innerHTML='';
+  produtos.forEach((p,i)=>{
+    const card = document.createElement('div');
+    card.className='produto-card';
+    card.dataset.index=i;
+    card.innerHTML=`
+      <img class="produto-media" src="${p.media}" alt="${p.nome}" loading="lazy">
+      <div class="produto-corpo">
+        <div class="produto-instituicao">${p.instituicao}</div>
+        <div class="produto-nome">${p.nome}</div>
+        <div class="produto-desc">${p.descricao}</div>
+        <div class="produto-pe">
+          <div class="produto-preco">${p.preco} <span>MTN</span></div>
+          <button class="btn-pagar" onclick="abrirModal('${p.id}')">💳 Pagar</button>
+        </div>
+      </div>
+    `;
+    c.appendChild(card);
+    const dot = document.createElement('div');
+    dot.className='carrossel-dot'+(i===0?' ativo':'');
+    dot.onclick=()=>irSlide(i);
+    d.appendChild(dot);
+  });
+}
 
-        function closeModalOnBackdrop(e) {
-            if (e.target === document.getElementById('paymentModal')) closePaymentModal();
-        }
+function cardWidth(){const el=document.querySelector('.produto-card');return el?el.offsetWidth+16:316}
+function irSlide(i){
+  const c=document.getElementById('carrossel');
+  const dots=document.querySelectorAll('.carrossel-dot');
+  slideAtual=Math.max(0,Math.min(i,produtos.length-1));
+  c.scrollTo({left:slideAtual*cardWidth(),behavior:'smooth'});
+  dots.forEach((d,j)=>d.classList.toggle('ativo',j===slideAtual));
+}
+function scrollCarrossel(dir){irSlide(slideAtual+dir)}
+function iniciarAuto(){pararAuto();autoScroll=setInterval(()=>{irSlide(slideAtual+1>=produtos.length?0:slideAtual+1)},8000)}
+function pararAuto(){if(autoScroll){clearInterval(autoScroll);autoScroll=null}}
 
-        // ===== AUTH =====
-        auth.onAuthStateChanged((user) => {
-            currentUser = user;
-            if (user) showPaymentModalScreen(user);
-            else showAuthModalScreen();
-        });
+document.getElementById('carrossel').addEventListener('scroll',()=>{
+  const c=document.getElementById('carrossel');
+  const idx=Math.round(c.scrollLeft/cardWidth());
+  if(idx!==slideAtual){slideAtual=idx;document.querySelectorAll('.carrossel-dot').forEach((d,j)=>d.classList.toggle('ativo',j===slideAtual))}
+});
+document.getElementById('carrossel').addEventListener('mouseenter',pararAuto);
+document.getElementById('carrossel').addEventListener('mouseleave',iniciarAuto);
+document.getElementById('carrossel').addEventListener('touchstart',pararAuto,{passive:true});
+document.getElementById('carrossel').addEventListener('touchend',()=>setTimeout(iniciarAuto,3000));
 
-        function showAuthModalScreen() {
-            hideAllModalScreens();
-            document.getElementById('authScreen').style.display = 'block';
-            lastShownScreen = 'authScreen';
-        }
+// ===== MODAL =====
+function abrirModal(pid){
+  produtoAtual=produtos.find(p=>p.id===pid);
+  if(!produtoAtual)return;
+  document.getElementById('resumoProduto').innerHTML=`
+    <div class="resumo-prod">
+      <img src="${produtoAtual.media}" alt="${produtoAtual.nome}">
+      <div class="info"><div class="nome">${produtoAtual.nome}</div><div class="preco">${produtoAtual.preco} MTN — ${produtoAtual.instituicao}</div></div>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('ativo');
+  document.body.style.overflow='hidden';
+  resetarModal();
+}
+function fecharModal(){document.getElementById('modalOverlay').classList.remove('ativo');document.body.style.overflow='';pararListener();produtoAtual=null}
+function fecharFora(e){if(e.target.id==='modalOverlay')fecharModal()}
 
-        function showPaymentModalScreen(user) {
-            hideAllModalScreens();
-            document.getElementById('paymentForm').style.display = 'block';
-            lastShownScreen = 'paymentForm';
-            const displayName = user.displayName || localStorage.getItem('userName') || 'Utilizador';
-            const email = user.email || '';
-            document.getElementById('userDisplayName').textContent = displayName;
-            document.getElementById('userDisplayEmail').textContent = email;
-            document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase();
-            const savedName = localStorage.getItem('userName');
-            const savedPhone = localStorage.getItem('userPhone');
-            if (savedName) document.getElementById('fullName').value = savedName;
-            if (savedPhone) document.getElementById('phone').value = savedPhone;
-            if (email) document.getElementById('email').value = email;
-        }
+// ===== AUTH =====
+auth.onAuthStateChanged(u=>{if(u)mostrarPagamento(u);else mostrarLogin()});
 
-        function hideAllModalScreens() {
-            document.getElementById('authScreen').style.display = 'none';
-            document.getElementById('forgotScreen').style.display = 'none';
-            document.getElementById('paymentForm').style.display = 'none';
-            ['successScreen','cardScreen','errorScreen','processingScreen'].forEach(s => {
-                const el = document.getElementById(s);
-                el.classList.remove('active');
-                el.style.display = 'none';
-            });
-            document.getElementById('downloadSection').classList.remove('active');
-            stopProcessingTimer();
-        }
+function mostrarLogin(){
+  ['telaLogin','telaEsqueci','telaPagamento','telaStatus'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('telaLogin').style.display='block';
+}
+function mostrarPagamento(u){
+  ['telaLogin','telaEsqueci','telaPagamento','telaStatus'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('telaPagamento').style.display='block';
+  document.getElementById('userDisplayName').textContent=u.displayName||u.email||'Utilizador';
+  document.getElementById('userDisplayEmail').textContent=u.email||'';
+  document.getElementById('userAvatar').textContent=(u.displayName||'U').charAt(0).toUpperCase();
+  const n=localStorage.getItem('nome'),t=localStorage.getItem('telefone');
+  if(n)document.getElementById('nome').value=n;
+  if(t)document.getElementById('telefone').value=t;
+}
+function mostrarEsqueci(){
+  document.getElementById('telaLogin').style.display='none';
+  document.getElementById('telaEsqueci').style.display='block';
+}
+function mudarAba(aba){
+  document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));
+  event.target.classList.add('ativa');
+  document.getElementById('formEntrar').style.display=aba==='entrar'?'block':'none';
+  document.getElementById('formCriar').style.display=aba==='criar'?'block':'none';
+}
 
-        function showForgotPassword() {
-            hideAllModalScreens();
-            document.getElementById('forgotScreen').style.display = 'block';
-            lastShownScreen = 'forgotScreen';
-        }
+async function entrar(){
+  const e=document.getElementById('loginEmail').value.trim();
+  const p=document.getElementById('loginPassword').value;
+  if(!e||!p)return alert('Preencha email e palavra-passe');
+  try{await auth.signInWithEmailAndPassword(e,p);}
+  catch(err){alert('Erro: '+(err.message||'dados inválidos'));}
+}
+async function criarConta(){
+  const n=document.getElementById('regNome').value.trim();
+  const e=document.getElementById('regEmail').value.trim();
+  const p=document.getElementById('regPassword').value;
+  const t=document.getElementById('regTelefone').value.trim();
+  if(!n||!e||!p||!t)return alert('Preencha todos os campos');
+  if(p.length<6)return alert('Palavra-passe mínima: 6 caracteres');
+  try{
+    const c=await auth.createUserWithEmailAndPassword(e,p);
+    await c.user.updateProfile({displayName:n});
+    await db.ref('users/'+c.user.uid).set({nome:n,email:e,telefone:t,criado:Date.now()});
+    localStorage.setItem('nome',n);localStorage.setItem('telefone',t);
+  }catch(err){alert('Erro: '+(err.message||'não foi possível criar'));}
+}
+async function recuperarSenha(){
+  const e=document.getElementById('esqueciEmail').value.trim();
+  if(!e)return alert('Insira o email');
+  try{await auth.sendPasswordResetEmail(e);alert('Link enviado!');mostrarLogin();}
+  catch(err){alert('Erro ao enviar email.');}
+}
+async function sair(){await auth.signOut();localStorage.clear();}
 
-        function switchAuthTab(tab) {
-            document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
-            document.getElementById('tabRegister').classList.toggle('active', tab === 'register');
-            document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
-            document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
-        }
+// ===== METODO =====
+function escolherMetodo(el,m){
+  document.querySelectorAll('.metodo').forEach(x=>x.classList.remove('ativo'));
+  el.classList.add('ativo');
+  metodo=m;
+  const nomes={mpesa:'M-Pesa',mkesh:'mKesh',emola:'e-Mola',card:'Cartão'};
+  document.getElementById('methodHint').textContent='Mínimo para '+nomes[m]+': '+MINIMOS[m]+' MTN';
+  if(produtoAtual)document.getElementById('btnPagar').innerHTML='<span>Pagar '+produtoAtual.preco+' MTN</span><span style="font-size:1.1rem">→</span>';
+}
 
-        async function loginUser() {
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-            if (!email || !password) { alert('Por favor, preencha o email e a palavra-passe.'); return; }
-            showLoading(true);
-            try { await auth.signInWithEmailAndPassword(email, password); }
-            catch (error) {
-                showLoading(false);
-                let msg = 'Erro ao entrar. Verifique os dados.';
-                if (error.code === 'auth/user-not-found') msg = 'Conta não encontrada.';
-                if (error.code === 'auth/wrong-password') msg = 'Palavra-passe incorreta.';
-                if (error.code === 'auth/invalid-email') msg = 'Email inválido.';
-                alert(msg);
-            }
-        }
+function loading(mostrar){document.getElementById('loadingOverlay').classList.toggle('ativo',mostrar)}
 
-        async function registerUser() {
-            const name = document.getElementById('regName').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value;
-            const phone = document.getElementById('regPhone').value.trim();
-            if (!name || !email || !password || !phone) { alert('Preencha todos os campos.'); return; }
-            if (password.length < 6) { alert('Palavra-passe mínima: 6 caracteres.'); return; }
-            if (phone.length < 9) { alert('Telefone inválido.'); return; }
-            showLoading(true);
-            try {
-                const cred = await auth.createUserWithEmailAndPassword(email, password);
-                await cred.user.updateProfile({ displayName: name });
-                await db.ref('users/' + cred.user.uid).set({ name, email, phone, createdAt: Date.now() });
-                localStorage.setItem('userName', name);
-                localStorage.setItem('userPhone', phone);
-            } catch (error) {
-                showLoading(false);
-                let msg = 'Erro ao criar conta.';
-                if (error.code === 'auth/email-already-in-use') msg = 'Email já registado. Use Entrar.';
-                alert(msg);
-            }
-        }
+// ===== PAGAMENTO =====
+async function pedirPagamento(){
+  const nome=document.getElementById('nome').value.trim();
+  const tel=document.getElementById('telefone').value.trim().replace(/\s/g,'');
+  const email=document.getElementById('email').value.trim();
+  const user=auth.currentUser;
+  if(!nome)return alert('Insira o nome completo');
+  if(!tel||tel.length<9)return alert('Telefone inválido');
+  if(!user)return alert('Sessão expirada. Entre novamente.');
+  if(!produtoAtual)return alert('Erro: produto não selecionado');
+  if(produtoAtual.preco<MINIMOS[metodo])return alert('Mínimo para '+metodo.toUpperCase()+': '+MINIMOS[metodo]+' MTN');
 
-        async function resetPassword() {
-            const email = document.getElementById('forgotEmail').value.trim();
-            if (!email) { alert('Insira o email.'); return; }
-            showLoading(true);
-            try {
-                await auth.sendPasswordResetEmail(email);
-                showLoading(false);
-                alert('Link enviado! Verifique o email.');
-                showAuthModalScreen();
-            } catch (error) {
-                showLoading(false);
-                alert('Erro ao enviar email.');
-            }
-        }
+  localStorage.setItem('nome',nome);localStorage.setItem('telefone',tel);
+  loading(true);
 
-        async function logoutUser() {
-            showLoading(true);
-            try {
-                await auth.signOut();
-                localStorage.removeItem('userName');
-                localStorage.removeItem('userPhone');
-                localStorage.removeItem('lastPaymentRef');
-            } catch (e) { showLoading(false); alert('Erro ao sair.'); }
-        }
+  const ref='PED-'+Date.now()+'-'+Math.random().toString(36).substr(2,4).toUpperCase();
+  pedidoAtual=ref;
 
-        function selectMethod(el, method) {
-            document.querySelectorAll('.method-card').forEach(c => c.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedMethod = method;
-            updateMethodHint();
-        }
+  const dados={
+    status:'pendente',nome,msisdn:tel,email:email||null,metodo,
+    valor:produtoAtual.preco,produtoId:produtoAtual.id,produtoNome:produtoAtual.nome,
+    referencia:ref,userId:user.uid,userEmail:user.email,criado:Date.now()
+  };
 
-        function updateMethodHint() {
-            const hint = document.getElementById('methodHint');
-            const min = METHOD_MINIMUMS[selectedMethod] || 10;
-            const methodNames = { mpesa: 'M-Pesa', mkesh: 'mKesh', emola: 'e-Mola', card: 'Cartão' };
-            hint.textContent = `Mínimo para ${methodNames[selectedMethod]}: ${min} MTN`;
-        }
+  try{
+    await db.ref('pedidos/'+ref).set(dados);
+    await db.ref('users/'+user.uid+'/pedidos/'+ref).set({produto:produtoAtual.nome,valor:produtoAtual.preco,status:'pendente',criado:Date.now()});
+    loading(false);
 
-        function showLoading(show) { document.getElementById('loadingOverlay').classList.toggle('active', show); }
+    document.getElementById('telaPagamento').style.display='none';
+    document.getElementById('telaStatus').style.display='block';
+    document.getElementById('statusProcessando').classList.add('ativo');
+    document.getElementById('statusPago').classList.remove('ativo');
+    document.getElementById('statusErro').classList.remove('ativo');
+    document.getElementById('detalhesProcesso').innerHTML=`
+      <div class="linha"><span class="rotulo">Referência</span><span class="valor">${ref}</span></div>
+      <div class="linha"><span class="rotulo">Valor</span><span class="valor">${produtoAtual.preco} MTN</span></div>
+      <div class="linha"><span class="rotulo">Método</span><span class="valor">${metodo.toUpperCase()}</span></div>
+      <div class="linha"><span class="rotulo">Telefone</span><span class="valor">${tel}</span></div>
+    `;
+    escutarPedido(ref);
+  }catch(err){loading(false);alert('Erro ao guardar: '+err.message)}
+}
 
-        function showModalScreen(id) {
-            hideAllModalScreens();
-            const el = document.getElementById(id);
-            if (!el) return;
-            if (id === 'paymentForm' || id === 'authScreen' || id === 'forgotScreen') {
-                el.style.display = 'block';
-            } else {
-                el.style.display = 'block';
-                void el.offsetWidth;
-                el.classList.add('active');
-            }
-            lastShownScreen = id;
-        }
+function escutarPedido(ref){
+  pararListener();
+  listenerAtual=db.ref('pedidos/'+ref).on('value',snap=>{
+    const d=snap.val();if(!d)return;
+    if(d.status==='pago'){
+      pararListener();
+      document.getElementById('statusProcessando').classList.remove('ativo');
+      document.getElementById('statusPago').classList.add('ativo');
+      document.getElementById('statusErro').classList.remove('ativo');
+      document.getElementById('detalhesPago').innerHTML=`
+        <div class="linha"><span class="rotulo">Referência</span><span class="valor">${ref}</span></div>
+        <div class="linha"><span class="rotulo">Valor</span><span class="valor">${d.valor} MTN</span></div>
+        <div class="linha"><span class="rotulo">Método</span><span class="valor">${(d.metodo||'').toUpperCase()}</span></div>
+        <div class="linha"><span class="rotulo">Estado</span><span class="valor" style="color:var(--verde)">Confirmado ✓</span></div>
+      `;
+      const p=produtos.find(x=>x.id===d.produtoId)||produtoAtual;
+      if(p){document.getElementById('linkDownload').href=p.download;document.getElementById('secDownload').classList.add('ativo')}
+    }
+    else if(d.status==='erro'){
+      pararListener();
+      document.getElementById('statusProcessando').classList.remove('ativo');
+      document.getElementById('statusPago').classList.remove('ativo');
+      document.getElementById('statusErro').classList.add('ativo');
+      document.getElementById('msgErro').textContent=d.erroMsg||'Pagamento recusado.';
+    }
+    else if(d.status==='checkout'&&d.checkoutUrl){
+      pararListener();
+      window.open(d.checkoutUrl,'_blank');
+    }
+  });
+}
+function pararListener(){if(listenerAtual&&pedidoAtual){db.ref('pedidos/'+pedidoAtual).off('value',listenerAtual)}listenerAtual=null}
+function voltarPagamento(){
+  document.getElementById('telaStatus').style.display='none';
+  document.getElementById('telaPagamento').style.display='block';
+}
+function resetarModal(){pararListener();if(auth.currentUser)mostrarPagamento(auth.currentUser);else mostrarLogin()}
 
-        function resetModal() {
-            detachAllListeners();
-            if (currentUser) showPaymentModalScreen(currentUser); else showAuthModalScreen();
-        }
-
-        function detachAllListeners() {
-            if (activeListener && activePaymentRef) {
-                try { db.ref('payments/' + activePaymentRef).off('value', activeListener); } catch(e){}
-            }
-            activeListener = null;
-            activePaymentRef = null;
-            stopProcessingTimer();
-        }
-
-        function stopProcessingTimer() {
-            if (processingTimer) { clearTimeout(processingTimer); processingTimer = null; }
-        }
-
-        function startProcessingTimer(ref) {
-            stopProcessingTimer();
-            processingTimer = setTimeout(() => {
-                if (lastShownScreen === 'processingScreen') {
-                    detachAllListeners();
-                    document.getElementById('errorMessage').textContent = 'O tempo de espera foi excedido. Se já confirmou no telemóvel, o pagamento será registado em breve.';
-                    showModalScreen('errorScreen');
-                }
-            }, 300000);
-        }
-
-        function validate() {
-            const name = document.getElementById('fullName').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            if (!name) { alert('Insira o nome completo.'); return false; }
-            if (!phone || phone.length < 9) { alert('Telefone inválido.'); return false; }
-            if (!currentProduct) { alert('Erro: produto não selecionado.'); return false; }
-            const minAmount = METHOD_MINIMUMS[selectedMethod] || 10;
-            if (currentProduct.price < minAmount) {
-                alert(`O valor mínimo para ${selectedMethod.toUpperCase()} é ${minAmount} MTN. Este produto custa ${currentProduct.price} MTN — insuficiente.`);
-                return false;
-            }
-            return true;
-        }
-
-        async function processPayment() {
-            if (!validate()) return;
-            if (!currentUser) { alert('Sessão expirada.'); showAuthModalScreen(); return; }
-            if (!currentProduct) { alert('Erro: produto não selecionado.'); return; }
-            showLoading(true);
-
-            const name = document.getElementById('fullName').value.trim();
-            const phone = document.getElementById('phone').value.trim().replace(/\s/g,'');
-            const email = document.getElementById('email').value.trim();
-            const reference = 'LIVRO-' + Date.now() + '-' + Math.random().toString(36).substr(2,6).toUpperCase();
-            const amount = currentProduct.price;
-
-            // Dados compatíveis com documentação NetShop
-            const paymentData = {
-                name, 
-                msisdn: phone, 
-                email: email || null,
-                type: 'produto',
-                productId: currentProduct.id,
-                productName: currentProduct.name,
-                amount: amount,
-                method: selectedMethod,
-                currency: 'MZN', 
-                reference: reference,
-                userId: currentUser.uid,
-                userEmail: currentUser.email,
-                // Campos extra para o Apps Script mapear para NetShop
-                customer_email: email || currentUser.email || null,
-                metadata: { 
-                    order_id: reference, 
-                    product_id: currentProduct.id,
-                    product_name: currentProduct.name,
-                    user_id: currentUser.uid 
-                }
-            };
-
-            try {
-                await db.ref('payments/' + reference).set({ 
-                    ...paymentData, 
-                    status: 'processing', 
-                    timestamp: Date.now(), 
-                    netshopId: null 
-                });
-                await db.ref('users/' + currentUser.uid + '/payments/' + reference).set({ 
-                    type: 'produto', 
-                    productId: currentProduct.id, 
-                    productName: currentProduct.name, 
-                    amount, 
-                    method: selectedMethod, 
-                    status: 'processing', 
-                    timestamp: Date.now(), 
-                    reference 
-                });
-            } catch (dbErr) { 
-                showLoading(false); 
-                alert('Erro ao guardar dados no Firebase.'); 
-                console.error(dbErr);
-                return; 
-            }
-
-            localStorage.setItem('lastPaymentRef', reference);
-
-            let result = null, fetchFailed = false, fetchError = null;
-            try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 25000);
-                const response = await fetch(APPS_SCRIPT_URL, { 
-                    method: 'POST', 
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, 
-                    body: JSON.stringify(paymentData), 
-                    signal: controller.signal 
-                });
-                clearTimeout(timeoutId);
-
-                const text = await response.text();
-                console.log('Resposta raw do Apps Script:', text);
-
-                try {
-                    result = JSON.parse(text);
-                } catch (parseErr) {
-                    console.error('Erro ao parsear JSON:', parseErr);
-                    fetchError = 'Resposta inválida do servidor: ' + text.substring(0, 200);
-                    fetchFailed = true;
-                }
-            } catch (err) { 
-                fetchFailed = true; 
-                fetchError = err.message || 'Erro de rede';
-                console.warn('Fetch falhou:', err); 
-            }
-
-            showLoading(false);
-
-            if (fetchFailed) {
-                // Modo fallback: mostrar processing e aguardar Firebase
-                console.log('Fallback para Firebase. Erro:', fetchError);
-                document.getElementById('processingDetails').innerHTML = `
-                    <div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div>
-                    <div class="row"><span class="label">Valor</span><span class="value">${amount} MTN</span></div>
-                    <div class="row"><span class="label">Método</span><span class="value">${selectedMethod.toUpperCase()}</span></div>
-                    <div class="row"><span class="label">Telefone</span><span class="value">${phone}</span></div>
-                `;
-                showModalScreen('processingScreen');
-                listenPayment(reference);
-                startProcessingTimer(reference);
-                return;
-            }
-
-            if (result && result.success) {
-                await db.ref('payments/' + reference).update({ status: 'pending', netshopId: result.netshopId || result.id || null });
-                await db.ref('users/' + currentUser.uid + '/payments/' + reference).update({ status: 'pending' });
-
-                if (selectedMethod === 'card' && (result.checkoutUrl || result.hosted_url)) {
-                    const checkoutUrl = result.checkoutUrl || result.hosted_url;
-                    document.getElementById('cardDetails').innerHTML = `
-                        <div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div>
-                        <div class="row"><span class="label">Valor</span><span class="value">${amount} MTN</span></div>
-                        <div class="row"><span class="label">Método</span><span class="value">Visa/Mastercard</span></div>
-                    `;
-                    document.getElementById('cardLink').href = checkoutUrl;
-                    showModalScreen('cardScreen');
-                } else {
-                    document.getElementById('successDetails').innerHTML = `
-                        <div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div>
-                        <div class="row"><span class="label">Valor</span><span class="value">${amount} MTN</span></div>
-                        <div class="row"><span class="label">Método</span><span class="value">${selectedMethod.toUpperCase()}</span></div>
-                        <div class="row"><span class="label">Telefone</span><span class="value">${phone}</span></div>
-                    `;
-                    showModalScreen('successScreen');
-                    listenPayment(reference);
-                }
-            } else if (result && !result.success) {
-                const errorDetails = document.getElementById('errorDetails');
-                const errorMsg = result.error || result.message || 'Erro no servidor.';
-                document.getElementById('errorMessage').textContent = errorMsg;
-                if (result.details || result.netshopError) {
-                    errorDetails.style.display = 'block';
-                    errorDetails.textContent = JSON.stringify(result.details || result.netshopError, null, 2);
-                } else {
-                    errorDetails.style.display = 'none';
-                }
-                showModalScreen('errorScreen');
-            } else {
-                document.getElementById('processingDetails').innerHTML = `
-                    <div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div>
-                    <div class="row"><span class="label">Valor</span><span class="value">${amount} MTN</span></div>
-                    <div class="row"><span class="label">Método</span><span class="value">${selectedMethod.toUpperCase()}</span></div>
-                    <div class="row"><span class="label">Telefone</span><span class="value">${phone}</span></div>
-                `;
-                showModalScreen('processingScreen');
-                listenPayment(reference);
-                startProcessingTimer(reference);
-            }
-        }
-
-        function listenPayment(ref) {
-            detachAllListeners();
-            activePaymentRef = ref;
-            const paymentRef = db.ref('payments/' + ref);
-            activeListener = paymentRef.on('value', (snapshot) => {
-                const data = snapshot.val();
-                if (!data) return;
-
-                if (data.status === 'paid') {
-                    detachAllListeners();
-                    document.getElementById('successDetails').innerHTML = `
-                        <div class="row"><span class="label">Referência</span><span class="value">${ref}</span></div>
-                        <div class="row"><span class="label">Valor</span><span class="value">${data.amount} MTN</span></div>
-                        <div class="row"><span class="label">Método</span><span class="value">${(data.method || '').toUpperCase()}</span></div>
-                        <div class="row"><span class="label">Estado</span><span class="value" style="color:var(--green-primary)">Confirmado ✓</span></div>
-                    `;
-                    document.querySelector('#successScreen .status-title').textContent = 'Pagamento Confirmado!';
-                    document.querySelector('#successScreen .status-desc').textContent = 'O seu pagamento foi recebido com sucesso. JazakAllahu Khairan!';
-                    const prod = products.find(p => p.id === data.productId) || currentProduct;
-                    if (prod) {
-                        document.getElementById('downloadBtn').href = prod.downloadUrl;
-                        document.getElementById('downloadSection').classList.add('active');
-                    }
-                    showModalScreen('successScreen');
-                }
-                else if (data.status === 'failed' || data.status === 'error') {
-                    detachAllListeners();
-                    document.getElementById('errorMessage').textContent = data.errorMessage || data.netshopError || 'Pagamento recusado.';
-                    showModalScreen('errorScreen');
-                }
-                else if (data.status === 'pending' || data.status === 'processing') {
-                    if (lastShownScreen !== 'processingScreen' && lastShownScreen !== 'successScreen') {
-                        showModalScreen('processingScreen');
-                        startProcessingTimer(ref);
-                    }
-                }
-            });
-        }
-
-        const lastRef = localStorage.getItem('lastPaymentRef');
-        if (lastRef) {
-            db.ref('payments/' + lastRef).once('value').then((snap) => {
-                const data = snap.val();
-                if (data && (data.status === 'processing' || data.status === 'pending')) {
-                    listenPayment(lastRef);
-                }
-            });
-        }
-
-        // ===== INIT =====
-        renderProducts();
-        startAutoScroll();
-        updateMethodHint();
-    </script>
+// ===== INIT =====
+renderCarrossel();
+iniciarAuto();
+</script>
 </body>
 </html>
