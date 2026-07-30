@@ -1,0 +1,42 @@
+[
+  {
+    "id": "livros",
+    "titulo": "📚 Livros",
+    "descricao": "Tafsir, Fiqh, Aqeedah, história islâmica e literatura infantil em vários idiomas.",
+    "link": "livros/",
+    "icon": "📚",
+    "tag": "LIVROS"
+  },
+  {
+    "id": "roupas",
+    "titulo": "👕 Roupas",
+    "descricao": "Thobes, hijabs, jilbabs, kufis e vestuário modesto para toda a família.",
+    "link": "roupas/",
+    "icon": "👕",
+    "tag": "MODA"
+  },
+  {
+    "id": "acessorios",
+    "titulo": "🧴 Acessórios Islâmicos",
+    "descricao": "Tasbihs, tapetes de oração, perfumes árabes, datas e decoração islâmica.",
+    "link": "acessorios/",
+    "icon": "🧴",
+    "tag": "ACESSÓRIOS"
+  },
+  {
+    "id": "comidas",
+    "titulo": "🍯 Comidas",
+    "descricao": "Dates Medjool, mel, especiarias, chás, snacks halal e produtos naturais.",
+    "link": "comidas/",
+    "icon": "🍯",
+    "tag": "HALAL"
+  },
+  {
+    "id": "outros",
+    "titulo": "🎁 Outros Produtos",
+    "descricao": "Presentes islâmicos, material escolar, brinquedos educativos e eletrónica.",
+    "link": "outros-produtos/",
+    "icon": "🎁",
+    "tag": "GERAL"
+  }
+]
