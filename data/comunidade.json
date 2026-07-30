@@ -1,0 +1,42 @@
+[
+  {
+    "id": "horario-salat",
+    "titulo": "🔔 🤲 HORÁRIO DE SALAT",
+    "descricao": "Consulte os horários das cinco orações diárias para a sua localidade em Moçambique.",
+    "link": "horario-salat/",
+    "icon": "🕐",
+    "tag": "OBRIGATÓRIO"
+  },
+  {
+    "id": "tasbih",
+    "titulo": "📿 TASBIH DIGITAL",
+    "descricao": "Contador de tasbih digital para dhikr, SubhanAllah, Alhamdulillah e Allahu Akbar.",
+    "link": "tasbih/",
+    "icon": "📿",
+    "tag": "DHIKR"
+  },
+  {
+    "id": "quero-ser-muculmano",
+    "titulo": "📚🤲 QUERO SER MUÇULMANO",
+    "descricao": "Guia passo a passo para quem deseja abraçar o Islam. Testemunho de fé, purificação e primeiros passos.",
+    "link": "quero-ser-muculmano/",
+    "icon": "🌙",
+    "tag": "REVERTIDO"
+  },
+  {
+    "id": "gestao-financeira",
+    "titulo": "💰 GESTÃO FINANCEIRA 💳",
+    "descricao": "Princípios islâmicos de gestão financeira, investimentos halal e planeamento familiar.",
+    "link": "gestao-financeira/",
+    "icon": "💳",
+    "tag": "FINANÇAS"
+  },
+  {
+    "id": "zakat",
+    "titulo": "📚 ZAKAT COMO CALCULAR OU PAGAR 💰",
+    "descricao": "Calculadora de Zakat, nisab, critérios de elegibilidade e instituições autorizadas em Moçambique.",
+    "link": "zakat/",
+    "icon": "🧮",
+    "tag": "PILAR"
+  }
+]
