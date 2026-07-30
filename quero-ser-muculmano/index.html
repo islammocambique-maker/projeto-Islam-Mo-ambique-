@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islam Moçambique — Guia do Novo Muçulmano</title>
+    <style>
+        :root {
+            --primary: #1a5c3a;
+            --primary-light: #2d7a52;
+            --accent: #c4a35a;
+            --accent-light: #d4b76a;
+            --bg: #f5f0e8;
+            --card-bg: #ffffff;
+            --text: #2c2c2c;
+            --text-light: #555555;
+            --shadow: rgba(0,0,0,0.08);
+            --border: #e0d8c8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(196,163,90,0.1) 0%, transparent 60%);
+            animation: pulse 6s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            letter-spacing: 1px;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .header .tagline {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: var(--card-bg);
+            padding: 0.8rem 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px var(--shadow);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* Welcome Section */
+        .welcome {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px var(--shadow);
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .welcome p {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(26,92,58,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26,92,58,0.4);
+        }
+
+        .btn-secondary {
+            background: var(--card-bg);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-accent {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: #2c2c2c;
+            box-shadow: 0 4px 15px rgba(196,163,90,0.3);
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(196,163,90,0.4);
+        }
+
+        /* Module Cards */
+        .module {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.8rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 4px 20px var(--shadow);
+            border: 1px solid var(--border);
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .module.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .module-icon {
+            font-size: 1.8rem;
+        }
+
+        .module h2 {
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+
+        .module h3 {
+            color: var(--primary-light);
+            font-size: 1.1rem;
+            margin: 1.2rem 0 0.6rem;
+        }
+
+        .module p, .module li {
+            color: var(--text-light);
+            margin-bottom: 0.8rem;
+        }
+
+        .module ul {
+            padding-left: 1.5rem;
+        }
+
+        .module li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Shahada Box */
+        .shahada-box {
+            background: linear-gradient(135deg, #f8f4e8 0%, #f0ebe0 100%);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .shahada-arabic {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            line-height: 2;
+            direction: rtl;
+        }
+
+        .shahada-translit {
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .shahada-meaning {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            color: var(--primary);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        /* FAQ */
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: #faf8f4;
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--primary);
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #f0ebe0;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.3rem;
+            color: var(--accent);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.open .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.2rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            color: var(--text-light);
+        }
+
+        .faq-item.open .faq-answer {
+            padding: 1rem 1.2rem;
+            max-height: 500px;
+        }
+
+        /* App Guide Box */
+        .app-guide {
+            background: linear-gradient(135deg, #e8f4ec 0%, #d4edda 100%);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .app-guide h4 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .app-guide ol {
+            padding-left: 1.2rem;
+        }
+
+        .app-guide li {
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .app-guide .highlight {
+            background: var(--accent);
+            color: #2c2c2c;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Steps */
+        .step {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+            padding: 1rem;
+            background: #faf8f4;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: var(--accent);
+            color: #2c2c2c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        .step-content h4 {
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        .footer .heart {
+            color: #c0392b;
+        }
+
+        /* Responsive */
+        @media (min-width: 600px) {
+            .btn-group {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .btn {
+                min-width: 200px;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .header .subtitle {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Back to top */
+        .back-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 99;
+            transition: all 0.3s;
+        }
+
+        .back-top:hover {
+            background: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        .back-top.visible {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Pillars Grid */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        @media (min-width: 500px) {
+            .pillars-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .pillar-card {
+            background: #faf8f4;
+            border-radius: 10px;
+            padding: 1rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        .pillar-card h4 {
+            color: var(--primary);
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .pillar-card p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Info notice */
+        .info-notice {
+            background: #fff8e1;
+            border: 1px dashed var(--accent);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .info-notice p {
+            margin: 0;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>🕌 Islam Moçambique</h1>
+            <p class="subtitle">Guia do Novo Muçulmano</p>
+            <p class="tagline">"Aprenda o Islam passo a passo."</p>
+        </div>
+    </header>
+
+    <nav class="nav-bar">
+        <button class="nav-btn active" onclick="showSection('inicio')">Início</button>
+        <button class="nav-btn" onclick="showSection('modulo1')">O Islam</button>
+        <button class="nav-btn" onclick="showSection('modulo2')">Reversão</button>
+        <button class="nav-btn" onclick="showSection('modulo3')">Depois</button>
+        <button class="nav-btn" onclick="showSection('modulo4')">Wudhu</button>
+        <button class="nav-btn" onclick="showSection('modulo5')">Salat</button>
+        <button class="nav-btn" onclick="showSection('modulo6')">Dúvidas</button>
+        <button class="nav-btn" onclick="showSection('modulo7')">Passos</button>
+        <button class="nav-btn" onclick="showSection('app')">App</button>
+    </nav>
+
+    <main class="main-content">
+        <!-- PÁGINA INICIAL -->
+        <section id="inicio" class="module active">
+            <div class="welcome">
+                <p>
+                    Bem-vindo ao Islam. Este guia foi criado para ajudar aqueles que desejam conhecer esta bela religião 
+                    e aqueles que acabaram de abraçar o Islam. Aprenda passo a passo os primeiros conhecimentos 
+                    necessários para sua caminhada.
+                </p>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="showSection('modulo1')">
+                        🕌 Começar Guia
+                    </button>
+                    <button class="btn btn-secondary" onclick="showSection('modulo6')">
+                        ❓ Dúvidas Frequentes
+                    </button>
+                    <button class="btn btn-accent" onclick="showSection('app')">
+                        📚 Conteúdos no Aplicativo
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- MÓDULO 1: O QUE É O ISLAM? -->
+        <section id="modulo1" class="module">
+            <div class="module-header">
+                <span class="module-icon">☪️</span>
+                <h2>O Que é o Islam?</h2>
+            </div>
+
+            <p>O <strong>Islam</strong> é uma palavra árabe que significa "submissão" — submissão voluntária e pacífica à vontade de Allah (Deus). É a religião revelada por Allah a todos os profetas, desde Adão até Muhammad ﷺ.</p>
+
+            <h3>🤲 Adorar Somente Allah</h3>
+            <p>O Islam ensina que <strong>Allah é Único</strong> — não há nenhuma divindade digna de adoração além d'Ele. Allah não tem parceiros, filhos ou semelhantes. Ele é o Criador, Sustentador e Soberano de tudo o que existe.</p>
+
+            <h3>📖 O Alcorão</h3>
+            <p>O Alcorão é a palavra literal de Allah, revelada ao Profeta Muhammad ﷺ através do Anjo Gabriel. É o livro sagrado do Islam, preservado intacto desde a sua revelação há mais de 1400 anos. Serve como guia para toda a humanidade.</p>
+
+            <h3>👤 Quem é o Profeta Muhammad ﷺ?</h3>
+            <p>Muhammad ﷺ é o último e selo dos profetas enviados por Allah. Ele nasceu em Makkah (Arábia Saudita) por volta do ano 570 d.C. e recebeu a revelação do Alcorão aos 40 anos. Ele é o exemplo perfeito de comportamento e caráter para os muçulmanos seguirem.</p>
+
+            <h3>🕋 Os Cinco Pilares do Islam</h3>
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <h4>1. Shahada (Testemunho)</h4>
+                    <p>Testemunhar que não há divindade além de Allah e que Muhammad é o Seu Mensageiro.</p>
+                </div>
+                <div class="pillar-card">
+                    <h4>2. Salat (Oração)</h4>
+                    <p>Realizar as cinco orações diárias obrigatórias.</p>
+                </div>
+                <div class="pillar-card">
+                    <h4>3. Zakat (Caridade)</h4>
+                    <p>Doar uma parte da riqueza aos necessitados.</p>
+                </div>
+                <div class="pillar-card">
+                    <h4>4. Sawm (Jejum)</h4>
+                    <p>Jejumar durante o mês do Ramadã.</p>
+                </div>
+                <div class="pillar-card">
+                    <h4>5. Hajj (Peregrinação)</h4>
+                    <p>Visitar Makkah para a peregrinação, se possível.</p>
+                </div>
+            </div>
+
+            <h3>💚 Os Seis Pilares da Fé (Iman)</h3>
+            <ul>
+                <li><strong>Crença em Allah:</strong> Acreditar na existência e unicidade de Allah.</li>
+                <li><strong>Crença nos Anjos:</strong> Seres criados por Allah a partir de luz, que executam as ordens d'Ele.</li>
+                <li><strong>Crença nos Livros Revelados:</strong> O Alcorão, o Evangelho, a Torá, os Salmos e as Escrituras de Abraão.</li>
+                <li><strong>Crença nos Profetas:</strong> Todos os mensageiros enviados por Allah, terminando em Muhammad ﷺ.</li>
+                <li><strong>Crença no Dia do Juízo Final:</strong> O dia em que todos serão ressuscitados e julgados.</li>
+                <li><strong>Crença na Decretação:</strong> Acreditar que tudo o que acontece está decretado por Allah.</li>
+            </ul>
+        </section>
+
+        <!-- MÓDULO 2: COMO SE TORNAR MUÇULMANO -->
+        <section id="modulo2" class="module">
+            <div class="module-header">
+                <span class="module-icon">🤲</span>
+                <h2>Como Se Tornar Muçulmano?</h2>
+            </div>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>A Crença no Coração</h4>
+                    <p>A entrada no Islam começa com a <strong>crença sincera no coração</strong> de que Allah é o único digno de adoração e que Muhammad ﷺ é o Seu Mensageiro final. Esta convicção deve vir de dentro, com sinceridade e certeza.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>A Declaração da Shahada</h4>
+                    <p>Após a convicção interior, a pessoa deve pronunciar a Shahada (testemunho de fé) com a língua, preferencialmente na presença de testemunhas muçulmanas.</p>
+                </div>
+            </div>
+
+            <div class="shahada-box">
+                <div class="shahada-arabic">أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللَّهِ</div>
+                <div class="shahada-translit">"Achhadu an lá ilaha illa Allah, wa achhadu anna Muhammadan Rasulullah"</div>
+                <div class="shahada-meaning">"Testemunho que não existe divindade digna de adoração além de Allah e testemunho que Muhammad é o Mensageiro de Allah."</div>
+            </div>
+
+            <p style="text-align:center; font-weight:600; color: var(--primary); margin-top: 1rem;">
+                ☝️ Esta declaração é a porta de entrada no Islam. Quem a pronuncia com sinceridade torna-se muçulmano.
+            </p>
+        </section>
+
+        <!-- MÓDULO 3: DEPOIS DA REVERSÃO -->
+        <section id="modulo3" class="module">
+            <div class="module-header">
+                <span class="module-icon">✨</span>
+                <h2>Fiz a Reversão. O Que Fazer Agora?</h2>
+            </div>
+
+            <p>Parabéns! A reversão ao Islam é o início de uma nova e bela jornada. Allah diz no Alcorão que todos os seus pecados anteriores são perdoados — você começa com uma folha em branco!</p>
+
+            <ul class="checklist">
+                <li>
+                    <span class="check-icon">✅</span>
+                    <span><strong>Aprender os fundamentos do Islam</strong> — Comece pelos cinco pilares e os seis pilares da fé.</span>
+                </li>
+                <li>
+                    <span class="check-icon">✅</span>
+                    <span><strong>Aprender a purificação (Wudhu) e a oração (Salat)</strong> — São os primeiros atos práticos que você precisa dominar. Veja os guias no aplicativo Projeto Islam Moçambique.</span>
+                </li>
+                <li>
+                    <span class="check-icon">✅</span>
+                    <span><strong>Ler e estudar o Alcorão</strong> — Mesmo que pouco a pouco, procure ler o Alcorão e entender a sua mensagem.</span>
+                </li>
+                <li>
+                    <span class="check-icon">✅</span>
+                    <span><strong>Procurar conhecimento confiável</strong> — Busque aprender com fontes corretas e professores fiéis aos ensinamentos do Alcorão e da Sunnah.</span>
+                </li>
+                <li>
+                    <span class="check-icon">✅</span>
+                    <span><strong>Aproximar-se da comunidade muçulmana</strong> — Encontre irmãos e irmãs muçulmanos que possam apoiá-lo na sua jornada.</span>
+                </li>
+                <li>
+                    <span class="check-icon">✅</span>
+                    <span><strong>Melhorar seu comportamento</strong> — O Islam não é apenas rituais, mas também caráter. Seja honesto, paciente, gentil e generoso.</span>
+                </li>
+            </ul>
+
+            <div style="background: #fff8e1; border-left: 4px solid var(--accent); padding: 1rem; margin-top: 1.2rem; border-radius: 0 8px 8px 0;">
+                <p style="margin:0; font-style: italic; color: var(--text);">
+                    💡 <strong>Lembre-se:</strong> O aprendizado no Islam acontece passo a passo. Não é necessário aprender tudo de uma vez. O importante é continuar buscando conhecimento com humildade e perseverança.
+                </p>
+            </div>
+        </section>
+
+        <!-- MÓDULO 4: COMO FAZER O WUDHU -->
+        <section id="modulo4" class="module">
+            <div class="module-header">
+                <span class="module-icon">💧</span>
+                <h2>Como Fazer o Wudhu?</h2>
+            </div>
+
+            <p>O <strong>Wudhu</strong> é a purificação que o muçulmano realiza antes da oração. É um dos primeiros conhecimentos que o novo muçulmano deve aprender, pois sem ele a oração não é válida.</p>
+
+            <div class="app-guide">
+                <h4>📖 Guia Completo no Aplicativo</h4>
+                <p>O aplicativo <strong>Projeto Islam Moçambique</strong> disponibiliza um guia detalhado sobre o Wudhu. Para aceder:</p>
+                <ol>
+                    <li>Abra o aplicativo <strong>Projeto Islam Moçambique</strong></li>
+                    <li>No menu principal, acesse <span class="highlight">📚 Biblioteca Digital</span></li>
+                    <li>Depois clique em <span class="highlight">📖 Islam Guia</span></li>
+                    <li>Lá encontrará o guia completo sobre <strong>como fazer o Wudhu</strong></li>
+                </ol>
+            </div>
+
+            <div class="info-notice">
+                <p>ℹ️ <strong>Nota:</strong> A Biblioteca Digital / Islam Guia do aplicativo dispõe apenas do guia para Wudhu e do guia para Salat. Os outros conteúdos introdutórios encontram-se neste guia web.</p>
+            </div>
+
+            <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 1rem;">
+                💡 <em>Dica: O Wudhu envolve lavar certas partes do corpo em uma ordem específica. O guia no aplicativo explica cada passo com detalhes para que você não erre.</em>
+            </p>
+        </section>
+
+        <!-- MÓDULO 5: COMO FAZER O SALAT -->
+        <section id="modulo5" class="module">
+            <div class="module-header">
+                <span class="module-icon">🙏</span>
+                <h2>Como Fazer o Salat?</h2>
+            </div>
+
+            <p>O <strong>Salat</strong> (oração) é uma das principais práticas do Islam e um dos cinco pilares da religião. Todo novo muçulmano deve aprender a realizar a oração corretamente, pois é obrigatória cinco vezes ao dia.</p>
+
+            <div class="app-guide">
+                <h4>📖 Guia Completo no Aplicativo</h4>
+                <p>O aplicativo <strong>Projeto Islam Moçambique</strong> disponibiliza um guia detalhado sobre o Salat. Para aceder:</p>
+                <ol>
+                    <li>Abra o aplicativo <strong>Projeto Islam Moçambique</strong></li>
+                    <li>No menu principal, acesse <span class="highlight">📚 Biblioteca Digital</span></li>
+                    <li>Depois clique em <span class="highlight">📖 Islam Guia</span></li>
+                    <li>Lá encontrará o guia completo sobre <strong>como realizar o Salat</strong></li>
+                </ol>
+            </div>
+
+            <div class="info-notice">
+                <p>ℹ️ <strong>Nota:</strong> A Biblioteca Digital / Islam Guia do aplicativo dispõe apenas do guia para Wudhu e do guia para Salat. Os outros conteúdos introdutórios encontram-se neste guia web.</p>
+            </div>
+
+            <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 1rem;">
+                💡 <em>Dica: O Salat envolve posições específicas (em pé, inclinado, prostrado, sentado) e recitações em árabe. O guia no aplicativo ensina tudo de forma simples e prática.</em>
+            </p>
+        </section>
+
+        <!-- MÓDULO 6: DÚVIDAS COMUNS -->
+        <section id="modulo6" class="module">
+            <div class="module-header">
+                <span class="module-icon">❓</span>
+                <h2>Dúvidas Comuns</h2>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    Preciso mudar meu nome quando entro no Islam?
+                </div>
+                <div class="faq-answer">
+                    <p>Não é obrigatório mudar o nome ao entrar no Islam. Se o seu nome atual não tiver um significado negativo ou associado a outra religião, pode mantê-lo. No entanto, muitos reverts escolhem adotar um nome islâmico como forma de renovação espiritual. Se decidir mudar, escolha um nome com bom significado, como Abdullah (servo de Allah), Ahmed, Aisha, Fatima, entre outros.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    Preciso saber árabe para ser muçulmano?
+                </div>
+                <div class="faq-answer">
+                    <p><strong>Não.</strong> A aceitação do Islam não depende de saber árabe. Milhões de muçulmanos em todo o mundo não falam árabe. No entanto, aprender árabe é muito importante porque o Alcorão foi revelado nessa língua e as orações (Salat) são realizadas em árabe. Você pode aprender as recitações necessárias para a oração gradualmente, enquanto continua aprendendo a língua.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    Allah perdoa meus pecados anteriores?
+                </div>
+                <div class="faq-answer">
+                    <p><strong>Sim!</strong> Este é um dos maiores presentes do Islam. O Profeta Muhammad ﷺ disse que quando uma pessoa se converte ao Islam, <strong>todos os seus pecados anteriores são completamente perdoados</strong> — como se tivesse acabado de nascer. Allah é o Mais Misericordioso e o Aceitador do Arrependimento. A partir do momento da sua reversão, você começa uma nova vida limpa.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    Minha família não aceita minha escolha. O que devo fazer?
+                </div>
+                <div class="faq-answer">
+                    <p>Seja <strong>paciente e respeitoso</strong>. O Islam ensina a honrar os pais e tratar a família com bondade, mesmo que não aceitem a sua fé. Demonstre através do seu comportamento exemplar que o Islam o transformou numa pessoa melhor. Com o tempo, muitas famílias acabam por respeitar e até admirar a decisão. Nunca force ninguém, mas mostre o Islam através das suas ações.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    Posso aprender Islam sozinho?
+                </div>
+                <div class="faq-answer">
+                    <p>Embora seja possível aprender sozinho através de livros e vídeos, o Islam <strong>recomenda fortemente</strong> buscar conhecimento com professores qualificados e fontes confiáveis. O perigo de aprender sozinho é cair em interpretações erradas. Procure uma mesquita ou centro islâmico perto de si, ou utilize recursos verificados como este guia e o aplicativo <strong>Projeto Islam Moçambique</strong>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MÓDULO 7: PRIMEIROS PASSOS -->
+        <section id="modulo7" class="module">
+            <div class="module-header">
+                <span class="module-icon">🌱</span>
+                <h2>Primeiros Passos do Novo Muçulmano</h2>
+            </div>
+
+            <p>Aqui está um resumo dos primeiros passos que todo novo muçulmano deve seguir na sua jornada:</p>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>Conhecer Allah</h4>
+                    <p>Aprenda sobre os nomes e atributos de Allah. Entenda que Ele é Único, Misericordioso, Justo e Onisciente.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>Aprender os Pilares do Islam</h4>
+                    <p>Estude os cinco pilares (Shahada, Salat, Zakat, Sawm, Hajj) e os seis pilares da fé.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>Aprender a Oração</h4>
+                    <p>Aprenda o Wudhu e o Salat. A oração é a coluna vertebral do Islam e a sua conexão diária com Allah. Consulte os guias no aplicativo Projeto Islam Moçambique.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h4>Ler o Alcorão</h4>
+                    <p>Comece a ler o Alcorão, mesmo que seja pouco a pouco. Procure uma tradução na sua língua para entender a mensagem.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h4>Aprender Boas Maneiras Islâmicas</h4>
+                    <p>O Islam valoriza o bom caráter. Pratique honestidade, paciência, gratidão, respeito e generosidade no dia a dia.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <h4>Continuar Estudando</h4>
+                    <p>O conhecimento no Islam não tem fim. Continue buscando aprender sobre a sua nova fé todos os dias.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTEGRAÇÃO COM O APP -->
+        <section id="app" class="module">
+            <div class="module-header">
+                <span class="module-icon">📱</span>
+                <h2>Conteúdos no Aplicativo</h2>
+            </div>
+
+            <p>Este guia web apresenta os <strong>conteúdos introdutórios</strong> sobre o Islam. O aplicativo principal complementa este guia com materiais práticos específicos.</p>
+
+            <div style="text-align: center; margin: 1.5rem 0;">
+                <h3 style="color: var(--primary); font-size: 1.3rem;">📲 Projeto Islam Moçambique</h3>
+            </div>
+
+            <h3>📚 O Que Encontra na Biblioteca Digital / Islam Guia</h3>
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <h4>💧 Guia para Wudhu</h4>
+                    <p>Instrução passo a passo de como realizar a purificação antes da oração.</p>
+                </div>
+                <div class="pillar-card">
+                    <h4>🙏 Guia para Salat</h4>
+                    <p>Instrução passo a passo de como realizar a oração corretamente.</p>
+                </div>
+            </div>
+
+            <div class="info-notice">
+                <p>ℹ️ A Biblioteca Digital / Islam Guia do aplicativo dispõe <strong>apenas</strong> destes dois guias práticos (Wudhu e Salat). Todo o conteúdo introdutório, teológico e orientador encontra-se neste guia web.</p>
+            </div>
+
+            <h3>🧭 Como Aceder</h3>
+            <div class="app-guide">
+                <ol>
+                    <li>Abra o aplicativo <strong>Projeto Islam Moçambique</strong> no seu telemóvel</li>
+                    <li>No <strong>menu principal</strong>, acesse <span class="highlight">📚 Biblioteca Digital</span></li>
+                    <li>Depois clique em <span class="highlight">📖 Islam Guia</span></li>
+                    <li>Escolha o guia que deseja consultar:<br>
+                        💧 <strong>Guia para Wudhu</strong><br>
+                        🙏 <strong>Guia para Salat</strong>
+                    </li>
+                </ol>
+            </div>
+
+            <div style="background: #e8f4ec; border-radius: 12px; padding: 1.2rem; margin-top: 1rem; text-align: center;">
+                <p style="margin:0; color: var(--primary); font-weight: 600;">
+                    🌟 <strong>Este guia web + o aplicativo = conhecimento completo para o novo muçulmano.</strong>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>🕌 <strong>Islam Moçambique</strong> — Guia do Novo Muçulmano</p>
+        <p>"Aprenda o Islam passo a passo."</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem;">
+            Extensão complementar do aplicativo Projeto Islam Moçambique.
+        </p>
+    </footer>
+
+    <button class="back-top" id="backTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Navegação entre secções
+        function showSection(sectionId) {
+            // Esconder todas as secções
+            const modules = document.querySelectorAll('.module');
+            modules.forEach(m => m.classList.remove('active'));
+
+            // Mostrar a secção selecionada
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Atualizar botões ativos
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Encontrar o botão correspondente
+            buttons.forEach(btn => {
+                if (btn.getAttribute('onclick').includes("'" + sectionId + "'")) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // FAQ Accordion
+        function toggleFaq(element) {
+            const item = element.parentElement;
+            const isOpen = item.classList.contains('open');
+
+            // Fechar todos
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+
+            // Abrir o clicado (se estava fechado)
+            if (!isOpen) {
+                item.classList.add('open');
+            }
+        }
+
+        // Botão voltar ao topo
+        const backTopBtn = document.getElementById('backTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backTopBtn.classList.add('visible');
+            } else {
+                backTopBtn.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
