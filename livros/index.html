@@ -24,7 +24,6 @@
 html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
 body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--cinza-800);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-/* HEADER */
 .header{background:linear-gradient(135deg,var(--verde) 0%,var(--verde-escuro) 100%);position:relative;overflow:hidden;padding:18px 0 0;text-align:center}
 .header-pattern{position:absolute;inset:0;opacity:0.06;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
 .header-inner{position:relative;z-index:2;padding:0 20px 20px}
@@ -37,12 +36,10 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
 .header-wave{position:absolute;bottom:-1px;left:0;width:100%;line-height:0}
 .header-wave svg{display:block;width:100%;height:40px}
 
-/* LAYOUT */
 .container{max-width:1200px;margin:0 auto;padding:0 16px}
-.secao-titulo{font-size:1.15rem;font-weight:700;color:var(--cinza-900);margin:28px 0 16px;display:flex;align-items:center;gap:10px}
+.secao-titulo{font-size:1.15rem;font-weight:700;color:var(--cinza-800);margin:28px 0 16px;display:flex;align-items:center;gap:10px}
 .secao-titulo .ponto{width:8px;height:8px;border-radius:50%;background:var(--dourado);display:inline-block}
 
-/* CARROSSEL */
 .carrossel-wrap{position:relative;margin-bottom:32px}
 .carrossel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 4px 20px;scrollbar-width:none;-ms-overflow-style:none}
 .carrossel::-webkit-scrollbar{display:none}
@@ -51,7 +48,7 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
 .produto-media{width:100%;height:240px;object-fit:cover;display:block;background:var(--cinza-100)}
 .produto-corpo{padding:18px;flex:1;display:flex;flex-direction:column}
 .produto-instituicao{font-size:0.72rem;font-weight:700;color:var(--verde);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.produto-nome{font-family:'Amiri',serif;font-size:1.2rem;font-weight:700;color:var(--cinza-900);margin-bottom:8px;line-height:1.3}
+.produto-nome{font-family:'Amiri',serif;font-size:1.2rem;font-weight:700;color:var(--cinza-800);margin-bottom:8px;line-height:1.3}
 .produto-desc{font-size:0.84rem;color:var(--cinza-600);line-height:1.55;margin-bottom:16px;flex:1}
 .produto-pe{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:14px;border-top:1px solid var(--cinza-100)}
 .produto-preco{font-size:1.15rem;font-weight:700;color:var(--verde)}
@@ -68,37 +65,33 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
 .carrossel-dot{width:8px;height:8px;border-radius:50%;background:var(--cinza-200);cursor:pointer;transition:var(--transicao)}
 .carrossel-dot.ativo{background:var(--verde);width:24px;border-radius:4px}
 
-/* DESTAQUE */
 .destaques{display:grid;grid-template-columns:1fr;gap:16px;margin:24px 0}
 @media(min-width:640px){.destaques{grid-template-columns:repeat(3,1fr)}}
 .destaque-card{background:var(--branco);border-radius:var(--raio-md);padding:20px;text-align:center;border:1px solid var(--cinza-100);box-shadow:var(--sombra-sm)}
 .destaque-icone{font-size:32px;margin-bottom:8px}
-.destaque-titulo{font-size:0.9rem;font-weight:700;color:var(--cinza-900);margin-bottom:4px}
+.destaque-titulo{font-size:0.9rem;font-weight:700;color:var(--cinza-800);margin-bottom:4px}
 .destaque-texto{font-size:0.78rem;color:var(--cinza-600)}
 
-/* CITAÇÃO */
 .citacao{background:linear-gradient(135deg,#FEF9E7,#FDF6E3);border:1px solid rgba(197,160,40,0.15);border-radius:var(--raio-lg);text-align:center;padding:28px 20px;margin:24px 0}
-.citacao p{font-family:'Amiri',serif;font-size:1.05rem;font-weight:700;color:var(--cinza-900);line-height:1.7}
+.citacao p{font-family:'Amiri',serif;font-size:1.05rem;font-weight:700;color:var(--cinza-800);line-height:1.7}
 .citacao small{display:block;margin-top:8px;font-size:0.72rem;color:var(--dourado-escuro);font-weight:600}
 
-/* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(10,10,10,0.6);backdrop-filter:blur(6px);z-index:2000;display:none;align-items:center;justify-content:center;padding:16px;opacity:0;transition:opacity 0.3s ease}
 .modal-overlay.ativo{display:flex;opacity:1}
 .modal-box{background:var(--branco);border-radius:var(--raio-lg);width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:var(--sombra-lg);transform:translateY(20px);transition:transform 0.3s ease;position:relative}
 .modal-overlay.ativo .modal-box{transform:translateY(0)}
 .modal-header{padding:18px 20px 0;display:flex;align-items:center;justify-content:space-between}
-.modal-titulo{font-size:1rem;font-weight:700;color:var(--cinza-900);display:flex;align-items:center;gap:8px}
+.modal-titulo{font-size:1rem;font-weight:700;color:var(--cinza-800);display:flex;align-items:center;gap:8px}
 .modal-fechar{width:32px;height:32px;border-radius:50%;border:none;background:var(--cinza-50);color:var(--cinza-600);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transicao)}
-.modal-fechar:hover{background:var(--cinza-100);color:var(--cinza-900)}
+.modal-fechar:hover{background:var(--cinza-100);color:var(--cinza-800)}
 .modal-body{padding:16px 20px 20px}
 
-/* FORM */
 .form-sec{background:var(--branco);border-radius:var(--raio-lg);padding:20px}
-.form-sec h2{font-size:0.95rem;font-weight:700;color:var(--cinza-900);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.form-sec h2{font-size:0.95rem;font-weight:700;color:var(--cinza-800);margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .form-sec h2 .icone{width:28px;height:28px;background:linear-gradient(135deg,var(--verde),var(--verde-claro));border-radius:var(--raio-sm);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--branco)}
 .form-grupo{margin-bottom:14px}
 .form-grupo label{display:block;font-size:0.78rem;font-weight:600;color:var(--cinza-600);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px}
-.form-grupo input{width:100%;padding:12px 14px;border:1.5px solid var(--cinza-200);border-radius:var(--raio-sm);font-size:0.9rem;font-family:inherit;color:var(--cinza-900);background:var(--branco);transition:var(--transicao);-webkit-appearance:none}
+.form-grupo input{width:100%;padding:12px 14px;border:1.5px solid var(--cinza-200);border-radius:var(--raio-sm);font-size:0.9rem;font-family:inherit;color:var(--cinza-800);background:var(--branco);transition:var(--transicao);-webkit-appearance:none}
 .form-grupo input:focus{outline:none;border-color:var(--verde);box-shadow:0 0 0 3px rgba(11,102,35,0.1)}
 .form-grupo input::placeholder{color:var(--cinza-400)}
 .form-grupo .hint{font-size:0.72rem;color:var(--cinza-400);margin-top:3px}
@@ -125,14 +118,13 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
 .btn-perigo{background:linear-gradient(135deg,#DC2626,#B91C1C);color:var(--branco);box-shadow:0 4px 14px rgba(220,38,38,0.25)}
 .btn-perigo:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(220,38,38,0.35)}
 
-/* STATUS */
 .status-box{display:none;text-align:center;padding:24px 16px}
 .status-box.ativo{display:block}
 .status-icone{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px}
 .status-icone.ok{background:var(--verde-pale);color:var(--verde)}
 .status-icone.erro{background:#FEF2F2;color:#DC2626}
 .status-icone.processo{background:#E0F2FE;color:#0284C7}
-.status-titulo{font-size:1.1rem;font-weight:700;color:var(--cinza-900);margin-bottom:6px}
+.status-titulo{font-size:1.1rem;font-weight:700;color:var(--cinza-800);margin-bottom:6px}
 .status-desc{font-size:0.85rem;color:var(--cinza-600);margin-bottom:20px;line-height:1.6}
 .status-detalhes{background:var(--cinza-50);border-radius:var(--raio-md);padding:14px;margin-bottom:20px;text-align:left}
 .status-detalhes .linha{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--cinza-100);font-size:0.82rem}
@@ -143,48 +135,45 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
 .pulse-dot{width:10px;height:10px;background:var(--dourado);border-radius:50%;display:inline-block;margin-right:6px;animation:pulse 1.5s infinite}
 @keyframes pulse{0%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
 
-/* DOWNLOAD */
+.senha-box{background:linear-gradient(135deg,var(--verde-pale),#F0FDF4);border:2px dashed var(--verde-claro);border-radius:var(--raio-md);padding:20px;margin:16px 0;text-align:center}
+.senha-box .rotulo{font-size:0.78rem;color:var(--cinza-600);margin-bottom:8px}
+.senha-box .codigo{font-family:'Courier New',monospace;font-size:1.4rem;font-weight:700;color:var(--verde);letter-spacing:2px;background:var(--branco);padding:10px 20px;border-radius:var(--raio-sm);display:inline-block;border:1px solid var(--verde-claro)}
+.senha-box .aviso{font-size:0.72rem;color:var(--cinza-400);margin-top:10px}
+
 .download-sec{display:none;text-align:center;padding:20px;background:linear-gradient(135deg,var(--verde-pale),#F0FDF4);border-radius:var(--raio-md);border:1.5px solid var(--verde-claro);margin-top:16px}
 .download-sec.ativo{display:block}
 .download-btn{background:linear-gradient(135deg,var(--verde),var(--verde-claro));color:var(--branco);padding:14px 28px;border-radius:var(--raio-md);font-size:0.95rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:10px;box-shadow:0 4px 14px rgba(11,102,35,0.3);transition:var(--transicao);border:none;cursor:pointer}
 .download-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(11,102,35,0.4)}
 
-/* RESUMO PRODUTO */
 .resumo-prod{display:flex;gap:12px;align-items:center;background:var(--cinza-50);border-radius:var(--raio-md);padding:12px;margin-bottom:16px}
 .resumo-prod img{width:56px;height:56px;object-fit:cover;border-radius:var(--raio-sm)}
 .resumo-prod .info{flex:1}
-.resumo-prod .info .nome{font-size:0.85rem;font-weight:700;color:var(--cinza-900)}
+.resumo-prod .info .nome{font-size:0.85rem;font-weight:700;color:var(--cinza-800)}
 .resumo-prod .info .preco{font-size:0.8rem;color:var(--verde);font-weight:600}
 
-/* ABAS */
 .abas{display:flex;gap:8px;margin-bottom:16px;border-bottom:2px solid var(--cinza-100);padding-bottom:4px}
 .aba{flex:1;padding:10px;text-align:center;font-size:0.85rem;font-weight:600;color:var(--cinza-400);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-6px;transition:var(--transicao)}
 .aba.ativa{color:var(--verde);border-bottom-color:var(--verde)}
 
-/* USER BADGE */
 .user-badge{display:flex;align-items:center;gap:10px;background:var(--verde-pale);border:1.5px solid var(--verde-claro);border-radius:var(--raio-md);padding:12px 16px;margin-bottom:16px}
 .user-badge .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--verde),var(--verde-claro));color:var(--branco);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem}
 .user-badge .user-info{flex:1}
-.user-badge .user-name{font-size:0.9rem;font-weight:700;color:var(--cinza-900)}
+.user-badge .user-name{font-size:0.9rem;font-weight:700;color:var(--cinza-800)}
 .user-badge .user-email{font-size:0.75rem;color:var(--cinza-600)}
 
-/* MIN HINT */
 .min-hint{font-size:0.72rem;color:var(--cinza-400);margin-top:4px;text-align:center}
 
-/* LOADING */
 .loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,0.85);display:none;align-items:center;justify-content:center;z-index:3000;backdrop-filter:blur(4px)}
 .loading-overlay.ativo{display:flex}
 .spinner{width:40px;height:40px;border:3px solid var(--cinza-200);border-top-color:var(--verde);border-radius:50%;animation:spin 0.8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* FOOTER */
 .footer{margin-top:40px;padding:28px 16px 32px;text-align:center;background:var(--preto);color:var(--cinza-400)}
 .footer-brand{font-weight:700;color:var(--branco);font-size:0.95rem;margin-bottom:4px}
 .footer-rights{font-size:0.72rem;margin-bottom:6px}
 .footer-mission{font-size:0.75rem;color:var(--cinza-500);font-style:italic}
 .footer-heart{color:var(--dourado)}
 
-/* ANIM */
 @keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .animar{animation:fadeInUp 0.4s ease-out forwards;opacity:0}
 .atraso-1{animation-delay:0.05s}.atraso-2{animation-delay:0.1s}.atraso-3{animation-delay:0.15s}
@@ -198,7 +187,6 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
 
 <div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div></div>
 
-<!-- HEADER -->
 <header class="header">
   <div class="header-pattern"></div>
   <div class="header-inner">
@@ -217,7 +205,6 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
   </div>
 </header>
 
-<!-- DESTAQUES -->
 <div class="container">
   <div class="destaques animar atraso-1">
     <div class="destaque-card">
@@ -237,7 +224,6 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
     </div>
   </div>
 
-  <!-- CARROSSEL -->
   <h2 class="secao-titulo animar atraso-2"><span class="ponto"></span> Livros Disponíveis</h2>
   <div class="carrossel-wrap animar atraso-2">
     <button class="carrossel-nav ant" onclick="scrollCarrossel(-1)" aria-label="Anterior">‹</button>
@@ -246,14 +232,12 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
     <div class="carrossel-dots" id="carrosselDots"></div>
   </div>
 
-  <!-- CITAÇÃO -->
   <div class="citacao animar atraso-3">
     <p>Quem guia uma pessoa para o bem terá uma recompensa semelhante à daquele que o pratica.</p>
     <small>— Sahih Muslim</small>
   </div>
 </div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="fecharFora(event)">
   <div class="modal-box">
     <div class="modal-header">
@@ -263,7 +247,6 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
     <div class="modal-body">
       <div id="resumoProduto"></div>
 
-      <!-- LOGIN -->
       <div id="telaLogin" class="form-sec">
         <h2><div class="icone">🔐</div> Acesse a sua Conta</h2>
         <div class="abas">
@@ -293,19 +276,16 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
         <div style="text-align:center;margin-top:10px"><button class="btn btn-link" onclick="mostrarLogin()">Voltar ao login</button></div>
       </div>
 
-      <!-- PAGAMENTO -->
       <div id="telaPagamento" class="form-sec" style="display:none">
         <div class="user-badge" id="userBadge">
           <div class="avatar" id="userAvatar">U</div>
           <div class="user-info"><div class="user-name" id="userDisplayName">Utilizador</div><div class="user-email" id="userDisplayEmail">email@exemplo.com</div></div>
           <button class="btn btn-perigo" style="width:auto;padding:8px 14px;font-size:0.75rem" onclick="sair()">Sair</button>
         </div>
-
         <h2><div class="icone">👤</div> Dados do Pagante</h2>
         <div class="form-grupo"><label>Nome Completo *</label><input type="text" id="nome" placeholder="Ex: Ahmed Mohamed"></div>
         <div class="form-grupo"><label>Número de Telefone *</label><input type="tel" id="telefone" placeholder="Ex: +258 84 123 4567"><div class="hint">Pode escrever 84XXXXXXX, 25884XXXXXXX ou +25884XXXXXXX</div></div>
         <div class="form-grupo"><label>Email (opcional)</label><input type="email" id="email" placeholder="Ex: nome@email.com"></div>
-
         <h2 style="margin-top:20px"><div class="icone">💳</div> Método de Pagamento</h2>
         <div class="metodos">
           <label class="metodo ativo" onclick="escolherMetodo(this,'mpesa')"><input type="radio" name="metodo" value="mpesa" checked><div class="metodo-icone">📱</div><div class="metodo-nome">M-Pesa</div></label>
@@ -314,11 +294,9 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
           <label class="metodo" onclick="escolherMetodo(this,'card')"><input type="radio" name="metodo" value="card"><div class="metodo-icone">💳</div><div class="metodo-nome">Visa/MC</div></label>
         </div>
         <div class="min-hint" id="methodHint">Mínimo para M-Pesa: 10 MTN</div>
-
         <button class="btn btn-verde" id="btnPagar" onclick="pedirPagamento()">Pagar Agora</button>
       </div>
 
-      <!-- STATUS -->
       <div id="telaStatus" style="display:none">
         <div class="status-box" id="statusProcessando">
           <div class="status-icone processo">⏳</div>
@@ -331,11 +309,19 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
         <div class="status-box" id="statusPago">
           <div class="status-icone ok">✓</div>
           <div class="status-titulo">Pagamento Confirmado!</div>
-          <div class="status-desc">O seu pagamento foi recebido com sucesso. JazakAllahu Khairan!</div>
+          <div class="status-desc">JazakAllahu Khairan pelo seu apoio. O seu livro está protegido e pronto para download.</div>
           <div class="status-detalhes" id="detalhesPago"></div>
           <div id="secDownload" class="download-sec">
-            <p style="font-size:0.85rem;color:var(--cinza-600);margin-bottom:12px">O seu livro está pronto para download.</p>
-            <a class="download-btn" id="linkDownload" href="#" target="_blank">📥 Descarregar Livro</a>
+            <p style="font-size:0.85rem;color:var(--cinza-600);margin-bottom:12px">Clique abaixo para obter o acesso ao seu livro.</p>
+            <button class="download-btn" id="btnObterAcesso" onclick="obterAcesso()">🔓 Obter Acesso ao Livro</button>
+          </div>
+          <div id="secSenha" style="display:none;margin-top:16px">
+            <div class="senha-box">
+              <div class="rotulo">🔐 Senha para extrair o ZIP</div>
+              <div class="codigo" id="senhaZip">••••••••</div>
+              <div class="aviso">Guarde esta senha. Não será mostrada novamente.</div>
+            </div>
+            <a class="download-btn" id="linkZip" href="#" target="_blank" style="margin-top:12px">📥 Descarregar ZIP</a>
           </div>
           <button class="btn btn-outline" style="margin-top:12px" onclick="fecharModal()">Fechar</button>
         </div>
@@ -352,7 +338,6 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-brand">© Livro Digital</div>
   <div class="footer-rights">Todos os direitos reservados.</div>
@@ -360,7 +345,9 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
 </footer>
 
 <script>
-// ===== PRODUTOS =====
+// ===== CONFIG =====
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFo9CuOOgTA0toBxmzcIw4Qf2Ki3uJ59803ymOIRbnksPbxK2iw3YKe-gtk6EMgxwFEQ/exec";
+
 const produtos = [
   {
     id:"livro-tauhid-001",
@@ -369,12 +356,11 @@ const produtos = [
     instituicao:"Islam Moçambique",
     nome:"Os 100 Capítulos de Tauhid",
     descricao:"Obra clássica sobre a unidade de Deus (Tauhid) dividida em 100 capítulos. Fundamento essencial da fé islâmica, com explicações claras baseadas no Alcorão e na Sunnah.",
-    preco:120,
-    download:"https://raw.githubusercontent.com/islammocambique-maker/projeto-Islam-Mocambique-/main/Os%20100%20CAPITULOS%20DE%20TAHUID%20_%202_030002.pdf"
+    preco:200,
+    linkZip:"https://raw.githubusercontent.com/islammocambique-maker/projeto-Islam-Mocambique-/main/livro-tauhid.zip"
   }
 ];
 
-// ===== FIREBASE =====
 const firebaseConfig = {
   apiKey:"AIzaSyD2rNS7HSJyek3OCrRquudFgqQSWXZJYrY",
   authDomain:"madrassa-online-b851c.firebaseapp.com",
@@ -397,7 +383,7 @@ let slideAtual = 0;
 
 const MINIMOS = {mpesa:10,mkesh:10,emola:50,card:50};
 
-// ===== RENDER CARROSSEL =====
+// ===== CARROSSEL =====
 function renderCarrossel(){
   const c = document.getElementById('carrossel');
   const d = document.getElementById('carrosselDots');
@@ -425,7 +411,6 @@ function renderCarrossel(){
     d.appendChild(dot);
   });
 }
-
 function cardWidth(){const el=document.querySelector('.produto-card');return el?el.offsetWidth+16:316}
 function irSlide(i){
   const c=document.getElementById('carrossel');
@@ -437,7 +422,6 @@ function irSlide(i){
 function scrollCarrossel(dir){irSlide(slideAtual+dir)}
 function iniciarAuto(){pararAuto();autoScroll=setInterval(()=>{irSlide(slideAtual+1>=produtos.length?0:slideAtual+1)},8000)}
 function pararAuto(){if(autoScroll){clearInterval(autoScroll);autoScroll=null}}
-
 document.getElementById('carrossel').addEventListener('scroll',()=>{
   const c=document.getElementById('carrossel');
   const idx=Math.round(c.scrollLeft/cardWidth());
@@ -467,7 +451,6 @@ function fecharFora(e){if(e.target.id==='modalOverlay')fecharModal()}
 
 // ===== AUTH =====
 auth.onAuthStateChanged(u=>{if(u)mostrarPagamento(u);else mostrarLogin()});
-
 function mostrarLogin(){
   ['telaLogin','telaEsqueci','telaPagamento','telaStatus'].forEach(id=>document.getElementById(id).style.display='none');
   document.getElementById('telaLogin').style.display='block';
@@ -492,7 +475,6 @@ function mudarAba(aba){
   document.getElementById('formEntrar').style.display=aba==='entrar'?'block':'none';
   document.getElementById('formCriar').style.display=aba==='criar'?'block':'none';
 }
-
 async function entrar(){
   const e=document.getElementById('loginEmail').value.trim();
   const p=document.getElementById('loginPassword').value;
@@ -531,15 +513,21 @@ function escolherMetodo(el,m){
   document.getElementById('methodHint').textContent='Mínimo para '+nomes[m]+': '+MINIMOS[m]+' MTN';
   if(produtoAtual)document.getElementById('btnPagar').innerHTML='<span>Pagar '+produtoAtual.preco+' MTN</span><span style="font-size:1.1rem">→</span>';
 }
-
 function loading(mostrar){document.getElementById('loadingOverlay').classList.toggle('ativo',mostrar)}
 
 // ===== PAGAMENTO =====
 async function pedirPagamento(){
   const nome=document.getElementById('nome').value.trim();
-  const tel=document.getElementById('telefone').value.trim().replace(/\s/g,'');
+  let tel=document.getElementById('telefone').value.trim().replace(/\s/g,'').replace(/-/g,'');
   const email=document.getElementById('email').value.trim();
   const user=auth.currentUser;
+
+  // Formatar telefone automaticamente
+  if(tel.startsWith('+258')){}
+  else if(tel.startsWith('258')){tel='+'+tel}
+  else if(tel.startsWith('8')||tel.startsWith('7')||tel.startsWith('9')){tel='+258'+tel}
+  else if(tel.length>=9){tel='+258'+tel}
+
   if(!nome)return alert('Insira o nome completo');
   if(!tel||tel.length<9)return alert('Telefone inválido');
   if(!user)return alert('Sessão expirada. Entre novamente.');
@@ -568,6 +556,7 @@ async function pedirPagamento(){
     document.getElementById('statusProcessando').classList.add('ativo');
     document.getElementById('statusPago').classList.remove('ativo');
     document.getElementById('statusErro').classList.remove('ativo');
+    document.getElementById('secSenha').style.display='none';
     document.getElementById('detalhesProcesso').innerHTML=`
       <div class="linha"><span class="rotulo">Referência</span><span class="valor">${ref}</span></div>
       <div class="linha"><span class="rotulo">Valor</span><span class="valor">${produtoAtual.preco} MTN</span></div>
@@ -593,8 +582,8 @@ function escutarPedido(ref){
         <div class="linha"><span class="rotulo">Método</span><span class="valor">${(d.metodo||'').toUpperCase()}</span></div>
         <div class="linha"><span class="rotulo">Estado</span><span class="valor" style="color:var(--verde)">Confirmado ✓</span></div>
       `;
-      const p=produtos.find(x=>x.id===d.produtoId)||produtoAtual;
-      if(p){document.getElementById('linkDownload').href=p.download;document.getElementById('secDownload').classList.add('ativo')}
+      document.getElementById('secDownload').classList.add('ativo');
+      document.getElementById('secSenha').style.display='none';
     }
     else if(d.status==='erro'){
       pararListener();
@@ -615,6 +604,31 @@ function voltarPagamento(){
   document.getElementById('telaPagamento').style.display='block';
 }
 function resetarModal(){pararListener();if(auth.currentUser)mostrarPagamento(auth.currentUser);else mostrarLogin()}
+
+// ===== OBTER ACESSO (SENHA DO ZIP) =====
+async function obterAcesso(){
+  if(!pedidoAtual||!produtoAtual)return;
+  loading(true);
+  try{
+    const resp=await fetch(APPS_SCRIPT_URL,{
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({acao:'obterSenha',reference:pedidoAtual,userId:auth.currentUser.uid})
+    });
+    const text=await resp.text();
+    let result;
+    try{result=JSON.parse(text);}catch(e){result={success:false,error:'Resposta inválida'}};
+    loading(false);
+    if(result.success){
+      document.getElementById('secDownload').style.display='none';
+      document.getElementById('secSenha').style.display='block';
+      document.getElementById('senhaZip').textContent=result.senha;
+      document.getElementById('linkZip').href=produtoAtual.linkZip;
+    }else{
+      alert(result.error||'Não foi possível obter a senha. Tente novamente.');
+    }
+  }catch(err){loading(false);alert('Erro de rede. Tente novamente.');}
+}
 
 // ===== INIT =====
 renderCarrossel();
