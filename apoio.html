@@ -137,7 +137,6 @@
         @media(min-width:640px){.header-title{font-size:1.6rem}}
     </style>
 <base target="_blank">
-<base target="_blank">
 </head>
 <body>
 
@@ -360,8 +359,10 @@
     </footer>
 
     <script>
-        // ===== CONFIGURAÇÃO - ALTERE AQUI =====
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzjzjdAn-Tthdd-Abvy9Lirp5YneNKI-3nvm9hYz7Css2KP-f4RJvZCd7Ukc11zIssA/exec";
+        // ═══════════════════════════════════════════════════════════════════
+        // URL DO GOOGLE APPS SCRIPT — JÁ ATUALIZADA
+        // ═══════════════════════════════════════════════════════════════════
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx-bJNaTnLnoIQ2STLUd2ZQwH7H-leBznodQfKkrZ7ZHW_0U_TfwkkCE8rdC0JH13UH/exec";
 
         const firebaseConfig = {
             apiKey: "AIzaSyD2rNS7HSJyek3OCrRquudFgqQSWXZJYrY",
@@ -533,7 +534,6 @@
                 el.classList.add('active');
             } else {
                 el.style.display = 'block';
-                // Força reflow para garantir que a transição funcione
                 void el.offsetWidth;
                 el.classList.add('active');
             }
@@ -572,7 +572,7 @@
                     document.getElementById('errorMessage').textContent = 'O tempo de espera foi excedido. Se já confirmou no telemóvel, o pagamento será registado em breve.';
                     showScreen('errorScreen');
                 }
-            }, 300000); // 5 minutos
+            }, 300000);
         }
 
         function validate() {
@@ -638,7 +638,6 @@
         }
 
         function listenPayment(ref) {
-            // Sempre limpa listener anterior antes de criar novo
             detachAllListeners();
             activePaymentRef = ref;
             const paymentRef = db.ref('payments/' + ref);
@@ -659,7 +658,6 @@
                     showScreen('errorScreen');
                 }
                 else if (data.status === 'pending' || data.status === 'processing') {
-                    // Se estivermos numa tela diferente do processing, volta para lá
                     if (lastShownScreen !== 'processingScreen' && lastShownScreen !== 'successScreen') {
                         showScreen('processingScreen');
                         startProcessingTimer(ref);
@@ -668,16 +666,13 @@
             });
         }
 
-        // Restaura listener de pagamento anterior se a página for recarregada
         const lastRef = localStorage.getItem('lastPaymentRef');
         if (lastRef) {
-            // Verifica o estado actual antes de mostrar qualquer coisa
             db.ref('payments/' + lastRef).once('value').then((snap) => {
                 const data = snap.val();
                 if (data && (data.status === 'processing' || data.status === 'pending')) {
                     listenPayment(lastRef);
                 }
-                // Se já estiver pago/falhado, não faz nada — deixa o user continuar normalmente
             });
         }
     </script>
