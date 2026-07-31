@@ -1,681 +1,820 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Islam Moçambique - Pagamentos seguros">
-    <meta name="theme-color" content="#0B6623">
-    <title>Islam Moçambique — Pagamentos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-    <style>
-        :root {
-            --green-primary:#0B6623; --green-dark:#074B19; --green-light:#1A8C3A; --green-pale:#E8F5E9;
-            --gold:#C5A028; --gold-light:#E8D68B; --gold-dark:#9A7B1A;
-            --white:#FFFFFF; --off-white:#FAFBFC; --gray-50:#F5F6F7; --gray-100:#E8EAED;
-            --gray-200:#D1D5DB; --gray-400:#9CA3AF; --gray-600:#4B5563; --gray-800:#1F2937; --gray-900:#111827;
-            --shadow-sm:0 1px 2px rgba(0,0,0,0.04); --shadow-md:0 4px 12px rgba(0,0,0,0.08);
-            --shadow-lg:0 12px 32px rgba(0,0,0,0.12); --shadow-gold:0 4px 16px rgba(197,160,40,0.25);
-            --radius-sm:10px; --radius-md:14px; --radius-lg:18px; --radius-xl:28px;
-            --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
-        }
-        *{margin:0;padding:0;box-sizing:border-box}
-        html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
-        body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--gray-800);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pagamentos - Madrassa Online</title>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<style>
+  :root {
+    --primary: #1a5f3f;
+    --primary-light: #2d8a5e;
+    --accent: #e8b923;
+    --danger: #c0392b;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --text: #2c3e50;
+    --text-light: #7f8c8d;
+    --border: #e0e6ed;
+    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
 
-        .header{background:linear-gradient(135deg,var(--green-primary) 0%,var(--green-dark) 100%);position:relative;overflow:hidden;padding:14px 0 0;text-align:center}
-        .header-pattern{position:absolute;inset:0;opacity:0.05;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
-        .header-inner{position:relative;z-index:2;padding:0 20px 16px}
-        .logo{display:inline-flex;align-items:center;gap:8px;margin-bottom:8px}
-        .logo-icon{width:32px;height:32px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 6px rgba(0,0,0,0.2)}
-        .logo-text{color:var(--white);font-weight:700;font-size:1rem;letter-spacing:0.5px}
-        .logo-sub{color:var(--gold-light);font-size:0.6rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;opacity:0.9}
-        .header-tagline{color:var(--gold-light);font-size:0.7rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;opacity:0.9}
-        .header-title{font-family:'Amiri',serif;color:var(--white);font-size:1.25rem;font-weight:700;margin-bottom:3px;text-shadow:0 2px 6px rgba(0,0,0,0.15)}
-        .header-desc{color:rgba(255,255,255,0.8);font-size:0.78rem;max-width:360px;margin:0 auto;line-height:1.5}
-        .header-wave{position:absolute;bottom:-1px;left:0;width:100%;line-height:0}
-        .header-wave svg{display:block;width:100%;height:32px}
+  /* ===== MODAL OVERLAY ===== */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .container{max-width:520px;margin:0 auto;padding:0 16px}
+  .modal {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    width: 100%; max-width: 420px;
+    max-height: 92vh;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    animation: slideUp 0.35s cubic-bezier(.22,1,.36,1);
+  }
+  @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        .form-section{background:var(--white);border-radius:var(--radius-lg);padding:20px;margin-top:16px;box-shadow:var(--shadow-md);border:1px solid var(--gray-100)}
-        .form-section h2{font-size:0.95rem;font-weight:700;color:var(--gray-900);margin-bottom:16px;display:flex;align-items:center;gap:8px}
-        .form-section h2 .icon{width:28px;height:28px;background:linear-gradient(135deg,var(--green-primary),var(--green-light));border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--white)}
+  /* ===== HEADER ===== */
+  .modal-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: #fff;
+    padding: 18px 22px;
+    position: relative;
+  }
+  .modal-header h2 { font-size: 1.15rem; font-weight: 600; }
+  .modal-header p { font-size: 0.82rem; opacity: 0.85; margin-top: 3px; }
+  .close-btn {
+    position: absolute; top: 14px; right: 16px;
+    background: rgba(255,255,255,0.2); border: none;
+    color: #fff; width: 30px; height: 30px;
+    border-radius: 50%; cursor: pointer;
+    font-size: 1.1rem; line-height: 1;
+    transition: background 0.2s;
+  }
+  .close-btn:hover { background: rgba(255,255,255,0.35); }
 
-        .form-group{margin-bottom:14px}
-        .form-group label{display:block;font-size:0.78rem;font-weight:600;color:var(--gray-600);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px}
-        .form-group input{width:100%;padding:12px 14px;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-size:0.9rem;font-family:inherit;color:var(--gray-900);background:var(--white);transition:var(--transition);-webkit-appearance:none}
-        .form-group input:focus{outline:none;border-color:var(--green-primary);box-shadow:0 0 0 3px rgba(11,102,35,0.1)}
-        .form-group input::placeholder{color:var(--gray-400)}
-        .form-group .hint{font-size:0.72rem;color:var(--gray-400);margin-top:3px}
+  /* ===== SCROLL BANNER ===== */
+  .scroll-banner {
+    background: #fff8e1;
+    border-bottom: 1px solid #ffe082;
+    padding: 10px 18px;
+    overflow: hidden;
+    position: relative;
+    min-height: 44px;
+    display: flex; align-items: center;
+  }
+  .scroll-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(.22,1,.36,1);
+    width: 100%;
+  }
+  .scroll-item {
+    min-width: 100%;
+    text-align: center;
+    font-size: 0.82rem;
+    color: #6d4c00;
+    padding: 0 10px;
+    flex-shrink: 0;
+  }
+  .scroll-item strong { color: var(--primary); }
+  .scroll-dots {
+    display: flex; justify-content: center; gap: 5px;
+    padding: 6px 0 2px;
+  }
+  .scroll-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #ddd; transition: background 0.3s;
+  }
+  .scroll-dot.active { background: var(--primary); }
 
-        .type-grid{display:grid;gap:8px;margin-bottom:4px}
-        .type-card{display:flex;align-items:center;gap:12px;padding:12px 14px;border:2px solid var(--gray-200);border-radius:var(--radius-md);cursor:pointer;transition:var(--transition);background:var(--white);position:relative}
-        .type-card:hover{border-color:var(--green-light)}
-        .type-card.selected{border-color:var(--green-primary);background:var(--green-pale)}
-        .type-card .radio{width:20px;height:20px;min-width:20px;border:2px solid var(--gray-300);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:var(--transition)}
-        .type-card.selected .radio{border-color:var(--green-primary);background:var(--green-primary)}
-        .type-card.selected .radio::after{content:'';width:8px;height:8px;background:var(--white);border-radius:50%}
-        .type-info{flex:1}
-        .type-name{font-size:0.88rem;font-weight:600;color:var(--gray-900)}
-        .type-price{font-size:0.8rem;color:var(--green-primary);font-weight:700;margin-top:1px}
-        .type-card input[type="radio"]{position:absolute;opacity:0}
+  /* ===== TABS ===== */
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    background: #fafbfc;
+  }
+  .tab {
+    flex: 1; padding: 14px;
+    background: none; border: none;
+    font-size: 0.88rem; font-weight: 500;
+    color: var(--text-light); cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .tab.active {
+    color: var(--primary);
+    background: #fff;
+  }
+  .tab.active::after {
+    content: ''; position: absolute; bottom: 0; left: 20%; right: 20%;
+    height: 2.5px; background: var(--primary); border-radius: 2px;
+  }
+  .tab:hover:not(.active) { color: var(--text); background: #f0f2f5; }
 
-        .custom-amount{display:none;margin-top:10px}
-        .custom-amount.active{display:block}
-        .custom-amount input{width:100%;padding:12px 14px;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-size:1rem;font-weight:600;color:var(--gray-900);text-align:center}
-        .custom-amount input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(197,160,40,0.1)}
+  /* ===== BODY ===== */
+  .modal-body {
+    padding: 20px 22px;
+    overflow-y: auto;
+    flex: 1;
+  }
 
-        .method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:4px}
-        .method-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px;border:2px solid var(--gray-200);border-radius:var(--radius-md);cursor:pointer;transition:var(--transition);background:var(--white);position:relative}
-        .method-card:hover{border-color:var(--green-light)}
-        .method-card.selected{border-color:var(--green-primary);background:var(--green-pale)}
-        .method-card .method-icon{font-size:26px}
-        .method-card .method-name{font-size:0.78rem;font-weight:600;color:var(--gray-700)}
-        .method-card input[type="radio"]{position:absolute;opacity:0}
+  /* Auth section */
+  .auth-box {
+    background: #f8fafc;
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .auth-box p { font-size: 0.82rem; color: var(--text-light); margin-bottom: 10px; }
+  .btn-auth {
+    background: var(--primary); color: #fff; border: none;
+    padding: 10px 22px; border-radius: 8px; font-size: 0.85rem;
+    font-weight: 500; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-auth:hover { background: var(--primary-light); }
+  .user-chip {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-size: 0.85rem; color: var(--primary);
+  }
+  .user-chip img { width: 28px; height: 28px; border-radius: 50%; }
 
-        .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 20px;border-radius:var(--radius-md);font-size:0.9rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;letter-spacing:0.3px}
-        .btn-primary{background:linear-gradient(135deg,var(--green-primary),var(--green-light));color:var(--white);box-shadow:0 4px 14px rgba(11,102,35,0.3);margin-top:8px}
-        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(11,102,35,0.4)}
-        .btn-primary:disabled{opacity:0.6;cursor:not-allowed;transform:none}
-        .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--white);box-shadow:var(--shadow-gold)}
-        .btn-gold:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(197,160,40,0.35)}
-        .btn-outline{background:var(--white);color:var(--green-primary);border:2px solid var(--green-primary)}
-        .btn-outline:hover{background:var(--green-pale)}
-        .btn-link{background:transparent;color:var(--green-primary);padding:8px;font-size:0.82rem;font-weight:600}
-        .btn-link:hover{text-decoration:underline}
-        .btn-danger{background:linear-gradient(135deg,#DC2626,#B91C1C);color:var(--white);box-shadow:0 4px 14px rgba(220,38,38,0.25)}
-        .btn-danger:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(220,38,38,0.35)}
+  .section-title {
+    font-size: 0.78rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--text-light); margin: 16px 0 10px;
+  }
 
-        .status-screen{display:none;text-align:center;padding:30px 20px}
-        .status-screen.active{display:block}
-        .status-icon{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px}
-        .status-icon.success{background:var(--green-pale);color:var(--green-primary)}
-        .status-icon.pending{background:#FEF9E7;color:var(--gold)}
-        .status-icon.error{background:#FEF2F2;color:#DC2626}
-        .status-icon.processing{background:#E0F2FE;color:#0284C7}
-        .status-title{font-size:1.1rem;font-weight:700;color:var(--gray-900);margin-bottom:6px}
-        .status-desc{font-size:0.85rem;color:var(--gray-600);margin-bottom:20px;line-height:1.6}
-        .status-details{background:var(--gray-50);border-radius:var(--radius-md);padding:14px;margin-bottom:20px;text-align:left}
-        .status-details .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--gray-100);font-size:0.82rem}
-        .status-details .row:last-child{border-bottom:none}
-        .status-details .row .label{color:var(--gray-400);font-weight:500}
-        .status-details .row .value{color:var(--gray-800);font-weight:600}
+  /* Payment type chips (C2B only) */
+  .type-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    margin-bottom: 14px;
+  }
+  .type-chip {
+    padding: 10px 6px; border: 1.5px solid var(--border);
+    border-radius: 10px; text-align: center; cursor: pointer;
+    font-size: 0.8rem; font-weight: 500;
+    transition: all 0.2s; background: #fff;
+  }
+  .type-chip:hover { border-color: var(--primary-light); }
+  .type-chip.active {
+    border-color: var(--primary);
+    background: #e8f5e9;
+    color: var(--primary);
+  }
+  .type-chip .icon { font-size: 1.3rem; display: block; margin-bottom: 3px; }
 
-        .loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,0.85);display:none;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(4px)}
-        .loading-overlay.active{display:flex}
-        .spinner{width:40px;height:40px;border:3px solid var(--gray-200);border-top-color:var(--green-primary);border-radius:50%;animation:spin 0.8s linear infinite}
+  /* Method grid */
+  .method-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    margin-bottom: 14px;
+  }
+  .method-chip {
+    padding: 10px 4px; border: 1.5px solid var(--border);
+    border-radius: 10px; text-align: center; cursor: pointer;
+    font-size: 0.75rem; font-weight: 500;
+    transition: all 0.2s; background: #fff;
+  }
+  .method-chip:hover { border-color: var(--primary-light); }
+  .method-chip.active {
+    border-color: var(--primary);
+    background: #e8f5e9;
+    color: var(--primary);
+  }
+  .method-chip .icon { font-size: 1.2rem; display: block; margin-bottom: 3px; }
 
-        .footer{margin-top:24px;padding:20px 16px 24px;text-align:center;background:var(--gray-900);color:var(--gray-400)}
-        .footer-brand{font-weight:700;color:var(--white);font-size:0.9rem;margin-bottom:3px}
-        .footer-rights{font-size:0.7rem;margin-bottom:4px}
-        .footer-mission{font-size:0.72rem;color:var(--gray-500);font-style:italic}
-        .footer-heart{color:var(--gold)}
+  /* Inputs */
+  .input-group { margin-bottom: 14px; }
+  .input-group label {
+    display: block; font-size: 0.78rem; font-weight: 500;
+    color: var(--text-light); margin-bottom: 5px;
+  }
+  .input-group input, .input-group select {
+    width: 100%; padding: 11px 14px;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    font-size: 0.9rem; color: var(--text);
+    background: #fff; transition: border-color 0.2s;
+    outline: none;
+  }
+  .input-group input:focus, .input-group select:focus {
+    border-color: var(--primary-light);
+  }
+  .input-hint {
+    font-size: 0.72rem; color: #95a5a6; margin-top: 4px;
+  }
 
-        .auth-screen{display:none}
-        .auth-screen.active{display:block}
-        .auth-tabs{display:flex;gap:8px;margin-bottom:16px;border-bottom:2px solid var(--gray-100);padding-bottom:4px}
-        .auth-tab{flex:1;padding:10px;text-align:center;font-size:0.85rem;font-weight:600;color:var(--gray-400);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-6px;transition:var(--transition)}
-        .auth-tab.active{color:var(--green-primary);border-bottom-color:var(--green-primary)}
-        .user-badge{display:flex;align-items:center;gap:10px;background:var(--green-pale);border:1.5px solid var(--green-light);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:16px}
-        .user-badge .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--green-primary),var(--green-light));color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem}
-        .user-badge .user-info{flex:1}
-        .user-badge .user-name{font-size:0.9rem;font-weight:700;color:var(--gray-900)}
-        .user-badge .user-email{font-size:0.75rem;color:var(--gray-600)}
+  /* Value display */
+  .value-display {
+    background: #f0f7f4;
+    border: 2px dashed var(--primary-light);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .value-display .label { font-size: 0.78rem; color: var(--text-light); }
+  .value-display .amount {
+    font-size: 2rem; font-weight: 700; color: var(--primary);
+    margin: 4px 0;
+  }
+  .value-display .currency { font-size: 0.9rem; color: var(--text-light); }
 
-        .pulse-dot{width:10px;height:10px;background:var(--gold);border-radius:50%;display:inline-block;margin-right:6px;animation:pulse 1.5s infinite}
-        @keyframes pulse{0%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
+  /* Pay button */
+  .btn-pay {
+    width: 100%; padding: 14px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: #fff; border: none; border-radius: 12px;
+    font-size: 1rem; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    box-shadow: 0 4px 14px rgba(26,95,63,0.3);
+  }
+  .btn-pay:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(26,95,63,0.35); }
+  .btn-pay:disabled {
+    background: #bdc3c7; cursor: not-allowed;
+    transform: none; box-shadow: none;
+  }
+  .btn-pay .spinner {
+    width: 18px; height: 18px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff; border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
-        @keyframes spin{to{transform:rotate(360deg)}}
-        @keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-        .animate-in{animation:fadeInUp 0.4s ease-out forwards;opacity:0}
-        .delay-1{animation-delay:0.05s}.delay-2{animation-delay:0.1s}.delay-3{animation-delay:0.15s}
+  /* Status messages */
+  .status-msg {
+    padding: 12px 14px; border-radius: 10px;
+    font-size: 0.82rem; margin-top: 12px;
+    display: none; align-items: flex-start; gap: 8px;
+  }
+  .status-msg.show { display: flex; }
+  .status-msg.success { background: #e8f5e9; color: #1b5e20; border: 1px solid #a5d6a7; }
+  .status-msg.error { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+  .status-msg.info { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
 
-        @media(min-width:480px){.header-title{font-size:1.4rem}.header-desc{font-size:0.82rem}.container{padding:0 20px}.form-section{padding:24px}}
-        @media(min-width:640px){.header-title{font-size:1.6rem}}
-    </style>
+  /* B2C specific */
+  .b2c-note {
+    background: #fff3e0;
+    border: 1px solid #ffcc80;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 0.8rem;
+    color: #6d4c00;
+    margin-bottom: 14px;
+  }
+  .b2c-note strong { color: #e65100; }
+
+  /* Hidden */
+  .hidden { display: none !important; }
+
+  /* Responsive */
+  @media (max-width: 400px) {
+    .modal { max-width: 100%; border-radius: 0; max-height: 100vh; }
+    .method-grid { grid-template-columns: repeat(2, 1fr); }
+    .type-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
 <base target="_blank">
 </head>
 <body>
 
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
+<!-- BOTÃO PARA ABRIR MODAL -->
+<button onclick="openModal()" style="padding:14px 28px; background:var(--primary); color:#fff; border:none; border-radius:12px; font-size:1rem; font-weight:600; cursor:pointer; box-shadow:var(--shadow);">
+  💳 Abrir Pagamentos
+</button>
+
+<!-- MODAL -->
+<div id="paymentModal" class="modal-overlay" style="display:none;">
+  <div class="modal">
+    <!-- Header -->
+    <div class="modal-header">
+      <h2>💰 Pagamentos</h2>
+      <p>Pagamento seguro via NetShop</p>
+      <button class="close-btn" onclick="closeModal()">×</button>
     </div>
 
-    <header class="header">
-        <div class="header-pattern"></div>
-        <div class="header-inner">
-            <div class="logo">
-                <div class="logo-icon">☪</div>
-                <div>
-                    <div class="logo-text">ISLAM MOÇAMBIQUE</div>
-                    <div class="logo-sub">Pagamentos Seguros</div>
-                </div>
-            </div>
-            <div class="header-tagline">Conhecimento • Educação • Desenvolvimento da Ummah</div>
-            <h1 class="header-title">Efetue o seu Pagamento</h1>
-            <p class="header-desc">Preencha os dados abaixo para processar o pagamento de forma segura.</p>
-        </div>
-        <div class="header-wave">
-            <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path fill="#FAFBFC" d="M0,40L48,45.3C96,51,192,61,288,58.7C384,56,480,40,576,37.3C672,35,768,45,864,50.7C960,56,1056,56,1152,50.7C1248,45,1344,35,1392,29.3L1440,24L1440,80L1392,80C1344,80,1248,80,1152,80C1056,80,960,80,864,80C768,80,672,80,576,80C480,80,384,80,288,80C192,80,96,80,48,80L0,80Z"></path></svg>
-        </div>
-    </header>
+    <!-- Scroll Banner -->
+    <div class="scroll-banner">
+      <div class="scroll-track" id="scrollTrack">
+        <div class="scroll-item">🤲 <strong>Apoio:</strong> Contribua com o valor que puder. Toda ajuda conta!</div>
+        <div class="scroll-item">📝 <strong>Inscrição:</strong> Custo único de <strong>150 MTN</strong> para novos alunos.</div>
+        <div class="scroll-item">📅 <strong>Mensalidade:</strong> Valor mensal de <strong>100 MTN</strong> para manter a matrícula.</div>
+        <div class="scroll-item">💡 <strong>Como usar:</strong> Escolha o tipo, insira o valor, selecione o método e clique em pagar.</div>
+        <div class="scroll-item">🔒 <strong>Segurança:</strong> Os seus dados estão protegidos. Pagamento processado via NetShop.</div>
+      </div>
+    </div>
+    <div class="scroll-dots" id="scrollDots"></div>
 
-    <main class="container">
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-tab="c2b" onclick="switchTab('c2b')">
+        💳 Pagar
+      </button>
+      <button class="tab" data-tab="b2c" onclick="switchTab('b2c')">
+        💸 B2C
+      </button>
+    </div>
 
-        <!-- LOGIN / REGISTER -->
-        <div id="authScreen" class="form-section auth-screen animate-in delay-1">
-            <h2><div class="icon">🔐</div> Acesse a sua Conta</h2>
-            <div class="auth-tabs">
-                <div class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Entrar</div>
-                <div class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Criar Conta</div>
-            </div>
-            <div id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">Email</label>
-                    <input type="email" id="loginEmail" placeholder="nome@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">Palavra-passe</label>
-                    <input type="password" id="loginPassword" placeholder="••••••••" required>
-                </div>
-                <button class="btn btn-primary" onclick="loginUser()">Entrar</button>
-                <div style="text-align:center;margin-top:10px">
-                    <button class="btn btn-link" onclick="showForgotPassword()">Esqueceu a palavra-passe?</button>
-                </div>
-            </div>
-            <div id="registerForm" style="display:none">
-                <div class="form-group">
-                    <label for="regName">Nome Completo *</label>
-                    <input type="text" id="regName" placeholder="Ex: Ahmed Mohamed" required>
-                </div>
-                <div class="form-group">
-                    <label for="regEmail">Email *</label>
-                    <input type="email" id="regEmail" placeholder="nome@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="regPassword">Palavra-passe * (min. 6)</label>
-                    <input type="password" id="regPassword" placeholder="••••••••" required>
-                </div>
-                <div class="form-group">
-                    <label for="regPhone">Telefone *</label>
-                    <input type="tel" id="regPhone" placeholder="Ex: +258 84 123 4567" required>
-                    <div class="hint">Formato: +258XXXXXXXXX</div>
-                </div>
-                <button class="btn btn-primary" onclick="registerUser()">Criar Conta</button>
-            </div>
+    <!-- Body -->
+    <div class="modal-body">
+      <!-- Auth -->
+      <div class="auth-box" id="authBox">
+        <p>🔐 Autentique-se para continuar com o pagamento</p>
+        <button class="btn-auth" id="btnLogin" onclick="signInWithGoogle()">
+          Entrar com Google
+        </button>
+        <div class="user-chip hidden" id="userChip">
+          <img id="userPhoto" src="" alt="">
+          <span id="userName"></span>
+          <button onclick="signOut()" style="background:none;border:none;color:var(--danger);font-size:0.75rem;cursor:pointer;text-decoration:underline;">Sair</button>
+        </div>
+      </div>
+
+      <!-- ===== TAB C2B (PAGAR) ===== -->
+      <div id="tab-c2b">
+        <div class="section-title">O que deseja pagar?</div>
+        <div class="type-grid">
+          <div class="type-chip active" data-type="apoio" onclick="selectType('apoio')">
+            <span class="icon">🤲</span>Apoio
+          </div>
+          <div class="type-chip" data-type="inscricao" onclick="selectType('inscricao')">
+            <span class="icon">📝</span>Inscrição
+          </div>
+          <div class="type-chip" data-type="mensalidade" onclick="selectType('mensalidade')">
+            <span class="icon">📅</span>Mensalidade
+          </div>
         </div>
 
-        <!-- FORGOT PASSWORD -->
-        <div id="forgotScreen" class="form-section auth-screen animate-in delay-1" style="display:none">
-            <h2><div class="icon">📧</div> Recuperar Palavra-passe</h2>
-            <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:14px">Insira o seu email e enviaremos um link para redefinir a palavra-passe.</p>
-            <div class="form-group">
-                <label for="forgotEmail">Email</label>
-                <input type="email" id="forgotEmail" placeholder="nome@email.com" required>
-            </div>
-            <button class="btn btn-primary" onclick="resetPassword()">Enviar Link</button>
-            <div style="text-align:center;margin-top:10px">
-                <button class="btn btn-link" onclick="showAuthScreen()">Voltar ao login</button>
-            </div>
+        <div class="section-title">Valor a pagar (MTN)</div>
+        <div class="input-group">
+          <input type="number" id="c2bAmount" placeholder="Ex: 100" min="10" step="1" oninput="updateValueDisplay()">
+          <div class="input-hint" id="amountHint">Mínimo: 10 MTN (M-Pesa/mKesh) | 50 MTN (e-Mola/Card)</div>
+        </div>
+        <div class="value-display">
+          <div class="label">Valor total</div>
+          <div class="amount" id="valueDisplay">0 MTN</div>
+          <div class="currency">Metical Moçambicano</div>
         </div>
 
-        <!-- PAYMENT FORM -->
-        <div id="paymentForm" class="form-section animate-in delay-1" style="display:none">
-            <div class="user-badge" id="userBadge">
-                <div class="avatar" id="userAvatar">U</div>
-                <div class="user-info">
-                    <div class="user-name" id="userDisplayName">Utilizador</div>
-                    <div class="user-email" id="userDisplayEmail">email@exemplo.com</div>
-                </div>
-                <button class="btn btn-danger" style="width:auto;padding:8px 14px;font-size:0.75rem" onclick="logoutUser()">Sair</button>
-            </div>
-
-            <h2><div class="icon">👤</div> Dados do Pagante</h2>
-            <div class="form-group">
-                <label for="fullName">Nome Completo *</label>
-                <input type="text" id="fullName" placeholder="Ex: Ahmed Mohamed" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Número de Telefone *</label>
-                <input type="tel" id="phone" placeholder="Ex: +258 84 123 4567" required>
-                <div class="hint">Formato: +258XXXXXXXXX</div>
-            </div>
-            <div class="form-group">
-                <label for="email">Email (opcional)</label>
-                <input type="email" id="email" placeholder="Ex: nome@email.com">
-            </div>
-
-            <h2 style="margin-top:20px"><div class="icon">📋</div> Tipo de Pagamento</h2>
-            <div class="type-grid">
-                <label class="type-card selected" onclick="selectType(this, 'inscricao', 150)">
-                    <input type="radio" name="paymentType" value="inscricao" checked>
-                    <div class="radio"></div>
-                    <div class="type-info">
-                        <div class="type-name">Inscrição na Madrassa</div>
-                        <div class="type-price">150 MTN</div>
-                    </div>
-                </label>
-                <label class="type-card" onclick="selectType(this, 'mensalidade', 100)">
-                    <input type="radio" name="paymentType" value="mensalidade">
-                    <div class="radio"></div>
-                    <div class="type-info">
-                        <div class="type-name">Mensalidade da Madrassa</div>
-                        <div class="type-price">100 MTN</div>
-                    </div>
-                </label>
-                <label class="type-card" onclick="selectType(this, 'apoio', 0)">
-                    <input type="radio" name="paymentType" value="apoio">
-                    <div class="radio"></div>
-                    <div class="type-info">
-                        <div class="type-name">Apoio ao Projeto</div>
-                        <div class="type-price">Valor livre</div>
-                    </div>
-                </label>
-            </div>
-
-            <div class="custom-amount" id="customAmountBox">
-                <div class="form-group" style="margin-bottom:0">
-                    <label for="customValue">Valor da Doação (MTN)</label>
-                    <input type="number" id="customValue" placeholder="Ex: 500" min="10">
-                </div>
-            </div>
-
-            <h2 style="margin-top:20px"><div class="icon">💳</div> Método de Pagamento</h2>
-            <div class="method-grid">
-                <label class="method-card selected" onclick="selectMethod(this, 'mpesa')">
-                    <input type="radio" name="paymentMethod" value="mpesa" checked>
-                    <div class="method-icon">📱</div>
-                    <div class="method-name">M-Pesa</div>
-                </label>
-                <label class="method-card" onclick="selectMethod(this, 'mkesh')">
-                    <input type="radio" name="paymentMethod" value="mkesh">
-                    <div class="method-icon">🏦</div>
-                    <div class="method-name">mKesh</div>
-                </label>
-                <label class="method-card" onclick="selectMethod(this, 'card')">
-                    <input type="radio" name="paymentMethod" value="card">
-                    <div class="method-icon">💳</div>
-                    <div class="method-name">Visa/MC</div>
-                </label>
-            </div>
-
-            <button class="btn btn-primary" id="submitBtn" onclick="processPayment()">
-                <span>Continuar Pagamento</span>
-                <span style="font-size:1.1rem">→</span>
-            </button>
+        <div class="section-title">Método de pagamento</div>
+        <div class="method-grid">
+          <div class="method-chip active" data-method="mpesa" onclick="selectMethod('mpesa')">
+            <span class="icon">📱</span>M-Pesa
+          </div>
+          <div class="method-chip" data-method="emola" onclick="selectMethod('emola')">
+            <span class="icon">💚</span>e-Mola
+          </div>
+          <div class="method-chip" data-method="mkesh" onclick="selectMethod('mkesh')">
+            <span class="icon">🔵</span>mKesh
+          </div>
+          <div class="method-chip" data-method="card" onclick="selectMethod('card')">
+            <span class="icon">💳</span>Card
+          </div>
         </div>
 
-        <!-- PROCESSING -->
-        <div id="processingScreen" class="form-section status-screen">
-            <div class="status-icon processing">⏳</div>
-            <div class="status-title">Aguardando Confirmação</div>
-            <div class="status-desc">O pagamento foi iniciado. Estamos a verificar o estado em tempo real. Verifique o seu telemóvel e confirme se solicitado.</div>
-            <div class="status-details" id="processingDetails"></div>
-            <div style="margin-bottom:16px">
-                <span class="pulse-dot"></span>
-                <span id="processingText" style="font-size:0.8rem;color:var(--gray-600)">A verificar estado do pagamento...</span>
-            </div>
-            <button class="btn btn-outline" onclick="resetForm()">Voltar ao Início</button>
+        <div class="input-group">
+          <label for="c2bPhone">Número de telefone</label>
+          <input type="tel" id="c2bPhone" placeholder="+25884XXXXXXX" maxlength="13">
+          <div class="input-hint">Formato: +25884XXXXXXX (obrigatório para M-Pesa, e-Mola, mKesh)</div>
         </div>
 
-        <div id="successScreen" class="form-section status-screen">
-            <div class="status-icon success">✓</div>
-            <div class="status-title">Pagamento Iniciado!</div>
-            <div class="status-desc">Verifique o seu telemóvel e confirme o pagamento.</div>
-            <div class="status-details" id="successDetails"></div>
-            <button class="btn btn-outline" onclick="resetForm()">Novo Pagamento</button>
+        <div class="input-group">
+          <label for="c2bEmail">Email (recomendado para cartão)</label>
+          <input type="email" id="c2bEmail" placeholder="seu@email.com">
         </div>
 
-        <div id="cardScreen" class="form-section status-screen">
-            <div class="status-icon pending">↗</div>
-            <div class="status-title">Redirecionando...</div>
-            <div class="status-desc">Será redirecionado para a página segura da NetShop.</div>
-            <div class="status-details" id="cardDetails"></div>
-            <a class="btn btn-gold" id="cardLink" href="#" target="_blank">Ir para Pagamento Seguro</a>
-            <button class="btn btn-outline" style="margin-top:8px" onclick="resetForm()">Cancelar</button>
+        <div class="input-group">
+          <label for="c2bReference">Referência / Descrição</label>
+          <input type="text" id="c2bReference" placeholder="Ex: Mensalidade Agosto 2026" maxlength="100">
         </div>
 
-        <div id="errorScreen" class="form-section status-screen">
-            <div class="status-icon error">✕</div>
-            <div class="status-title">Erro no Pagamento</div>
-            <div class="status-desc" id="errorMessage">Ocorreu um erro. Tente novamente.</div>
-            <button class="btn btn-outline" onclick="resetForm()">Tentar Novamente</button>
+        <button class="btn-pay" id="btnPayC2B" onclick="processC2B()">
+          💳 Pagar agora
+        </button>
+      </div>
+
+      <!-- ===== TAB B2C (PAYOUT) ===== -->
+      <div id="tab-b2c" class="hidden">
+        <div class="b2c-note">
+          <strong>⚠️ Processo manual B2C</strong><br>
+          O payout é processado manualmente pela administração. Preencha os dados e aguarde confirmação.
         </div>
 
-        <div class="form-section" style="margin-top:16px;background:linear-gradient(135deg,#FEF9E7,#FDF6E3);border-color:rgba(197,160,40,0.15);text-align:center;padding:22px 18px">
-            <p style="font-family:'Amiri',serif;font-size:1rem;font-weight:700;color:var(--gray-900);line-height:1.7">Quem guia uma pessoa para o bem terá uma recompensa semelhante à daquele que o pratica.</p>
-            <p style="margin-top:6px;font-size:0.72rem;color:var(--gold-dark);font-weight:600">— Sahih Muslim</p>
+        <div class="section-title">Valor a enviar (MTN)</div>
+        <div class="input-group">
+          <input type="number" id="b2cAmount" placeholder="Ex: 1500" min="1000" step="1">
+          <div class="input-hint">Mínimo: 1 000 MTN para payout manual</div>
         </div>
 
-    </main>
+        <div class="section-title">Método de recebimento</div>
+        <div class="method-grid">
+          <div class="method-chip active" data-b2c-method="mpesa" onclick="selectB2CMethod('mpesa')">
+            <span class="icon">📱</span>M-Pesa
+          </div>
+          <div class="method-chip" data-b2c-method="emola" onclick="selectB2CMethod('emola')">
+            <span class="icon">💚</span>e-Mola
+          </div>
+          <div class="method-chip" data-b2c-method="mkesh" onclick="selectB2CMethod('mkesh')">
+            <span class="icon">🔵</span>mKesh
+          </div>
+          <div class="method-chip" data-b2c-method="bank" onclick="selectB2CMethod('bank')">
+            <span class="icon">🏦</span>Banco
+          </div>
+        </div>
 
-    <footer class="footer">
-        <div class="footer-brand">© Islam Moçambique</div>
-        <div class="footer-rights">Todos os direitos reservados.</div>
-        <div class="footer-mission">Feito com <span class="footer-heart">♥</span> para servir a Ummah através da educação.</div>
-    </footer>
+        <div class="input-group">
+          <label for="b2cPhone">Número de telefone do beneficiário</label>
+          <input type="tel" id="b2cPhone" placeholder="+25884XXXXXXX" maxlength="13">
+        </div>
 
-    <script>
-        // ═══════════════════════════════════════════════════════════════════
-        // URL DO GOOGLE APPS SCRIPT — JÁ ATUALIZADA
-        // ═══════════════════════════════════════════════════════════════════
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx-bJNaTnLnoIQ2STLUd2ZQwH7H-leBznodQfKkrZ7ZHW_0U_TfwkkCE8rdC0JH13UH/exec";
+        <div class="input-group">
+          <label for="b2cName">Nome do beneficiário</label>
+          <input type="text" id="b2cName" placeholder="Nome completo">
+        </div>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyD2rNS7HSJyek3OCrRquudFgqQSWXZJYrY",
-            authDomain: "madrassa-online-b851c.firebaseapp.com",
-            databaseURL: "https://madrassa-online-b851c-default-rtdb.firebaseio.com",
-            projectId: "madrassa-online-b851c",
-            storageBucket: "madrassa-online-b851c.firebasestorage.app",
-            messagingSenderId: "360782668012",
-            appId: "1:360782668012:web:d501ef187911db632445c9"
-        };
+        <div class="input-group">
+          <label for="b2cReference">Referência / Motivo</label>
+          <input type="text" id="b2cReference" placeholder="Ex: Reembolso - Aluno #123" maxlength="100">
+        </div>
 
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.database();
+        <div class="input-group">
+          <label for="b2cNIB">NIB (se transferência bancária)</label>
+          <input type="text" id="b2cNIB" placeholder="00010000000001234567890" maxlength="21">
+          <div class="input-hint">Apenas para transferência bancária. Deixe em branco para wallets.</div>
+        </div>
 
-        let selectedType = 'inscricao';
-        let selectedAmount = 150;
-        let selectedMethod = 'mpesa';
-        let currentUser = null;
-        let activePaymentRef = null;
-        let activeListener = null;
-        let processingTimer = null;
-        let lastShownScreen = null;
+        <button class="btn-pay" id="btnPayB2C" onclick="processB2C()">
+          💸 Solicitar B2C
+        </button>
+      </div>
 
-        auth.onAuthStateChanged((user) => {
-            currentUser = user;
-            if (user) showPaymentScreen(user);
-            else showAuthScreen();
-        });
+      <!-- Status Message -->
+      <div class="status-msg" id="statusMsg">
+        <span id="statusIcon">ℹ️</span>
+        <span id="statusText"></span>
+      </div>
+    </div>
+  </div>
+</div>
 
-        function showAuthScreen() {
-            hideAllScreens();
-            document.getElementById('authScreen').style.display = 'block';
-            document.getElementById('authScreen').classList.add('active');
-            lastShownScreen = 'authScreen';
-        }
+<script>
+// ===================== CONFIGURAÇÃO FIREBASE =====================
+const firebaseConfig = {
+  apiKey: "AIzaSyD2rNS7HSJyek3OCrRquudFgqQSWXZJYrY",
+  authDomain: "madrassa-online-b851c.firebaseapp.com",
+  databaseURL: "https://madrassa-online-b851c-default-rtdb.firebaseio.com",
+  projectId: "madrassa-online-b851c",
+  storageBucket: "madrassa-online-b851c.firebasestorage.app",
+  messagingSenderId: "360782668012",
+  appId: "1:360782668012:web:d501ef187911db632445c9",
+  measurementId: "G-RV9GD4S22T"
+};
 
-        function showPaymentScreen(user) {
-            hideAllScreens();
-            document.getElementById('paymentForm').style.display = 'block';
-            document.getElementById('paymentForm').classList.add('active');
-            lastShownScreen = 'paymentForm';
-            const displayName = user.displayName || localStorage.getItem('userName') || 'Utilizador';
-            const email = user.email || '';
-            document.getElementById('userDisplayName').textContent = displayName;
-            document.getElementById('userDisplayEmail').textContent = email;
-            document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase();
-            const savedName = localStorage.getItem('userName');
-            const savedPhone = localStorage.getItem('userPhone');
-            if (savedName) document.getElementById('fullName').value = savedName;
-            if (savedPhone) document.getElementById('phone').value = savedPhone;
-            if (email) document.getElementById('email').value = email;
-        }
+// Inicializar Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
 
-        function hideAllScreens() {
-            document.getElementById('authScreen').style.display = 'none';
-            document.getElementById('forgotScreen').style.display = 'none';
-            document.getElementById('paymentForm').style.display = 'none';
-            ['successScreen','cardScreen','errorScreen','processingScreen'].forEach(s => {
-                const el = document.getElementById(s);
-                el.classList.remove('active');
-                el.style.display = 'none';
-            });
-            stopProcessingTimer();
-        }
+// ===================== CONFIGURAÇÃO GAS =====================
+// Substitua pela URL do seu Web App do Google Apps Script (deploy como web app)
+const GAS_URL = "https://script.google.com/macros/s/SEU_SCRIPT_ID/exec";
 
-        function showForgotPassword() {
-            hideAllScreens();
-            document.getElementById('forgotScreen').style.display = 'block';
-            document.getElementById('forgotScreen').classList.add('active');
-            lastShownScreen = 'forgotScreen';
-        }
+// ===================== ESTADO =====================
+let currentUser = null;
+let selectedType = 'apoio';
+let selectedMethod = 'mpesa';
+let selectedB2CMethod = 'mpesa';
+let scrollIndex = 0;
+const scrollItems = 5;
 
-        function switchAuthTab(tab) {
-            document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
-            document.getElementById('tabRegister').classList.toggle('active', tab === 'register');
-            document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
-            document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
-        }
+// ===================== SCROLL BANNER =====================
+function initScroll() {
+  const dots = document.getElementById('scrollDots');
+  for (let i = 0; i < scrollItems; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'scroll-dot' + (i === 0 ? ' active' : '');
+    dots.appendChild(dot);
+  }
+  setInterval(() => {
+    scrollIndex = (scrollIndex + 1) % scrollItems;
+    document.getElementById('scrollTrack').style.transform = `translateX(-${scrollIndex * 100}%)`;
+    document.querySelectorAll('.scroll-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === scrollIndex);
+    });
+  }, 5000);
+}
 
-        async function loginUser() {
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-            if (!email || !password) { alert('Por favor, preencha o email e a palavra-passe.'); return; }
-            showLoading(true);
-            try { await auth.signInWithEmailAndPassword(email, password); }
-            catch (error) {
-                showLoading(false);
-                let msg = 'Erro ao entrar. Verifique os dados.';
-                if (error.code === 'auth/user-not-found') msg = 'Conta não encontrada.';
-                if (error.code === 'auth/wrong-password') msg = 'Palavra-passe incorreta.';
-                if (error.code === 'auth/invalid-email') msg = 'Email inválido.';
-                alert(msg);
-            }
-        }
+// ===================== MODAL =====================
+function openModal() {
+  document.getElementById('paymentModal').style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('paymentModal').style.display = 'none';
+  hideStatus();
+}
 
-        async function registerUser() {
-            const name = document.getElementById('regName').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value;
-            const phone = document.getElementById('regPhone').value.trim();
-            if (!name || !email || !password || !phone) { alert('Preencha todos os campos.'); return; }
-            if (password.length < 6) { alert('Palavra-passe mínima: 6 caracteres.'); return; }
-            if (phone.length < 9) { alert('Telefone inválido.'); return; }
-            showLoading(true);
-            try {
-                const cred = await auth.createUserWithEmailAndPassword(email, password);
-                await cred.user.updateProfile({ displayName: name });
-                await db.ref('users/' + cred.user.uid).set({ name, email, phone, createdAt: Date.now() });
-                localStorage.setItem('userName', name);
-                localStorage.setItem('userPhone', phone);
-            } catch (error) {
-                showLoading(false);
-                let msg = 'Erro ao criar conta.';
-                if (error.code === 'auth/email-already-in-use') msg = 'Email já registado. Use Entrar.';
-                alert(msg);
-            }
-        }
+// ===================== TABS =====================
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.getElementById('tab-c2b').classList.toggle('hidden', tab !== 'c2b');
+  document.getElementById('tab-b2c').classList.toggle('hidden', tab !== 'b2c');
+  hideStatus();
+}
 
-        async function resetPassword() {
-            const email = document.getElementById('forgotEmail').value.trim();
-            if (!email) { alert('Insira o email.'); return; }
-            showLoading(true);
-            try {
-                await auth.sendPasswordResetEmail(email);
-                showLoading(false);
-                alert('Link enviado! Verifique o email.');
-                showAuthScreen();
-            } catch (error) {
-                showLoading(false);
-                alert('Erro ao enviar email.');
-            }
-        }
+// ===================== SELEÇÕES =====================
+function selectType(type) {
+  selectedType = type;
+  document.querySelectorAll('.type-chip').forEach(c => c.classList.toggle('active', c.dataset.type === type));
+  const amountInput = document.getElementById('c2bAmount');
+  if (type === 'inscricao') { amountInput.value = 150; }
+  else if (type === 'mensalidade') { amountInput.value = 100; }
+  else { amountInput.value = ''; }
+  updateValueDisplay();
+}
 
-        async function logoutUser() {
-            showLoading(true);
-            try {
-                await auth.signOut();
-                localStorage.removeItem('userName');
-                localStorage.removeItem('userPhone');
-                localStorage.removeItem('lastPaymentRef');
-            } catch (e) { showLoading(false); alert('Erro ao sair.'); }
-        }
+function selectMethod(method) {
+  selectedMethod = method;
+  document.querySelectorAll('#tab-c2b .method-chip').forEach(c => c.classList.toggle('active', c.dataset.method === method));
+  updateHint();
+}
 
-        function selectType(el, type, amount) {
-            document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedType = type;
-            selectedAmount = amount;
-            const customBox = document.getElementById('customAmountBox');
-            if (type === 'apoio') { customBox.classList.add('active'); selectedAmount = 0; }
-            else customBox.classList.remove('active');
-        }
+function selectB2CMethod(method) {
+  selectedB2CMethod = method;
+  document.querySelectorAll('#tab-b2c .method-chip').forEach(c => c.classList.toggle('active', c.dataset.b2cMethod === method));
+}
 
-        function selectMethod(el, method) {
-            document.querySelectorAll('.method-card').forEach(c => c.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedMethod = method;
-        }
+function updateValueDisplay() {
+  const val = parseInt(document.getElementById('c2bAmount').value) || 0;
+  document.getElementById('valueDisplay').textContent = val.toLocaleString('pt-MZ') + ' MTN';
+}
 
-        function showLoading(show) { document.getElementById('loadingOverlay').classList.toggle('active', show); }
+function updateHint() {
+  const hints = {
+    mpesa: 'Mínimo: 10 MTN | Número obrigatório',
+    mkesh: 'Mínimo: 10 MTN | Número obrigatório',
+    emola: 'Mínimo: 50 MTN | Número obrigatório',
+    card: 'Mínimo: 50 MTN | Email recomendado'
+  };
+  document.getElementById('amountHint').textContent = hints[selectedMethod];
+}
 
-        function showScreen(id) {
-            hideAllScreens();
-            const el = document.getElementById(id);
-            if (!el) return;
-            if (id === 'paymentForm') {
-                el.style.display = 'block';
-                el.classList.add('active');
-            } else {
-                el.style.display = 'block';
-                void el.offsetWidth;
-                el.classList.add('active');
-            }
-            lastShownScreen = id;
-        }
+// ===================== AUTH =====================
+function signInWithGoogle() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider).catch(err => showStatus('error', 'Erro ao autenticar: ' + err.message));
+}
+function signOut() {
+  auth.signOut();
+}
 
-        function resetForm() {
-            detachAllListeners();
-            document.getElementById('customValue').value = '';
-            selectType(document.querySelector('.type-card'), 'inscricao', 150);
-            selectMethod(document.querySelector('.method-card'), 'mpesa');
-            if (currentUser) showPaymentScreen(currentUser); else showAuthScreen();
-        }
+auth.onAuthStateChanged(user => {
+  currentUser = user;
+  const authBox = document.getElementById('authBox');
+  const btnLogin = document.getElementById('btnLogin');
+  const userChip = document.getElementById('userChip');
+  if (user) {
+    btnLogin.classList.add('hidden');
+    userChip.classList.remove('hidden');
+    document.getElementById('userName').textContent = user.displayName || user.email;
+    document.getElementById('userPhoto').src = user.photoURL || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.displayName || 'U');
+  } else {
+    btnLogin.classList.remove('hidden');
+    userChip.classList.add('hidden');
+  }
+});
 
-        function detachAllListeners() {
-            if (activeListener && activePaymentRef) {
-                try { db.ref('payments/' + activePaymentRef).off('value', activeListener); } catch(e){}
-            }
-            activeListener = null;
-            activePaymentRef = null;
-            stopProcessingTimer();
-        }
+// ===================== STATUS =====================
+function showStatus(type, text) {
+  const msg = document.getElementById('statusMsg');
+  const icon = document.getElementById('statusIcon');
+  msg.className = 'status-msg ' + type + ' show';
+  icon.textContent = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+  document.getElementById('statusText').textContent = text;
+}
+function hideStatus() {
+  document.getElementById('statusMsg').classList.remove('show');
+}
 
-        function stopProcessingTimer() {
-            if (processingTimer) {
-                clearTimeout(processingTimer);
-                processingTimer = null;
-            }
-        }
+// ===================== VALIDAÇÃO =====================
+function validatePhone(phone) {
+  return /^\+2588[2-9]\d{7}$/.test(phone);
+}
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 
-        function startProcessingTimer(ref) {
-            stopProcessingTimer();
-            processingTimer = setTimeout(() => {
-                if (lastShownScreen === 'processingScreen') {
-                    detachAllListeners();
-                    document.getElementById('errorMessage').textContent = 'O tempo de espera foi excedido. Se já confirmou no telemóvel, o pagamento será registado em breve.';
-                    showScreen('errorScreen');
-                }
-            }, 300000);
-        }
+// ===================== C2B - PAGAR =====================
+async function processC2B() {
+  if (!currentUser) { showStatus('error', 'Autentique-se primeiro para continuar.'); return; }
 
-        function validate() {
-            const name = document.getElementById('fullName').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            if (!name) { alert('Insira o nome completo.'); return false; }
-            if (!phone || phone.length < 9) { alert('Telefone inválido.'); return false; }
-            if (selectedType === 'apoio') { const c = parseInt(document.getElementById('customValue').value); if (!c || c < 10) { alert('Doação mínima: 10 MTN.'); return false; } selectedAmount = c; }
-            return true;
-        }
+  const amount = parseInt(document.getElementById('c2bAmount').value);
+  const phone = document.getElementById('c2bPhone').value.trim();
+  const email = document.getElementById('c2bEmail').value.trim();
+  const reference = document.getElementById('c2bReference').value.trim() || selectedType;
 
-        async function processPayment() {
-            if (!validate()) return;
-            if (!currentUser) { alert('Sessão expirada.'); showAuthScreen(); return; }
-            showLoading(true);
+  // Validações
+  if (!amount || amount <= 0) { showStatus('error', 'Insira um valor válido.'); return; }
 
-            const name = document.getElementById('fullName').value.trim();
-            const phone = document.getElementById('phone').value.trim().replace(/\s/g,'');
-            const email = document.getElementById('email').value.trim();
-            const reference = 'ISLAM-' + Date.now() + '-' + Math.random().toString(36).substr(2,6).toUpperCase();
+  const minAmounts = { mpesa: 10, mkesh: 10, emola: 50, card: 50 };
+  if (amount < minAmounts[selectedMethod]) {
+    showStatus('error', `Valor mínimo para ${selectedMethod.toUpperCase()}: ${minAmounts[selectedMethod]} MTN`);
+    return;
+  }
 
-            const paymentData = { name, msisdn: phone, email: email || null, type: selectedType, amount: selectedAmount, method: selectedMethod, currency: 'MZN', reference, userId: currentUser.uid, userEmail: currentUser.email };
+  if (selectedMethod !== 'card') {
+    if (!phone) { showStatus('error', 'Insira o número de telefone.'); return; }
+    if (!validatePhone(phone)) { showStatus('error', 'Número inválido. Use formato: +25884XXXXXXX'); return; }
+  }
 
-            try {
-                await db.ref('payments/' + reference).set({ ...paymentData, status: 'processing', timestamp: Date.now(), netshopId: null });
-                await db.ref('users/' + currentUser.uid + '/payments/' + reference).set({ type: selectedType, amount: selectedAmount, method: selectedMethod, status: 'processing', timestamp: Date.now(), reference });
-            } catch (dbErr) { showLoading(false); alert('Erro ao guardar dados.'); return; }
+  if (selectedMethod === 'card' && email && !validateEmail(email)) {
+    showStatus('error', 'Email inválido.'); return;
+  }
 
-            localStorage.setItem('lastPaymentRef', reference);
+  const btn = document.getElementById('btnPayC2B');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> Processando...';
+  showStatus('info', 'A iniciar pagamento...');
 
-            let result = null, fetchFailed = false;
-            try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 25000);
-                const response = await fetch(APPS_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(paymentData), signal: controller.signal });
-                clearTimeout(timeoutId);
-                result = await response.json();
-            } catch (err) { fetchFailed = true; console.warn('Fetch falhou:', err); }
+  try {
+    // 1. Guardar no Firebase RTDB
+    const paymentRef = db.ref('payments/' + currentUser.uid).push();
+    const paymentData = {
+      type: 'c2b',
+      subtype: selectedType,
+      amount: amount,
+      currency: 'MZN',
+      method: selectedMethod,
+      msisdn: phone || null,
+      customer_email: email || null,
+      reference: reference,
+      status: 'pending',
+      created_at: firebase.database.ServerValue.TIMESTAMP,
+      user: {
+        uid: currentUser.uid,
+        name: currentUser.displayName,
+        email: currentUser.email
+      }
+    };
+    await paymentRef.set(paymentData);
 
-            showLoading(false);
+    // 2. Chamar Google Apps Script
+    const response = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'createCharge',
+        paymentId: paymentRef.key,
+        userId: currentUser.uid,
+        data: paymentData
+      })
+    });
 
-            if (!fetchFailed && result && result.success) {
-                await db.ref('payments/' + reference).update({ status: 'pending', netshopId: result.netshopId || null });
-                await db.ref('users/' + currentUser.uid + '/payments/' + reference).update({ status: 'pending' });
-                if (selectedMethod === 'card' && result.checkoutUrl) {
-                    document.getElementById('cardDetails').innerHTML = `<div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div><div class="row"><span class="label">Valor</span><span class="value">${selectedAmount} MTN</span></div><div class="row"><span class="label">Método</span><span class="value">Visa/Mastercard</span></div>`;
-                    document.getElementById('cardLink').href = result.checkoutUrl;
-                    showScreen('cardScreen');
-                } else {
-                    document.getElementById('successDetails').innerHTML = `<div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div><div class="row"><span class="label">Valor</span><span class="value">${selectedAmount} MTN</span></div><div class="row"><span class="label">Método</span><span class="value">${selectedMethod.toUpperCase()}</span></div><div class="row"><span class="label">Telefone</span><span class="value">${phone}</span></div>`;
-                    showScreen('successScreen');
-                    listenPayment(reference);
-                }
-            } else if (!fetchFailed && result && !result.success) {
-                document.getElementById('errorMessage').textContent = result.error || 'Erro no servidor.';
-                showScreen('errorScreen');
-            } else {
-                document.getElementById('processingDetails').innerHTML = `<div class="row"><span class="label">Referência</span><span class="value">${reference}</span></div><div class="row"><span class="label">Valor</span><span class="value">${selectedAmount} MTN</span></div><div class="row"><span class="label">Método</span><span class="value">${selectedMethod.toUpperCase()}</span></div><div class="row"><span class="label">Telefone</span><span class="value">${phone}</span></div>`;
-                showScreen('processingScreen');
-                listenPayment(reference);
-                startProcessingTimer(reference);
-            }
-        }
+    const result = await response.json();
 
-        function listenPayment(ref) {
-            detachAllListeners();
-            activePaymentRef = ref;
-            const paymentRef = db.ref('payments/' + ref);
-            activeListener = paymentRef.on('value', (snapshot) => {
-                const data = snapshot.val();
-                if (!data) return;
+    if (result.success) {
+      await paymentRef.update({
+        status: result.status || 'pending',
+        netshop_id: result.id || null,
+        checkout_url: result.checkout_url || null,
+        updated_at: firebase.database.ServerValue.TIMESTAMP
+      });
 
-                if (data.status === 'paid') {
-                    detachAllListeners();
-                    document.getElementById('successDetails').innerHTML = `<div class="row"><span class="label">Referência</span><span class="value">${ref}</span></div><div class="row"><span class="label">Valor</span><span class="value">${data.amount} MTN</span></div><div class="row"><span class="label">Método</span><span class="value">${(data.method || '').toUpperCase()}</span></div><div class="row"><span class="label">Estado</span><span class="value" style="color:var(--green-primary)">Confirmado ✓</span></div>`;
-                    document.querySelector('#successScreen .status-title').textContent = 'Pagamento Confirmado!';
-                    document.querySelector('#successScreen .status-desc').textContent = 'O seu pagamento foi recebido com sucesso. JazakAllahu Khairan!';
-                    showScreen('successScreen');
-                }
-                else if (data.status === 'failed' || data.status === 'error') {
-                    detachAllListeners();
-                    document.getElementById('errorMessage').textContent = data.errorMessage || 'Pagamento recusado.';
-                    showScreen('errorScreen');
-                }
-                else if (data.status === 'pending' || data.status === 'processing') {
-                    if (lastShownScreen !== 'processingScreen' && lastShownScreen !== 'successScreen') {
-                        showScreen('processingScreen');
-                        startProcessingTimer(ref);
-                    }
-                }
-            });
-        }
+      if (result.checkout_url && selectedMethod === 'card') {
+        showStatus('success', 'Redirecionando para checkout seguro...');
+        setTimeout(() => window.open(result.checkout_url, '_blank'), 1500);
+      } else {
+        showStatus('success', result.message || 'Pagamento iniciado! Confirme no seu telemóvel.');
+      }
+    } else {
+      await paymentRef.update({ status: 'failed', error: result.error });
+      showStatus('error', result.error || 'Erro ao processar pagamento.');
+    }
+  } catch (err) {
+    showStatus('error', 'Erro de comunicação: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '💳 Pagar agora';
+  }
+}
 
-        const lastRef = localStorage.getItem('lastPaymentRef');
-        if (lastRef) {
-            db.ref('payments/' + lastRef).once('value').then((snap) => {
-                const data = snap.val();
-                if (data && (data.status === 'processing' || data.status === 'pending')) {
-                    listenPayment(lastRef);
-                }
-            });
-        }
-    </script>
+// ===================== B2C - PAYOUT =====================
+async function processB2C() {
+  if (!currentUser) { showStatus('error', 'Autentique-se primeiro para continuar.'); return; }
 
+  const amount = parseInt(document.getElementById('b2cAmount').value);
+  const phone = document.getElementById('b2cPhone').value.trim();
+  const name = document.getElementById('b2cName').value.trim();
+  const reference = document.getElementById('b2cReference').value.trim();
+  const nib = document.getElementById('b2cNIB').value.trim();
+
+  if (!amount || amount < 1000) { showStatus('error', 'Valor mínimo para B2C: 1 000 MTN'); return; }
+  if (!phone) { showStatus('error', 'Insira o número do beneficiário.'); return; }
+  if (!validatePhone(phone)) { showStatus('error', 'Número inválido. Use formato: +25884XXXXXXX'); return; }
+  if (!name) { showStatus('error', 'Insira o nome do beneficiário.'); return; }
+  if (!reference) { showStatus('error', 'Insira uma referência/motivo.'); return; }
+
+  const btn = document.getElementById('btnPayB2C');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> A processar...';
+  showStatus('info', 'A registar solicitação B2C...');
+
+  try {
+    const payoutRef = db.ref('payouts/' + currentUser.uid).push();
+    const payoutData = {
+      type: 'b2c',
+      amount: amount,
+      currency: 'MZN',
+      method: selectedB2CMethod,
+      msisdn: phone,
+      beneficiary_name: name,
+      reference: reference,
+      nib: nib || null,
+      status: 'pending_approval',
+      created_at: firebase.database.ServerValue.TIMESTAMP,
+      user: {
+        uid: currentUser.uid,
+        name: currentUser.displayName,
+        email: currentUser.email
+      }
+    };
+    await payoutRef.set(payoutData);
+
+    const response = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'createPayout',
+        payoutId: payoutRef.key,
+        userId: currentUser.uid,
+        data: payoutData
+      })
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      await payoutRef.update({
+        status: 'pending',
+        netshop_id: result.id || null,
+        updated_at: firebase.database.ServerValue.TIMESTAMP
+      });
+      showStatus('success', 'Solicitação B2C registada! Aguarde confirmação da administração.');
+    } else {
+      await payoutRef.update({ status: 'failed', error: result.error });
+      showStatus('error', result.error || 'Erro ao registar solicitação.');
+    }
+  } catch (err) {
+    showStatus('error', 'Erro de comunicação: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '💸 Solicitar B2C';
+  }
+}
+
+// ===================== WEBHOOK LISTENER (Opcional - via Firebase) =====================
+// O GAS pode atualizar o Firebase quando receber webhook do NetShop
+db.ref('payments').on('child_changed', (snapshot) => {
+  const payment = snapshot.val();
+  if (payment.status === 'paid') {
+    console.log('Pagamento confirmado:', payment.netshop_id);
+  }
+});
+
+// ===================== INICIALIZAÇÃO =====================
+document.addEventListener('DOMContentLoaded', () => {
+  initScroll();
+  updateHint();
+  // Fechar ao clicar fora
+  document.getElementById('paymentModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('paymentModal')) closeModal();
+  });
+});
+</script>
 </body>
 </html>
