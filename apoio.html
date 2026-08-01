@@ -50,8 +50,9 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
 .servico-nome{font-family:'Amiri',serif;font-size:1.25rem;font-weight:700;color:var(--cinza-800);margin-bottom:4px}
 .servico-corpo{padding:18px;flex:1;display:flex;flex-direction:column}
 .servico-desc{font-size:0.84rem;color:var(--cinza-600);line-height:1.55;margin-bottom:16px;flex:1}
-.servico-itens{font-size:0.8rem;color:var(--cinza-600);margin-bottom:16px;padding-left:18px}
-.servico-itens li{margin-bottom:4px}
+.servico-itens{font-size:0.8rem;color:var(--cinza-600);margin-bottom:16px;padding-left:18px;list-style:none}
+.servico-itens li{margin-bottom:4px;position:relative;padding-left:12px}
+.servico-itens li::before{content:"•";position:absolute;left:0;color:var(--verde-claro)}
 .servico-pe{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:14px;border-top:1px solid var(--cinza-100)}
 .servico-preco{font-size:1.15rem;font-weight:700;color:var(--verde)}
 .servico-preco span{font-size:0.75rem;color:var(--cinza-400);font-weight:500}
@@ -176,7 +177,6 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
 @media(min-width:640px){.header-title{font-size:2rem}}
 </style>
 <base target="_blank">
-<base target="_blank">
 </head>
 <body>
 
@@ -232,7 +232,7 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
   <div class="modal-box">
     <div class="modal-header">
       <div class="modal-titulo"><div class="icone" style="width:28px;height:28px;background:linear-gradient(135deg,var(--verde),var(--verde-claro));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--branco)">💳</div> Finalizar Pagamento</div>
-      <button class="modal-fechar" onclick="fecharModal()">×</button>
+      <button class="modal-fechar" onclick="fecharModal()">&times;</button>
     </div>
     <div class="modal-body">
       <div id="resumoServico"></div>
@@ -240,19 +240,19 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
       <div id="telaLogin" class="form-sec">
         <h2><div class="icone">🔐</div> Acesse a sua Conta</h2>
         <div class="abas">
-          <div class="aba ativa" onclick="mudarAba('entrar')">Entrar</div>
-          <div class="aba" onclick="mudarAba('criar')">Criar Conta</div>
+          <div class="aba ativa" onclick="mudarAba(this,'entrar')">Entrar</div>
+          <div class="aba" onclick="mudarAba(this,'criar')">Criar Conta</div>
         </div>
         <div id="formEntrar">
           <div class="form-grupo"><label>Email</label><input type="email" id="loginEmail" placeholder="nome@email.com"></div>
-          <div class="form-grupo"><label>Palavra-passe</label><input type="password" id="loginPassword" placeholder="••••••••"></div>
+          <div class="form-grupo"><label>Palavra-passe</label><input type="password" id="loginPassword" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
           <button class="btn btn-verde" onclick="entrar()">Entrar</button>
           <div style="text-align:center;margin-top:10px"><button class="btn btn-link" onclick="mostrarEsqueci()">Esqueceu a palavra-passe?</button></div>
         </div>
         <div id="formCriar" style="display:none">
           <div class="form-grupo"><label>Nome Completo *</label><input type="text" id="regNome" placeholder="Ex: Ahmed Mohamed"></div>
           <div class="form-grupo"><label>Email *</label><input type="email" id="regEmail" placeholder="nome@email.com"></div>
-          <div class="form-grupo"><label>Palavra-passe * (min. 6)</label><input type="password" id="regPassword" placeholder="••••••••"></div>
+          <div class="form-grupo"><label>Palavra-passe * (min. 6)</label><input type="password" id="regPassword" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
           <div class="form-grupo"><label>Telefone *</label><input type="tel" id="regTelefone" placeholder="Ex: +258 84 123 4567"><div class="hint">Pode escrever 84XXXXXXX, 25884XXXXXXX ou +25884XXXXXXX</div></div>
           <button class="btn btn-verde" onclick="criarConta()">Criar Conta</button>
         </div>
@@ -384,9 +384,9 @@ body{font-family:'Noto Sans',sans-serif;background:var(--off-white);color:var(--
 </div>
 
 <footer class="footer">
-  <div class="footer-brand">© Madrassa Online</div>
+  <div class="footer-brand">&copy; Madrassa Online</div>
   <div class="footer-rights">Todos os direitos reservados.</div>
-  <div class="footer-mission">Feito com <span class="footer-heart">♥</span> para a educação islâmica.</div>
+  <div class="footer-mission">Feito com <span class="footer-heart">&hearts;</span> para a educação islâmica.</div>
 </footer>
 
 <script>
@@ -402,7 +402,7 @@ const servicos = [
     nome:"Inscrição Anual 2026",
     descricao:"Inscrição para o ano letivo 2026 na Madrassa Online. Inclui acesso às aulas, material digital de apoio e certificado de participação.",
     itens:["Acesso às aulas semanais","Material didático digital","Certificado de conclusão","Suporte pedagógico"],
-    preco:150,
+    preco:500,
     fixo:true
   },
   {
@@ -413,7 +413,7 @@ const servicos = [
     nome:"Mensalidade de Aulas",
     descricao:"Pagamento mensal das aulas regulares. Mantenha a sua matrícula ativa e garanta a continuidade do aprendizado do seu educando.",
     itens:["Aulas regulares do mês","Acompanhamento pedagógico","Avaliação mensal","Acesso à plataforma"],
-    preco:100,
+    preco:300,
     fixo:false
   },
   {
@@ -424,7 +424,7 @@ const servicos = [
     nome:"Contribuição Voluntária",
     descricao:"Contribua com o valor que desejar para o crescimento da nossa Madrassa. O seu apoio ajuda na manutenção, material e expansão dos projetos.",
     itens:["Manutenção das instalações","Material didático","Apoio aos professores","Eventos comunitários"],
-    preco:50,
+    preco:100,
     fixo:false,
     custom:true
   }
@@ -447,8 +447,6 @@ let metodo = 'mpesa';
 let pedidoAtual = null;
 let listenerAtual = null;
 let servicoAtual = null;
-let autoScroll = null;
-let slideAtual = 0;
 
 const MINIMOS = {mpesa:10,mkesh:10,emola:50,card:50};
 
@@ -456,64 +454,60 @@ const MINIMOS = {mpesa:10,mkesh:10,emola:50,card:50};
 function renderServicos(){
   const grid = document.getElementById('servicosGrid');
   grid.innerHTML = '';
-  servicos.forEach((s,i)=>{
+  servicos.forEach(function(s,i){
     const card = document.createElement('div');
     card.className = 'servico-card animar atraso-' + (i+1);
-    const itensHtml = s.itens.map(it=>`<li>• ${it}</li>`).join('');
+    const itensHtml = s.itens.map(function(it){return '<li>' + it + '</li>';}).join('');
     const precoDisplay = s.custom 
-      ? `<div class="servico-preco"><span style="font-size:0.75rem;color:var(--cinza-400)">a partir de </span>${s.preco} <span>MTN</span></div>`
-      : `<div class="servico-preco">${s.preco} <span>MTN</span></div>`;
+      ? '<div class="servico-preco"><span style="font-size:0.75rem;color:var(--cinza-400)">a partir de </span>' + s.preco + ' <span>MTN</span></div>'
+      : '<div class="servico-preco">' + s.preco + ' <span>MTN</span></div>';
     const btnText = s.custom ? '💳 Contribuir' : '💳 Pagar';
-    card.innerHTML = `
-      <div class="servico-header">
-        <div class="servico-icone">${s.icone}</div>
-        <div class="servico-tipo">${s.tipo}</div>
-        <div class="servico-nome">${s.nome}</div>
-      </div>
-      <div class="servico-corpo">
-        <div class="servico-desc">${s.descricao}</div>
-        <ul class="servico-itens">${itensHtml}</ul>
-        <div class="servico-pe">
-          ${precoDisplay}
-          <button class="btn-pagar" onclick="abrirModal('${s.id}')">${btnText}</button>
-        </div>
-      </div>
-    `;
+    card.innerHTML = 
+      '<div class="servico-header">' +
+        '<div class="servico-icone">' + s.icone + '</div>' +
+        '<div class="servico-tipo">' + s.tipo + '</div>' +
+        '<div class="servico-nome">' + s.nome + '</div>' +
+      '</div>' +
+      '<div class="servico-corpo">' +
+        '<div class="servico-desc">' + s.descricao + '</div>' +
+        '<ul class="servico-itens">' + itensHtml + '</ul>' +
+        '<div class="servico-pe">' +
+          precoDisplay +
+          '<button class="btn-pagar" onclick="abrirModal(\'' + s.id + '\')">' + btnText + '</button>' +
+        '</div>' +
+      '</div>';
     grid.appendChild(card);
   });
 }
 
 // ===== MODAL =====
 function abrirModal(sid){
-  servicoAtual = servicos.find(s=>s.id===sid);
+  servicoAtual = servicos.find(function(s){return s.id===sid;});
   if(!servicoAtual) return;
 
-  let extraHtml = '';
+  var extraHtml = '';
   if(servicoAtual.categoria === 'inscricao') extraHtml = '<div style="font-size:0.75rem;color:var(--verde);font-weight:600;margin-top:4px">🎓 Inclui matrícula e material didático</div>';
   if(servicoAtual.categoria === 'mensalidade') extraHtml = '<div style="font-size:0.75rem;color:var(--azul);font-weight:600;margin-top:4px">📅 Pagamento referente ao mês em curso</div>';
   if(servicoAtual.categoria === 'apoio') extraHtml = '<div style="font-size:0.75rem;color:var(--dourado-escuro);font-weight:600;margin-top:4px">🤲 Contribuição voluntária — qualquer valor</div>';
 
-  document.getElementById('resumoServico').innerHTML = `
-    <div class="resumo-serv">
-      <div class="icone-box">${servicoAtual.icone}</div>
-      <div class="info">
-        <div class="nome">${servicoAtual.nome}</div>
-        <div class="preco">${servicoAtual.preco} MTN — ${servicoAtual.tipo}</div>
-        ${extraHtml}
-      </div>
-    </div>
-  `;
+  document.getElementById('resumoServico').innerHTML = 
+    '<div class="resumo-serv">' +
+      '<div class="icone-box">' + servicoAtual.icone + '</div>' +
+      '<div class="info">' +
+        '<div class="nome">' + servicoAtual.nome + '</div>' +
+        '<div class="preco">' + servicoAtual.preco + ' MTN — ' + servicoAtual.tipo + '</div>' +
+        extraHtml +
+      '</div>' +
+    '</div>';
 
-  // Mostrar campos específicos
   document.getElementById('camposInscricao').style.display = servicoAtual.categoria==='inscricao' ? 'block' : 'none';
   document.getElementById('camposMensalidade').style.display = servicoAtual.categoria==='mensalidade' ? 'block' : 'none';
   document.getElementById('camposApoio').style.display = servicoAtual.categoria==='apoio' ? 'block' : 'none';
 
-  // Se for apoio customizável, permitir editar valor
   if(servicoAtual.custom){
     document.getElementById('btnPagar').innerHTML = '<span>Contribuir Agora</span><span style="font-size:1.1rem">→</span>';
   } else {
-    document.getElementById('btnPagar').innerHTML = '<span>Pagar '+servicoAtual.preco+' MTN</span><span style="font-size:1.1rem">→</span>';
+    document.getElementById('btnPagar').innerHTML = '<span>Pagar ' + servicoAtual.preco + ' MTN</span><span style="font-size:1.1rem">→</span>';
   }
 
   document.getElementById('modalOverlay').classList.add('ativo');
@@ -527,22 +521,22 @@ function fecharModal(){
   pararListener();
   servicoAtual = null;
 }
-function fecharFora(e){if(e.target.id==='modalOverlay')fecharModal()}
+function fecharFora(e){if(e.target.id==='modalOverlay')fecharModal();}
 
 // ===== AUTH =====
-auth.onAuthStateChanged(u=>{if(u)mostrarPagamento(u);else mostrarLogin()});
+auth.onAuthStateChanged(function(u){if(u)mostrarPagamento(u);else mostrarLogin();});
 
 function mostrarLogin(){
-  ['telaLogin','telaEsqueci','telaPagamento','telaStatus'].forEach(id=>document.getElementById(id).style.display='none');
+  ['telaLogin','telaEsqueci','telaPagamento','telaStatus'].forEach(function(id){document.getElementById(id).style.display='none';});
   document.getElementById('telaLogin').style.display='block';
 }
 function mostrarPagamento(u){
-  ['telaLogin','telaEsqueci','telaPagamento','telaStatus'].forEach(id=>document.getElementById(id).style.display='none');
+  ['telaLogin','telaEsqueci','telaPagamento','telaStatus'].forEach(function(id){document.getElementById(id).style.display='none';});
   document.getElementById('telaPagamento').style.display='block';
   document.getElementById('userDisplayName').textContent = u.displayName || u.email || 'Utilizador';
   document.getElementById('userDisplayEmail').textContent = u.email || '';
   document.getElementById('userAvatar').textContent = (u.displayName || 'U').charAt(0).toUpperCase();
-  const n = localStorage.getItem('nome'), t = localStorage.getItem('telefone');
+  var n = localStorage.getItem('nome'), t = localStorage.getItem('telefone');
   if(n) document.getElementById('nome').value = n;
   if(t) document.getElementById('telefone').value = t;
 }
@@ -550,100 +544,95 @@ function mostrarEsqueci(){
   document.getElementById('telaLogin').style.display='none';
   document.getElementById('telaEsqueci').style.display='block';
 }
-function mudarAba(aba){
-  document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));
-  event.target.classList.add('ativa');
+function mudarAba(el,aba){
+  document.querySelectorAll('.aba').forEach(function(a){a.classList.remove('ativa');});
+  el.classList.add('ativa');
   document.getElementById('formEntrar').style.display = aba==='entrar'?'block':'none';
   document.getElementById('formCriar').style.display = aba==='criar'?'block':'none';
 }
-async function entrar(){
-  const e = document.getElementById('loginEmail').value.trim();
-  const p = document.getElementById('loginPassword').value;
+function entrar(){
+  var e = document.getElementById('loginEmail').value.trim();
+  var p = document.getElementById('loginPassword').value;
   if(!e||!p) return alert('Preencha email e palavra-passe');
-  try{await auth.signInWithEmailAndPassword(e,p);}
-  catch(err){alert('Erro: '+(err.message||'dados inválidos'));}
-}
-async function criarConta(){
-  const n = document.getElementById('regNome').value.trim();
-  const e = document.getElementById('regEmail').value.trim();
-  const p = document.getElementById('regPassword').value;
-  const t = document.getElementById('regTelefone').value.trim();
+  auth.signInWithEmailAndPassword(e,p).catch(function(err){alert('Erro: '+(err.message||'dados inválidos'));});}
+function criarConta(){
+  var n = document.getElementById('regNome').value.trim();
+  var e = document.getElementById('regEmail').value.trim();
+  var p = document.getElementById('regPassword').value;
+  var t = document.getElementById('regTelefone').value.trim();
   if(!n||!e||!p||!t) return alert('Preencha todos os campos');
   if(p.length<6) return alert('Palavra-passe mínima: 6 caracteres');
-  try{
-    const c = await auth.createUserWithEmailAndPassword(e,p);
-    await c.user.updateProfile({displayName:n});
-    await db.ref('users/'+c.user.uid).set({nome:n,email:e,telefone:t,criado:Date.now()});
+  auth.createUserWithEmailAndPassword(e,p).then(function(c){
+    return c.user.updateProfile({displayName:n}).then(function(){
+      return db.ref('users/'+c.user.uid).set({nome:n,email:e,telefone:t,criado:Date.now()});
+    });
+  }).then(function(){
     localStorage.setItem('nome',n); localStorage.setItem('telefone',t);
-  }catch(err){alert('Erro: '+(err.message||'não foi possível criar'));}
-}
-async function recuperarSenha(){
-  const e = document.getElementById('esqueciEmail').value.trim();
+  }).catch(function(err){alert('Erro: '+(err.message||'não foi possível criar'));});}
+function recuperarSenha(){
+  var e = document.getElementById('esqueciEmail').value.trim();
   if(!e) return alert('Insira o email');
-  try{await auth.sendPasswordResetEmail(e); alert('Link enviado!'); mostrarLogin();}
-  catch(err){alert('Erro ao enviar email.');}
-}
-async function sair(){await auth.signOut(); localStorage.clear();}
+  auth.sendPasswordResetEmail(e).then(function(){alert('Link enviado!'); mostrarLogin();})
+  .catch(function(err){alert('Erro ao enviar email.');});}
+function sair(){auth.signOut(); localStorage.clear();}
 
 // ===== METODO =====
 function escolherMetodo(el,m){
-  document.querySelectorAll('.metodo').forEach(x=>x.classList.remove('ativo'));
+  document.querySelectorAll('.metodo').forEach(function(x){x.classList.remove('ativo');});
   el.classList.add('ativo');
   metodo = m;
-  const nomes = {mpesa:'M-Pesa',mkesh:'mKesh',emola:'e-Mola',card:'Cartão'};
-  document.getElementById('methodHint').textContent = 'Mínimo para '+nomes[m]+': '+MINIMOS[m]+' MTN';
+  var nomes = {mpesa:'M-Pesa',mkesh:'mKesh',emola:'e-Mola',card:'Cartão'};
+  document.getElementById('methodHint').textContent = 'Mínimo para ' + nomes[m] + ': ' + MINIMOS[m] + ' MTN';
   if(servicoAtual && !servicoAtual.custom){
-    document.getElementById('btnPagar').innerHTML = '<span>Pagar '+servicoAtual.preco+' MTN</span><span style="font-size:1.1rem">→</span>';
+    document.getElementById('btnPagar').innerHTML = '<span>Pagar ' + servicoAtual.preco + ' MTN</span><span style="font-size:1.1rem">→</span>';
   }
 }
-function loading(mostrar){document.getElementById('loadingOverlay').classList.toggle('ativo',mostrar)}
+function loading(mostrar){document.getElementById('loadingOverlay').classList.toggle('ativo',mostrar);}
 
 // ===== PAGAMENTO =====
-async function pedirPagamento(){
-  const nome = document.getElementById('nome').value.trim();
-  let tel = document.getElementById('telefone').value.trim().replace(/\s/g,'').replace(/-/g,'');
-  const email = document.getElementById('email').value.trim();
-  const user = auth.currentUser;
+function pedirPagamento(){
+  var nome = document.getElementById('nome').value.trim();
+  var telRaw = document.getElementById('telefone').value.trim();
+  var tel = telRaw.replace(/\s/g,'').replace(/-/g,'');
+  var email = document.getElementById('email').value.trim();
+  var user = auth.currentUser;
 
-  // Formatar telefone
   if(tel.startsWith('+258')){}
-  else if(tel.startsWith('258')){tel='+'+tel}
-  else if(tel.startsWith('8')||tel.startsWith('7')||tel.startsWith('9')){tel='+258'+tel}
-  else if(tel.length>=9){tel='+258'+tel}
+  else if(tel.startsWith('258')){tel='+'+tel;}
+  else if(tel.startsWith('8')||tel.startsWith('7')||tel.startsWith('9')){tel='+258'+tel;}
+  else if(tel.length>=9){tel='+258'+tel;}
 
   if(!nome) return alert('Insira o nome completo');
   if(!tel||tel.length<9) return alert('Telefone inválido');
   if(!user) return alert('Sessão expirada. Entre novamente.');
   if(!servicoAtual) return alert('Erro: serviço não selecionado');
 
-  let valor = servicoAtual.preco;
+  var valor = servicoAtual.preco;
   if(servicoAtual.custom){
-    const inputValor = prompt('Insira o valor da contribuição (MTN):', '100');
+    var inputValor = prompt('Insira o valor da contribuição (MTN):', '100');
     if(!inputValor) return;
     valor = parseInt(inputValor);
     if(isNaN(valor) || valor < 10) return alert('Valor inválido. Mínimo: 10 MTN');
   }
 
-  if(valor < MINIMOS[metodo]) return alert('Mínimo para '+metodo.toUpperCase()+': '+MINIMOS[metodo]+' MTN');
+  if(valor < MINIMOS[metodo]) return alert('Mínimo para ' + metodo.toUpperCase() + ': ' + MINIMOS[metodo] + ' MTN');
 
-  // Validações específicas
   if(servicoAtual.categoria==='inscricao'){
-    const turma = document.getElementById('turmaAluno').value;
+    var turma = document.getElementById('turmaAluno').value;
     if(!turma) return alert('Selecione a turma pretendida');
   }
   if(servicoAtual.categoria==='mensalidade'){
-    const mes = document.getElementById('mesMensalidade').value;
+    var mes = document.getElementById('mesMensalidade').value;
     if(!mes) return alert('Selecione o mês de referência');
   }
 
   localStorage.setItem('nome',nome); localStorage.setItem('telefone',tel);
   loading(true);
 
-  const ref = 'MAD-'+Date.now()+'-'+Math.random().toString(36).substr(2,4).toUpperCase();
+  var ref = 'MAD-' + Date.now() + '-' + Math.random().toString(36).substr(2,4).toUpperCase();
   pedidoAtual = ref;
 
-  // Dados específicos por categoria
-  let dadosExtra = {};
+  var dadosExtra = {};
   if(servicoAtual.categoria==='inscricao'){
     dadosExtra = {
       nomeAluno: document.getElementById('nomeAluno').value.trim() || nome,
@@ -662,12 +651,12 @@ async function pedirPagamento(){
     };
   }
 
-  const dados = {
+  var dados = {
     status:'pendente',
-    nome,
+    nome:nome,
     msisdn:tel,
     email:email||null,
-    metodo,
+    metodo:metodo,
     valor:valor,
     servicoId:servicoAtual.id,
     servicoNome:servicoAtual.nome,
@@ -675,57 +664,56 @@ async function pedirPagamento(){
     referencia:ref,
     userId:user.uid,
     userEmail:user.email,
-    criado:Date.now(),
-    ...dadosExtra
+    criado:Date.now()
   };
+  Object.assign(dados, dadosExtra);
 
-  try{
-    await db.ref('pagamentos/'+ref).set(dados);
-    await db.ref('users/'+user.uid+'/pagamentos/'+ref).set({
+  db.ref('pagamentos/'+ref).set(dados).then(function(){
+    return db.ref('users/'+user.uid+'/pagamentos/'+ref).set({
       servico:servicoAtual.nome,
       categoria:servicoAtual.categoria,
       valor:valor,
       status:'pendente',
       criado:Date.now()
     });
+  }).then(function(){
     loading(false);
-
     document.getElementById('telaPagamento').style.display='none';
     document.getElementById('telaStatus').style.display='block';
     document.getElementById('statusProcessando').classList.add('ativo');
     document.getElementById('statusPago').classList.remove('ativo');
     document.getElementById('statusErro').classList.remove('ativo');
     document.getElementById('secComprovante').classList.remove('ativo');
-    document.getElementById('detalhesProcesso').innerHTML = `
-      <div class="linha"><span class="rotulo">Referência</span><span class="valor">${ref}</span></div>
-      <div class="linha"><span class="rotulo">Serviço</span><span class="valor">${servicoAtual.nome}</span></div>
-      <div class="linha"><span class="rotulo">Valor</span><span class="valor">${valor} MTN</span></div>
-      <div class="linha"><span class="rotulo">Método</span><span class="valor">${metodo.toUpperCase()}</span></div>
-      <div class="linha"><span class="rotulo">Telefone</span><span class="valor">${tel}</span></div>
-    `;
+    document.getElementById('detalhesProcesso').innerHTML = 
+      '<div class="linha"><span class="rotulo">Referência</span><span class="valor">' + ref + '</span></div>' +
+      '<div class="linha"><span class="rotulo">Serviço</span><span class="valor">' + servicoAtual.nome + '</span></div>' +
+      '<div class="linha"><span class="rotulo">Valor</span><span class="valor">' + valor + ' MTN</span></div>' +
+      '<div class="linha"><span class="rotulo">Método</span><span class="valor">' + metodo.toUpperCase() + '</span></div>' +
+      '<div class="linha"><span class="rotulo">Telefone</span><span class="valor">' + tel + '</span></div>';
     escutarPagamento(ref);
-  }catch(err){loading(false); alert('Erro ao guardar: '+err.message)}
+  }).catch(function(err){
+    loading(false);
+    alert('Erro ao guardar: ' + err.message);
+  });
 }
 
 function escutarPagamento(ref){
   pararListener();
-  listenerAtual = db.ref('pagamentos/'+ref).on('value',snap=>{
-    const d = snap.val(); if(!d) return;
+  listenerAtual = db.ref('pagamentos/'+ref).on('value',function(snap){
+    var d = snap.val(); if(!d) return;
     if(d.status==='pago'){
       pararListener();
       document.getElementById('statusProcessando').classList.remove('ativo');
       document.getElementById('statusPago').classList.add('ativo');
       document.getElementById('statusErro').classList.remove('ativo');
-      document.getElementById('detalhesPago').innerHTML = `
-        <div class="linha"><span class="rotulo">Referência</span><span class="valor">${ref}</span></div>
-        <div class="linha"><span class="rotulo">Serviço</span><span class="valor">${d.servicoNome}</span></div>
-        <div class="linha"><span class="rotulo">Valor</span><span class="valor">${d.valor} MTN</span></div>
-        <div class="linha"><span class="rotulo">Método</span><span class="valor">${(d.metodo||'').toUpperCase()}</span></div>
-        <div class="linha"><span class="rotulo">Estado</span><span class="valor" style="color:var(--verde)">Confirmado ✓</span></div>
-      `;
+      document.getElementById('detalhesPago').innerHTML = 
+        '<div class="linha"><span class="rotulo">Referência</span><span class="valor">' + ref + '</span></div>' +
+        '<div class="linha"><span class="rotulo">Serviço</span><span class="valor">' + d.servicoNome + '</span></div>' +
+        '<div class="linha"><span class="rotulo">Valor</span><span class="valor">' + d.valor + ' MTN</span></div>' +
+        '<div class="linha"><span class="rotulo">Método</span><span class="valor">' + (d.metodo||'').toUpperCase() + '</span></div>' +
+        '<div class="linha"><span class="rotulo">Estado</span><span class="valor" style="color:var(--verde)">Confirmado ✓</span></div>';
       document.getElementById('refPagamento').textContent = ref;
       document.getElementById('secComprovante').classList.add('ativo');
-      // Notificar Google Apps Script
       notificarConfirmacao(ref, d);
     }
     else if(d.status==='erro'){
@@ -742,23 +730,23 @@ function escutarPagamento(ref){
   });
 }
 
-async function notificarConfirmacao(ref, dados){
-  try{
-    await fetch(APPS_SCRIPT_URL,{
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body:JSON.stringify({
-        acao:'confirmarPagamento',
-        reference:ref,
-        userId:auth.currentUser?.uid,
-        dados:dados
-      })
-    });
-  }catch(e){console.log('Notificação Apps Script:',e)}
+function notificarConfirmacao(ref, dados){
+  var user = auth.currentUser;
+  var uid = user ? user.uid : null;
+  fetch(APPS_SCRIPT_URL,{
+    method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify({
+      acao:'confirmarPagamento',
+      reference:ref,
+      userId:uid,
+      dados:dados
+    })
+  }).catch(function(e){console.log('Notificacao Apps Script:',e);});
 }
 
 function pararListener(){
-  if(listenerAtual && pedidoAtual){db.ref('pagamentos/'+pedidoAtual).off('value',listenerAtual)}
+  if(listenerAtual && pedidoAtual){db.ref('pagamentos/'+pedidoAtual).off('value',listenerAtual);}
   listenerAtual = null;
 }
 function voltarPagamento(){
@@ -774,32 +762,31 @@ function resetarModal(){
 // ===== COMPROVATIVO =====
 function gerarComprovativo(){
   if(!pedidoAtual || !servicoAtual) return;
-  const ref = pedidoAtual;
-  const data = new Date().toLocaleDateString('pt-MZ');
-  const hora = new Date().toLocaleTimeString('pt-MZ');
-  const conteudo = `
-    COMPROVATIVO DE PAGAMENTO — MADRASSA ONLINE
-    =============================================
-    Referência: ${ref}
-    Data: ${data}  |  Hora: ${hora}
-    ---------------------------------------------
-    Serviço: ${servicoAtual.nome}
-    Categoria: ${servicoAtual.categoria.toUpperCase()}
-    Valor: ${servicoAtual.preco} MTN
-    Método: ${metodo.toUpperCase()}
-    ---------------------------------------------
-    Pagante: ${document.getElementById('nome').value || 'N/A'}
-    Telefone: ${document.getElementById('telefone').value || 'N/A'}
-    Email: ${document.getElementById('email').value || 'N/A'}
-    =============================================
-    JazakAllahu Khairan pelo seu apoio!
-    Este documento serve como comprovativo oficial.
-  `;
-  const blob = new Blob([conteudo],{type:'text/plain'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+  var ref = pedidoAtual;
+  var data = new Date().toLocaleDateString('pt-MZ');
+  var hora = new Date().toLocaleTimeString('pt-MZ');
+  var conteudo = 
+    'COMPROVATIVO DE PAGAMENTO — MADRASSA ONLINE\n' +
+    '=============================================\n' +
+    'Referência: ' + ref + '\n' +
+    'Data: ' + data + '  |  Hora: ' + hora + '\n' +
+    '---------------------------------------------\n' +
+    'Serviço: ' + servicoAtual.nome + '\n' +
+    'Categoria: ' + servicoAtual.categoria.toUpperCase() + '\n' +
+    'Valor: ' + servicoAtual.preco + ' MTN\n' +
+    'Método: ' + metodo.toUpperCase() + '\n' +
+    '---------------------------------------------\n' +
+    'Pagante: ' + (document.getElementById('nome').value || 'N/A') + '\n' +
+    'Telefone: ' + (document.getElementById('telefone').value || 'N/A') + '\n' +
+    'Email: ' + (document.getElementById('email').value || 'N/A') + '\n' +
+    '=============================================\n' +
+    'JazakAllahu Khairan pelo seu apoio!\n' +
+    'Este documento serve como comprovativo oficial.\n';
+  var blob = new Blob([conteudo],{type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
   a.href = url;
-  a.download = `Comprovativo_${ref}.txt`;
+  a.download = 'Comprovativo_' + ref + '.txt';
   a.click();
   URL.revokeObjectURL(url);
 }
