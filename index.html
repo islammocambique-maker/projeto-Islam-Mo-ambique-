@@ -1,1344 +1,1366 @@
 <!DOCTYPE html>
-<html lang="pt">
+
+<html lang="pt-MZ">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 Portal Islâmico de Moçambique 🇲🇿 — Projeto Islam Moçambique</title>
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        esmeralda: '#0d7377',
-                        escuro: '#084c4f',
-                        verdeClaro: '#14a085',
-                        dourado: '#d4af37',
-                        douradoClaro: '#f0d878',
-                        creme: '#faf8f0',
-                        marinho: '#1a1a2e',
-                        texto: '#2c3e50'
-                    },
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                        serif: ['Amiri', 'serif'],
-                        arabic: ['Noto Naskh Arabic', 'serif']
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <!-- Google Fonts & FontAwesome -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Naskh+Arabic:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        :root {
-            --verde-esmeralda: #0d7377;
-            --verde-escuro: #084c4f;
-            --dourado: #d4af37;
-            --dourado-claro: #f0d878;
-            --creme: #faf8f0;
-            --azul-marinho: #1a1a2e;
-        }
+  <title>Islam Moçambique</title>
 
-        body {
-            font-family: 'Poppins', 'Amiri', sans-serif;
-            background: var(--creme);
-            color: #2c3e50;
-            overflow-x: hidden;
-        }
+<meta
+name="description"
+content="Islam Moçambique - Conhecimento, educação islâmica, Madrassa, biblioteca e comunidade."
 
-        .bg-pattern {
-            background-image: 
-                radial-gradient(circle at 15% 30%, rgba(13,115,119,0.05) 0%, transparent 50%),
-                radial-gradient(circle at 85% 70%, rgba(212,175,55,0.05) 0%, transparent 50%);
-        }
+>
 
-        .hero-gradient {
-            background: linear-gradient(135deg, var(--azul-marinho) 0%, var(--verde-escuro) 60%, var(--verde-esmeralda) 100%);
-        }
+  <meta name="theme-color" content="#064e3b">
 
-        .card-shadow {
-            box-shadow: 0 10px 30px rgba(13, 115, 119, 0.12);
-        }
+  <style>
+    /* =====================================================
+       RESET
+    ===================================================== */
 
-        .view-section {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .view-section.active {
-            display: block;
-            opacity: 1;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #faf8f0;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #0d7377;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #d4af37;
-        }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f5f5;
+      color: #222;
+      line-height: 1.6;
+      transition: background .3s ease, color .3s ease;
+    }
 
-        .arabic-text {
-            font-family: 'Noto Naskh Arabic', 'Amiri', serif;
-            direction: rtl;
-        }
-    </style>
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+
+    /* =====================================================
+       MODO ESCURO
+    ===================================================== */
+
+    body.dark {
+      background: #101412;
+      color: #f1f1f1;
+    }
+
+    body.dark .card,
+    body.dark .hadith-box,
+    body.dark .about-box,
+    body.dark .contact-box {
+      background: #18201c;
+      color: #f1f1f1;
+    }
+
+    body.dark .search-box {
+      background: #18201c;
+    }
+
+    body.dark .search-box input {
+      color: white;
+    }
+
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      background: #064e3b;
+      color: white;
+
+      box-shadow: 0 2px 10px rgba(0,0,0,.2);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: auto;
+
+      min-height: 72px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 10px 18px;
+      gap: 15px;
+    }
+
+
+    /* =====================================================
+       LOGO
+    ===================================================== */
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      min-width: 0;
+    }
+
+    .logo-area img {
+      width: 52px;
+      height: 52px;
+
+      object-fit: cover;
+
+      border-radius: 50%;
+
+      border: 2px solid #d4af37;
+
+      background: white;
+    }
+
+    .logo-text {
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+
+    /* =====================================================
+       CONTROLOS DO HEADER
+    ===================================================== */
+
+    .header-buttons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: #0b6b50;
+      color: white;
+
+      cursor: pointer;
+
+      font-size: 18px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-btn:hover {
+      background: #d4af37;
+      color: #111;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+
+    /* =====================================================
+       MENU
+    ===================================================== */
+
+    nav {
+      background: #043d2e;
+    }
+
+    .menu {
+      max-width: 1200px;
+      margin: auto;
+
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      list-style: none;
+    }
+
+    .menu li a {
+      display: block;
+
+      padding: 12px 13px;
+
+      color: white;
+
+      font-size: 14px;
+      font-weight: bold;
+
+      transition: background .2s ease;
+    }
+
+    .menu li a:hover {
+      background: #d4af37;
+      color: #111;
+    }
+
+
+    /* =====================================================
+       PESQUISA
+    ===================================================== */
+
+    .search-section {
+      max-width: 900px;
+      margin: 20px auto 10px;
+
+      padding: 0 15px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+
+      background: white;
+
+      border-radius: 30px;
+
+      padding: 5px 8px 5px 18px;
+
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    }
+
+    .search-box input {
+      flex: 1;
+
+      border: none;
+      outline: none;
+
+      background: transparent;
+
+      font-size: 15px;
+
+      padding: 10px;
+    }
+
+    .search-box button {
+      width: 42px;
+      height: 42px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: #064e3b;
+      color: white;
+
+      cursor: pointer;
+    }
+
+
+    /* =====================================================
+       CARROSSEL
+    ===================================================== */
+
+    .carousel-section {
+      max-width: 1000px;
+
+      margin: 20px auto;
+
+      padding: 0 15px;
+    }
+
+    .carousel-wrapper {
+      height: 250px;
+
+      overflow: hidden;
+
+      border-radius: 18px;
+
+      background: #064e3b;
+
+      box-shadow: 0 5px 20px rgba(0,0,0,.18);
+    }
+
+    #carousel {
+      height: 100%;
+
+      transition: transform .7s ease-in-out;
+    }
+
+    .slide {
+      height: 100%;
+
+      padding: 35px 25px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+
+      color: white;
+    }
+
+    .slide h3 {
+      color: #d4af37;
+
+      font-size: 25px;
+
+      margin-bottom: 12px;
+    }
+
+    .slide p {
+      max-width: 700px;
+
+      font-size: 16px;
+
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+
+      background: #d4af37;
+      color: #111;
+
+      padding: 10px 22px;
+
+      border-radius: 25px;
+
+      font-weight: bold;
+
+      transition: transform .2s ease, opacity .2s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.04);
+      opacity: .9;
+    }
+
+
+    /* =====================================================
+       TÍTULOS
+    ===================================================== */
+
+    .section-title {
+      text-align: center;
+
+      color: #064e3b;
+
+      margin: 30px 15px 15px;
+
+      font-size: 25px;
+    }
+
+    body.dark .section-title {
+      color: #d4af37;
+    }
+
+    .section-title::after {
+      content: "";
+
+      display: block;
+
+      width: 55px;
+      height: 3px;
+
+      background: #d4af37;
+
+      margin: 8px auto;
+    }
+
+
+    /* =====================================================
+       HADITH DO DIA
+    ===================================================== */
+
+    .hadith-section {
+      max-width: 900px;
+
+      margin: auto;
+
+      padding: 0 15px;
+    }
+
+    .hadith-box {
+      background: white;
+
+      border-radius: 18px;
+
+      padding: 28px;
+
+      box-shadow: 0 3px 15px rgba(0,0,0,.1);
+
+      border-top: 4px solid #d4af37;
+    }
+
+    .arabico {
+      direction: rtl;
+
+      text-align: center;
+
+      font-size: 25px;
+
+      line-height: 2;
+
+      margin-bottom: 20px;
+
+      color: #064e3b;
+
+      font-family: "Times New Roman", serif;
+    }
+
+    body.dark .arabico {
+      color: #d4af37;
+    }
+
+    .traducao {
+      text-align: center;
+
+      font-size: 17px;
+
+      font-style: italic;
+
+      margin-bottom: 15px;
+    }
+
+    .fonte {
+      text-align: center;
+
+      font-size: 14px;
+
+      font-weight: bold;
+
+      color: #777;
+
+      margin-bottom: 15px;
+    }
+
+    .reflexao {
+      background: rgba(212,175,55,.12);
+
+      border-left: 4px solid #d4af37;
+
+      padding: 15px;
+
+      border-radius: 8px;
+
+      font-size: 15px;
+    }
+
+
+    /* =====================================================
+       CARTÕES
+    ===================================================== */
+
+    .cards {
+      max-width: 1100px;
+
+      margin: 25px auto;
+
+      padding: 0 15px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+
+      border-radius: 15px;
+
+      padding: 22px;
+
+      text-align: center;
+
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+
+      transition: transform .2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card h3 {
+      color: #064e3b;
+
+      margin-bottom: 8px;
+    }
+
+    body.dark .card h3 {
+      color: #d4af37;
+    }
+
+    .card p {
+      font-size: 14px;
+
+      margin-bottom: 15px;
+    }
+
+
+    /* =====================================================
+       SOBRE / CONTACTO
+    ===================================================== */
+
+    .about-box,
+    .contact-box {
+      max-width: 900px;
+
+      margin: 20px auto;
+
+      padding: 25px;
+
+      background: white;
+
+      border-radius: 15px;
+
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    }
+
+    .about-box p,
+    .contact-box p {
+      margin-bottom: 10px;
+    }
+
+    .email {
+      color: #064e3b;
+      font-weight: bold;
+    }
+
+    body.dark .email {
+      color: #d4af37;
+    }
+
+
+    /* =====================================================
+       WHATSAPP FLUTUANTE
+    ===================================================== */
+
+    .whatsapp-float {
+      position: fixed;
+
+      right: 18px;
+      bottom: 18px;
+
+      width: 58px;
+      height: 58px;
+
+      border-radius: 50%;
+
+      background: #25D366;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 29px;
+
+      box-shadow: 0 4px 15px rgba(0,0,0,.3);
+
+      z-index: 2000;
+
+      transition: transform .2s ease;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    footer {
+      margin-top: 40px;
+
+      background: #043d2e;
+
+      color: white;
+
+      text-align: center;
+
+      padding: 30px 15px;
+    }
+
+    footer img {
+      width: 55px;
+      height: 55px;
+
+      object-fit: cover;
+
+      border-radius: 50%;
+
+      border: 2px solid #d4af37;
+
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      font-size: 13px;
+
+      margin: 5px 0;
+    }
+
+    footer .gold {
+      color: #d4af37;
+      font-weight: bold;
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 768px) {
+
+      .header-content {
+        min-height: 62px;
+      }
+
+      .logo-area img {
+        width: 45px;
+        height: 45px;
+      }
+
+      .logo-text {
+        font-size: 16px;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      nav {
+        position: relative;
+      }
+
+      .menu {
+        display: none;
+
+        flex-direction: column;
+
+        width: 100%;
+
+        background: #043d2e;
+      }
+
+      .menu.show {
+        display: flex;
+      }
+
+      .menu li {
+        width: 100%;
+
+        text-align: center;
+
+        border-top: 1px solid rgba(255,255,255,.08);
+      }
+
+      .menu li a {
+        padding: 14px;
+      }
+
+      .carousel-wrapper {
+        height: 300px;
+      }
+
+      .slide h3 {
+        font-size: 21px;
+      }
+
+      .slide p {
+        font-size: 14px;
+      }
+
+      .arabico {
+        font-size: 22px;
+      }
+
+      .hadith-box {
+        padding: 20px;
+      }
+    }
+  </style>
+
 </head>
-<body class="bg-pattern min-h-screen flex flex-col justify-between">
 
-    <!-- Navigation Bar -->
-    <nav class="sticky top-0 z-50 bg-marinho/95 backdrop-blur-md border-b-2 border-dourado text-creme shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <a href="#" onclick="switchView('home')" class="flex items-center gap-2 font-serif text-lg sm:text-2xl text-dourado font-bold">
-                    <i class="fa-solid fa-mosque text-verdeClaro"></i>
-                    <span>ISLAM MOÇAMBIQUE 🇲🇿</span>
-                </a>
-                
-                <!-- Desktop Navigation Buttons -->
-                <div class="hidden lg:flex items-center space-x-1">
-                    <button onclick="switchView('home')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-house"></i> Início</button>
-                    <button onclick="switchView('hadith-dia')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-quote-left"></i> Hadith do Dia</button>
-                    <button onclick="switchView('salat')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-clock"></i> Horário Salat</button>
-                    <button onclick="switchView('biblioteca')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-book-quran"></i> Biblioteca</button>
-                    <button onclick="switchView('madrassa')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-graduation-cap"></i> Madrassa</button>
-                    <button onclick="switchView('comunidade')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-users"></i> Comunidade</button>
-                    <button onclick="switchView('quiz')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-gamepad"></i> Quiz</button>
-                    <button onclick="switchView('loja')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5 relative">
-                        <i class="fa-solid fa-store"></i> Loja
-                        <span id="cartBadge" class="hidden absolute -top-1 -right-1 bg-dourado text-marinho text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
-                    </button>
-                    <button onclick="switchView('apoio')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold bg-dourado/20 text-douradoClaro border border-dourado/40 hover:bg-dourado hover:text-marinho transition flex items-center gap-1.5"><i class="fa-solid fa-hand-holding-heart"></i> Apoio & Doações</button>
-                    <button onclick="switchView('sobre')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-circle-info"></i> Sobre Nós</button>
-                </div>
+<body>
 
-                <!-- Mobile Navigation Toggle -->
-                <div class="lg:hidden flex items-center">
-                    <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="text-dourado text-2xl p-2 focus:outline-none">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+  <!-- ===================================================
+       CABEÇALHO
+  ==================================================== -->
 
-        <!-- Mobile Drawer -->
-        <div id="mobileMenu" class="hidden lg:hidden bg-marinho border-t border-dourado/30 px-4 pt-2 pb-4 space-y-1.5 text-xs">
-            <button onclick="switchView('home'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-house w-5"></i> Início</button>
-            <button onclick="switchView('hadith-dia'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-quote-left w-5"></i> Hadith do Dia</button>
-            <button onclick="switchView('salat'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-clock w-5"></i> Horário de Salat</button>
-            <button onclick="switchView('biblioteca'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-book-quran w-5"></i> Biblioteca Digital (Alcorão)</button>
-            <button onclick="switchView('madrassa'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-graduation-cap w-5"></i> Madrassa Online</button>
-            <button onclick="switchView('comunidade'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-users w-5"></i> Comunidade Islâmica</button>
-            <button onclick="switchView('quiz'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-gamepad w-5"></i> Quiz Islâmico</button>
-            <button onclick="switchView('loja'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-store w-5"></i> Loja Virtual</button>
-            <button onclick="switchView('apoio'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-douradoClaro font-semibold bg-dourado/10 hover:bg-dourado hover:text-marinho flex items-center gap-2"><i class="fa-solid fa-hand-holding-heart w-5"></i> Apoio e Doações</button>
-            <button onclick="switchView('sobre'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-circle-info w-5"></i> Sobre Nós</button>
-        </div>
-    </nav>
+  <header>
 
-    <!-- 1. VIEW HOME -->
-    <main id="view-home" class="view-section active flex-grow">
-        <!-- Hero Header -->
-        <header class="hero-gradient relative text-white py-12 px-4 text-center overflow-hidden">
-            <div class="max-w-4xl mx-auto relative z-10 space-y-4">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 border border-dourado rounded-full bg-marinho/60 text-douradoClaro text-xs uppercase tracking-widest">
-                    <i class="fa-solid fa-star-and-crescent"></i> Projeto Islam Moçambique 🇲🇿
-                </div>
-                <div class="arabic-text text-3xl sm:text-4xl text-douradoClaro">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
-                <h1 class="font-serif text-3xl sm:text-5xl text-dourado font-bold">PORTAL ISLÂMICO DE MOÇAMBIQUE</h1>
-                <p class="text-gray-200 max-w-2xl mx-auto text-xs sm:text-sm leading-relaxed">
-                    Plataforma unificada de conhecimento autêntico: Alcorão Sagrado, Hadiths, Horários do Salat por Província, Madrassa, Comunidade, Quiz, Loja Virtual e Doações.
-                </p>
+```
+<div class="header-content">
 
-                <!-- Search Bar -->
-                <div class="relative max-w-xl mx-auto pt-2">
-                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-5 text-esmeralda"></i>
-                    <input type="text" id="homeSearch" onkeyup="filterHomeCards()" placeholder="Pesquisar por Hadith, Salat, Alcorão, Madrassa, Zakat, Loja, Apoio..." 
-                           class="w-full pl-11 pr-4 py-3 rounded-full text-texto bg-white shadow-xl focus:outline-none focus:ring-2 focus:ring-dourado text-xs sm:text-sm">
-                </div>
-            </div>
-        </header>
+  <a href="./index.html" class="logo-area">
 
-        <!-- Main Dashboard Modules -->
-        <section class="max-w-7xl mx-auto px-4 py-10">
-            <div class="text-center mb-8">
-                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-escuro">🕌 Índice Geral de Acesso</h2>
-                <p class="text-gray-600 text-xs sm:text-sm mt-1">Clique em qualquer módulo abaixo para navegar diretamente</p>
-            </div>
+    <img
+      src="./logo.jpeg"
+      alt="Islam Moçambique"
+    >
 
-            <div id="homeCardsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Hadith do Dia -->
-                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="hadith dia profeta bukhari muslim nawawi ensinamento">
-                    <div>
-                        <div class="h-24 bg-gradient-to-r from-amber-800 to-amber-600 flex items-center justify-center text-white text-3xl">
-                            <i class="fa-solid fa-quote-left group-hover:scale-110 transition"></i>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Hadith do Dia</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed mb-3">Recitação diária e reflexão dos ensinamentos autênticos do Profeta Muhammad (S.A.W.).</p>
-                        </div>
-                    </div>
-                    <div class="p-5 pt-0">
-                        <button onclick="switchView('hadith-dia')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Ver Hadith do Dia <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                    </div>
-                </div>
+    <span class="logo-text">
+      Islam Moçambique
+    </span>
 
-                <!-- Horário do Salat -->
-                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="horario salat oracao namaz wudhu maputo beira nampula provincias">
-                    <div>
-                        <div class="h-24 bg-gradient-to-r from-teal-800 to-esmeralda flex items-center justify-center text-white text-3xl">
-                            <i class="fa-solid fa-clock group-hover:scale-110 transition"></i>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Horário de Salat</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed mb-3">Tabela de orações para todas as províncias moçambicanas e guias práticos do Salat e Wudhu.</p>
-                        </div>
-                    </div>
-                    <div class="p-5 pt-0">
-                        <button onclick="switchView('salat')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Consultar Horários <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                    </div>
-                </div>
+  </a>
 
-                <!-- Apoio e Doações -->
-                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="apoio doacoes mpesa emola sadaqah caridade doar projeto islam mocambique">
-                    <div>
-                        <div class="h-24 bg-gradient-to-r from-emerald-900 to-teal-800 flex items-center justify-center text-white text-3xl">
-                            <i class="fa-solid fa-hand-holding-heart group-hover:scale-110 transition"></i>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Apoio e Doações</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed mb-3">Contribua com a expansão da Dawah e apoio social em Moçambique via M-Pesa, E-Mola ou transferência.</p>
-                        </div>
-                    </div>
-                    <div class="p-5 pt-0">
-                        <button onclick="switchView('apoio')" class="w-full py-2 rounded-full bg-dourado text-marinho font-bold text-xs hover:bg-esmeralda hover:text-white transition">Fazer Apoio <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                    </div>
-                </div>
 
-                <!-- Biblioteca Digital I.M. -->
-                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="biblioteca alcorao sagrado quran nawawi bukhari yassarnal tauhid sahabas">
-                    <div>
-                        <div class="h-24 bg-gradient-to-r from-blue-900 to-indigo-800 flex items-center justify-center text-white text-3xl">
-                            <i class="fa-solid fa-book-quran group-hover:scale-110 transition"></i>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Biblioteca Digital I.M.</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed mb-3">Acesse o Alcorão Sagrado traduzido, 42 Hadiths de Nawawi, Bukhari, Yassarnal Quran e Tauhid.</p>
-                        </div>
-                    </div>
-                    <div class="p-5 pt-0">
-                        <button onclick="switchView('biblioteca')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Abrir Alcorão & Obras <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                    </div>
-                </div>
+  <div class="header-buttons">
 
-                <!-- Madrassa Online -->
-                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="madrassa online curso arabe tajweed yassarnal fiqh alfabetizacao aterrissagem">
-                    <div>
-                        <div class="h-24 bg-gradient-to-r from-emerald-800 to-green-700 flex items-center justify-center text-white text-3xl">
-                            <i class="fa-solid fa-graduation-cap group-hover:scale-110 transition"></i>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Madrassa Online</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed mb-3">Módulos educativos de Alfabetização Árabe (Alif-Ba-Ta), Yassarnal Quran e regras fundamentais de Tajweed.</p>
-                        </div>
-                    </div>
-                    <div class="p-5 pt-0">
-                        <button onclick="switchView('madrassa')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Acessar Madrassa <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                    </div>
-                </div>
+    <button
+      class="icon-btn"
+      id="themeToggle"
+      aria-label="Alternar modo claro e escuro"
+      title="Modo claro/escuro"
+    >
+      ☾
+    </button>
 
-                <!-- Comunidade Islâmica -->
-                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="comunidade islamica zakat quero ser muculmano shahada revertidos financeira halal">
-                    <div>
-                        <div class="h-24 bg-gradient-to-r from-purple-900 to-indigo-900 flex items-center justify-center text-white text-3xl">
-                            <i class="fa-solid fa-users group-hover:scale-110 transition"></i>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Comunidade Islâmica</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed mb-3">Apoio a novos muçulmanos (Shahada), Calculadora de Zakat em Meticais e Finanças Halal.</p>
-                        </div>
-                    </div>
-                    <div class="p-5 pt-0">
-                        <button onclick="switchView('comunidade')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Ver Comunidade <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                    </div>
-                </div>
+    <button
+      class="icon-btn menu-toggle"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+    >
+      ☰
+    </button>
 
-                <!-- Quiz Islâmico -->
-                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="quiz islamico jogos 42 hadith nawawi alcorao sopa de letras puzzle educacao">
-                    <div>
-                        <div class="h-24 bg-gradient-to-r from-amber-700 to-orange-600 flex items-center justify-center text-white text-3xl">
-                            <i class="fa-solid fa-gamepad group-hover:scale-110 transition"></i>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Quiz Islâmico & Jogos</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed mb-3">Aprenda testando seus conhecimentos com o Quiz do Alcorão, Hadiths e Sopa de Letras.</p>
-                        </div>
-                    </div>
-                    <div class="p-5 pt-0">
-                        <button onclick="switchView('quiz')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Jogar Quiz <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                    </div>
-                </div>
+  </div>
 
-                <!-- Loja Virtual -->
-                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="loja virtual livros roupas acessorios comidas produtos halal compras">
-                    <div>
-                        <div class="h-24 bg-gradient-to-r from-teal-900 to-cyan-800 flex items-center justify-center text-white text-3xl">
-                            <i class="fa-solid fa-store group-hover:scale-110 transition"></i>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Loja Virtual Islâmica</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed mb-3">Catálogo de Livros, Roupas, Acessórios e Produtos Halal com entrega em Moçambique.</p>
-                        </div>
-                    </div>
-                    <div class="p-5 pt-0">
-                        <button onclick="switchView('loja')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Visitar Loja <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                    </div>
-                </div>
+</div>
 
-                <!-- Sobre Nós -->
-                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="sobre nos quem somos historia missao contactos projeto islam mocambique">
-                    <div>
-                        <div class="h-24 bg-gradient-to-r from-slate-800 to-marinho flex items-center justify-center text-white text-3xl">
-                            <i class="fa-solid fa-circle-info group-hover:scale-110 transition"></i>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Sobre Nós</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed mb-3">Conheça a missão, história, valores e visão do Projeto Islam Moçambique para a Ummah.</p>
-                        </div>
-                    </div>
-                    <div class="p-5 pt-0">
-                        <button onclick="switchView('sobre')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Conhecer o Projeto <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                    </div>
-                </div>
 
-            </div>
-        </section>
-    </main>
+<!-- =================================================
+     MENU PRINCIPAL
+================================================== -->
 
-    <!-- 2. VIEW HADITH DO DIA -->
-    <main id="view-hadith-dia" class="view-section max-w-4xl mx-auto px-4 py-8 flex-grow">
-        <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-6">
-            <div class="border-b pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                <div>
-                    <span class="text-dourado font-bold text-xs uppercase tracking-wider"><i class="fa-solid fa-quote-left mr-1"></i> Ensinamento Profético</span>
-                    <h1 class="font-serif text-3xl font-bold text-escuro">Hadith do Dia</h1>
-                    <p class="text-xs sm:text-sm text-gray-600">Reflexão diária extraída das coleções autênticas de Hadith (Bukhari, Muslim, An-Nawawi).</p>
-                </div>
-                <button onclick="getNewDailyHadith()" class="px-4 py-2 bg-esmeralda text-white text-xs font-bold rounded-xl hover:bg-dourado hover:text-marinho transition flex items-center gap-1.5 shadow">
-                    <i class="fa-solid fa-arrows-rotate"></i> Gerar Outro Hadith
-                </button>
-            </div>
+<nav>
 
-            <div class="bg-marinho text-white rounded-2xl p-6 sm:p-8 space-y-6 border border-dourado/40 relative shadow-xl">
-                <div class="flex items-center justify-between">
-                    <span id="hadithViewSource" class="bg-dourado/20 text-douradoClaro border border-dourado/40 px-3 py-1 rounded-lg text-xs font-bold">Sahih Al-Bukhari</span>
-                    <button onclick="copyCurrentHadith()" class="text-dourado hover:text-douradoClaro text-xs font-bold flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-lg transition">
-                        <i class="fa-solid fa-copy"></i> Copiar Texto
-                    </button>
-                </div>
+  <ul class="menu">
 
-                <div id="hadithViewArabic" class="arabic-text text-2xl sm:text-3xl text-douradoClaro text-right leading-loose py-2 border-y border-dourado/20">
-                    إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى
-                </div>
+    <li>
+      <a href="#apoio">
+        APOIO E OUTROS PAGAMENTOS
+      </a>
+    </li>
 
-                <div id="hadithViewText" class="text-sm sm:text-base text-gray-200 italic leading-relaxed">
-                    "As ações dependem das intenções, e cada pessoa terá apenas aquilo que intentou. Portanto, aquele cuja migração for por Allah e Seu Mensageiro, a sua migração será para Allah e Seu Mensageiro."
-                </div>
+    <li>
+      <a href="#membros">
+        MEMBROS I.M
+      </a>
+    </li>
 
-                <div class="p-4 bg-white/5 rounded-xl border border-dourado/20 text-xs text-gray-300 space-y-1">
-                    <p class="font-bold text-douradoClaro"><i class="fa-solid fa-lightbulb mr-1"></i> Reflexão & Aplicação Prática:</p>
-                    <p id="hadithViewReflect">Antes de iniciar qualquer boa obra, purifique a sua intenção buscando exclusivamente o agrado de Allah (S.W.T.).</p>
-                </div>
-            </div>
-        </div>
-    </main>
+    <li>
+      <a href="#biblioteca">
+        BIBLIOTECA DIGITAL I.M
+      </a>
+    </li>
 
-    <!-- 3. VIEW HORÁRIO DO SALAT -->
-    <main id="view-salat" class="view-section max-w-7xl mx-auto px-4 py-8 flex-grow">
-        <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-8">
-            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center border-b pb-4 gap-4">
-                <div>
-                    <h1 class="font-serif text-3xl font-bold text-escuro">🕌 Horário de Salat & Guia Wudhu</h1>
-                    <p class="text-xs sm:text-sm text-gray-600">Horários diários ajustados por província em Moçambique e orientações para a oração.</p>
-                </div>
-                <div class="flex flex-wrap gap-2">
-                    <button onclick="showSalatTab('horarios')" id="btnTabHorarios" class="px-4 py-2 rounded-xl text-xs font-bold bg-esmeralda text-white">Horários Províncias</button>
-                    <button onclick="showSalatTab('wudhu')" id="btnTabWudhu" class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Guia do Wudhu</button>
-                    <button onclick="showSalatTab('salatSteps')" id="btnTabSalat" class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Passos do Salat</button>
-                </div>
-            </div>
+    <li>
+      <a href="#madrassa">
+        MADRASSA ONLINE
+      </a>
+    </li>
 
-            <!-- Tab 1: Horários -->
-            <div id="tab-horarios" class="space-y-6">
-                <div class="bg-marinho text-white p-6 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4 border border-dourado/30">
-                    <div>
-                        <span class="text-dourado font-bold text-xs uppercase tracking-wider">Província Selecionada:</span>
-                        <h2 id="currentCityName" class="font-serif text-2xl sm:text-3xl font-bold text-douradoClaro">Maputo City</h2>
-                        <p class="text-xs text-gray-300">Horários ajustados localmente em Moçambique</p>
-                    </div>
-                    <div class="w-full md:w-auto text-left md:text-right">
-                        <label class="text-xs text-gray-300 block mb-1">Mudar Cidade / Província:</label>
-                        <select id="citySelect" onchange="changeCitySchedule()" class="w-full md:w-64 p-3 rounded-xl bg-creme text-escuro font-bold text-xs border border-dourado focus:outline-none shadow">
-                            <option value="Maputo">Maputo Cidade / Província</option>
-                            <option value="Beira">Beira (Sofala)</option>
-                            <option value="Nampula">Nampula</option>
-                            <option value="Quelimane">Quelimane (Zambézia)</option>
-                            <option value="Pemba">Pemba (Cabo Delgado)</option>
-                            <option value="Tete">Tete</option>
-                            <option value="Chimoio">Chimoio (Manica)</option>
-                            <option value="Lichinga">Lichinga (Niassa)</option>
-                            <option value="Inhambane">Inhambane</option>
-                            <option value="Xai-Xai">Xai-Xai (Gaza)</option>
-                        </select>
-                    </div>
-                </div>
+    <li>
+      <a href="#comunidade">
+        COMUNIDADE ISLÂMICA
+      </a>
+    </li>
 
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                    <div class="p-5 bg-creme rounded-2xl border border-dourado/30 text-center space-y-1 shadow-sm">
-                        <span class="text-xs font-bold text-esmeralda uppercase">Fajr (Alvorada)</span>
-                        <p id="timeFajr" class="font-serif text-2xl sm:text-3xl font-bold text-escuro">04:48</p>
-                    </div>
-                    <div class="p-5 bg-creme rounded-2xl border border-dourado/30 text-center space-y-1 shadow-sm">
-                        <span class="text-xs font-bold text-esmeralda uppercase">Dhuhr (Meio-dia)</span>
-                        <p id="timeDhuhr" class="font-serif text-2xl sm:text-3xl font-bold text-escuro">11:58</p>
-                    </div>
-                    <div class="p-5 bg-creme rounded-2xl border border-dourado/30 text-center space-y-1 shadow-sm">
-                        <span class="text-xs font-bold text-esmeralda uppercase">Asr (Tarde)</span>
-                        <p id="timeAsr" class="font-serif text-2xl sm:text-3xl font-bold text-escuro">15:12</p>
-                    </div>
-                    <div class="p-5 bg-creme rounded-2xl border border-dourado/30 text-center space-y-1 shadow-sm">
-                        <span class="text-xs font-bold text-esmeralda uppercase">Maghrib (Pôr do Sol)</span>
-                        <p id="timeMaghrib" class="font-serif text-2xl sm:text-3xl font-bold text-escuro">17:35</p>
-                    </div>
-                    <div class="p-5 bg-creme rounded-2xl border border-dourado/30 text-center space-y-1 shadow-sm col-span-2 sm:col-span-1">
-                        <span class="text-xs font-bold text-esmeralda uppercase">Isha (Noite)</span>
-                        <p id="timeIsha" class="font-serif text-2xl sm:text-3xl font-bold text-escuro">18:52</p>
-                    </div>
-                </div>
+    <li>
+      <a href="#quiz">
+        QUIZ ISLÂMICO
+      </a>
+    </li>
 
-                <div class="p-4 bg-amber-50 rounded-xl border border-dourado/40 text-xs text-amber-900 flex items-center gap-3">
-                    <i class="fa-solid fa-compass text-2xl text-dourado"></i>
-                    <div>
-                        <b>Direção da Qibla em Moçambique:</b> Aproximadamente 12° a 15° Norte-Nordeste (NNE) a partir do Norte geográfico.
-                    </div>
-                </div>
-            </div>
+    <li>
+      <a href="#loja">
+        LOJA VIRTUAL
+      </a>
+    </li>
 
-            <!-- Tab 2: Guia Wudhu -->
-            <div id="tab-wudhu" class="hidden space-y-6">
-                <h3 class="font-serif text-xl font-bold text-escuro border-l-4 border-dourado pl-3">Passo a Passo do Wudhu (Purificação)</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="p-5 bg-creme rounded-xl border border-dourado/20 text-center space-y-2">
-                        <div class="w-10 h-10 rounded-full bg-esmeralda text-white flex items-center justify-center font-bold text-lg mx-auto">1</div>
-                        <h4 class="font-bold text-sm text-escuro">Niyyah & Mãos</h4>
-                        <p class="text-xs text-gray-600">Formule a intenção no coração, diga <i>Bismillah</i> e lave as mãos até os pulsos 3 vezes.</p>
-                    </div>
-                    <div class="p-5 bg-creme rounded-xl border border-dourado/20 text-center space-y-2">
-                        <div class="w-10 h-10 rounded-full bg-esmeralda text-white flex items-center justify-center font-bold text-lg mx-auto">2</div>
-                        <h4 class="font-bold text-sm text-escuro">Boca & Nariz</h4>
-                        <p class="text-xs text-gray-600">Enxágue a boca 3 vezes e aspire água suavemente pelo nariz assoando 3 vezes.</p>
-                    </div>
-                    <div class="p-5 bg-creme rounded-xl border border-dourado/20 text-center space-y-2">
-                        <div class="w-10 h-10 rounded-full bg-esmeralda text-white flex items-center justify-center font-bold text-lg mx-auto">3</div>
-                        <h4 class="font-bold text-sm text-escuro">Rosto & Braços</h4>
-                        <p class="text-xs text-gray-600">Lave o rosto 3 vezes. Lave o braço direito e depois o esquerdo até aos cotovelos 3 vezes.</p>
-                    </div>
-                    <div class="p-5 bg-creme rounded-xl border border-dourado/20 text-center space-y-2">
-                        <div class="w-10 h-10 rounded-full bg-esmeralda text-white flex items-center justify-center font-bold text-lg mx-auto">4</div>
-                        <h4 class="font-bold text-sm text-escuro">Cabeça & Pés</h4>
-                        <p class="text-xs text-gray-600">Passe as mãos úmidas sobre a cabeça e orelhas. Lave o pé direito e esquerdo até os tornozelos 3 vezes.</p>
-                    </div>
-                </div>
-            </div>
+    <li>
+      <a href="#sobre">
+        SOBRE NÓS
+      </a>
+    </li>
 
-            <!-- Tab 3: Passos do Salat -->
-            <div id="tab-salatSteps" class="hidden space-y-6">
-                <h3 class="font-serif text-xl font-bold text-escuro border-l-4 border-dourado pl-3">Estrutura da Oração (Raka'ah)</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="p-5 bg-creme rounded-xl border border-gray-200 space-y-2">
-                        <h4 class="font-bold text-esmeralda text-base">1. Takbir & Recitação (Qiyam)</h4>
-                        <p class="text-xs text-gray-700 leading-relaxed">De pé virado para a Qibla, levante as mãos e diga <b>Allahu Akbar</b>. Recite a Surah Al-Fatihah seguida de outra passagem do Alcorão.</p>
-                    </div>
-                    <div class="p-5 bg-creme rounded-xl border border-gray-200 space-y-2">
-                        <h4 class="font-bold text-esmeralda text-base">2. Inclinação (Ruku)</h4>
-                        <p class="text-xs text-gray-700 leading-relaxed">Incline-se mantendo as costas retas dizendo <i>"Subhana Rabbiyal 'Adheem"</i> (Glorificado seja meu Senhor Supremo) 3 vezes.</p>
-                    </div>
-                    <div class="p-5 bg-creme rounded-xl border border-gray-200 space-y-2">
-                        <h4 class="font-bold text-esmeralda text-base">3. Prostração (Sujud)</h4>
-                        <p class="text-xs text-gray-700 leading-relaxed">Prostre-se no chão com testa, nariz e palmas dizendo <i>"Subhana Rabbiyal A'la"</i> (Glorificado seja meu Senhor Altíssimo) 3 vezes.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+  </ul>
 
-    <!-- 4. VIEW BIBLIOTECA DIGITAL -->
-    <main id="view-biblioteca" class="view-section max-w-7xl mx-auto px-4 py-8 flex-grow">
-        <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-6">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b pb-4 gap-4">
-                <div>
-                    <h1 class="font-serif text-3xl font-bold text-escuro">📖 Biblioteca Digital I.M.</h1>
-                    <p class="text-xs sm:text-sm text-gray-600">Alcorão Sagrado traduzido, 42 Hadiths de Nawawi, Sahih Bukhari e Livros de Tauhid.</p>
-                </div>
-                <div class="flex flex-wrap gap-2">
-                    <button onclick="showBibTab('alcorao')" id="btnBibAlcorao" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-esmeralda text-white">Alcorão Sagrado</button>
-                    <button onclick="showBibTab('nawawi')" id="btnBibNawawi" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">42 Nawawi</button>
-                    <button onclick="showBibTab('bukhari')" id="btnBibBukhari" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Sahih Bukhari</button>
-                    <button onclick="showBibTab('yassarnal')" id="btnBibYassarnal" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Yassarnal Quran</button>
-                    <button onclick="showBibTab('tauhid')" id="btnBibTauhid" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Tauhid</button>
-                </div>
-            </div>
+</nav>
+```
 
-            <!-- Subtab 1: Alcorão Sagrado -->
-            <div id="bib-alcorao" class="space-y-4">
-                <input type="text" id="quranSearch" onkeyup="filterSurahs()" placeholder="Pesquisar Surah (ex: Al-Fatihah, Ya-Sin, Al-Ikhlas)..." class="w-full px-4 py-3 bg-creme rounded-xl border border-dourado/30 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-esmeralda">
-                
-                <div id="surahList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="surah-card p-4 bg-creme rounded-xl border border-dourado/20 hover:border-esmeralda transition cursor-pointer" 
-                         onclick="openSurahModal('Al-Fatihah', '1. A Abertura', 'بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ۝ ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَالَمِينَ ۝ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ۝ مَالِكِ يَوْمِ ٱلدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ ۝ صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّالِّينَ', 'Em nome de Allah, o Clemente, o Misericordioso. Louvado seja Allah, Senhor do Universo. O Clemente, o Misericordioso. Soberano do Dia do Juízo. Só a Ti adoramos e só de Ti buscamos ajuda. Guia-nos à via reta. A via daqueles que agraciaste, não a dos abominados, nem a dos extraviados.')">
-                        <div class="flex justify-between items-center">
-                            <span class="w-8 h-8 rounded-full bg-esmeralda text-white font-bold text-xs flex items-center justify-center">1</span>
-                            <span class="arabic-text text-xl text-dourado font-bold">الفاتحة</span>
-                        </div>
-                        <h4 class="font-bold text-sm text-escuro mt-2">Al-Fatihah</h4>
-                        <p class="text-xs text-gray-500">7 Versículos • Mequense</p>
-                    </div>
+  </header>
 
-                    <div class="surah-card p-4 bg-creme rounded-xl border border-dourado/20 hover:border-esmeralda transition cursor-pointer" 
-                         onclick="openSurahModal('Ya-Sin', '36. Ya-Sin', 'يس ۝ وَٱلْقُرْءَانِ ٱلْحَكِيمِ ۝ إِنَّكَ لَمِنَ ٱلْمُرْسَلِينَ ۝ عَلَىٰ صِرَٰطٍ مُّسْتَقِيمٍ ۝ تَنزِيلَ ٱلْعَزِيزِ ٱلرَّحِيمِ', 'Ya-Sin. Pelo Alcorão sábio. Em verdade, tu és dos mensageiros, em uma via reta. Revelation do Poderoso, Misericordioso.')">
-                        <div class="flex justify-between items-center">
-                            <span class="w-8 h-8 rounded-full bg-esmeralda text-white font-bold text-xs flex items-center justify-center">36</span>
-                            <span class="arabic-text text-xl text-dourado font-bold">يس</span>
-                        </div>
-                        <h4 class="font-bold text-sm text-escuro mt-2">Ya-Sin</h4>
-                        <p class="text-xs text-gray-500">83 Versículos • Mequense</p>
-                    </div>
+  <!-- ===================================================
+       PESQUISA
+  ==================================================== -->
 
-                    <div class="surah-card p-4 bg-creme rounded-xl border border-dourado/20 hover:border-esmeralda transition cursor-pointer" 
-                         onclick="openSurahModal('Al-Ikhlas', '112. A Sinceridade', 'قُلْ هُوَ ٱللَّهُ أَحَدٌ ۝ ٱللَّهُ ٱلصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُۥ كُفُوًا أَحَدٌ', 'Dize: Ele é Allah, o Único! Allah, o Absoluto! Jamais gerou ou foi gerado, e ninguém é comparável a Ele.')">
-                        <div class="flex justify-between items-center">
-                            <span class="w-8 h-8 rounded-full bg-esmeralda text-white font-bold text-xs flex items-center justify-center">112</span>
-                            <span class="arabic-text text-xl text-dourado font-bold">الإخلاص</span>
-                        </div>
-                        <h4 class="font-bold text-sm text-escuro mt-2">Al-Ikhlas</h4>
-                        <p class="text-xs text-gray-500">4 Versículos • Mequense</p>
-                    </div>
+  <section class="search-section">
 
-                    <div class="surah-card p-4 bg-creme rounded-xl border border-dourado/20 hover:border-esmeralda transition cursor-pointer" 
-                         onclick="openSurahModal('Al-Falaq', '113. A Alvorada', 'قُلْ أَعُوذُ بِرَبِّ ٱلْفَلَقِ ۝ مِن شَرِّ مَا خَلَقَ ۝ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِن شَرِّ ٱلنَّفَّٰثَٰتِ فِي ٱلْعُقَدِ ۝ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ', 'Dize: Amparo-me no Senhor da Alvorada, do mal do que Ele criou, do mal da escuridão quando se estende, do mal das que sopram em nós, e do mal do invejoso quando inveja.')">
-                        <div class="flex justify-between items-center">
-                            <span class="w-8 h-8 rounded-full bg-esmeralda text-white font-bold text-xs flex items-center justify-center">113</span>
-                            <span class="arabic-text text-xl text-dourado font-bold">الفلق</span>
-                        </div>
-                        <h4 class="font-bold text-sm text-escuro mt-2">Al-Falaq</h4>
-                        <p class="text-xs text-gray-500">5 Versículos • Mequense</p>
-                    </div>
+```
+<div class="search-box">
 
-                    <div class="surah-card p-4 bg-creme rounded-xl border border-dourado/20 hover:border-esmeralda transition cursor-pointer" 
-                         onclick="openSurahModal('An-Nas', '114. Os Humanos', 'قُلْ أَعُوذُ بِرَبِّ ٱلنَّاسِ ۝ مَلِكِ ٱلنَّاسِ ۝ إِلَٰهِ ٱلنَّاسِ ۝ مِن شَرِّ ٱلْوَسْوَاسِ ٱلْخَنَّاسِ ۝ ٱلَّذِي يُوَسْوِسُ فِي صُدُورِ ٱلنَّاسِ ۝ مِنَ ٱلْجِنَّةِ وَٱلنَّاسِ', 'Dize: Amparo-me no Senhor dos humanos, O Rei dos humanos, O Deus dos humanos, Do mal do insinuador esgueirado, Que insinua nos peitos dos humanos, Seja entre os gênios ou entre os humanos.')">
-                        <div class="flex justify-between items-center">
-                            <span class="w-8 h-8 rounded-full bg-esmeralda text-white font-bold text-xs flex items-center justify-center">114</span>
-                            <span class="arabic-text text-xl text-dourado font-bold">الناس</span>
-                        </div>
-                        <h4 class="font-bold text-sm text-escuro mt-2">An-Nas</h4>
-                        <p class="text-xs text-gray-500">6 Versículos • Mequense</p>
-                    </div>
-                </div>
-            </div>
+  <input
+    type="search"
+    id="searchInput"
+    placeholder="Pesquisar no Islam Moçambique..."
+    autocomplete="off"
+  >
 
-            <!-- Subtab 2: 42 Nawawi -->
-            <div id="bib-nawawi" class="hidden space-y-4">
-                <div class="p-5 bg-creme rounded-xl border border-dourado/30 space-y-3">
-                    <span class="px-2.5 py-1 bg-dourado text-marinho font-bold text-xs rounded-md">Hadith #1</span>
-                    <h3 class="font-serif text-lg font-bold text-escuro">Intenções e Sinceridade</h3>
-                    <p class="arabic-text text-xl text-dourado font-bold text-right leading-relaxed">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى</p>
-                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">"As ações valem pelas intenções, e cada pessoa terá conforme a sua intenção." (Bukhari & Muslim)</p>
-                </div>
+  <button
+    type="button"
+    id="searchButton"
+    aria-label="Pesquisar"
+  >
+    🔍
+  </button>
 
-                <div class="p-5 bg-creme rounded-xl border border-dourado/30 space-y-3">
-                    <span class="px-2.5 py-1 bg-dourado text-marinho font-bold text-xs rounded-md">Hadith #2</span>
-                    <h3 class="font-serif text-lg font-bold text-escuro">Os Níveis da Religião: Islam, Iman e Ihsan</h3>
-                    <p class="arabic-text text-xl text-dourado font-bold text-right leading-relaxed">قَالَ فَأَخْبِرْنِي عَنِ الإِسْلاَمِ... قَالَ أَنْ تَشْهَدَ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ</p>
-                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">O Anjo Gabriel perguntou sobre o Islam, o Iman (Fé) e o Ihsan (Aperfeiçoamento moral). O Profeta respondeu explicitando os pilares fundamentais da crença.</p>
-                </div>
-            </div>
+</div>
+```
 
-            <!-- Subtab 3: Sahih Bukhari -->
-            <div id="bib-bukhari" class="hidden space-y-4">
-                <div class="p-5 bg-creme rounded-xl border border-dourado/30 space-y-3">
-                    <span class="px-2.5 py-1 bg-esmeralda text-white font-bold text-xs rounded-md">Sahih Al-Bukhari #8</span>
-                    <h3 class="font-serif text-lg font-bold text-escuro">Fundamentos do Islam</h3>
-                    <p class="arabic-text text-xl text-dourado font-bold text-right leading-relaxed">بُنِيَ الإِسْلاَمُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ</p>
-                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">"O Islam foi edificado sobre cinco pilares: o testemunho da unicidade, o Salat, o pagamento do Zakat, a peregrinação e o jejum do Ramadan."</p>
-                </div>
-            </div>
+  </section>
 
-            <!-- Subtab 4: Yassarnal Quran -->
-            <div id="bib-yassarnal" class="hidden space-y-4">
-                <div class="p-6 bg-creme rounded-2xl border border-dourado/30 space-y-3">
-                    <h3 class="font-serif text-xl font-bold text-escuro">📖 Guia Yassarnal Quran</h3>
-                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">Manual prático para facilitação da leitura do Alcorão em língua árabe. Aprenda as vogais curtas (Fatha, Kasra, Damma) e junções consonantais na nossa aba de Madrassa Online.</p>
-                </div>
-            </div>
+  <!-- ===================================================
+       CARROSSEL PRINCIPAL
+  ==================================================== -->
 
-            <!-- Subtab 5: Tauhid -->
-            <div id="bib-tauhid" class="hidden space-y-4">
-                <div class="p-6 bg-creme rounded-2xl border border-dourado/30 space-y-3">
-                    <h3 class="font-serif text-xl font-bold text-escuro">💎 Os Três Pilares do Tauhid (Monoteísmo)</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-                        <div class="p-4 bg-white rounded-xl border">
-                            <h4 class="font-bold text-esmeralda text-sm">1. Tauhid Ar-Rububiyyah</h4>
-                            <p class="text-xs text-gray-600 mt-1">Crença no Senhorio Único de Allah como Criador, Sustentador e Soberano de tudo.</p>
-                        </div>
-                        <div class="p-4 bg-white rounded-xl border">
-                            <h4 class="font-bold text-esmeralda text-sm">2. Tauhid Al-Uluhiyyah</h4>
-                            <p class="text-xs text-gray-600 mt-1">Exclusividade da adoração somente a Allah, sem associar parceiros ou intermediários.</p>
-                        </div>
-                        <div class="p-4 bg-white rounded-xl border">
-                            <h4 class="font-bold text-esmeralda text-sm">3. Tauhid As-Sifat</h4>
-                            <p class="text-xs text-gray-600 mt-1">Afirmação dos Nomes e Atributos perfeitos de Allah conforme revelados no Alcorão e Sunnah.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+  <section class="carousel-section">
 
-    <!-- 5. VIEW MADRASSA ONLINE -->
-    <main id="view-madrassa" class="view-section max-w-7xl mx-auto px-4 py-8 flex-grow">
-        <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-6">
-            <div>
-                <h1 class="font-serif text-3xl font-bold text-escuro">🎓 Madrassa Online</h1>
-                <p class="text-xs sm:text-sm text-gray-600">Módulos educativos interactivos: Alfabeto Árabe, Yassarnal Quran e Tajweed.</p>
-            </div>
+```
+<div class="carousel-wrapper">
 
-            <!-- Interactive Arabic Alphabet Grid -->
-            <div class="space-y-4">
-                <div class="flex justify-between items-center">
-                    <h3 class="font-serif text-xl font-bold text-escuro border-l-4 border-dourado pl-3">1. Alfabetização Árabe (Alif-Ba-Ta)</h3>
-                    <span class="text-xs text-esmeralda font-bold"><i class="fa-solid fa-volume-high mr-1"></i> Clique na letra para escutar a pronúncia</span>
-                </div>
+  <div id="carousel">
+    <!-- Os slides são carregados por main.js -->
+  </div>
 
-                <div class="grid grid-cols-4 sm:grid-cols-7 gap-3" id="arabicAlphabetGrid">
-                    <!-- Arabic letters rendered via JavaScript -->
-                </div>
-            </div>
+</div>
+```
 
-            <!-- Regras de Tajweed -->
-            <div class="pt-6 border-t space-y-4">
-                <h3 class="font-serif text-xl font-bold text-escuro border-l-4 border-dourado pl-3">2. Regras Fundamentais de Tajweed</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="p-4 bg-creme rounded-xl border border-dourado/30 space-y-2">
-                        <span class="px-2 py-0.5 bg-esmeralda text-white text-[10px] font-bold rounded">Regra 1</span>
-                        <h4 class="font-bold text-escuro text-sm">Ghunnah (Nasalização)</h4>
-                        <p class="text-xs text-gray-600">Vocalização nasal prolongada com duração de 2 tempos nas letras Nun (ن) e Mim (م) com Shaddah.</p>
-                    </div>
-                    <div class="p-4 bg-creme rounded-xl border border-dourado/30 space-y-2">
-                        <span class="px-2 py-0.5 bg-esmeralda text-white text-[10px] font-bold rounded">Regra 2</span>
-                        <h4 class="font-bold text-escuro text-sm">Qalqalah (Eco / Rebound)</h4>
-                        <p class="text-xs text-gray-600">Ressonância ao pronunciar as letras com Sukun: (ق, ط, ب, ج, د) agrupadas na frase <i>"Qutb Jadd"</i>.</p>
-                    </div>
-                    <div class="p-4 bg-creme rounded-xl border border-dourado/30 space-y-2">
-                        <span class="px-2 py-0.5 bg-esmeralda text-white text-[10px] font-bold rounded">Regra 3</span>
-                        <h4 class="font-bold text-escuro text-sm">Idgham (Fusão)</h4>
-                        <p class="text-xs text-gray-600">Junção do Nun Sakinah ou Tanween na letra seguinte (ي, ر, م, ل, و, ن).</p>
-                    </div>
-                    <div class="p-4 bg-creme rounded-xl border border-dourado/30 space-y-2">
-                        <span class="px-2 py-0.5 bg-esmeralda text-white text-[10px] font-bold rounded">Regra 4</span>
-                        <h4 class="font-bold text-escuro text-sm">Ikhfa (Ocultação)</h4>
-                        <p class="text-xs text-gray-600">Ocultação do som do Nun Sakinah emitindo som nasalizado diante das 15 letras de Ikhfa.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+  </section>
 
-    <!-- 6. VIEW COMUNIDADE ISLÂMICA -->
-    <main id="view-comunidade" class="view-section max-w-7xl mx-auto px-4 py-8 flex-grow">
-        <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-8">
-            <div class="border-b pb-4">
-                <h1 class="font-serif text-3xl font-bold text-escuro">🤝 Comunidade Islâmica em Moçambique</h1>
-                <p class="text-xs sm:text-sm text-gray-600">Apoio aos novos muçulmanos (Shahada), Calculadora de Zakat em Meticais (MZN) e Finanças Halal.</p>
-            </div>
+  <!-- ===================================================
+       HADITH DO DIA
+  ==================================================== -->
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Quero ser Muçulmano / Shahada -->
-                <div class="bg-creme p-6 rounded-2xl border border-dourado/30 space-y-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-esmeralda text-white flex items-center justify-center font-bold text-xl"><i class="fa-solid fa-heart-pulse"></i></div>
-                        <div>
-                            <h3 class="font-bold text-lg text-escuro">Quero Ser Muçulmano (A Shahada)</h3>
-                            <p class="text-xs text-gray-600">O testemunho de fé para ingressar no Islam</p>
-                        </div>
-                    </div>
-                    <div class="p-4 bg-marinho text-white rounded-xl space-y-3">
-                        <p class="arabic-text text-xl text-douradoClaro text-right leading-loose">أَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللَّهِ</p>
-                        <p class="text-xs text-gray-200 italic">"Ash-hadu an la ilaha illa-Allah, wa ash-hadu anna Muhammadan rasulu-Allah."</p>
-                        <p class="text-xs text-dourado"><b>Tradução:</b> "Testemunho que não há outra divindade além de Allah, e testemunho que Muhammad é O Seu Mensageiro."</p>
-                    </div>
-                    <button onclick="contactSupport('Apoio ao Revertido / Shahada')" class="w-full py-2.5 bg-esmeralda text-white font-bold text-xs rounded-xl hover:bg-dourado hover:text-marinho transition">
-                        <i class="fa-solid fa-comments mr-1"></i> Solicitar Acompanhamento com Imame
-                    </button>
-                </div>
+  <h2 class="section-title">
+    Hadith do Dia
+  </h2>
 
-                <!-- Calculadora de Zakat em MZN -->
-                <div class="bg-creme p-6 rounded-2xl border border-dourado/30 space-y-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-dourado text-marinho flex items-center justify-center font-bold text-xl"><i class="fa-solid fa-calculator"></i></div>
-                        <div>
-                            <h3 class="font-bold text-lg text-escuro">Calculadora de Zakat (Meticais - MZN)</h3>
-                            <p class="text-xs text-gray-600">Calcula 2.5% sobre as economias mantidas por 1 ano lunar</p>
-                        </div>
-                    </div>
-                    <div class="space-y-3">
-                        <div>
-                            <label class="text-xs font-bold text-gray-700 block mb-1">Economias em Dinheiro / Banco (MZN):</label>
-                            <input type="number" id="zakatCash" placeholder="Ex: 100000" class="w-full p-2.5 bg-white border rounded-xl text-xs focus:ring-1 focus:ring-esmeralda">
-                        </div>
-                        <div>
-                            <label class="text-xs font-bold text-gray-700 block mb-1">Valor do Ouro / Prata possuídos (MZN):</label>
-                            <input type="number" id="zakatGold" placeholder="Ex: 50000" class="w-full p-2.5 bg-white border rounded-xl text-xs focus:ring-1 focus:ring-esmeralda">
-                        </div>
-                        <button onclick="calculateZakat()" class="w-full py-2.5 bg-esmeralda text-white rounded-xl text-xs font-bold hover:bg-dourado hover:text-marinho transition">
-                            Calcular Zakat A Pagar
-                        </button>
-                        <div id="zakatResult" class="hidden p-4 bg-emerald-100 border border-emerald-300 rounded-xl text-center">
-                            <span class="text-xs text-emerald-800 block font-bold">Valor de Zakat Obrigatório (2.5%):</span>
-                            <span id="zakatValue" class="font-serif text-2xl font-bold text-esmeralda">0.00 MZN</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+  <section class="hadith-section">
 
-    <!-- 7. VIEW QUIZ ISLÂMICO -->
-    <main id="view-quiz" class="view-section max-w-4xl mx-auto px-4 py-8 flex-grow">
-        <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-6">
-            <div class="border-b pb-4 flex justify-between items-center">
-                <div>
-                    <h1 class="font-serif text-3xl font-bold text-escuro">🎮 Quiz Islâmico & Jogos</h1>
-                    <p class="text-xs sm:text-sm text-gray-600">Teste seus conhecimentos sobre o Alcorão, Sunnah e História do Islam.</p>
-                </div>
-                <div class="bg-dourado/20 border border-dourado/40 px-3 py-1.5 rounded-xl text-xs font-bold text-escuro">
-                    Pontuação: <span id="quizScore" class="text-esmeralda text-sm font-extrabold">0</span> pts
-                </div>
-            </div>
+```
+<div class="hadith-box">
 
-            <div id="quizContainer" class="p-6 bg-creme rounded-2xl border border-dourado/30 space-y-6">
-                <div>
-                    <span id="quizCategory" class="px-2.5 py-1 bg-esmeralda text-white text-[10px] font-bold rounded-md uppercase">Alcorão & Hadith</span>
-                    <h3 id="quizQuestion" class="font-serif text-xl font-bold text-escuro mt-3">Quantas Surahs (Capítulos) existem no Alcorão Sagrado?</h3>
-                </div>
+  <div class="arabico">
+    A carregar...
+  </div>
 
-                <div id="quizOptions" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <!-- Options inserted dynamically by JavaScript -->
-                </div>
+  <div class="traducao">
+    A carregar o Hadith do dia...
+  </div>
 
-                <div id="quizFeedback" class="hidden p-3 rounded-xl text-xs font-bold text-center"></div>
-            </div>
-        </div>
-    </main>
+  <div class="fonte">
+    Fonte:
+  </div>
 
-    <!-- 8. VIEW LOJA VIRTUAL -->
-    <main id="view-loja" class="view-section max-w-7xl mx-auto px-4 py-8 flex-grow">
-        <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-6">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 gap-4">
-                <div>
-                    <h1 class="font-serif text-3xl font-bold text-escuro">🛒 Loja Virtual Islâmica</h1>
-                    <p class="text-xs sm:text-sm text-gray-600">Artigos islâmicos, livros, vestuário modesto, tapetes de oração e essências com entrega em Moçambique.</p>
-                </div>
-                <button onclick="openCartModal()" class="px-4 py-2.5 bg-esmeralda text-white text-xs font-bold rounded-xl hover:bg-dourado hover:text-marinho transition flex items-center gap-2">
-                    <i class="fa-solid fa-cart-shopping"></i> Ver Carrinho (<span id="cartCount">0</span>)
-                </button>
-            </div>
+  <div class="reflexao">
+    A carregar reflexão...
+  </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="productsGrid">
-                <!-- Products dynamically inserted by JavaScript -->
-            </div>
-        </div>
-    </main>
+</div>
+```
 
-    <!-- 9. VIEW APOIO E DOAÇÕES -->
-    <main id="view-apoio" class="view-section max-w-5xl mx-auto px-4 py-8 flex-grow">
-        <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-8">
-            <div class="text-center max-w-2xl mx-auto space-y-2">
-                <span class="text-dourado font-bold text-xs uppercase tracking-wider"><i class="fa-solid fa-hand-holding-heart mr-1"></i> Contribuição & Dawah</span>
-                <h1 class="font-serif text-3xl font-bold text-escuro">Apoio e Doações ao Projeto</h1>
-                <p class="text-xs sm:text-sm text-gray-600">Sua contribuição fortalece os programas de alfabetização islâmica, distribuição de exemplares do Alcorão e apoio social em Moçambique.</p>
-            </div>
+  </section>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Canal M-Pesa / E-Mola -->
-                <div class="p-6 bg-creme rounded-2xl border border-dourado/30 space-y-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-red-600 text-white flex items-center justify-center font-bold text-xl"><i class="fa-solid fa-mobile-screen"></i></div>
-                        <div>
-                            <h3 class="font-bold text-base text-escuro">M-Pesa & E-Mola</h3>
-                            <p class="text-xs text-gray-500">Transferências MZN instantâneas</p>
-                        </div>
-                    </div>
-                    <div class="space-y-2 text-xs">
-                        <div class="p-3 bg-white rounded-xl border flex justify-between items-center">
-                            <span><b class="text-escuro">M-Pesa:</b> +258 84 123 4567</span>
-                            <span class="text-esmeralda font-bold">Islam Moçambique</span>
-                        </div>
-                        <div class="p-3 bg-white rounded-xl border flex justify-between items-center">
-                            <span><b class="text-escuro">E-Mola:</b> +258 86 123 4567</span>
-                            <span class="text-esmeralda font-bold">Islam Moçambique</span>
-                        </div>
-                    </div>
-                </div>
+  <!-- ===================================================
+       MÓDULOS
+  ==================================================== -->
 
-                <!-- Caridade & Sadaqah Jariyah -->
-                <div class="p-6 bg-creme rounded-2xl border border-dourado/30 space-y-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-esmeralda text-white flex items-center justify-center font-bold text-xl"><i class="fa-solid fa-box-open"></i></div>
-                        <div>
-                            <h3 class="font-bold text-base text-escuro">Outras Formas de Doação</h3>
-                            <p class="text-xs text-gray-500">Livros, Alimentos e Apoio a Estudantes</p>
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-600 leading-relaxed">
-                        Aceitamos doações em livros (Alcorão e Yassarnal Quran), cestas básicas para famílias necessitadas e patrocínio para bolsas de estudo na Madrassa Online.
-                    </p>
-                    <button onclick="contactSupport('Doação de Materiais')" class="w-full py-2.5 bg-esmeralda text-white rounded-xl text-xs font-bold hover:bg-dourado hover:text-marinho transition">Contactar Equipa do Projeto</button>
-                </div>
-            </div>
-        </div>
-    </main>
+  <h2 class="section-title">
+    Explore o Islam Moçambique
+  </h2>
 
-    <!-- 10. VIEW SOBRE NÓS -->
-    <main id="view-sobre" class="view-section max-w-5xl mx-auto px-4 py-8 flex-grow">
-        <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-8">
-            <div class="border-b pb-4">
-                <h1 class="font-serif text-3xl font-bold text-escuro">ℹ️ Sobre o Projeto Islam Moçambique</h1>
-                <p class="text-xs sm:text-sm text-gray-600">História, missão e compromisso com a divulgação autêntica do Islam no país.</p>
-            </div>
+  <section class="cards">
 
-            <div class="space-y-6 text-xs sm:text-sm text-gray-700 leading-relaxed">
-                <div class="p-6 bg-creme rounded-2xl border border-dourado/30 space-y-2">
-                    <h3 class="font-serif text-lg font-bold text-escuro">Nossa Missão</h3>
-                    <p>O Projeto Islam Moçambique nasceu com o objetivo de disponibilizar recursos educativos islâmicos em língua portuguesa para toda a comunidade moçambicana, promovendo a paz, união, sabedoria e autêntica educação religiosa baseada no Alcorão e na Sunnah do Profeta Muhammad (S.A.W.).</p>
-                </div>
+```
+<div class="card" id="apoio">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="p-5 border rounded-2xl space-y-2">
-                        <h4 class="font-bold text-esmeralda text-base"><i class="fa-solid fa-bullseye mr-2"></i> Visão</h4>
-                        <p class="text-xs text-gray-600">Ser a plataforma digital de referência em Moçambique para o estudo do Islam, facilitando o acesso à aprendizagem da língua árabe, orações e literatura islâmica.</p>
-                    </div>
-                    <div class="p-5 border rounded-2xl space-y-2">
-                        <h4 class="font-bold text-esmeralda text-base"><i class="fa-solid fa-hands-holding-child mr-2"></i> Valores</h4>
-                        <p class="text-xs text-gray-600">Autenticidade, transparência, fraternidade, respeito, solidariedade social e busca constante pelo conhecimento útil (*'Ilm Nafi'*).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+  <h3>
+    🤲 Apoio
+  </h3>
 
-    <!-- Surah Viewer Modal -->
-    <div id="surahModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-dourado">
-            <div class="p-5 border-b bg-marinho text-white rounded-t-2xl flex justify-between items-center">
-                <div>
-                    <h3 id="modalSurahTitle" class="font-serif text-xl font-bold text-douradoClaro">Al-Fatihah</h3>
-                    <p id="modalSurahSub" class="text-xs text-gray-300">1. A Abertura</p>
-                </div>
-                <button onclick="closeSurahModal()" class="text-dourado hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="p-6 overflow-y-auto space-y-6">
-                <div id="modalSurahArabic" class="arabic-text text-2xl sm:text-3xl text-escuro text-right leading-loose bg-creme p-5 rounded-xl border border-dourado/20">
-                </div>
-                <div>
-                    <h4 class="font-bold text-xs uppercase text-esmeralda mb-2">Tradução do Sentido:</h4>
-                    <p id="modalSurahTranslation" class="text-xs sm:text-sm text-gray-700 leading-relaxed italic"></p>
-                </div>
-            </div>
-            <div class="p-4 border-t text-right bg-gray-50 rounded-b-2xl">
-                <button onclick="closeSurahModal()" class="px-5 py-2 bg-esmeralda text-white font-bold text-xs rounded-xl hover:bg-escuro transition">Fechar</button>
-            </div>
-        </div>
-    </div>
+  <p>
+    Apoie o Projeto Islam Moçambique
+    e contribua para a continuidade
+    do nosso trabalho.
+  </p>
 
-    <!-- Cart Modal -->
-    <div id="cartModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-dourado">
-            <div class="flex justify-between items-center border-b pb-3">
-                <h3 class="font-serif text-xl font-bold text-escuro">Seu Carrinho de Compras</h3>
-                <button onclick="closeCartModal()" class="text-gray-500 hover:text-red-500 text-lg"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div id="cartItemsList" class="space-y-3 max-h-60 overflow-y-auto">
-                <p class="text-xs text-gray-500 text-center py-4">O carrinho está vazio.</p>
-            </div>
-            <div class="border-t pt-3 flex justify-between items-center font-bold text-sm text-escuro">
-                <span>Total:</span>
-                <span id="cartTotal" class="text-esmeralda text-base">0.00 MZN</span>
-            </div>
-            <button onclick="checkoutCart()" class="w-full py-2.5 bg-esmeralda text-white rounded-xl text-xs font-bold hover:bg-dourado hover:text-marinho transition">
-                Finalizar Compra via M-Pesa / E-Mola
-            </button>
-        </div>
-    </div>
+  <a href="#" class="btn">
+    Fazer apoio
+  </a>
 
-    <!-- Notification Toast / Custom Alert -->
-    <div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-marinho text-white px-5 py-3 rounded-xl border border-dourado shadow-2xl text-xs flex items-center gap-3">
-        <i class="fa-solid fa-circle-check text-dourado text-lg"></i>
-        <span id="toastMsg">Ação concluída com sucesso!</span>
-    </div>
+</div>
 
-    <!-- Footer -->
-    <footer class="bg-marinho text-white border-t-2 border-dourado mt-12 py-8">
-        <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
-            <div class="arabic-text text-2xl text-douradoClaro">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ</div>
-            <p class="text-xs text-gray-400">"Ó Nosso Senhor, concede-nos o bem neste mundo e o bem na Outra Vida, e guarda-nos do castigo do Fogo."</p>
-            <div class="text-xs text-gray-400 pt-2 border-t border-white/10">
-                © <span id="yearSpan"></span> Projeto Islam Moçambique 🇲🇿 — Todos os direitos reservados.
-            </div>
-        </div>
-    </footer>
 
-    <script>
-        document.getElementById('yearSpan').textContent = new Date().getFullYear();
+<div class="card" id="membros">
 
-        // 1. SPA View Router
-        function switchView(viewId) {
-            const views = document.querySelectorAll('.view-section');
-            views.forEach(v => {
-                v.classList.remove('active');
+  <h3>
+    👥 Membros I.M
+  </h3>
+
+  <p>
+    Faça parte da nossa comunidade
+    e acompanhe as atividades
+    do Islam Moçambique.
+  </p>
+
+  <a href="#" class="btn">
+    Acessar
+  </a>
+
+</div>
+
+
+<div class="card" id="biblioteca">
+
+  <h3>
+    📚 Biblioteca Digital
+  </h3>
+
+  <p>
+    Acesse livros e materiais
+    de conhecimento islâmico.
+  </p>
+
+  <a href="#" class="btn">
+    Biblioteca
+  </a>
+
+</div>
+
+
+<div class="card" id="madrassa">
+
+  <h3>
+    📖 Madrassa Online
+  </h3>
+
+  <p>
+    Aprenda a leitura do Alcorão,
+    Tajweed e conhecimentos islâmicos.
+  </p>
+
+  <a href="#" class="btn">
+    Entrar na Madrassa
+  </a>
+
+</div>
+
+
+<div class="card" id="comunidade">
+
+  <h3>
+    🕌 Comunidade Islâmica
+  </h3>
+
+  <p>
+    Um espaço para a comunidade
+    islâmica de Moçambique.
+  </p>
+
+  <a href="#" class="btn">
+    Comunidade
+  </a>
+
+</div>
+
+
+<div class="card" id="quiz">
+
+  <h3>
+    🧠 Quiz Islâmico
+  </h3>
+
+  <p>
+    Teste os seus conhecimentos
+    sobre o Islam.
+  </p>
+
+  <a href="#" class="btn">
+    Fazer Quiz
+  </a>
+
+</div>
+
+
+<div class="card" id="loja">
+
+  <h3>
+    🛍️ Loja Virtual
+  </h3>
+
+  <p>
+    Encontre livros e outros
+    produtos disponíveis.
+  </p>
+
+  <a href="#" class="btn">
+    Visitar Loja
+  </a>
+
+</div>
+
+
+<div class="card">
+
+  <h3>
+    💳 Pagamentos
+  </h3>
+
+  <p>
+    Consulte os serviços e formas
+    de pagamento disponíveis.
+  </p>
+
+  <a href="#" class="btn">
+    Pagamentos
+  </a>
+
+</div>
+```
+
+  </section>
+
+  <!-- ===================================================
+       SOBRE NÓS
+  ==================================================== -->
+
+  <section id="sobre">
+
+```
+<h2 class="section-title">
+  Sobre Nós
+</h2>
+
+<div class="about-box">
+
+  <p>
+    <strong>Islam Moçambique</strong> é um projeto
+    dedicado à divulgação do conhecimento islâmico,
+    educação, leitura do Alcorão, Hadith e formação
+    da comunidade muçulmana.
+  </p>
+
+  <p>
+    O projeto procura disponibilizar conteúdos
+    educativos e ferramentas digitais para facilitar
+    o acesso ao conhecimento islâmico.
+  </p>
+
+</div>
+```
+
+  </section>
+
+  <!-- ===================================================
+       CONTACTO
+  ==================================================== -->
+
+  <section>
+
+```
+<h2 class="section-title">
+  Contacte-nos
+</h2>
+
+<div class="contact-box">
+
+  <p>
+    📱 WhatsApp:
+    <strong>860 407 269</strong>
+  </p>
+
+  <p>
+    📧 E-mail:
+    <a
+      class="email"
+      href="mailto:Islammocambique@gmail.com"
+    >
+      Islammocambique@gmail.com
+    </a>
+  </p>
+
+</div>
+```
+
+  </section>
+
+  <!-- ===================================================
+       FOOTER
+  ==================================================== -->
+
+  <footer>
+
+```
+<img
+  src="./logo.jpeg"
+  alt="Islam Moçambique"
+>
+
+<p class="gold">
+  Islam Moçambique
+</p>
+
+<p>
+  Conhecimento • Educação • Comunidade
+</p>
+
+<p>
+  © <span id="currentYear"></span>
+  Islam Moçambique
+</p>
+
+<p>
+  Todos os direitos reservados.
+</p>
+```
+
+  </footer>
+
+  <!-- ===================================================
+       WHATSAPP FLUTUANTE
+  ==================================================== -->
+
+<a
+class="whatsapp-float"
+href="https://wa.me/258860407269"
+target="_blank"
+rel="noopener noreferrer"
+aria-label="Contactar Islam Moçambique pelo WhatsApp"
+title="WhatsApp"
+
+>
+
+```
+☎
+```
+
+  </a>
+
+  <!-- ===================================================
+       JAVASCRIPT
+  ==================================================== -->
+
+  <script type="module" src="./Js/main.js"></script>
+
+  <script>
+
+    /* =================================================
+       MODO CLARO / ESCURO
+    ================================================== */
+
+    const themeToggle =
+      document.getElementById('themeToggle');
+
+    const savedTheme =
+      localStorage.getItem('islamTheme');
+
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark');
+
+      if (themeToggle) {
+        themeToggle.textContent = '☀';
+      }
+    }
+
+    if (themeToggle) {
+
+      themeToggle.addEventListener('click', () => {
+
+        document.body.classList.toggle('dark');
+
+        const dark =
+          document.body.classList.contains('dark');
+
+        localStorage.setItem(
+          'islamTheme',
+          dark ? 'dark' : 'light'
+        );
+
+        themeToggle.textContent =
+          dark ? '☀' : '☾';
+
+      });
+
+    }
+
+
+    /* =================================================
+       PESQUISA
+    ================================================== */
+
+    const searchInput =
+      document.getElementById('searchInput');
+
+    const searchButton =
+      document.getElementById('searchButton');
+
+
+    function realizarPesquisa() {
+
+      if (!searchInput) return;
+
+      const termo =
+        searchInput.value.trim().toLowerCase();
+
+      if (!termo) return;
+
+      const elementos =
+        document.querySelectorAll(
+          '.card, .about-box, .contact-box'
+        );
+
+      let encontrado = false;
+
+      elementos.forEach(elemento => {
+
+        const texto =
+          elemento.textContent.toLowerCase();
+
+        if (texto.includes(termo)) {
+
+          if (!encontrado) {
+
+            elemento.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center'
             });
 
-            const target = document.getElementById('view-' + viewId);
-            if (target) {
-                target.classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+            encontrado = true;
+
+          }
+
         }
 
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
+      });
+
+      if (!encontrado) {
+
+        alert(
+          'Não encontramos resultados para: ' +
+          searchInput.value
+        );
+
+      }
+
+    }
+
+
+    if (searchButton) {
+
+      searchButton.addEventListener(
+        'click',
+        realizarPesquisa
+      );
+
+    }
+
+
+    if (searchInput) {
+
+      searchInput.addEventListener(
+        'keydown',
+        (event) => {
+
+          if (event.key === 'Enter') {
+            realizarPesquisa();
+          }
+
         }
+      );
 
-        // 2. Home Search Filter
-        function filterHomeCards() {
-            const query = document.getElementById('homeSearch').value.toLowerCase();
-            const cards = document.querySelectorAll('#homeCardsContainer .card-item');
+    }
 
-            cards.forEach(card => {
-                const tags = card.getAttribute('data-tags') || '';
-                const text = card.innerText.toLowerCase();
-                if (tags.toLowerCase().includes(query) || text.includes(query)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+
+    /* =================================================
+       ANO AUTOMÁTICO
+    ================================================== */
+
+    const currentYear =
+      document.getElementById('currentYear');
+
+    if (currentYear) {
+      currentYear.textContent =
+        new Date().getFullYear();
+    }
+
+
+    /* =================================================
+       MENU MOBILE
+    ================================================== */
+
+    const menuToggle =
+      document.querySelector('.menu-toggle');
+
+    const menu =
+      document.querySelector('.menu');
+
+    if (menuToggle && menu) {
+
+      menuToggle.addEventListener(
+        'click',
+        () => {
+
+          const aberto =
+            menu.classList.toggle('show');
+
+          menuToggle.setAttribute(
+            'aria-expanded',
+            aberto ? 'true' : 'false'
+          );
+
         }
+      );
 
-        // 3. Hadith do Dia Generator Database
-        const hadithsData = [
-            {
-                source: "Sahih Al-Bukhari & Muslim",
-                arabic: "إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى",
-                text: "\"As ações dependem das intenções, e cada pessoa terá apenas aquilo que intentou.\"",
-                reflect: "Antes de iniciar qualquer boa obra, purifique a sua intenção buscando exclusivamente o agrado do Criador."
-            },
-            {
-                source: "Sahih Muslim",
-                arabic: "الطَّهُورُ شَطْرُ الإِيمَانِ",
-                text: "\"A purificação e a limpeza são metade da fé.\"",
-                reflect: "Manter a higiene física, ritual (Wudhu) e a pureza do coração é essencial no Islam."
-            },
-            {
-                source: "Sahih Al-Bukhari",
-                arabic: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
-                text: "\"O melhor de entre vós é aquele que aprende o Alcorão e o ensina aos outros.\"",
-                reflect: "Incentive seus filhos e familiares a dedicarem tempo diário à leitura e reflexão das palavras de Allah."
-            },
-            {
-                source: "Sunan An-Nasa'i",
-                arabic: "لاَ يَكُونُ الْمُؤْمِنُ لَعَّانًا",
-                text: "\"O crente sincero não é insultuoso, amaldiçoador ou de língua vulgar.\"",
-                reflect: "Cultive a gentileza e a moderação nas palavras no seu dia a dia."
-            }
-        ];
 
-        let currentHadithIdx = 0;
+      // Fechar o menu depois de clicar
+      // num item no telemóvel
 
-        function getNewDailyHadith() {
-            currentHadithIdx = (currentHadithIdx + 1) % hadithsData.length;
-            const item = hadithsData[currentHadithIdx];
-            document.getElementById('hadithViewSource').textContent = item.source;
-            document.getElementById('hadithViewArabic').textContent = item.arabic;
-            document.getElementById('hadithViewText').textContent = item.text;
-            document.getElementById('hadithViewReflect').textContent = item.reflect;
-            showToast("Hadith atualizado com sucesso!");
-        }
+      menu.querySelectorAll('a').forEach(link => {
 
-        function copyCurrentHadith() {
-            const text = document.getElementById('hadithViewText').textContent;
-            navigator.clipboard.writeText(text);
-            showToast("Texto do Hadith copiado para a área de transferência!");
-        }
+        link.addEventListener('click', () => {
 
-        // 4. City Salat Times Data
-        const citySchedules = {
-            'Maputo': { fajr: '04:48', dhuhr: '11:58', asr: '15:12', maghrib: '17:35', isha: '18:52' },
-            'Beira': { fajr: '04:32', dhuhr: '11:45', asr: '15:02', maghrib: '17:22', isha: '18:38' },
-            'Nampula': { fajr: '04:12', dhuhr: '11:28', asr: '14:48', maghrib: '17:05', isha: '18:20' },
-            'Quelimane': { fajr: '04:22', dhuhr: '11:38', asr: '14:55', maghrib: '17:15', isha: '18:30' },
-            'Pemba': { fajr: '04:05', dhuhr: '11:22', asr: '14:42', maghrib: '16:58', isha: '18:14' },
-            'Tete': { fajr: '04:38', dhuhr: '11:52', asr: '15:08', maghrib: '17:28', isha: '18:44' },
-            'Chimoio': { fajr: '04:36', dhuhr: '11:49', asr: '15:05', maghrib: '17:25', isha: '18:41' },
-            'Lichinga': { fajr: '04:25', dhuhr: '11:40', asr: '14:58', maghrib: '17:18', isha: '18:33' },
-            'Inhambane': { fajr: '04:40', dhuhr: '11:52', asr: '15:08', maghrib: '17:28', isha: '18:44' },
-            'Xai-Xai': { fajr: '04:45', dhuhr: '11:55', asr: '15:10', maghrib: '17:32', isha: '18:48' }
-        };
+          menu.classList.remove('show');
 
-        function changeCitySchedule() {
-            const city = document.getElementById('citySelect').value;
-            const data = citySchedules[city] || citySchedules['Maputo'];
-            
-            document.getElementById('currentCityName').textContent = city;
-            document.getElementById('timeFajr').textContent = data.fajr;
-            document.getElementById('timeDhuhr').textContent = data.dhuhr;
-            document.getElementById('timeAsr').textContent = data.asr;
-            document.getElementById('timeMaghrib').textContent = data.maghrib;
-            document.getElementById('timeIsha').textContent = data.isha;
-            showToast("Horários atualizados para " + city);
-        }
+          menuToggle.setAttribute(
+            'aria-expanded',
+            'false'
+          );
 
-        function showSalatTab(tab) {
-            document.getElementById('tab-horarios').classList.add('hidden');
-            document.getElementById('tab-wudhu').classList.add('hidden');
-            document.getElementById('tab-salatSteps').classList.add('hidden');
+        });
 
-            document.getElementById('btnTabHorarios').className = "px-4 py-2 rounded-xl text-xs font-bold bg-gray-100 text-gray-700";
-            document.getElementById('btnTabWudhu').className = "px-4 py-2 rounded-xl text-xs font-bold bg-gray-100 text-gray-700";
-            document.getElementById('btnTabSalat').className = "px-4 py-2 rounded-xl text-xs font-bold bg-gray-100 text-gray-700";
+      });
 
-            if (tab === 'horarios') {
-                document.getElementById('tab-horarios').classList.remove('hidden');
-                document.getElementById('btnTabHorarios').className = "px-4 py-2 rounded-xl text-xs font-bold bg-esmeralda text-white";
-            } else if (tab === 'wudhu') {
-                document.getElementById('tab-wudhu').classList.remove('hidden');
-                document.getElementById('btnTabWudhu').className = "px-4 py-2 rounded-xl text-xs font-bold bg-esmeralda text-white";
-            } else if (tab === 'salatSteps') {
-                document.getElementById('tab-salatSteps').classList.remove('hidden');
-                document.getElementById('btnTabSalat').className = "px-4 py-2 rounded-xl text-xs font-bold bg-esmeralda text-white";
-            }
-        }
+    }
 
-        // 5. Biblioteca Subtab Routing
-        function showBibTab(tab) {
-            const tabs = ['alcorao', 'nawawi', 'bukhari', 'yassarnal', 'tauhid'];
-            tabs.forEach(t => {
-                const el = document.getElementById('bib-' + t);
-                if (el) el.classList.add('hidden');
-                const btn = document.getElementById('btnBib' + t.charAt(0).toUpperCase() + t.slice(1));
-                if (btn) btn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-700";
-            });
+  </script>
 
-            const activeEl = document.getElementById('bib-' + tab);
-            if (activeEl) activeEl.classList.remove('hidden');
-            const activeBtn = document.getElementById('btnBib' + tab.charAt(0).toUpperCase() + tab.slice(1));
-            if (activeBtn) activeBtn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-esmeralda text-white";
-        }
-
-        function filterSurahs() {
-            const query = document.getElementById('quranSearch').value.toLowerCase();
-            const cards = document.querySelectorAll('#surahList .surah-card');
-            cards.forEach(card => {
-                if (card.innerText.toLowerCase().includes(query)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        function openSurahModal(name, sub, arabic, translation) {
-            document.getElementById('modalSurahTitle').textContent = "Surah " + name;
-            document.getElementById('modalSurahSub').textContent = sub;
-            document.getElementById('modalSurahArabic').textContent = arabic;
-            document.getElementById('modalSurahTranslation').textContent = translation;
-            document.getElementById('surahModal').classList.remove('hidden');
-        }
-
-        function closeSurahModal() {
-            document.getElementById('surahModal').classList.add('hidden');
-        }
-
-        // 6. Madrassa Interactive Arabic Alphabet
-        const arabicLetters = [
-            { char: 'أ', name: 'Alif', sound: 'A' },
-            { char: 'ب', name: 'Ba', sound: 'B' },
-            { char: 'ت', name: 'Ta', sound: 'T' },
-            { char: 'ث', name: 'Tha', sound: 'TH' },
-            { char: 'ج', name: 'Jim', sound: 'J' },
-            { char: 'ح', name: 'Ha', sound: 'H' },
-            { char: 'خ', name: 'Kha', sound: 'KH' },
-            { char: 'د', name: 'Dal', sound: 'D' },
-            { char: 'ذ', name: 'Dhal', sound: 'DH' },
-            { char: 'ر', name: 'Ra', sound: 'R' },
-            { char: 'ز', name: 'Zay', sound: 'Z' },
-            { char: 'س', name: 'Sin', sound: 'S' },
-            { char: 'ش', name: 'Shin', sound: 'SH' },
-            { char: 'ص', name: 'Sad', sound: 'S' },
-            { char: 'ض', name: 'Dad', sound: 'D' },
-            { char: 'ط', name: 'Ta', sound: 'T' },
-            { char: 'ظ', name: 'Zha', sound: 'ZH' },
-            { char: 'ع', name: 'Ayn', sound: 'A' },
-            { char: 'غ', name: 'Ghayn', sound: 'GH' },
-            { char: 'ف', name: 'Fa', sound: 'F' },
-            { char: 'ق', name: 'Qaf', sound: 'Q' },
-            { char: 'ك', name: 'Kaf', sound: 'K' },
-            { char: 'ل', name: 'Lam', sound: 'L' },
-            { char: 'م', name: 'Mim', sound: 'M' },
-            { char: 'ن', name: 'Nun', sound: 'N' },
-            { char: 'هـ', name: 'Ha', sound: 'H' },
-            { char: 'و', name: 'Waw', sound: 'W' },
-            { char: 'ي', name: 'Ya', sound: 'Y' }
-        ];
-
-        function renderArabicGrid() {
-            const grid = document.getElementById('arabicAlphabetGrid');
-            if (!grid) return;
-            grid.innerHTML = '';
-
-            arabicLetters.forEach(item => {
-                const btn = document.createElement('button');
-                btn.className = "p-3 bg-creme border border-dourado/30 rounded-xl hover:border-esmeralda hover:bg-white transition flex flex-col items-center justify-center space-y-1 shadow-sm group";
-                btn.onclick = () => playArabicSound(item.name);
-                btn.innerHTML = `
-                    <span class="arabic-text text-2xl font-bold text-escuro group-hover:text-dourado transition">${item.char}</span>
-                    <span class="text-[10px] font-bold text-gray-600">${item.name}</span>
-                `;
-                grid.appendChild(btn);
-            });
-        }
-
-        function playArabicSound(letterName) {
-            showToast(`Pronúncia da letra: ${letterName}`);
-        }
-
-        // 7. Zakat Calculator
-        function calculateZakat() {
-            const cash = parseFloat(document.getElementById('zakatCash').value) || 0;
-            const gold = parseFloat(document.getElementById('zakatGold').value) || 0;
-            const total = cash + gold;
-            const zakat = total * 0.025;
-
-            document.getElementById('zakatValue').textContent = zakat.toLocaleString('pt-MZ', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " MZN";
-            document.getElementById('zakatResult').classList.remove('hidden');
-        }
-
-        // 8. Quiz Islâmico Engine
-        const quizQuestions = [
-            {
-                category: "Alcorão Sagrado",
-                question: "Quantas Surahs (Capítulos) constituem o Alcorão Sagrado?",
-                options: ["110 Surahs", "114 Surahs", "120 Surahs", "99 Surahs"],
-                correct: 1
-            },
-            {
-                category: "Pilares do Islam",
-                question: "Qual é o terceiro pilar fundamental do Islam?",
-                options: ["Salat", "Shahada", "Zakat", "Hajj"],
-                correct: 2
-            },
-            {
-                category: "História Islâmica",
-                question: "Em que ano ocorreu a Hégira (Migração) do Profeta para Medina?",
-                options: ["622 E.C.", "610 E.C.", "632 E.C.", "570 E.C."],
-                correct: 0
-            }
-        ];
-
-        let currentQuizIdx = 0;
-        let score = 0;
-
-        function loadQuizQuestion() {
-            const q = quizQuestions[currentQuizIdx];
-            document.getElementById('quizCategory').textContent = q.category;
-            document.getElementById('quizQuestion').textContent = q.question;
-            const optsContainer = document.getElementById('quizOptions');
-            optsContainer.innerHTML = '';
-            document.getElementById('quizFeedback').classList.add('hidden');
-
-            q.options.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = "w-full p-3 bg-white border border-gray-200 rounded-xl text-xs font-bold text-left text-escuro hover:bg-esmeralda hover:text-white transition shadow-sm";
-                btn.textContent = opt;
-                btn.onclick = () => handleQuizAnswer(idx);
-                optsContainer.appendChild(btn);
-            });
-        }
-
-        function handleQuizAnswer(selectedIdx) {
-            const q = quizQuestions[currentQuizIdx];
-            const feedback = document.getElementById('quizFeedback');
-            feedback.classList.remove('hidden');
-
-            if (selectedIdx === q.correct) {
-                score += 10;
-                document.getElementById('quizScore').textContent = score;
-                feedback.className = "p-3 rounded-xl text-xs font-bold text-center bg-green-100 text-green-800 border border-green-300";
-                feedback.textContent = " Resposta Correta! +10 pontos.";
-            } else {
-                feedback.className = "p-3 rounded-xl text-xs font-bold text-center bg-red-100 text-red-800 border border-red-300";
-                feedback.textContent = " Resposta Incorreta. A resposta certa era: " + q.options[q.correct];
-            }
-
-            setTimeout(() => {
-                currentQuizIdx = (currentQuizIdx + 1) % quizQuestions.length;
-                loadQuizQuestion();
-            }, 2500);
-        }
-
-        // 9. Loja Virtual & Cart Logic
-        const products = [
-            { id: 1, name: "Alcorão Sagrado com Tradução em Português", price: 1500, category: "Livros", icon: "fa-book-quran" },
-            { id: 2, name: "Yassarnal Quran — Edição Escolar", price: 350, category: "Madrassa", icon: "fa-book-open" },
-            { id: 3, name: "Tapete de Oração Luxo (Sajjada)", price: 1200, category: "Acessórios", icon: "fa-rug" },
-            { id: 4, name: "Tasbih de Madeira de Ébano (100 Contas)", price: 400, category: "Acessórios", icon: "fa-ring" },
-            { id: 5, name: "Perfume Attar Halal Sem Álcool 12ml", price: 650, category: "Perfumes", icon: "fa-bottle-droplet" },
-            { id: 6, name: "Vestuário Modesto / Thobe Masculino", price: 2500, category: "Vestuário", icon: "fa-shirt" }
-        ];
-
-        let cart = [];
-
-        function renderProducts() {
-            const grid = document.getElementById('productsGrid');
-            if (!grid) return;
-            grid.innerHTML = '';
-
-            products.forEach(prod => {
-                const item = document.createElement('div');
-                item.className = "p-5 bg-creme rounded-2xl border border-dourado/20 hover:border-esmeralda transition flex flex-col justify-between space-y-4 shadow-sm";
-                item.innerHTML = `
-                    <div class="space-y-3">
-                        <div class="w-12 h-12 rounded-xl bg-esmeralda/10 text-esmeralda flex items-center justify-center font-bold text-xl">
-                            <i class="fa-solid ${prod.icon}"></i>
-                        </div>
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-dourado bg-marinho px-2 py-0.5 rounded">${prod.category}</span>
-                        <h4 class="font-bold text-sm text-escuro leading-snug">${prod.name}</h4>
-                    </div>
-                    <div class="space-y-2 border-t pt-3">
-                        <div class="font-serif font-bold text-lg text-esmeralda">${prod.price.toLocaleString('pt-MZ')} MZN</div>
-                        <button onclick="addToCart(${prod.id})" class="w-full py-2 bg-esmeralda text-white rounded-xl text-xs font-bold hover:bg-dourado hover:text-marinho transition">
-                            <i class="fa-solid fa-cart-plus mr-1"></i> Adicionar
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(item);
-            });
-        }
-
-        function addToCart(productId) {
-            const prod = products.find(p => p.id === productId);
-            if (prod) {
-                cart.push(prod);
-                updateCartUI();
-                showToast(`${prod.name} adicionado ao carrinho!`);
-            }
-        }
-
-        function updateCartUI() {
-            document.getElementById('cartCount').textContent = cart.length;
-            const badge = document.getElementById('cartBadge');
-            if (cart.length > 0) {
-                badge.textContent = cart.length;
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
-            }
-        }
-
-        function openCartModal() {
-            const list = document.getElementById('cartItemsList');
-            list.innerHTML = '';
-            let total = 0;
-
-            if (cart.length === 0) {
-                list.innerHTML = '<p class="text-xs text-gray-500 text-center py-4">O carrinho está vazio.</p>';
-            } else {
-                cart.forEach((item, idx) => {
-                    total += item.price;
-                    const row = document.createElement('div');
-                    row.className = "flex justify-between items-center p-2.5 bg-gray-50 rounded-xl text-xs";
-                    row.innerHTML = `
-                        <span class="font-semibold text-escuro truncate max-w-[200px]">${item.name}</span>
-                        <div class="flex items-center gap-3">
-                            <span class="font-bold text-esmeralda">${item.price} MZN</span>
-                            <button onclick="removeFromCart(${idx})" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash-can"></i></button>
-                        </div>
-                    `;
-                    list.appendChild(row);
-                });
-            }
-
-            document.getElementById('cartTotal').textContent = total.toLocaleString('pt-MZ') + " MZN";
-            document.getElementById('cartModal').classList.remove('hidden');
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-            openCartModal();
-        }
-
-        function closeCartModal() {
-            document.getElementById('cartModal').classList.add('hidden');
-        }
-
-        function checkoutCart() {
-            if (cart.length === 0) {
-                showToast("Adicione artigos ao carrinho antes de finalizar!");
-                return;
-            }
-            closeCartModal();
-            cart = [];
-            updateCartUI();
-            showToast("Pedido registado! Por favor conclua a transferência para +258 84 123 4567.");
-        }
-
-        // Helper Notification Toast
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').textContent = msg;
-            toast.classList.remove('hidden');
-            setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 3000);
-        }
-
-        function contactSupport(motive) {
-            showToast(`Solicitação enviada (${motive}). Entraremos em contacto brevemente!`);
-        }
-
-        // Initialize App on Load
-        window.onload = function() {
-            renderArabicGrid();
-            loadQuizQuestion();
-            renderProducts();
-        };
-    </script>
 </body>
 </html>
