@@ -1,595 +1,365 @@
 <!DOCTYPE html>
+
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 ISLAM GUIA — Portal Islâmico de Moçambique</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Naskh+Arabic:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --verde-esmeralda: #0d7377;
-            --verde-escuro: #084c4f;
-            --verde-claro: #14a085;
-            --dourado: #d4af37;
-            --dourado-claro: #f0d878;
-            --creme: #faf8f0;
-            --creme-escuro: #f0ece0;
-            --azul-marinho: #1a1a2e;
-            --texto: #2c3e50;
-            --branco: #ffffff;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Poppins', 'Amiri', sans-serif;
-            background: var(--creme);
-            color: var(--texto);
-            overflow-x: hidden;
-            line-height: 1.7;
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(13,115,119,0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(212,175,55,0.03) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
-        }
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(135deg, var(--azul-marinho) 0%, var(--verde-escuro) 50%, var(--verde-esmeralda) 100%);
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(212,175,55,0.03) 10px, rgba(212,175,55,0.03) 20px);
-            pointer-events: none;
-        }
-        .arabesco-top {
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 120px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%23d4af37' fill-opacity='0.15' d='M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,0 L0,0 Z'/%3E%3C/svg%3E") no-repeat center top;
-            background-size: cover;
-        }
-        .arabesco-bottom {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 120px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%23d4af37' fill-opacity='0.15' d='M0,60 C240,0 480,120 720,60 C960,0 1200,120 1440,60 L1440,120 L0,120 Z'/%3E%3C/svg%3E") no-repeat center bottom;
-            background-size: cover;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            padding: 2rem;
-            max-width: 900px;
-        }
-        .hero-badge {
-            display: inline-block;
-            padding: 0.5rem 2rem;
-            border: 2px solid var(--dourado);
-            border-radius: 50px;
-            color: var(--dourado-claro);
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            animation: pulse 3s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); }
-            50% { box-shadow: 0 0 20px 10px rgba(212,175,55,0.1); }
-        }
-        .hero h1 {
-            font-family: 'Amiri', serif;
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            color: var(--dourado);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            margin-bottom: 1rem;
-            letter-spacing: 2px;
-        }
-        .hero .bismillah {
-            font-family: 'Noto Naskh Arabic', serif;
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            color: var(--dourado-claro);
-            margin-bottom: 1.5rem;
-            opacity: 0.9;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.85);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--dourado);
-            font-size: 2rem;
-            animation: bounce 2s infinite;
-            cursor: pointer;
-            z-index: 2;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-15px); }
-            60% { transform: translateX(-50%) translateY(-8px); }
-        }
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(26,26,46,0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid var(--dourado);
-        }
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-            flex-wrap: wrap;
-        }
-        .nav-logo {
-            font-family: 'Amiri', serif;
-            font-size: 1.4rem;
-            color: var(--dourado);
-            font-weight: 700;
-            padding: 1rem 0;
-            text-decoration: none;
-        }
-        .nav-links {
-            display: flex;
-            gap: 0.3rem;
-            list-style: none;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .nav-links a {
-            color: var(--creme);
-            text-decoration: none;
-            padding: 0.6rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-size: 0.8rem;
-            font-weight: 500;
-            white-space: nowrap;
-        }
-        .nav-links a:hover, .nav-links a.active {
-            background: var(--verde-esmeralda);
-            color: var(--dourado);
-            transform: translateY(-2px);
-        }
-        section {
-            position: relative;
-            padding: 6rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-        .section-header h2 {
-            font-family: 'Amiri', serif;
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            color: var(--verde-escuro);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-        .section-header h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--dourado), transparent);
-        }
-        .section-header p {
-            color: #666;
-            max-width: 600px;
-            margin: 1.5rem auto 0;
-            font-size: 1.1rem;
-        }
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-        }
-        .portal-card {
-            background: var(--branco);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(13,115,119,0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            border: 1px solid rgba(212,175,55,0.2);
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        .portal-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, var(--verde-esmeralda), var(--dourado), var(--verde-esmeralda));
-        }
-        .portal-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 60px rgba(13,115,119,0.2);
-        }
-        .portal-icon {
-            width: 100%;
-            height: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .portal-icon::after {
-            content: '';
-            position: absolute;
-            width: 200%; height: 200%;
-            background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,0.05) 40px);
-            animation: slide 20s linear infinite;
-        }
-        @keyframes slide {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-        .portal-salat .portal-icon { background: linear-gradient(135deg, #0d7377, #14a085); }
-        .portal-wudhu .portal-icon { background: linear-gradient(135deg, #1a5276, #2e86ab); }
-        .portal-duas .portal-icon { background: linear-gradient(135deg, #7d3c98, #a569bd); }
-        .portal-durudes .portal-icon { background: linear-gradient(135deg, #b9770e, #f4d03f); }
-        .portal-adab .portal-icon { background: linear-gradient(135deg, #1e8449, #27ae60); }
-        .portal-body {
-            padding: 2rem;
-        }
-        .portal-body h3 {
-            font-family: 'Amiri', serif;
-            font-size: 1.3rem;
-            color: var(--verde-escuro);
-            margin-bottom: 0.8rem;
-        }
-        .portal-body p {
-            color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-        }
-        .portal-btn {
-            display: inline-block;
-            padding: 0.7rem 1.8rem;
-            background: linear-gradient(135deg, var(--verde-esmeralda), var(--verde-claro));
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        .portal-card:hover .portal-btn {
-            background: linear-gradient(135deg, var(--dourado), var(--dourado-claro));
-            color: var(--azul-marinho);
-        }
-        .highlight-section {
-            background: linear-gradient(135deg, var(--verde-escuro), var(--verde-esmeralda));
-            border-radius: 30px;
-            padding: 4rem;
-            margin: 4rem auto;
-            max-width: 1200px;
-            position: relative;
-            overflow: hidden;
-            color: white;
-        }
-        .highlight-section::before {
-            content: '☪';
-            position: absolute;
-            font-size: 20rem;
-            opacity: 0.05;
-            top: -50px;
-            right: -50px;
-            font-family: serif;
-        }
-        .highlight-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        .highlight-text h2 {
-            font-family: 'Amiri', serif;
-            font-size: 2.5rem;
-            color: var(--dourado);
-            margin-bottom: 1rem;
-        }
-        .highlight-text p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-        }
-        .highlight-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-        .stat-item {
-            text-align: center;
-            padding: 1.5rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(212,175,55,0.3);
-        }
-        .stat-item .number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--dourado);
-            display: block;
-        }
-        .stat-item .label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        .divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 3rem 0;
-            gap: 1rem;
-        }
-        .divider-line {
-            width: 100px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--dourado), transparent);
-        }
-        .divider-icon {
-            color: var(--dourado);
-            font-size: 1.5rem;
-        }
-        footer {
-            background: var(--azul-marinho);
-            color: var(--creme);
-            padding: 4rem 2rem 2rem;
-            text-align: center;
-            position: relative;
-        }
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--verde-esmeralda), var(--dourado), var(--verde-esmeralda));
-        }
-        .footer-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .footer-logo {
-            font-family: 'Amiri', serif;
-            font-size: 2rem;
-            color: var(--dourado);
-            margin-bottom: 1rem;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .footer-quote {
-            font-family: 'Amiri', serif;
-            font-style: italic;
-            font-size: 1.3rem;
-            color: var(--dourado-claro);
-            margin-bottom: 2rem;
-            line-height: 1.8;
-        }
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        .footer-links a {
-            color: var(--creme);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        .footer-links a:hover { color: var(--dourado); }
-        .footer-bottom {
-            border-top: 1px solid rgba(212,175,55,0.2);
-            padding-top: 2rem;
-            margin-top: 2rem;
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s ease forwards;
-        }
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-        .delay-5 { animation-delay: 0.5s; }
-        @media (max-width: 768px) {
-            .nav-container { flex-direction: column; padding: 0.5rem 1rem; }
-            .nav-links { gap: 0.2rem; }
-            .nav-links a { padding: 0.4rem 0.6rem; font-size: 0.7rem; }
-            .highlight-content { grid-template-columns: 1fr; gap: 2rem; }
-            .highlight-section { padding: 2rem; }
-            section { padding: 3rem 1rem; }
-            .cards-grid { grid-template-columns: 1fr; }
-        }
-    </style>
-<base target="_blank">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Guia Islâmico | Islam Moçambique</title>
+
+  <meta name="description" content="Guias islâmicos para aprender Salat, Wudhu, Duas, Durudes, Salawat e Adab. Islam Moçambique.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #061b16, #0b2d24);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.35);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-area img {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #d4af37;
+    }
+
+    .logo-area h1 {
+      font-size: 20px;
+      color: #d4af37;
+    }
+
+    .menu-toggle {
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    nav {
+      display: none;
+      position: absolute;
+      top: 80px;
+      right: 15px;
+      background: #09251e;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 12px;
+      padding: 10px;
+      width: 210px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.4);
+    }
+
+    nav.show {
+      display: block;
+    }
+
+    nav a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    nav a:hover {
+      background: rgba(212, 175, 55, 0.15);
+      color: #d4af37;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 35px 18px 100px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .hero h2 {
+      font-size: 32px;
+      color: #d4af37;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: #d8e5df;
+      line-height: 1.6;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .guias {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(212,175,55,0.25);
+      border-radius: 18px;
+      padding: 25px 20px;
+      text-align: center;
+      transition: transform .25s, border-color .25s, background .25s;
+      backdrop-filter: blur(8px);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #d4af37;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .icone {
+      font-size: 42px;
+      margin-bottom: 14px;
+    }
+
+    .card h3 {
+      color: #fff;
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #cbd8d3;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #d4af37;
+      color: #071b15;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 11px 18px;
+      border-radius: 25px;
+      transition: .2s;
+    }
+
+    .btn:hover {
+      transform: scale(1.04);
+      background: #f0d56a;
+    }
+
+    .whatsapp {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #25d366;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 28px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.35);
+      z-index: 999;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 15px;
+      color: #aebdb7;
+      font-size: 13px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    @media (max-width: 500px) {
+      .hero h2 {
+        font-size: 27px;
+      }
+
+      .logo-area h1 {
+        font-size: 17px;
+      }
+
+      main {
+        padding-top: 28px;
+      }
+    }
+  </style>
+
 </head>
+
 <body>
-    <header class="hero" id="inicio">
-        <div class="arabesco-top"></div>
-        <div class="hero-content">
-            <div class="hero-badge">Portal Islâmico de Moçambique</div>
-            <div class="bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
-            <h1>📚 ISLAM GUIA</h1>
-            <p>Seu guia completo para o aprendizado e prática do Islam em Moçambique. Escolha um portal abaixo para começar sua jornada.</p>
-        </div>
-        <div class="arabesco-bottom"></div>
-        <div class="scroll-indicator" onclick="document.getElementById('navegacao').scrollIntoView({behavior:'smooth'})">▼</div>
-    </header>
 
-    <nav id="navegacao">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">☪ ISLAM GUIA</a>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Início</a></li>
-                <li><a href="salat/index.html">Salat</a></li>
-                <li><a href="wudhu/index.html">Wudhu</a></li>
-                <li><a href="duas/index.html">Du'as</a></li>
-                <li><a href="durudes/index.html">Durudes</a></li>
-                <li><a href="adab/index.html">Adab</a></li>
-            </ul>
-        </div>
-    </nav>
+<header>
+  <div class="logo-area">
+    <img src="../logo.jpeg" alt="Islam Moçambique">
+    <h1>Islam Moçambique</h1>
+  </div>
 
-    <section id="portais">
-        <div class="section-header fade-in">
-            <h2>🕌 Nossos Portais</h2>
-            <p>Clique em qualquer portal abaixo para acessar conteúdo completo e detalhado sobre cada tema.</p>
-        </div>
+<button class="menu-toggle" aria-label="Abrir menu">☰</button>
 
-        <div class="cards-grid">
-            <a href="salat/index.html" class="portal-card portal-salat fade-in delay-1">
-                <div class="portal-icon">🙏</div>
-                <div class="portal-body">
-                    <h3>COMO FAZER SALAT ⁉️</h3>
-                    <p>Aprenda passo a passo como realizar a oração islâmica corretamente. Desde a Niyyah até o Taslim.</p>
-                    <span class="portal-btn">Acessar Portal →</span>
-                </div>
-            </a>
+  <nav class="menu">
+    <a href="../index.html">Início</a>
+    <a href="../biblioteca.html">Biblioteca</a>
+    <a href="../madrassa.html">Madrassa</a>
+    <a href="../comunidade.html">Comunidade</a>
+    <a href="../sobre.html">Sobre nós</a>
+  </nav>
+</header>
 
-            <a href="wudhu/index.html" class="portal-card portal-wudhu fade-in delay-2">
-                <div class="portal-icon">💧</div>
-                <div class="portal-body">
-                    <h3>COMO FAZER WUDHU</h3>
-                    <p>Guia completo da ablução ritual — passos obrigatórios, sunnahs, situações que invalidam e Tayammum.</p>
-                    <span class="portal-btn">Acessar Portal →</span>
-                </div>
-            </a>
+<main>
 
-            <a href="duas/index.html" class="portal-card portal-duas fade-in delay-3">
-                <div class="portal-icon">📖</div>
-                <div class="portal-body">
-                    <h3>GUIA DE DU'AS</h3>
-                    <p>Coleção de súplicas para todas as ocasiões com transliteração em português e tradução completa.</p>
-                    <span class="portal-btn">Acessar Portal →</span>
-                </div>
-            </a>
+  <section class="hero">
+    <h2>📚 Guia Islâmico</h2>
+    <p>
+      Aprenda e pratique os ensinamentos básicos do Islam
+      através dos nossos guias educativos.
+    </p>
+  </section>
 
-            <a href="durudes/index.html" class="portal-card portal-durudes fade-in delay-4">
-                <div class="portal-icon">📿</div>
-                <div class="portal-body">
-                    <h3>DURUDES E SALAWAT</h3>
-                    <p>Bênçãos e saudações ao Profeta Muhammad (S.A.W.). Salawat, Durud Sharif e orações de louvor.</p>
-                    <span class="portal-btn">Acessar Portal →</span>
-                </div>
-            </a>
+  <section class="guias">
 
-            <a href="adab/index.html" class="portal-card portal-adab fade-in delay-5">
-                <div class="portal-icon">🧕</div>
-                <div class="portal-body">
-                    <h3>ADAB MOÇAMBIQUE</h3>
-                    <p>Educação islâmica contextualizada para Moçambique. Etiquetas, valores familiares e convivência social.</p>
-                    <span class="portal-btn">Acessar Portal →</span>
-                </div>
-            </a>
-        </div>
-    </section>
+```
+<!-- SALAT -->
+<article class="card">
+  <div class="icone">🕌</div>
 
-    <div class="highlight-section fade-in">
-        <div class="highlight-content">
-            <div class="highlight-text">
-                <h2>🌙 Fortalecendo a Ummah em Moçambique</h2>
-                <p>O Islam Guia nasceu da necessidade de centralizar o conhecimento islâmico de forma acessível, clara e em português.</p>
-                <p>Nosso compromisso é disseminar o conhecimento autêntico baseado no Alcorão e na Sunnah.</p>
-            </div>
-            <div class="highlight-stats">
-                <div class="stat-item"><span class="number">5</span><span class="label">Portais</span></div>
-                <div class="stat-item"><span class="number">100+</span><span class="label">Guias e Du'as</span></div>
-                <div class="stat-item"><span class="number">24/7</span><span class="label">Acesso Gratuito</span></div>
-                <div class="stat-item"><span class="number">🇲🇿</span><span class="label">Foco Moçambique</span></div>
-            </div>
-        </div>
-    </div>
+  <h3>COMO FAZER SALAT</h3>
 
-    <div class="divider">
-        <div class="divider-line"></div>
-        <div class="divider-icon">☪</div>
-        <div class="divider-line"></div>
-    </div>
+  <p>
+    Aprenda passo a passo como realizar corretamente
+    as cinco orações diárias.
+  </p>
 
-    <footer>
-        <div class="footer-content">
-            <a href="index.html" class="footer-logo">☪ ISLAM GUIA</a>
-            <div class="footer-quote">
-                "O melhor entre vós é aquele que aprende o Alcorão e o ensina."<br>
-                <small>— Hadith do Profeta Muhammad (S.A.W.)</small>
-            </div>
-            <div class="footer-links">
-                <a href="index.html">Início</a>
-                <a href="salat/index.html">Salat</a>
-                <a href="wudhu/index.html">Wudhu</a>
-                <a href="duas/index.html">Du'as</a>
-                <a href="durudes/index.html">Durudes</a>
-                <a href="adab/index.html">Adab</a>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2026 ISLAM GUIA — Portal Islâmico de Moçambique 🇲🇿</p>
-                <p>Feito com 💚 para a Ummah</p>
-            </div>
-        </div>
-    </footer>
+  <a href="../salat/index.html" class="btn">
+    ABRIR GUIA
+  </a>
+</article>
 
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.style.animationPlayState = 'running';
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        document.querySelectorAll('.fade-in').forEach(el => {
-            el.style.animationPlayState = 'paused';
-            observer.observe(el);
-        });
-    </script>
+<!-- WUDHU -->
+<article class="card">
+  <div class="icone">💧</div>
+
+  <h3>COMO FAZER WUDHU</h3>
+
+  <p>
+    Aprenda como realizar corretamente o Wudhu
+    antes da oração.
+  </p>
+
+  <a href="../wudhu.html" class="btn">
+    ABRIR GUIA
+  </a>
+</article>
+
+<!-- DUAS -->
+<article class="card">
+  <div class="icone">🤲</div>
+
+  <h3>GUIA DE DUAS</h3>
+
+  <p>
+    Encontre Duas importantes para diferentes momentos
+    da vida de um muçulmano.
+  </p>
+
+  <a href="../duas/index.html" class="btn">
+    ABRIR GUIA
+  </a>
+</article>
+
+<!-- DURUDES -->
+<article class="card">
+  <div class="icone">📿</div>
+
+  <h3>ENSINO DE DURUDES E SALAWAT</h3>
+
+  <p>
+    Aprenda Durudes e Salawat e fortaleça a lembrança
+    e o amor pelo Profeta Muhammad ﷺ.
+  </p>
+
+  <a href="../durudes/index.html" class="btn">
+    ABRIR GUIA
+  </a>
+</article>
+
+<!-- ADAB -->
+<article class="card">
+  <div class="icone">🌙</div>
+
+  <h3>ADAB MOÇAMBIQUE</h3>
+
+  <p>
+    Educação Islâmica, bons modos, comportamento
+    e ensinamentos para a vida diária.
+  </p>
+
+  <a href="../adab/index.html" class="btn">
+    ABRIR GUIA
+  </a>
+</article>
+```
+
+  </section>
+
+</main>
+
+<a
+class="whatsapp"
+href="https://wa.me/258860407269"
+target="_blank"
+rel="noopener noreferrer"
+aria-label="Contactar Islam Moçambique pelo WhatsApp">
+☎ </a>
+
+<footer>
+  <p>Islam Moçambique</p>
+  <p>Educação • Conhecimento • Da'wah</p>
+  <p>© 2026 Islam Moçambique</p>
+</footer>
+
+<script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const menu = document.querySelector('.menu');
+
+  menuToggle.addEventListener('click', () => {
+    menu.classList.toggle('show');
+  });
+
+  document.querySelectorAll('.menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('show');
+    });
+  });
+</script>
+
 </body>
 </html>
