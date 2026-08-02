@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia Completo do Salat — Islam Moçambique</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+--primary: #1a1a2e; --secondary: #16213e; --accent: #0f3460;
+--text: #2d2d2d; --text-light: #666; --danger: #c0392b;
+--success: #27ae60; --warning: #e67e22; --info: #2980b9;
+--border: #e0e0e0; --bg-soft: #f8f9fa; --radius: 14px;
+}
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+background: #f0f2f5; color: var(--text); line-height: 1.7; font-size: 16px;
+}
+.container { max-width: 800px; margin: 0 auto; padding: 0 16px 24px; }
+header {
+text-align: center; padding: 48px 20px 36px;
+background: linear-gradient(160deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+color: white; position: relative;
+}
+.logo-icon {
+width: 76px; height: 76px; background: rgba(255,255,255,0.1);
+border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+margin-bottom: 18px; border: 2px solid rgba(255,255,255,0.2);
+}
+.logo-icon svg { width: 36px; height: 36px; }
+header h1 { font-size: 32px; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.5px; }
+header p { font-size: 16px; opacity: 0.85; font-weight: 300; max-width: 400px; margin: 0 auto; }
+.progress-wrap {
+background: white; padding: 18px 20px; border-bottom: 1px solid var(--border);
+position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.progress-info { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; color: var(--text-light); }
+.progress-info span:last-child { font-weight: 600; color: var(--primary); }
+.progress-bar { width: 100%; height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 3px; transition: width 0.5s ease; }
+.prayer-selector { display: flex; gap: 8px; overflow-x: auto; padding: 20px 0 12px; scrollbar-width: none; }
+.prayer-selector::-webkit-scrollbar { display: none; }
+.prayer-btn {
+padding: 10px 20px; border-radius: 24px; border: 2px solid var(--border);
+background: white; font-size: 14px; font-weight: 500; cursor: pointer;
+white-space: nowrap; transition: all 0.2s; color: var(--text);
+}
+.prayer-btn:hover { border-color: var(--primary); }
+.prayer-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+.step-card {
+background: white; border-radius: var(--radius); padding: 28px;
+margin-bottom: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+border: 1px solid var(--border); display: none;
+}
+.step-card.active { display: block; animation: fadeIn 0.35s ease; }
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(12px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.step-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+.step-number {
+width: 52px; height: 52px; min-width: 52px;
+background: linear-gradient(135deg, var(--primary), var(--accent));
+color: white; border-radius: 12px; display: flex;
+align-items: center; justify-content: center;
+font-size: 22px; font-weight: 600; box-shadow: 0 4px 14px rgba(26,26,46,0.2);
+}
+.step-title { font-size: 22px; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
+.step-subtitle { font-size: 14px; color: var(--text-light); }
+.step-body { font-size: 16px; line-height: 1.8; color: var(--text); margin-bottom: 18px; }
+.step-body p { margin-bottom: 12px; }
+.step-body p:last-child { margin-bottom: 0; }
+.arabic-box {
+background: linear-gradient(135deg, #f8f9fa, #eef2f7);
+border-radius: 12px; padding: 20px; margin: 16px 0;
+text-align: center; border: 1px solid #e8ecf1;
+}
+.arabic-text {
+font-family: 'Times New Roman', 'Amiri', serif;
+font-size: 26px; direction: rtl; color: var(--primary);
+line-height: 2; margin-bottom: 10px;
+}
+.transliteration { font-style: italic; color: var(--text-light); font-size: 15px; margin-bottom: 6px; }
+.translation { font-size: 14px; color: #555; padding: 0 8px; }
+.detail-box {
+background: var(--bg-soft); border-radius: 10px; padding: 18px;
+margin: 14px 0; border-right: 4px solid var(--accent);
+}
+.detail-box.sunnah { border-right-color: var(--success); }
+.detail-box.warning { border-right-color: var(--warning); }
+.detail-box.danger { border-right-color: var(--danger); }
+.detail-box.info { border-right-color: var(--info); }
+.detail-box h4 {
+font-size: 14px; font-weight: 600; margin-bottom: 8px;
+color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;
+}
+.detail-box p, .detail-box li { font-size: 15px; color: #444; line-height: 1.7; }
+.detail-box ul { padding-right: 18px; }
+.detail-box li { margin-bottom: 6px; }
+.nav-buttons { display: flex; gap: 12px; margin: 24px 0; }
+.btn {
+flex: 1; padding: 14px 20px; border-radius: 10px;
+font-size: 16px; font-weight: 500; cursor: pointer;
+border: none; transition: all 0.2s; text-align: center;
+}
+.btn-primary {
+background: linear-gradient(135deg, var(--primary), var(--accent));
+color: white; box-shadow: 0 4px 14px rgba(26,26,46,0.2);
+}
+.btn-primary:hover { transform: translateY(-1px); }
+.btn-secondary {
+background: white; color: var(--primary);
+border: 2px solid var(--primary);
+}
+.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+.completion {
+display: none; text-align: center; padding: 48px 24px;
+background: white; border-radius: var(--radius);
+box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid var(--border);
+margin-bottom: 24px;
+}
+.completion.show { display: block; animation: fadeIn 0.4s ease; }
+.completion-icon {
+width: 80px; height: 80px;
+background: linear-gradient(135deg, var(--success), #2ecc71);
+border-radius: 50%; display: inline-flex;
+align-items: center; justify-content: center;
+margin-bottom: 24px; box-shadow: 0 6px 20px rgba(39,174,96,0.3);
+}
+.completion-icon svg { width: 40px; height: 40px; }
+.completion h2 { font-size: 26px; font-weight: 600; margin-bottom: 10px; color: var(--primary); }
+.completion p { font-size: 15px; color: var(--text-light); margin-bottom: 24px; }
+.section {
+background: white; border-radius: var(--radius); padding: 24px;
+margin-bottom: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+border: 1px solid var(--border);
+}
+.section h3 {
+font-size: 18px; font-weight: 600; margin-bottom: 16px;
+color: var(--primary); padding-bottom: 10px;
+border-bottom: 2px solid var(--border);
+display: flex; align-items: center; gap: 8px;
+}
+.ref-item {
+display: flex; align-items: flex-start; gap: 12px;
+padding: 12px 0; border-bottom: 1px solid #f0f0f0;
+}
+.ref-item:last-child { border-bottom: none; }
+.ref-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+.ref-dot.primary { background: var(--primary); }
+.ref-dot.danger { background: var(--danger); }
+.ref-dot.warning { background: var(--warning); }
+.ref-dot.success { background: var(--success); }
+.ref-text { font-size: 15px; color: var(--text); line-height: 1.6; }
+.ref-text strong { color: var(--primary); }
+.support-banner {
+background: linear-gradient(135deg, var(--primary), var(--accent));
+color: white; padding: 28px; border-radius: var(--radius);
+text-align: center; margin-bottom: 16px;
+}
+.support-banner h3 { font-size: 20px; margin-bottom: 10px; }
+.support-banner p { font-size: 15px; opacity: 0.9; }
+footer {
+text-align: center; padding: 36px 20px;
+background: var(--primary); color: white; margin-top: 20px;
+}
+footer .org-name { font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+footer p { font-size: 14px; margin-bottom: 6px; opacity: 0.85; }
+footer a { color: white; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+@media (max-width: 600px) {
+header h1 { font-size: 26px; }
+.step-card { padding: 20px; }
+.step-title { font-size: 19px; }
+.arabic-text { font-size: 22px; }
+.btn { padding: 12px 16px; font-size: 15px; }
+}
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<header>
+<div class="logo-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+</svg>
+</div>
+<h1>Guia Completo do Salat</h1>
+<p>Oracao segundo a Sunnah — explicacao detalhada passo a passo</p>
+</header>
+
+<div class="progress-wrap">
+<div class="progress-info">
+<span id="progress-text">Passo 1 de 12</span>
+<span id="progress-percent">8%</span>
+</div>
+<div class="progress-bar">
+<div class="progress-fill" id="progress-fill" style="width: 8.3%"></div>
+</div>
+</div>
+
+<div class="container">
+
+<div class="prayer-selector">
+<button class="prayer-btn active" onclick="selectPrayer('fard')" id="btn-fard">Salat Fard</button>
+<button class="prayer-btn" onclick="selectPrayer('fajr')" id="btn-fajr">Fajr</button>
+<button class="prayer-btn" onclick="selectPrayer('duhr')" id="btn-duhr">Duhr</button>
+<button class="prayer-btn" onclick="selectPrayer('asr')" id="btn-asr">Asr</button>
+<button class="prayer-btn" onclick="selectPrayer('maghrib')" id="btn-maghrib">Maghrib</button>
+<button class="prayer-btn" onclick="selectPrayer('isha')" id="btn-isha">Isha</button>
+</div>
+
+<!-- PASSO 1: TAKBIRATUL IHRAAM -->
+<div class="step-card active" data-step="1">
+<div class="step-header">
+<div class="step-number">1</div>
+<div>
+<div class="step-title">Takbiratul Ihraam</div>
+<div class="step-subtitle">O inicio da oracao — a entrada no estado de oracao</div>
+</div>
+</div>
+<div class="step-body">
+<p>O Takbiratul Ihraam e o primeiro ato da oracao e o que a inicia oficialmente. A partir deste momento, o muçulmano entra no estado de oracao e deve evitar tudo o que invalida a oracao.</p>
+<p><strong>Como fazer:</strong> Levantar as maos ate as orelhas (ou ate aos ombros), com os dedos levemente afastados. Os polegares devem ficar proximos das orelhas ou das temporas. As <strong>palmas das maos devem estar voltadas para a frente</strong>, na direcao da Qibla. Em seguida, dizer "Allahu Akbar" de forma clara e compreensivel.</p>
+<p><strong>Posicao das maos:</strong> Existem duas opinioes validas entre os estudiosos: levantar as maos ate as orelhas (opiniao da maioria dos estudiosos baseada em hadith autenticos) ou ate aos ombros (tambem valido segundo alguns estudiosos). Ambas as formas sao aceites na Sunnah.</p>
+</div>
+<div class="arabic-box">
+<div class="arabic-text">الله أكبر</div>
+<div class="transliteration">"Allahu Akbar"</div>
+<div class="translation">"Allah e o Maior / Allah e o Maior de tudo"</div>
+</div>
+<div class="detail-box sunnah">
+<h4>Sunnah do Takbir</h4>
+<ul>
+<li>Levantar as maos simultaneamente com a pronuncia do Takbir — nao antes nem depois.</li>
+<li>Os dedos devem estar naturais, nao forcados a ficarem juntos nem muito afastados.</li>
+<li>Apos o Takbir, e Sunnah colocar a mao direita sobre a esquerda no peito.</li>
+<li>Olhar para o lugar de sujud (o tapete de oracao), nao para cima nem para os lados.</li>
+<li>Manter a postura ereta e serena, sem movimentos desnecessarios.</li>
+</ul>
+</div>
+<div class="detail-box info">
+<h4>Intencao (Niyyah)</h4>
+<p>A intencao e a <strong>vontade ou o querer</strong> de fazer o salat para agradar Allah. Deve estar no coracao <strong>antes</strong> de dizer o Takbir. Nao e necessario pronuncia-la em voz alta. Basta ter no coracao a vontade clara de realizar a oracao especifica (ex: "vou rezar Duhr de quatro rakaat, em direcao a Qibla, para agradar Allah"). A intencao nao precisa de ser formulada em palavras — o querer no coracao e suficiente.</p>
+</div>
+</div>
+
+<!-- PASSO 2: QIYAM E AL-FATIHA -->
+<div class="step-card" data-step="2">
+<div class="step-header">
+<div class="step-number">2</div>
+<div>
+<div class="step-title">Qiyam — Recitar Surah Al-Fatiha</div>
+<div class="step-subtitle">A base da oracao — obrigatoria em cada rakaat</div>
+</div>
+</div>
+<div class="step-body">
+<p>O Qiyam e a posicao de pe durante a oracao. E a posicao principal onde se recita o Quran. Apos o Takbir, o muçulmano deve colocar as maos no peito e recitar Surah Al-Fatiha.</p>
+<p><strong>Posicao das maos:</strong> A mao direita sobre a esquerda, com a mao direita segurando o pulso ou o antebraco esquerdo. Colocar as maos no peito, sobre o coracao. Esta e a posicao confirmada pela Sunnah do Profeta (SAAW).</p>
+<p><strong>Importancia de Al-Fatiha:</strong> O Profeta Muhammad (SAAW) disse: "Nao ha oracao para quem nao recita a abertura do Livro (Al-Fatiha)." Portanto, Al-Fatiha e obrigatoria em <strong>cada rakaat</strong> de cada oracao. Sem ela, a oracao nao e valida.</p>
+<p><strong>Recitacao:</strong> Nas oracoes em voz alta (Fajr, Maghrib, Isha, e as duas primeiras rakaat de Duhr na opiniao de alguns), o imam recita em voz alta. Nas oracoes em voz baixa (Duhr, Asr, e as ultimas rakaat), recita-se em silencio, movendo os labios.</p>
+</div>
+<div class="arabic-box">
+<div class="arabic-text">
+بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ<br>
+الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ<br>
+الرَّحْمَنِ الرَّحِيمِ<br>
+مَالِكِ يَوْمِ الدِّينِ<br>
+إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ<br>
+اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ<br>
+صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ
+</div>
+<div class="transliteration">
+"Bismillahir Rahmanir Rahim. Alhamdu lillahi Rabbil 'alamin. Ar-Rahmanir Rahim. Maliki yawmid din. Iyyaka na'budu wa iyyaka nasta'in. Ihdinas siratal mustaqim. Siratal ladhina an'amta 'alayhim ghayril maghdubi 'alayhim wa lad-dallin."
+</div>
+<div class="translation">
+"Em nome de Allah, o Clemente, o Misericordioso. Louvor a Allah, Senhor dos Mundos. O Clemente, o Misericordioso. Soberano do Dia do Julgamento. A Ti adoramos e a Ti pedimos ajuda. Guia-nos pelo caminho reto. O caminho daqueles sobre quem derramaste as Tuas bencaos, nao dos que incorreram na Tua ira, nem dos extraviados."
+</div>
+</div>
+<div class="detail-box sunnah">
+<h4>Sunnah na Recitacao</h4>
+<ul>
+<li>Dizer "Amin" ("O Allah, responde") em voz baixa apos recitar Al-Fatiha. O imam diz em voz alta.</li>
+<li>Recitar devagar e com tajweed (regras de pronuncia do Quran), sem pressa.</li>
+<li>Olhar para o lugar de sujud durante a recitacao.</li>
+<li>Quem reza sozinho recita Al-Fatiha e depois uma surah adicional nas duas primeiras rakaat.</li>
+</ul>
+</div>
+<div class="detail-box warning">
+<h4>Aviso Importante</h4>
+<p>Se alguem se juntar a oracao atrasada (fazendo o qadha da rakaat que perdeu), deve recitar Al-Fatiha em silencio mesmo que o imam esteja recitando em voz alta. O imam recita por si e por quem o segue nas rakaat que estao juntos, mas quem chegou atrasado deve recitar por si proprio nas rakaat que faz sozinho.</p>
+</div>
+</div>
+
+<!-- PASSO 3: RECITAR SURAH ADICIONAL -->
+<div class="step-card" data-step="3">
+<div class="step-header">
+<div class="step-number">3</div>
+<div>
+<div class="step-title">Recitar Surah Adicional</div>
+<div class="step-subtitle">Apos Al-Fatiha, nas duas primeiras rakaat</div>
+</div>
+</div>
+<div class="step-body">
+<p>Apos recitar Surah Al-Fatiha, e Sunnah (e altamente recomendado) recitar uma surah ou alguns versiculos do Quran. Isto aplica-se apenas as <strong>duas primeiras rakaat</strong> das oracoes Fard (obrigatorias). Nas rakaat subsequentes, recita-se apenas Al-Fatiha.</p>
+<p><strong>Como fazer:</strong> Apos terminar Al-Fatiha (e dizer "Amin"), recitar uma surah curta ou alguns versiculos longos. O Profeta (SAAW) costumava recitar surahs curtas nas oracoes em grupo e surahs mais longas quando rezava sozinho ou em casa.</p>
+<p><strong>Surahs recomendadas:</strong> As surahs mais curtas do Quran sao ideais para oracoes em grupo: Al-Ikhlas (112), Al-Falaq (113), An-Nas (114), Al-Kawthar (108), Al-Asr (103), entre outras. Em oracoes individuais, pode-se recitar surahs mais longas como Al-Baqarah, Aali Imran, etc.</p>
+<p><strong>Ordem:</strong> E Sunnah seguir a ordem do Quran (tartil), comecando por surahs mais longas e progredindo para mais curtas, ou vice-versa, mas nao saltar aleatoriamente sem ordem logica.</p>
+</div>
+<div class="arabic-box">
+<div class="arabic-text">
+قُلْ هُوَ اللَّهُ أَحَدٌ<br>
+اللَّهُ الصَّمَدُ<br>
+لَمْ يَلِدْ وَلَمْ يُولَدْ<br>
+وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ
+</div>
+<div class="transliteration">
+"Qul huwa Allahu ahad. Allahu samad. Lam yalid wa lam yulad. Wa lam yakun lahu kufuwan ahad."
+</div>
+<div class="translation">
+"Dize: Ele e Allah, o Unico. Allah, o Absoluto, de Quem todos dependem. Ele nao gerou, nem foi gerado. E nao ha ninguem igual a Ele."
+</div>
+</div>
+<div class="detail-box sunnah">
+<h4>Surahs Mais Usadas pelo Profeta (SAAW)</h4>
+<ul>
+<li><strong>Fajr:</strong> Costumava recitar entre 60 e 100 versiculos. Surahs como As-Sajdah e Al-Insan.</li>
+<li><strong>Duhr:</strong> Surahs medias como Al-Jumu'ah, Al-Munafiqun.</li>
+<li><strong>Asr:</strong> Surahs curtas a medias como Al-Bayyinah, Al-Zilzal.</li>
+<li><strong>Maghrib:</strong> Surahs curtas como Al-Toor, Al-Najm.</li>
+<li><strong>Isha:</strong> Surahs medias como Al-Naba, Al-Mursalat.</li>
+<li><strong>Vitr:</strong> Surahs como Al-A'la, Al-Kafirun, Al-Ikhlas.</li>
+</ul>
+</div>
+<div class="detail-box info">
+<h4>Quando Nao Recitar Surah Adicional</h4>
+<p>Nao e necessario recitar surah adicional nas seguintes situacoes:</p>
+<ul>
+<li>Nas rakaat 3 e 4 das oracoes de 4 rakaat (Duhr, Asr, Isha).</li>
+<li>Na rakaat 3 do Maghrib.</li>
+<li>Em todas as rakaat das oracoes Sunnah (exceto se se desejar, e recomendado).</li>
+<li>Se o imam ja comecou o ruku antes de terminares a recitacao — junta-te ao ruku imediatamente.</li>
+</ul>
+</div>
+</div>
+
+<!-- PASSO 4: RUKU -->
+<div class="step-card" data-step="4">
+<div class="step-header">
+<div class="step-number">4</div>
+<div>
+<div class="step-title">Ruku — Inclinacao</div>
+<div class="step-subtitle">Curvar-se com as costas retas e paralelas ao chao</div>
+</div>
+</div>
+<div class="step-body">
+<p>O Ruku e a posicao de inclinacao na oracao, onde o muçulmano curva o corpo para a frente, mantendo as costas retas e paralelas ao chao. E um dos pilares (arkan) da oracao e obrigatorio em cada rakaat.</p>
+<p><strong>Como fazer:</strong> Apos terminar a recitacao, levantar as maos ate as orelhas (ou ombros) e dizer "Allahu Akbar" enquanto se curva para a frente. Colocar as maos nos joelhos, com os dedos abertos e as <strong>palmas das maos voltadas para baixo</strong> (nao apontando os dedos para a Qibla — esta e uma confusao comum). As costas devem ficar retas e paralelas ao chao, formando uma linha horizontal. A cabeca deve estar alinhada com as costas, nem mais alta nem mais baixa. Os bracos devem ficar afastados do corpo.</p>
+<p><strong>Duracao:</strong> O ruku deve ser suficientemente longo para recitar a tasbih pelo menos tres vezes com calma. Nao deve ser feito de forma apressada. O Profeta (SAAW) costumava permanecer no ruku o tempo suficiente para que os seus companheiros pudessem recitar a tasbih tres vezes.</p>
+<p><strong>Posicao das maos:</strong> As maos devem ser colocadas nos joelhos, com os dedos abertos e as palmas voltadas para baixo (na direcao do chao). Nao se deve agarrar os joelhos com forca, mas sim apoiar as maos sobre eles de forma natural.</p>
+</div>
+<div class="arabic-box">
+<div class="arabic-text">سُبْحَانَ رَبِّيَ الْعَظِيمِ</div>
+<div class="transliteration">"Subhana Rabbiyal Adheem" (3x ou mais)</div>
+<div class="translation">"Glorificado seja o meu Senhor, o Majestoso."</div>
+</div>
+<div class="detail-box sunnah">
+<h4>Sunnah do Ruku</h4>
+<ul>
+<li>Manter as costas retas e paralelas ao chao — nem curvadas para baixo nem arqueadas para cima.</li>
+<li>A cabeca deve estar alinhada com as costas, olhando para o lugar de sujud.</li>
+<li>Os cotovelos devem ficar afastados do corpo, nao encostados as costelas.</li>
+<li>Dizer a tasbih pelo menos 3 vezes. Pode-se dizer mais vezes, mas 3 e o minimo recomendado.</li>
+<li>Tambem se pode dizer outras du'as do ruku, como: "Subhanak Allahumma wa bihamdika, Allahumma ighfir li" (Glorificado sejas, O Allah, e louvado sejas. O Allah, perdoa-me).</li>
+</ul>
+</div>
+<div class="detail-box warning">
+<h4>Erros Comuns no Ruku</h4>
+<ul>
+<li>Curvar as costas de forma exagerada (deixar a cabeca muito baixa) ou insuficiente (costas muito altas).</li>
+<li>Apoiar os cotovelos nas costelas — devem ficar afastados do corpo.</li>
+<li>Fazer o ruku muito rapido, sem tempo suficiente para recitar a tasbih.</li>
+<li>Fechar os olhos — devem permanecer abertos, olhando para o lugar de sujud.</li>
+</ul>
+</div>
+</div>
+
+<!-- PASSO 5: QAWMAH -->
+<div class="step-card" data-step="5">
+<div class="step-header">
+<div class="step-number">5</div>
+<div>
+<div class="step-title">Qawmah — Levantar do Ruku</div>
+<div class="step-subtitle">Erguer-se completamente e dizer Sami'Allah</div>
+</div>
+</div>
+<div class="step-body">
+<p>A Qawmah e a posicao de pe apos o ruku, antes de ir para a prostracao. E um pilar da oracao e obrigatoria. O muçulmano deve levantar-se completamente do ruku, endireitando as costas e os joelhos, antes de descer para o sujud.</p>
+<p><strong>Como fazer:</strong> Levantar as maos (opcional, Sunnah) e erguer o corpo do ruku ate ficar completamente em pe. Quem reza sozinho ou o imam diz: "Sami'Allahu liman hamidah" (Allah ouve quem O louva). Apos isso, quem reza sozinho ou o imam diz: "Rabbana wa lakal hamd" (O nosso Senhor, a Ti pertence todo o louvor). Quem segue o imam (muqtadi) diz apenas "Rabbana wa lakal hamd".</p>
+<p><strong>Posicao das maos:</strong> Durante a qawmah, as maos podem ficar ao lado do corpo ou colocadas no peito (como no qiyam). Ambas as posicoes sao validas. Alguns estudiosos preferem as maos ao lado do corpo durante a qawmah e o julus.</p>
+<p><strong>Duracao:</strong> A qawmah deve ser suficientemente longa para que o corpo fique completamente endireitado. Nao deve ser feita de forma apressada — o Profeta (SAAW) permanecia na qawmah o tempo suficiente para que os seus companheiros pudessem dizer a du'a.</p>
+</div>
+<div class="arabic-box">
+<div class="arabic-text">سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ</div>
+<div class="transliteration">"Sami'Allahu liman hamidah"</div>
+<div class="translation">"Allah ouve quem O louva."</div>
+</div>
+<div class="arabic-box">
+<div class="arabic-text">رَبَّنَا وَلَكَ الْحَمْدُ</div>
+<div class="transliteration">"Rabbana wa lakal hamd"</div>
+<div class="translation">"O nosso Senhor, a Ti pertence todo o louvor."</div>
+</div>
+<div class="detail-box sunnah">
+<h4>Sunnah da Qawmah</h4>
+<ul>
+<li>Levantar as maos ate as orelhas (ou ombros) ao erguer-se do ruku — esta e uma Sunnah confirmada.</li>
+<li>Dizer "Rabbana wa lakal hamd, hamdan kathiran tayyiban mubarakan fih" (O nosso Senhor, a Ti pertence todo o louvor — louvor abundante, bom e bendito).</li>
+<li>Permanecer na qawmah o tempo suficiente para que o corpo fique completamente ereto.</li>
+<li>Olhar para o lugar de sujud durante a qawmah.</li>
+</ul>
+</div>
+<div class="detail-box info">
+<h4>Diferenca entre Imam e Muqtadi</h4>
+<p><strong>Imam:</strong> Diz "Sami'Allahu liman hamidah" em voz alta (em oracoes em voz alta) e depois "Rabbana wa lakal hamd".</p>
+<p><strong>Muqtadi (quem segue):</strong> Diz apenas "Rabbana wa lakal hamd" em silencio. Nao diz "Sami'Allahu liman hamidah".</p>
+<p><strong>Quem reza sozinho:</strong> Diz ambas as frases em silencio (ou em voz alta se desejar, em oracoes em voz alta).</p>
+</div>
+</div>
+
+<!-- PASSO 6: SUJUD -->
+<div class="step-card" data-step="6">
+<div class="step-header">
+<div class="step-number">6</div>
+<div>
+<div class="step-title">Sujud — Prostracao</div>
+<div class="step-subtitle">A posicao mais proxima de Allah — sete partes do corpo no chao</div>
+</div>
+</div>
+<div class="step-body">
+<p>O Sujud (prostracao) e a posicao mais importante e mais recompensada da oracao. O Profeta (SAAW) disse: "A posicao mais proxima que o servo esta do seu Senhor e quando esta em prostracao. Portanto, aumentai as du'as (nesta posicao)." O sujud e obrigatorio em cada rakaat (duas vezes por rakaat).</p>
+<p><strong>Como fazer:</strong> Apos a qawmah, dizer "Allahu Akbar" e descer para a prostracao. Colocar primeiro os joelhos no chao, depois as maos, depois a testa e o nariz. As sete partes do corpo que devem tocar o chao sao:</p>
+<ol style="margin: 12px 0 12px 20px; padding-right: 0;">
+<li>A <strong>testa</strong> (incluindo a zona entre as sobrancelhas)</li>
+<li>O <strong>nariz</strong> (a ponta do nariz deve tocar o chao)</li>
+<li>As <strong>duas maos</strong> (palmas abertas, dedos apontando para a Qibla)</li>
+<li>Os <strong>dois joelhos</strong></li>
+<li>Os <strong>dedos dos pes</strong> (apontando para a Qibla)</li>
+</ol>
+<p><strong>Posicao das maos:</strong> As maos devem ser colocadas no chao ao lado do rosto, com os dedos apontando para a Qibla e as <strong>palmas das maos voltadas para baixo</strong> (tocando o chao). Os bracos devem ficar afastados do corpo — nao encostados as costelas. Os cotovelos devem ficar afastados do chao (elevados), nao apoiados no chao.</p>
+<p><strong>Posicao dos pes:</strong> Os pes devem estar eretos, com os dedos apontando para a Qibla e tocando o chao. O calcanhar deve estar no chao ou ligeiramente levantado — ambas as posicoes sao validas.</p>
+<p><strong>Duracao:</strong> O sujud deve ser suficientemente longo para recitar a tasbih pelo menos tres vezes com calma. O Profeta (SAAW) costumava permanecer no sujud mais tempo do que no ruku.</p>
+</div>
+<div class="arabic-box">
+<div class="arabic-text">سُبْحَانَ رَبِّيَ الأَعْلَى</div>
+<div class="transliteration">"Subhana Rabbiyal A'la" (3x ou mais)</div>
+<div class="translation">"Glorificado seja o meu Senhor, o Altissimo."</div>
+</div>
+<div class="detail-box sunnah">
+<h4>Sunnah do Sujud</h4>
+<ul>
+<li>Manter os cotovelos afastados do chao e do corpo.</li>
+<li>Manter os bracos afastados das costelas.</li>
+<li>Os dedos das maos e dos pes devem apontar para a Qibla.</li>
+<li>Dizer a tasbih pelo menos 3 vezes. Pode-se dizer mais vezes ou outras du'as.</li>
+<li>Fazer du'a pessoal nesta posicao — e a melhor posicao para suplicar a Allah.</li>
+<li>Manter os olhos abertos, olhando para o nariz ou para o tapete.</li>
+</ul>
+</div>
+<div class="detail-box warning">
+<h4>Erros Comuns no Sujud</h4>
+<ul>
+<li>Nao colocar o nariz no chao — apenas a testa. Ambos devem tocar o chao.</li>
+<li>Apoiar os cotovelos no chao — devem ficar elevados.</li>
+<li>Encostar os bracos as costelas — devem ficar afastados.</li>
+<li>Dobrar os dedos dos pes para baixo ou para os lados — devem apontar para a Qibla.</li>
+<li>Fazer o sujud muito rapido — deve ser mais longo que o ruku.</li>
+</ul>
+</div>
+</div>
+
+<!-- PASSO 7: JULUS -->
+<div class="step-card" data-step="7">
+<div class="step-header">
+<div class="step-number">7</div>
+<div>
+<div class="step-title">Julus — Sentar entre os Sujud</div>
+<div class="step-subtitle">A pausa entre as duas prostracoes</div>
+</div>
+</div>
+<div class="step-body">
+<p>O Julus e a posicao de sentar entre as duas prostracoes (sujud) dentro de uma mesma rakaat. E um pilar da oracao e obrigatorio. Apos o primeiro sujud, o muçulmano levanta-se brevemente, senta-se no chao, e depois faz o segundo sujud.</p>
+<p><strong>Como fazer:</strong> Levantar-se do primeiro sujud, sentando-se sobre o calcanhar esquerdo, com o pe direito ereto (dedos apontando para a Qibla). As maos devem apoiar-se nas coxas, proximo dos joelhos. A postura deve ser calma e serena.</p>
+<p><strong>Posicao de sentar:</strong> Ha duas formas validas de sentar no julus:</p>
+<ol style="margin: 12px 0 12px 20px;">
+<li><strong>Iftirash:</strong> Sentar sobre o calcanhar esquerdo, com o pe direito ereto e os dedos apontando para a Qibla. Esta e a forma mais comum e recomendada.</li>
+<li><strong>Tawarruk:</strong> Sentar com o pe esquerdo debaixo da nadega direita e o pe direito ereto. Esta forma e usada principalmente no julus final (ultima rakaat).</li>
+</ol>
+<p><strong>Duracao:</strong> O julus deve ser suficientemente longo para recitar a du'a recomendada. Nao deve ser feito de forma apressada — o Profeta (SAAW) permanecia no julus o tempo suficiente para que os seus companheiros pudessem dizer a du'a.</p>
+</div>
+<div class="arabic-box">
+<div class="arabic-text">رَبِّ اغْفِرْ لِي</div>
+<div class="transliteration">"Rabbi ighfir li"</div>
+<div class="translation">"O meu Senhor, perdoa-me."</div>
+</div>
+<div class="detail-box sunnah">
+<h4>Du'as Recomendadas no Julus</h4>
+<ul>
+<li>"Rabbi ighfir li, warhamni, wahdini, wa 'afini, warzuqni" (O meu Senhor, perdoa-me, tem misericordia de mim, guia-me, cura-me e sustenta-me).</li>
+<li>"Allahumma ighfir li ma qaddamtu wa ma akhartu, wa ma asrartu wa ma a'lantu, wa ma asraftu, wa ma anta a'lamu bihi minni" (O Allah, perdoa-me o que antecipei e o que atrasei, o que escondi e o que manifestei, o que exagerei, e o que Tu sabes melhor do que eu).</li>
+<li>Manter a postura calma e nao apressar o julus.</li>
+</ul>
+</div>
+<div class="detail-box info">
+<h4>Importancia do Julus</h4>
+<p>O julus nao e apenas uma pausa tecnica entre os sujud — e uma posicao de adoracao em si mesma. O Profeta (SAAW) ensinou que Allah tem misericordia do servo que se senta entre os sujud e pede perdao. Portanto, nao se deve apressar esta posicao, mas aproveita-la para fazer du'a e pedir perdao a Allah.</p>
+</div>
+</div>
+
+<!-- PASSO 8: SEGUNDO SUJUD -->
+<div class="step-card" data-step="8">
+<div class="step-header">
+<div class="step-number">8</div>
+<div>
+<div class="step-title">Segundo Sujud</div>
+<div class="step-subtitle">Repetir a prostracao para completar a rakaat</div>
+</div>
+</div>
+<div class="step-body">
+<p>Apos o julus, o muçulmano faz o segundo sujud da mesma forma que o primeiro. Este segundo sujud completa o par de prostracoes obrigatorias em cada rakaat. Apos o segundo sujud, o muçulmano levanta-se para a proxima rakaat (se ainda houver rakaat a fazer) ou senta-se para o Tashahhud (se for a ultima rakaat).</p>
+<p><strong>Como fazer:</strong> Apos o julus, dizer "Allahu Akbar" e descer para a segunda prostracao. A posicao e exatamente igual a primeira prostracao: testa e nariz no chao, maos ao lado do rosto com dedos apontando para a Qibla e palmas voltadas para baixo, joelhos no chao, dedos dos pes apontando para a Qibla, cotovelos afastados do chao e do corpo.</p>
+<p><strong>O que fazer apos o segundo sujud:</strong></p>
+<ul style="margin: 12px 0 12px 20px;">
+<li><strong>Se for a ultima rakaat:</strong> Sentar-se para o Tashahhud (ver Passo 9).</li>
+<li><strong>Se ainda houver rakaat:</strong> Levantar-se dizendo "Allahu Akbar" e comecar a proxima rakaat em pe (Qiyam), recitando Al-Fatiha e (nas duas primeiras rakaat) uma surah adicional.</li>
+</ul>
+<p><strong>Levantar para a proxima rakaat:</strong> Ha duas formas validas de levantar: apoiando as maos no chao e levantando-se (mais comum), ou levantando-se sem apoiar as maos (tambem valido, especialmente para quem tem dificuldade fisica). O Profeta (SAAW) costumava levantar-se apoiando as maos no chao.</p>
+</div>
+<div class="arabic-box">
+<div class="arabic-text">سُبْحَانَ رَبِّيَ الأَعْلَى</div>
+<div class="transliteration">"Subhana Rabbiyal A'la" (3x ou mais)</div>
+<div class="translation">"Glorificado seja o meu Senhor, o Altissimo."</div>
+</div>
+<div class="detail-box sunnah">
+<h4>Sunnah ao Levantar para a Proxima Rakaat</h4>
+<ul>
+<li>Apoiar as maos no chao ao levantar-se — esta e a Sunnah do Profeta (SAAW).</li>
+<li>Dizer "Allahu Akbar" ao levantar-se.</li>
+<li>Quem tem dificuldade fisica pode levantar-se da forma mais confortavel.</li>
+<li>Na segunda rakaat (quando se levanta da primeira), alguns estudiosos recomendam sentar-se brevemente antes de se levantar completamente — esta e uma Sunnah chamada "jalsatul istirahah" (pausa de descanso).</li>
+</ul>
+</div>
+<div class="detail-box info">
+<h4>Resumo de uma Rakaat Completa</h4>
+<p>Cada rakaat contem: <strong>Qiyam</strong> (pe, Al-Fatiha + surah) → <strong>Ruku</strong> (inclinacao) → <strong>Qawmah</strong> (levantar) → <strong>1o Sujud</strong> (prostracao) → <strong>Julus</strong> (sentar) → <strong>2o Sujud</strong> (prostracao).</p>
+<p>Apos o segundo sujud: se for a ultima rakaat → <strong>Tashahhud</strong>. Se nao for → repetir desde o Qiyam.</p>
+</div>
+</div>
+
+<!-- PASSO 9: TASHAHHUD -->
+<div class="step-card" data-step="9">
+<div class="step-header">
+<div class="step-number">9</div>
+<div>
+<div class="step-title">Tashahhud — Testemunho de Fe</div>
+<div class="step-subtitle">A declaracao central da oracao, na ultima rakaat</div>
+</div>
+</div>
+<div class="step-body">
+<p>O Tashahhud e a declaracao de fe que se recita sentado na ultima rakaat da oracao (e tambem na segunda rakaat das oracoes de 3 ou 4 rakaat, antes de se levantar para a proxima rakaat). E um pilar da oracao e obrigatorio. Sem o Tashahhud, a oracao nao e valida.</p>
+<p><strong>Quando recitar:</strong></p>
+<ul style="margin: 12px 0 12px 20px;">
+<li><strong>Oracoes de 2 rakaat (Fajr):</strong> Na segunda (e ultima) rakaat, apos o segundo sujud.</li>
+<li><strong>Oracoes de 3 rakaat (Maghrib):</strong> Na segunda rakaat (Tashahhud inicial, depois levanta-se para a terceira) e na terceira rakaat (Tashahhud final).</li>
+<li><strong>Oracoes de 4 rakaat (Duhr, Asr, Isha):</strong> Na segunda rakaat (Tashahhud inicial) e na quarta rakaat (Tashahhud final).</li>
+</ul>
+<p><strong>Como fazer:</strong> Sentar na posicao de tawarruk (ou iftirash, segundo alguns estudiosos) e recitar o Tashahhud. Ao dizer "Ash-hadu an la ilaha ill-Allah", levantar o dedo indicador da mao direita, apontando para a Qibla. O dedo deve ser levantado e abaixado levemente, nao ficar a oscilar continuamente.</p>
+<p><strong>Posicao do dedo indicador:</strong> Ha varias formas validas de levantar o dedo: alguns estudiosos recomendam levanta-lo ao dizer "ill-Allah" e abaixa-lo ao dizer "Muhammadan", outros recomendam mante-lo levantado durante todo o Tashahhud. Ambas as formas sao validas.</p>
+</div>
+<div class="arabic-box">
+<div class="arabic-text">
+التَّحِيَّاتُ لِلَّهِ وَالصَّلَوَاتُ وَالطَّيِّبَاتُ<br>
+السَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ<br>
+السَّلَامُ عَلَيْنَا وَعَلَى عِبَادِ اللَّهِ الصَّالِحِينَ<br>
+أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ
+</div>
+<div class="transliteration">
+"At-tahiyyatu lillahi was-salawatu wat-tayyibat. As-salamu 'alayka ayyuhan-Nabiyyu wa rahmatullahi wa barakatuh. As-salamu 'alayna wa 'ala 'ibadillahis-salihin. Ash-hadu an la ilaha ill-Allah wa ash-hadu anna Muhammadan 'abduhu wa rasuluh."
+</div>
+<div class="translation">
+"As saudacoes, oracoes e coisas boas sao para Allah. A paz esteja contigo, o Profeta, e a misericordia de Allah e as Suas bencaos. A paz esteja sobre nos e sobre os servos virtuosos de Allah. Testemunho que nao ha divindade senao Allah e testemunho que Muhammad e o Seu servo e Mensageiro."
+</div>
+</div>
+<div class="detail-box sunnah">
+<h4>Sunnah do Tashahhud</h4>
+<ul>
+<li>Sentar na posicao de tawarruk na ultima rakaat (pe esquerdo debaixo da nadega direita, pe direito ereto).</li>
+<li>Colocar a mao esquerda na coxa esquerda e a mao direita na coxa direita.</li>
+<li>Levantar o dedo indicador da mao direita ao dizer "Ash-hadu an la ilaha ill-Allah".</li>
+<li>Olhar para o dedo indicador ao levanta-lo.</li>
+<li>Recitar o Tashahhud com calma e compreensao, nao de forma apressada.</li>
+</ul>
+</div>
+<div class="detail-box info">
+<h4>Tashahhud Inicial vs Final</h4>
+<p><strong>Tashahhud Inicial</strong> (na segunda rakaat das oracoes de 3 ou 4 rakaat): Recita-se o Tashahhud completo, mas sem a Salatul Ibrahimiyyah nem du'a final. Apos o Tashahhud inicial, levanta-se para a proxima rakaat dizendo "Allahu Akbar".</p>
+<p><strong>Tashahhud Final</strong> (na ultima rakaat): Recita-se o Tashahhud completo, seguido da Salatul Ibrahimiyyah, du'a final, e depois o Salam.</p>
+</div>
+</div>
+
+<!-- PASSO 10: SALATUL IBRAHIMIYYAH -->
+<div class="step-card" data-step="10">
+<div class="step-header">
+<div class="step-number">10</div>
+<div>
+<div class="step-title">Salatul Ibrahimiyyah</div>
+<div class="step-subtitle">Enviar bencaos sobre o Profeta Muhammad (SAAW)</div>
+</div>
+</div>
+<div class="step-body">
+<p>A Salatul Ibrahimiyyah (tambem chamada de As-Salawat Al-Ibrahimiyyah) e a oracao de bencaos sobre o Profeta Muhammad (SAAW) e sobre a familia de Ibrahim (AS). E obrigatoria no Tashahhud final (ultima rakaat) e altamente recomendada no Tashahhud inicial. Sem ela, a oracao nao e valida segundo a maioria dos estudiosos.</p>
+<p><strong>Como fazer:</strong> Apos recitar o Tashahhud na ultima rakaat, enviar bencaos sobre o Profeta Muhammad (SAAW) e sobre a familia de Ibrahim (AS). Esta e a forma autentica ensinada pelo Profeta (SAAW) e deve ser recitada exatamente como foi ensinada, sem alteracoes.</p>
+<p><strong>Por que e importante:</strong> O Profeta (SAAW) disse: "Quem envia bencaos sobre mim uma vez, Allah envia dez bencaos sobre ele." Alem disso, Allah ordenou nos versiculos do Quran: "Allah e os Seus anjos enviam bencaos sobre o Profeta. O vos que credes, enviai bencaos sobre ele e saudai-o com respeito." (Surah Al-Ahzab, 33:56).</p>
+<p><strong>Posicao:</strong> Durante a recitacao da Salatul Ibrahimiyyah, mantem-se a mesma posicao do Tashahhud — sentado, com as maos nas coxas. O dedo indicador pode ser abaixado apos o Tashahhud ou mantido levantado durante toda a Salatul Ibrahimiyyah, segundo a opiniao de alguns estudiosos.</p>
+</div>
+<div class="arabic-box">
+<div class="arabic-text">
+اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ<br>
+كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ<br>
+إِنَّكَ حَمِيدٌ مَجِيدٌ<br><br>
+اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ<br>
+كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ<br>
+إِنَّكَ حَمِيدٌ مَجِيدٌ
+</div>
+<div class="transliteration">
+"Allahumma salli 'ala Muhammadin wa 'ala ali Muhammadin, kama sallayta 'ala Ibrahima wa 'ala ali Ibrahima, innaka Hamidun Majid. Allahumma barik 'ala Muhammadin wa 'ala ali Muhammadin, kama barakta 'ala Ibrahima wa 'ala ali Ibrahima, innaka Hamidun Majid."
+</div>
+<div class="translation">
+"O Allah, envia bencaos sobre Muhammad e sobre a familia de Muhammad, assim como enviaste sobre Ibrahim e sobre a familia de Ibrahim. Verdadeiramente, Tu es Louvavel e Majestoso. O Allah, abencoa Muhammad e a familia de Muhammad, assim como abencoaste Ibrahim e a familia de Ibrahim. Verdadeiramente, Tu es Louvavel e Majestoso."
+</div>
+</div>
+<div class="detail-box sunnah">
+<h4>Sunnah da Salatul Ibrahimiyyah</h4>
+<ul>
+<li>Recitar exatamente como foi ensinada pelo Profeta (SAAW), sem alterar as palavras.</li>
+<li>Dizer "salli" (envia bencaos) na primeira parte e "barik" (abencoa) na segunda parte.</li>
+<li>Mencionar "Muhammad" e "Ibrahim" com respeito e concentracao.</li>
+<li>Recitar com calma e compreensao do significado.</li>
+<li>E obrigatoria no Tashahhud final e recomendada no Tashahhud inicial.</li>
+</ul>
+</div>
+<div class="detail-box info">
+<h4>Significado de "Ali"</h4>
+<p>A palavra "ali" (familia) neste contexto refere-se aos seguidores virtuosos e a familia imediata do Profeta (SAAW), nao apenas aos parentes de sangue. Inclui todos os que seguem o seu caminho com sinceridade e devocao. Da mesma forma, "ali Ibrahim" refere-se aos seguidores virtuosos de Ibrahim (AS).</p>
+</div>
+</div>
+
+<!-- PASSO 11: DU'A FINAL -->
+<div class="step-card" data-step="11">
+<div class="step-header">
+<div class="step-number">11</div>
+<div>
+<div class="step-title">Du'a Final</div>
+<div class="step-subtitle">Suplicar a Allah antes de terminar a oracao</div>
+</div>
+</div>
+<div class="step-body">
+<p>Apos a Salatul Ibrahimiyyah, e Sunnah fazer uma du'a (suplicacao) pessoal antes de dar o Salam. Esta e uma oportunidade preciosa para pedir a Allah tudo o que o coracao deseja — perdao, saude, sustento, guia, paz, e qualquer outra necessidade.</p>
+<p><strong>Como fazer:</strong> Apos a Salatul Ibrahimiyyah, manter a mesma posicao sentada e fazer du'a em arabe (usando as du'as ensinadas pelo Profeta) ou na propria lingua (segundo a opiniao da maioria dos estudiosos, desde que se saiba arabe suficiente para as partes obrigatorias da oracao). As maos podem ser levantadas ligeiramente (palmas para cima) durante a du'a — esta e uma Sunnah recomendada.</p>
+<p><strong>Du'as recomendadas:</strong> O Profeta (SAAW) ensinou varias du'as para serem ditas nesta posicao. A mais conhecida e a du'a de protecao contra o castigo da sepultura, do Inferno, e da prova do Anticristo. Outras du'as incluem pedir perdao, pedir para entrar no Paraiso, pedir protecao para a familia, etc.</p>
+<p><strong>Importancia:</strong> O Profeta (SAAW) disse que Allah e generoso e responde as suplicacoes do Seu servo durante a oracao. Portanto, esta e uma das melhores oportunidades para fazer du'a pessoal. Nao se deve apressar esta parte — deve-se aproveitar o momento para suplicar a Allah com sinceridade.</p>
+</div>
+<div class="arabic-box">
+<div class="arabic-text">
+اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ<br>
+وَمِنْ عَذَابِ جَهَنَّمَ<br>
+وَمِنْ فِتْنَةِ الْمَحْيَا وَالْمَمَاتِ<br>
+وَمِنْ شَرِّ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ
+</div>
+<div class="transliteration">
+"Allahumma inni a'udhu bika min 'adhabil-qabri, wa min 'adhabi jahannam, wa min fitnatil-mahya wal-mamat, wa min sharri fitnatil-masihid-dajjal."
+</div>
+<div class="translation">
+"O Allah, refugio-me em Ti do castigo da sepultura, do castigo do Inferno, da prova da vida e da morte, e do mal da prova do Anticristo."
+</div>
+</div>
+<div class="detail-box sunnah">
+<h4>Outras Du'as Recomendadas</h4>
+<ul>
+<li>"Allahumma inni zalamtu nafsi zulman kathiran, wa la yaghfirudh-dhunuba illa anta, faghfir li maghfiratan min 'indika warhamni, innaka antal-Ghafurur-Rahim" (O Allah, eu fiz muita injustica a mim mesmo, e ninguem perdoa os pecados senao Tu. Perdoa-me um perdao que venha de Ti e tem misericordia de mim. Verdadeiramente, Tu es o Perdoador, o Misericordioso).</li>
+<li>"Allahumma inni as'aluka al-jannah, wa a'udhu bika minan-nar" (O Allah, peco-Te o Paraiso e refugio-me em Ti do Fogo).</li>
+<li>"Allahumma ighfir li wa li walidayya, warhamhuma kama rabbayani saghira" (O Allah, perdoa-me e aos meus pais, e tem misericordia deles assim como me criaram quando eu era pequeno).</li>
+</ul>
+</div>
+<div class="detail-box info">
+<h4>Fazer Du'a na Propria Lingua</h4>
+<p>Segundo a maioria dos estudiosos, e permitido fazer du'a na propria lingua durante a oracao, desde que se saiba arabe suficiente para as partes obrigatorias (Al-Fatiha, tasbihs, Tashahhud, Salatul Ibrahimiyyah, Salam). No entanto, e preferivel usar as du'as ensinadas pelo Profeta (SAAW) em arabe, pois sao as mais completas e abrangentes. Se nao se sabe arabe, pode-se aprender as du'as mais importantes de cor e usar a propria lingua para as suplicacoes pessoais.</p>
+</div>
+</div>
+
+<!-- PASSO 12: SALAM -->
+<div class="step-card" data-step="12">
+<div class="step-header">
+<div class="step-number">12</div>
+<div>
+<div class="step-title">Salam — Terminar a Oracao</div>
+<div class="step-subtitle">Virar a cabeca para a direita e esquerda</div>
+</div>
+</div>
+<div class="step-body">
+<p>O Salam e o ato final da oracao que a completa e a encerra. E um pilar da oracao e obrigatorio. Sem o Salam, a oracao nao e valida. O Profeta (SAAW) disse: "A chave da oracao e a purificacao (wudhu), o seu tahrim (proibicao de atos mundanos) e o Takbir, e o seu tahill (permissao de atos mundanos) e o Salam."</p>
+<p><strong>Como fazer:</strong> Apos a du'a final, virar a cabeca para a <strong>direita</strong> (olhando por cima do ombro direito) e dizer: "As-salamu 'alaykum wa rahmatullah". Depois, virar a cabeca para a <strong>esquerda</strong> (olhando por cima do ombro esquerdo) e repetir a mesma frase. A viragem deve ser feita ate que a bochecha fique visivel por cima do ombro.</p>
+<p><strong>Posicao das maos:</strong> Durante o Salam, as maos permanecem nas coxas (na posicao de tawarruk) ou podem ser levantadas ligeiramente para fazer gesto de paz. Ambas as formas sao validas, mas a maioria dos estudiosos prefere manter as maos nas coxas.</p>
+<p><strong>Significado:</strong> O Salam nao e apenas uma saudacao aos anjos que acompanham cada pessoa (um anjo da direita e um da esquerda), mas tambem uma declaracao de paz para todos os crentes. O Profeta (SAAW) disse que quando o muçulmano diz o Salam, os anjos respondem a sua saudacao.</p>
+</div>
+<div class="arabic-box">
+<div class="arabic-text">السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ</div>
+<div class="transliteration">"As-salamu 'alaykum wa rahmatullah"</div>
+<div class="translation">"A paz e a misericordia de Allah estejam convosco."</div>
+</div>
+<div class="detail-box sunnah">
+<h4>Sunnah Apos o Salam</h4>
+<ul>
+<li>Dizer "Astaghfirullah" (peco perdao a Allah) tres vezes apos o Salam.</li>
+<li>Dizer "Allahumma antas-salam, wa minkas-salam, tabarakta ya dhal-jalali wal-ikram" (O Allah, Tu es a Paz, e de Ti vem a Paz. Bendito sejas, O Possuidor da Majestade e da Honra).</li>
+<li>Dizer "La ilaha ill-Allah wahdahu la sharika lah, lahu al-mulku wa lahu al-hamdu, wa huwa 'ala kulli shay'in qadir" (Nao ha divindade senao Allah, Unico, sem associado. Dele e o dominio e Dele e o louvor, e Ele e Poderoso sobre todas as coisas).</li>
+<li>Fazer du'a pessoal apos a oracao — e um momento abencoado para suplicar a Allah.</li>
+</ul>
+</div>
+<div class="detail-box info">
+<h4>Importancia do Salam</h4>
+<p>O Salam e o que separa o estado de oracao do estado normal. Apos o Salam, o muçulmano pode falar, comer, beber, e realizar atos normais. Antes do Salam, qualquer ato mundano (falar, comer, etc.) invalida a oracao. Portanto, e crucial prestar atencao ao Salam e garantir que e feito corretamente.</p>
+</div>
+</div>
+
+<!-- COMPLETION -->
+<div class="completion" id="completion">
+<div class="completion-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+</div>
+<h2>Salat Completo!</h2>
+<p>Que Allah aceite a tua oracao e multiplique as tuas recompensas.</p>
+<button class="btn btn-primary" onclick="resetApp()" style="max-width:200px;">Recomecar</button>
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav-buttons" id="nav-buttons">
+<button class="btn btn-secondary" id="btn-prev" onclick="prevStep()" disabled>Anterior</button>
+<button class="btn btn-primary" id="btn-next" onclick="nextStep()">Proximo</button>
+</div>
+
+<!-- RAKAAT POR ORACAO -->
+<div class="section">
+<h3>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<circle cx="12" cy="12" r="10"></circle>
+<polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+Rakaat por Oracao
+</h3>
+<div class="ref-item">
+<div class="ref-dot success"></div>
+<div class="ref-text"><strong>Fajr:</strong> 2 rakaat (em voz alta)</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot success"></div>
+<div class="ref-text"><strong>Duhr:</strong> 4 rakaat (em voz baixa)</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot success"></div>
+<div class="ref-text"><strong>Asr:</strong> 4 rakaat (em voz baixa)</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot success"></div>
+<div class="ref-text"><strong>Maghrib:</strong> 3 rakaat (em voz alta)</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot success"></div>
+<div class="ref-text"><strong>Isha:</strong> 4 rakaat (em voz alta)</div>
+</div>
+</div>
+
+<!-- CONDICOES DO SALAT -->
+<div class="section">
+<h3>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+<polyline points="14 2 14 8 20 8"></polyline>
+<line x1="16" y1="13" x2="8" y2="13"></line>
+<line x1="16" y1="17" x2="8" y2="17"></line>
+</svg>
+Condicoes do Salat
+</h3>
+<div class="ref-item">
+<div class="ref-dot primary"></div>
+<div class="ref-text"><strong>Wudhu valido</strong> — estar em estado de purificacao. O wudhu deve ser feito corretamente antes da oracao. Se o wudhu for quebrado durante a oracao, a oracao deve ser reiniciada apos renovar o wudhu.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot primary"></div>
+<div class="ref-text"><strong>Corpo, roupa e lugar limpos</strong> — livres de najasa (impurezas). A roupa deve estar limpa e cobrir o awrah adequadamente. O lugar de oracao deve estar livre de impurezas como urina, fezes, sangue, etc.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot primary"></div>
+<div class="ref-text"><strong>Cobrir o awrah</strong> — homens: do umbigo ate aos joelhos (inclusive); mulheres: todo o corpo exceto o rosto e as maos (segundo a maioria dos estudiosos). A roupa deve ser opaca (nao transparente) e larga (nao apertada).</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot primary"></div>
+<div class="ref-text"><strong>Tempo correto</strong> — cada oracao deve ser realizada dentro do seu horario especifico. Fajr: do amanhecer ate ao nascer do sol. Duhr: do zawal (declinio do sol) ate a sombra ser igual ao objeto. Asr: da sombra igual ao objeto ate ao por do sol. Maghrib: do por do sol ate ao crepusculo vermelho. Isha: do crepusculo vermelho ate a meia-noite (ou ate ao amanhecer, segundo alguns).</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot primary"></div>
+<div class="ref-text"><strong>Qibla</strong> — virar-se para a Caaba em Meca. E obrigatorio saber a direcao da Qibla ou fazer o esforco para determina-la. Se nao se souber a direcao exata, deve-se rezar na direcao que se acredita ser a correta. Allah perdoa quem se engana na Qibla apos fazer o esforco de determina-la.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot primary"></div>
+<div class="ref-text"><strong>Intencao (Niyyah)</strong> — a vontade ou o querer de fazer o salat para agradar Allah, no coracao, antes do Takbir. A intencao deve ser clara e especifica: qual oracao, quantas rakaat, e que e para agradar Allah. Nao e necessario pronunciar em voz alta.</div>
+</div>
+</div>
+
+<!-- O QUE INVALIDA -->
+<div class="section">
+<h3>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="15" y1="9" x2="9" y2="15"></line>
+<line x1="9" y1="9" x2="15" y2="15"></line>
+</svg>
+O que Invalida o Salat
+</h3>
+<div class="ref-item">
+<div class="ref-dot danger"></div>
+<div class="ref-text"><strong>Falar intencionalmente</strong> (exceto o que e parte da oracao). Falar duas ou mais palavras intencionalmente invalida a oracao. Uma palavra ou som involuntario nao invalida.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot danger"></div>
+<div class="ref-text"><strong>Rir em voz alta</strong> (soltar gargalhada). Um sorriso leve nao invalida, mas uma gargalhada sim. Se rir sem som (apenas movimento dos labios), nao invalida segundo a maioria dos estudiosos.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot danger"></div>
+<div class="ref-text"><strong>Comer ou beber intencionalmente</strong> qualquer quantidade. Se engolir algo involuntariamente (ex: saliva, po), nao invalida. Mas comer ou beber de forma deliberada invalida a oracao.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot danger"></div>
+<div class="ref-text"><strong>Mudar de posicao intencionalmente</strong> de forma significativa, como virar as costas para a Qibla, ou fazer movimentos que nao fazem parte da oracao. Movimentos pequenos e necessarios (ex: coçar, ajustar a roupa) sao permitidos desde que nao sejam excessivos.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot danger"></div>
+<div class="ref-text"><strong>Perder o wudhu durante a oracao</strong> (ex: sair gases, urina, fezes, sangue excessivo). Se isto acontecer, deve-se sair da oracao, renovar o wudhu, e recomecar a oracao do inicio.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot danger"></div>
+<div class="ref-text"><strong>Expor o awrah intencionalmente</strong> durante a oracao. Se a roupa se abrir acidentalmente e for corrigido imediatamente, a oracao continua valida. Mas se for deixado exposto propositadamente, a oracao e invalidada.</div>
+</div>
+</div>
+
+<!-- PILARES DO SALAT -->
+<div class="section">
+<h3>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+</svg>
+Pilares (Arkan) do Salat
+</h3>
+<div class="ref-item">
+<div class="ref-dot warning"></div>
+<div class="ref-text"><strong>Takbiratul Ihraam</strong> — dizer "Allahu Akbar" para iniciar a oracao.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot warning"></div>
+<div class="ref-text"><strong>Qiyam</strong> — estar em pe durante a recitacao de Al-Fatiha.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot warning"></div>
+<div class="ref-text"><strong>Recitacao de Al-Fatiha</strong> — em cada rakaat.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot warning"></div>
+<div class="ref-text"><strong>Ruku</strong> — inclinacao com as costas retas.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot warning"></div>
+<div class="ref-text"><strong>Qawmah</strong> — levantar do ruku ate ficar em pe.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot warning"></div>
+<div class="ref-text"><strong>Sujud</strong> — prostracao com sete partes do corpo no chao.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot warning"></div>
+<div class="ref-text"><strong>Julus</strong> — sentar entre os dois sujud.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot warning"></div>
+<div class="ref-text"><strong>Tashahhud final</strong> — na ultima rakaat.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot warning"></div>
+<div class="ref-text"><strong>Salam</strong> — dizer "As-salamu 'alaykum" para terminar.</div>
+</div>
+<div class="ref-item">
+<div class="ref-dot warning"></div>
+<div class="ref-text"><strong>Ordem correta</strong> — realizar os pilares na sequencia correta.</div>
+</div>
+</div>
+
+<!-- APOIO -->
+<div class="support-banner">
+<h3>Apoie o Nosso Projeto</h3>
+<p>Ajude-nos a continuar a criar conteudo educativo sobre Islam.</p>
+<p style="margin-top:8px; font-size:13px; opacity:0.8;">Islam Moçambique — Educando com amor e fe</p>
+</div>
+
+</div>
+
+<footer>
+<p class="org-name">Islam Moçambique</p>
+<p><a href="mailto:Islammocambique@gmail.com">Islammocambique@gmail.com</a></p>
+<p>Contacto: 860407269</p>
+<p style="margin-top:10px; font-size:12px; opacity:0.6;">Conteudo educativo — fins de orientacao Islamica</p>
+</footer>
+
+<script>
+let currentStep = 1;
+const totalSteps = 12;
+
+function updateUI() {
+const percent = Math.round((currentStep / totalSteps) * 100);
+document.getElementById('progress-fill').style.width = percent + '%';
+document.getElementById('progress-text').textContent = 'Passo ' + currentStep + ' de ' + totalSteps;
+document.getElementById('progress-percent').textContent = percent + '%';
+
+document.querySelectorAll('.step-card').forEach(card => {
+card.classList.toggle('active', parseInt(card.dataset.step) === currentStep);
+});
+
+const prevBtn = document.getElementById('btn-prev');
+const nextBtn = document.getElementById('btn-next');
+
+prevBtn.disabled = currentStep === 1;
+
+if (currentStep === totalSteps) {
+nextBtn.textContent = 'Concluir';
+} else {
+nextBtn.textContent = 'Proximo';
+}
+}
+
+function nextStep() {
+if (currentStep < totalSteps) {
+currentStep++;
+updateUI();
+} else {
+document.querySelectorAll('.step-card').forEach(c => c.style.display = 'none');
+document.getElementById('nav-buttons').style.display = 'none';
+document.getElementById('completion').classList.add('show');
+document.getElementById('progress-text').textContent = 'Concluido';
+document.getElementById('progress-percent').textContent = '100%';
+}
+}
+
+function prevStep() {
+if (currentStep > 1) {
+currentStep--;
+updateUI();
+}
+}
+
+function resetApp() {
+currentStep = 1;
+document.querySelectorAll('.step-card').forEach(c => c.style.display = '');
+document.getElementById('nav-buttons').style.display = 'flex';
+document.getElementById('completion').classList.remove('show');
+updateUI();
+}
+
+function selectPrayer(prayer) {
+document.querySelectorAll('.prayer-btn').forEach(btn => btn.classList.remove('active'));
+document.getElementById('btn-' + prayer).classList.add('active');
+window.scrollTo({ top: 0, behavior: 'smooth' });
+currentStep = 1;
+document.querySelectorAll('.step-card').forEach(c => c.style.display = '');
+document.getElementById('nav-buttons').style.display = 'flex';
+document.getElementById('completion').classList.remove('show');
+updateUI();
+}
+</script>
+
+</body>
+</html>
