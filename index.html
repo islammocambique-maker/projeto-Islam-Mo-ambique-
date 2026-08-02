@@ -1079,28 +1079,31 @@
     carregarSlides();
   </script>
 
-  <!-- =========================
-       HADITH DO DIA
-       USA js/hadith.js
-  ========================== -->
+```html
+<!-- =========================
+     HADITH DO DIA
+     USA js/hadith.js
+========================= -->
 
-  <script type="module">
+<script type="module">
 
-    import { loadHadith } from './js/hadith.js';
+  import { loadHadith } from './js/hadith.js';
 
-    loadHadith().catch((erro) => {
+  loadHadith().catch((erro) => {
 
-      console.error(
-        'Erro ao carregar Hadith do dia:',
-        erro
-      );
+    console.error(
+      'Erro ao iniciar Hadith do dia:',
+      erro
+    );
 
-    });
+  });
 
+</script>
+
+<!-- JAVASCRIPT PRINCIPAL -->
 <script src="js/main.js"></script>
-
-</body>
-</html>
+  
+</script>
 
 </body>
 </html>
