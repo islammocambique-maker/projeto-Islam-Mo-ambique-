@@ -87,7 +87,6 @@
             opacity: 1;
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -105,7 +104,6 @@
 </head>
 <body class="bg-pattern min-h-screen flex flex-col justify-between">
 
-    <!-- NAVIGATION BAR -->
     <nav class="sticky top-0 z-50 bg-marinho/95 backdrop-blur-md border-b-2 border-dourado text-creme shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -114,21 +112,21 @@
                     <span>ISLAM GUIA</span>
                 </a>
                 
-                <!-- Desktop Nav -->
-                <div class="hidden lg:flex items-center space-x-1">
-                    <button onclick="switchView('home')" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-house"></i> Início</button>
-                    <button onclick="switchView('salat')" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-clock"></i> Salat & Wudhu</button>
-                    <button onclick="switchView('biblioteca')" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-book-quran"></i> Biblioteca</button>
-                    <button onclick="switchView('madrassa')" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-graduation-cap"></i> Madrassa</button>
-                    <button onclick="switchView('comunidade')" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-users"></i> Comunidade</button>
-                    <button onclick="switchView('tasbih')" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-dhikr"></i> Tasbih</button>
-                    <button onclick="switchView('quiz')" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-gamepad"></i> Jogos & Quizzes</button>
-                    <button onclick="switchView('loja')" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-store"></i> Loja</button>
-                    <button onclick="switchView('membros')" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5 bg-dourado/20 text-douradoClaro border border-dourado/40"><i class="fa-solid fa-id-card"></i> Membros</button>
+                <!-- Desktop Navigation Menu -->
+                <div class="hidden xl:flex items-center space-x-1">
+                    <button onclick="switchView('home')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-house"></i> Início</button>
+                    <button onclick="switchView('salat')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-clock"></i> Salat & Wudhu</button>
+                    <button onclick="switchView('biblioteca')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-book-quran"></i> Biblioteca Digital</button>
+                    <button onclick="switchView('madrassa')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-graduation-cap"></i> Madrassa Online</button>
+                    <button onclick="switchView('comunidade')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-users"></i> Comunidade</button>
+                    <button onclick="switchView('tasbih')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-dhikr"></i> Tasbih</button>
+                    <button onclick="switchView('quiz')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-gamepad"></i> Jogos & Quizzes</button>
+                    <button onclick="switchView('loja')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5"><i class="fa-solid fa-store"></i> Loja Virtual</button>
+                    <button onclick="switchView('membros')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-semibold hover:bg-esmeralda hover:text-douradoClaro transition flex items-center gap-1.5 bg-dourado/20 text-douradoClaro border border-dourado/40"><i class="fa-solid fa-id-card"></i> Membros I.M.</button>
                 </div>
 
-                <!-- Mobile Menu Button -->
-                <div class="lg:hidden flex items-center">
+                <!-- Mobile Navigation Toggle -->
+                <div class="xl:hidden flex items-center">
                     <button id="mobileMenuBtn" class="text-dourado text-2xl p-2 focus:outline-none">
                         <i class="fa-solid fa-bars"></i>
                     </button>
@@ -136,271 +134,350 @@
             </div>
         </div>
 
-        <!-- Mobile Drawer -->
-        <div id="mobileMenu" class="hidden lg:hidden bg-marinho border-t border-dourado/30 px-4 pt-2 pb-4 space-y-2 text-sm">
+        <div id="mobileMenu" class="hidden xl:hidden bg-marinho border-t border-dourado/30 px-4 pt-2 pb-4 space-y-2 text-sm">
             <button onclick="switchView('home'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-house w-6"></i> Início</button>
-            <button onclick="switchView('salat'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-clock w-6"></i> Salat & Wudhu</button>
-            <button onclick="switchView('biblioteca'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-book-quran w-6"></i> Biblioteca Digital</button>
+            <button onclick="switchView('salat'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-clock w-6"></i> Horário do Salat & Wudhu</button>
+            <button onclick="switchView('biblioteca'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-book-quran w-6"></i> Biblioteca Digital I.M.</button>
             <button onclick="switchView('madrassa'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-graduation-cap w-6"></i> Madrassa Online</button>
-            <button onclick="switchView('comunidade'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-users w-6"></i> Comunidade & Zakat</button>
+            <button onclick="switchView('comunidade'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-users w-6"></i> Comunidade Islâmica & Zakat</button>
             <button onclick="switchView('tasbih'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-dhikr w-6"></i> Tasbih Digital</button>
-            <button onclick="switchView('quiz'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-gamepad w-6"></i> Jogos & Quizzes</button>
+            <button onclick="switchView('quiz'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-gamepad w-6"></i> Quizzes & Jogos Islâmicos</button>
             <button onclick="switchView('loja'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-store w-6"></i> Loja Virtual</button>
             <button onclick="switchView('membros'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded text-creme hover:bg-esmeralda flex items-center gap-2"><i class="fa-solid fa-id-card w-6"></i> Membros I.M.</button>
         </div>
     </nav>
 
-    <!-- VIEW 1: HOME -->
     <main id="view-home" class="view-section active flex-grow">
         <!-- Hero Header -->
-        <header class="hero-gradient relative text-white py-16 px-4 text-center overflow-hidden">
+        <header class="hero-gradient relative text-white py-14 px-4 text-center overflow-hidden">
             <div class="arabesco-top absolute top-0 left-0 right-0 h-16 pointer-events-none"></div>
             <div class="max-w-4xl mx-auto relative z-10 space-y-4">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 border border-dourado rounded-full bg-marinho/50 text-douradoClaro text-xs uppercase tracking-widest">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 border border-dourado rounded-full bg-marinho/60 text-douradoClaro text-xs uppercase tracking-widest">
                     <i class="fa-solid fa-star-and-crescent"></i> Portal Islâmico de Moçambique 🇲🇿
                 </div>
                 <div class="font-arabic text-3xl sm:text-4xl text-douradoClaro">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
                 <h1 class="font-serif text-4xl sm:text-6xl text-dourado font-bold">ISLAM GUIA</h1>
-                <p class="text-gray-200 max-w-2xl mx-auto text-sm sm:text-base">
-                    Seu portal integrado de conhecimento autêntico, horários das orações, biblioteca digital, estudos e comunidade em Moçambique.
+                <p class="text-gray-200 max-w-2xl mx-auto text-xs sm:text-sm leading-relaxed">
+                    Seu portal integrado de conhecimento autêntico: Alcorão Sagrado, Hadiths, Horários do Salat, Tauhid, Madrassa, Zakat, Quizzes e Comunidade em Moçambique.
                 </p>
 
-                <!-- Universal Search -->
-                <div class="relative max-w-xl mx-auto pt-4">
-                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-7 text-esmeralda"></i>
-                    <input type="text" id="homeSearch" onkeyup="filterHomeCards()" placeholder="Pesquisar por Salat, Alcorão, Hadiths, Madrassa, Zakat, Quizzes..." 
-                           class="w-full pl-11 pr-4 py-3 rounded-full text-texto bg-white shadow-xl focus:outline-none focus:ring-2 focus:ring-dourado text-sm">
+                <!-- Daily Hadith Banner -->
+                <div class="bg-marinho/80 border border-dourado/40 rounded-2xl p-4 max-w-2xl mx-auto text-left space-y-2 mt-4 shadow-xl">
+                    <div class="flex items-center justify-between text-dourado text-xs font-bold uppercase tracking-wider">
+                        <span><i class="fa-solid fa-quote-left mr-1"></i> Hadith do Dia</span>
+                        <span id="hadithSourceTag" class="bg-dourado/20 px-2 py-0.5 rounded text-[10px]">Sahih Al-Bukhari</span>
+                    </div>
+                    <p id="dailyHadithArabic" class="font-arabic text-lg text-douradoClaro text-right leading-relaxed">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ</p>
+                    <p id="dailyHadithText" class="text-xs text-gray-200 italic">"As ações dependem das intenções, e cada pessoa terá apenas aquilo que intentou."</p>
+                    <div class="flex justify-end">
+                        <button onclick="getNewDailyHadith()" class="text-[11px] text-dourado hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-arrows-rotate"></i> Gerar Outro Hadith
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Botão de Conexão Direta para a Página de Salat -->
-                <div class="pt-2">
-                    <button onclick="switchView('salat')" class="inline-flex items-center gap-2 px-6 py-2.5 bg-dourado text-marinho font-bold rounded-full text-xs hover:bg-douradoClaro transition shadow-lg">
-                        <i class="fa-solid fa-clock"></i> Consultar Horários de Salat & Guia de Oração
-                    </button>
+                <!-- Universal Search Bar -->
+                <div class="relative max-w-xl mx-auto pt-2">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-5 text-esmeralda"></i>
+                    <input type="text" id="homeSearch" onkeyup="filterHomeCards()" placeholder="Pesquisar por Salat, Alcorão, Sahabah, Tauhid, Madrassa, Zakat, Loja..." 
+                           class="w-full pl-11 pr-4 py-3 rounded-full text-texto bg-white shadow-xl focus:outline-none focus:ring-2 focus:ring-dourado text-xs sm:text-sm">
                 </div>
             </div>
         </header>
 
-        <!-- Portals Navigation Grid -->
-        <section class="max-w-7xl mx-auto px-4 py-12">
-            <div class="text-center mb-10">
-                <h2 class="font-serif text-3xl font-bold text-escuro">🕌 Módulos do Portal Integrado</h2>
-                <p class="text-gray-600 text-sm mt-1">Navegue livremente por todos os recursos interativos desenvolvidos para a Ummah</p>
+        <section class="max-w-7xl mx-auto px-4 py-10">
+            <div class="text-center mb-8">
+                <h2 class="font-serif text-3xl font-bold text-escuro">🕌 Arquitetura do Portal Islâmico</h2>
+                <p class="text-gray-600 text-xs sm:text-sm mt-1">Aceda a todos os módulos e sub-páginas organizados segundo o índice de estudo</p>
             </div>
 
             <div id="homeCardsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Card 1 -->
-                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="horario salat oracao namaz wudhu">
+                <!-- Module 1: Horário do Salat -->
+                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="horario salat oracao namaz wudhu maputo beira nampula">
                     <div>
-                        <div class="h-32 bg-gradient-to-r from-teal-700 to-esmeralda flex items-center justify-center text-white text-5xl">
-                            <i class="fa-solid fa-clock-rotate-left group-hover:scale-110 transition"></i>
+                        <div class="h-28 bg-gradient-to-r from-teal-800 to-esmeralda flex items-center justify-center text-white text-4xl">
+                            <i class="fa-solid fa-clock group-hover:scale-110 transition"></i>
                         </div>
-                        <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-escuro mb-2">Horários Salat & Passo a Passo</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed mb-4">Tabela completa de horários para todas as províncias e guia visual interativo de Wudhu e Salat.</p>
+                        <div class="p-5">
+                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Horário do Salat & Guia Wudhu</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed mb-3">Tabela de orações para todas as províncias moçambicanas e guia prático do Wudhu e Salat.</p>
                         </div>
                     </div>
-                    <div class="p-6 pt-0">
-                        <button onclick="switchView('salat')" class="w-full py-2.5 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Acessar Guia de Salat <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                    <div class="p-5 pt-0">
+                        <button onclick="switchView('salat')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Acessar Horários <i class="fa-solid fa-arrow-right ml-1"></i></button>
                     </div>
                 </div>
 
-                <!-- Card 2 -->
-                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="biblioteca alcorao quran nawawi hadith sahabas tauhid">
+                <!-- Module 2: Biblioteca Digital I.M. -->
+                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="biblioteca alcorao quran nawawi bukhari yassarnal tauhid guia sahabas">
                     <div>
-                        <div class="h-32 bg-gradient-to-r from-blue-900 to-indigo-800 flex items-center justify-center text-white text-5xl">
+                        <div class="h-28 bg-gradient-to-r from-blue-900 to-indigo-800 flex items-center justify-center text-white text-4xl">
                             <i class="fa-solid fa-book-quran group-hover:scale-110 transition"></i>
                         </div>
-                        <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-escuro mb-2">Biblioteca Digital I.M.</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed mb-4">Leitor do Alcorão em Árabe/Português, Os 42 Hadiths de Nawawi e Histórias dos Sahabas.</p>
+                        <div class="p-5">
+                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Biblioteca Digital I.M.</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed mb-2">Acesso completo às obras fundamentais do Islam:</p>
+                            <div class="flex flex-wrap gap-1 text-[11px] text-esmeralda font-semibold">
+                                <span class="bg-creme px-2 py-0.5 rounded border">Alcorão Sagrado</span>
+                                <span class="bg-creme px-2 py-0.5 rounded border">42 Nawawi</span>
+                                <span class="bg-creme px-2 py-0.5 rounded border">Sahih Bukhari</span>
+                                <span class="bg-creme px-2 py-0.5 rounded border">Yassarnal Quran</span>
+                                <span class="bg-creme px-2 py-0.5 rounded border">Estudo Tauhid</span>
+                                <span class="bg-creme px-2 py-0.5 rounded border">Histórias Sahabas</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="p-6 pt-0">
-                        <button onclick="switchView('biblioteca')" class="w-full py-2.5 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Explorar Biblioteca <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                    <div class="p-5 pt-0 mt-2">
+                        <button onclick="switchView('biblioteca')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Abrir Biblioteca <i class="fa-solid fa-arrow-right ml-1"></i></button>
                     </div>
                 </div>
 
-                <!-- Card 3 -->
-                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="madrassa curso arabe tajweed yassarnal fiqh">
+                <!-- Module 3: Madrassa Online -->
+                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="madrassa curso arabe tajweed yassarnal fiqh alfabetizacao">
                     <div>
-                        <div class="h-32 bg-gradient-to-r from-emerald-800 to-green-600 flex items-center justify-center text-white text-5xl">
+                        <div class="h-28 bg-gradient-to-r from-emerald-800 to-green-700 flex items-center justify-center text-white text-4xl">
                             <i class="fa-solid fa-graduation-cap group-hover:scale-110 transition"></i>
                         </div>
-                        <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-escuro mb-2">Madrassa Online</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed mb-4">Aulas interativas de Alfabetização Árabe, Yassarnal Quran, Tajweed e Fiqh para todas as idades.</p>
+                        <div class="p-5">
+                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Madrassa Online</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed mb-3">Módulos de Alfabetização Árabe, leitura com Yassarnal Quran e regras de Tajweed com exercícios.</p>
                         </div>
                     </div>
-                    <div class="p-6 pt-0">
-                        <button onclick="switchView('madrassa')" class="w-full py-2.5 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Entrar na Madrassa <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                    <div class="p-5 pt-0">
+                        <button onclick="switchView('madrassa')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Iniciar Aulas <i class="fa-solid fa-arrow-right ml-1"></i></button>
                     </div>
                 </div>
 
-                <!-- Card 4 -->
-                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="comunidade zakat calculadora revertidos novo muculmano financas">
+                <!-- Module 4: Comunidade Islâmica -->
+                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="comunidade zakat quero ser muculmano revertidos gestao financeira halal">
                     <div>
-                        <div class="h-32 bg-gradient-to-r from-purple-900 to-purple-700 flex items-center justify-center text-white text-5xl">
+                        <div class="h-28 bg-gradient-to-r from-purple-900 to-indigo-900 flex items-center justify-center text-white text-4xl">
                             <i class="fa-solid fa-users group-hover:scale-110 transition"></i>
                         </div>
-                        <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-escuro mb-2">Comunidade & Zakat</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed mb-4">Apoio a novos muçulmanos, Calculadora de Zakat em Meticais (MZN) e Finanças Halal.</p>
+                        <div class="p-5">
+                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Comunidade Islâmica</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed mb-2">Recursos de apoio à Ummah:</p>
+                            <ul class="text-xs text-gray-600 space-y-1">
+                                <li><i class="fa-solid fa-check text-dourado mr-1"></i> Quero Ser Muçulmano (Apoio Revertidos)</li>
+                                <li><i class="fa-solid fa-check text-dourado mr-1"></i> Gestão Financeira Halal</li>
+                                <li><i class="fa-solid fa-check text-dourado mr-1"></i> Calculadora de Zakat em MZN</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="p-6 pt-0">
-                        <button onclick="switchView('comunidade')" class="w-full py-2.5 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Acessar Comunidade <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                    <div class="p-5 pt-0 mt-2">
+                        <button onclick="switchView('comunidade')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Ver Comunidade <i class="fa-solid fa-arrow-right ml-1"></i></button>
                     </div>
                 </div>
 
-                <!-- Card 5 -->
-                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="tasbih dhikr zikr contador oracao">
+                <!-- Module 5: Quiz Islâmico & Jogos -->
+                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="quiz jogos 42 hadith nawawi alcorao sopa de letras puzzle educacao">
                     <div>
-                        <div class="h-32 bg-gradient-to-r from-purple-800 to-indigo-900 flex items-center justify-center text-white text-5xl">
-                            <i class="fa-solid fa-dhikr group-hover:scale-110 transition"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-escuro mb-2">Tasbih Digital</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed mb-4">Contador interativo para seus Dhikrs com vibração, metas (33/100) e frases programadas.</p>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0">
-                        <button onclick="switchView('tasbih')" class="w-full py-2.5 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Abrir Contador <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                    </div>
-                </div>
-
-                <!-- Card 6 -->
-                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="jogos quiz sopa de letras puzzle educacao">
-                    <div>
-                        <div class="h-32 bg-gradient-to-r from-amber-700 to-orange-600 flex items-center justify-center text-white text-5xl">
+                        <div class="h-28 bg-gradient-to-r from-amber-700 to-orange-600 flex items-center justify-center text-white text-4xl">
                             <i class="fa-solid fa-gamepad group-hover:scale-110 transition"></i>
                         </div>
-                        <div class="p-6">
-                            <h3 class="font-serif text-xl font-bold text-escuro mb-2">Jogos & Quizzes Islâmicos</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed mb-4">Aprenda brincando com Quiz dos Hadiths, Sopa de Letras Islâmica e Puzzle de Conhecimento.</p>
+                        <div class="p-5">
+                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Quizzes & Jogos Islâmicos</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed mb-2">Aprenda testando seus conhecimentos:</p>
+                            <div class="grid grid-cols-2 gap-1 text-[11px] text-gray-700">
+                                <div>• Quiz 42 Hadith</div>
+                                <div>• Quiz Alcorão</div>
+                                <div>• Sopa de Letras</div>
+                                <div>• Puzzle Islâmico</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="p-6 pt-0">
-                        <button onclick="switchView('quiz')" class="w-full py-2.5 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Jogar Agora <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                    <div class="p-5 pt-0 mt-2">
+                        <button onclick="switchView('quiz')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Jogar & Aprender <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                    </div>
+                </div>
+
+                <!-- Module 6: Loja Virtual -->
+                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="loja virtual livros roupas acessorios comidas produtos">
+                    <div>
+                        <div class="h-28 bg-gradient-to-r from-teal-900 to-cyan-800 flex items-center justify-center text-white text-4xl">
+                            <i class="fa-solid fa-store group-hover:scale-110 transition"></i>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Loja Virtual Islâmica</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed mb-2">Catálogo de artigos com entrega em Moçambique:</p>
+                            <p class="text-xs text-gray-500">Livros, Roupas, Acessórios Islâmicos, Comidas Halal e Outros Produtos.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 mt-2">
+                        <button onclick="switchView('loja')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Visitar Loja <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                    </div>
+                </div>
+
+                <!-- Module 7: Tasbih Digital -->
+                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="tasbih dhikr zikr contador oracao">
+                    <div>
+                        <div class="h-28 bg-gradient-to-r from-purple-800 to-indigo-900 flex items-center justify-center text-white text-4xl">
+                            <i class="fa-solid fa-dhikr group-hover:scale-110 transition"></i>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Tasbih Digital</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed mb-3">Contador para recitação diária de Dhikr com áudio/vibração, metas configuráveis (33/100) e salvamento de sessão.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button onclick="switchView('tasbih')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Abrir Contador <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                    </div>
+                </div>
+
+                <!-- Module 8: Membros I.M. -->
+                <div class="card-item bg-white rounded-2xl overflow-hidden card-shadow border border-dourado/20 hover:shadow-2xl transition group flex flex-col justify-between" data-tags="membros id cartao cadastro comunidade">
+                    <div>
+                        <div class="h-28 bg-gradient-to-r from-slate-800 to-marinho flex items-center justify-center text-white text-4xl">
+                            <i class="fa-solid fa-id-card group-hover:scale-110 transition"></i>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-serif text-lg font-bold text-escuro mb-1">Membros I.M.</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed mb-3">Registe-se na comunidade oficial e obtenha a sua credencial e cartão digital de membro do Portal Islâmico de Moçambique.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button onclick="switchView('membros')" class="w-full py-2 rounded-full bg-esmeralda text-white text-xs font-bold hover:bg-dourado hover:text-marinho transition">Emitir Cartão <i class="fa-solid fa-arrow-right ml-1"></i></button>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- VIEW 2: SALAT & WUDHU -->
     <main id="view-salat" class="view-section max-w-7xl mx-auto px-4 py-8 flex-grow">
         <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-8">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b pb-4 gap-4">
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center border-b pb-4 gap-4">
                 <div>
-                    <h1 class="font-serif text-3xl font-bold text-escuro">🕌 Guia do Salat & Wudhu (Ablução)</h1>
-                    <p class="text-xs sm:text-sm text-gray-600">Aprenda os passos essenciais da purificação e execução da oração islâmica.</p>
+                    <h1 class="font-serif text-3xl font-bold text-escuro">🕌 Horário do Salat & Guia de Oração</h1>
+                    <p class="text-xs sm:text-sm text-gray-600">Instruções completas para a purificação (Wudhu), oração (Salat) e horários diários em Moçambique.</p>
                 </div>
-                <div class="flex gap-2">
-                    <button onclick="showSalatTab('wudhu')" id="btnTabWudhu" class="px-4 py-2 rounded-xl text-xs font-bold bg-esmeralda text-white">Guia do Wudhu</button>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="showSalatTab('horarios')" id="btnTabHorarios" class="px-4 py-2 rounded-xl text-xs font-bold bg-esmeralda text-white">Horários Províncias</button>
+                    <button onclick="showSalatTab('wudhu')" id="btnTabWudhu" class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Guia do Wudhu</button>
                     <button onclick="showSalatTab('salatSteps')" id="btnTabSalat" class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Passos do Salat</button>
-                    <button onclick="showSalatTab('horarios')" id="btnTabHorarios" class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Horários Detalhados</button>
                 </div>
             </div>
 
-            <!-- Tab Wudhu -->
-            <div id="tab-wudhu" class="space-y-6">
+            <!-- Salat Tab 1: Horários Detalhados por Província -->
+            <div id="tab-horarios" class="space-y-6">
+                <div class="bg-marinho text-white p-6 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <span class="text-dourado font-bold text-xs uppercase tracking-wider">Província Selecionada:</span>
+                        <h2 id="currentCityName" class="font-serif text-2xl font-bold text-douradoClaro">Maputo City</h2>
+                        <p class="text-xs text-gray-300">Horários baseados na latitude local de Moçambique</p>
+                    </div>
+                    <div class="text-right">
+                        <label class="text-xs text-gray-300 block mb-1">Mudar Cidade / Província:</label>
+                        <select id="citySelect" onchange="changeCitySchedule()" class="p-2 rounded-xl bg-creme text-escuro font-bold text-xs border focus:outline-none">
+                            <option value="Maputo">Maputo</option>
+                            <option value="Beira">Beira (Sofala)</option>
+                            <option value="Nampula">Nampula</option>
+                            <option value="Quelimane">Quelimane (Zambézia)</option>
+                            <option value="Pemba">Pemba (Cabo Delgado)</option>
+                            <option value="Tete">Tete</option>
+                            <option value="Chimoio">Chimoio (Manica)</option>
+                            <option value="Lichinga">Lichinga (Niassa)</option>
+                            <option value="Inhambane">Inhambane</option>
+                            <option value="Xai-Xai">Xai-Xai (Gaza)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <div class="p-4 bg-creme rounded-2xl border border-dourado/30 text-center space-y-1">
+                        <span class="text-xs font-bold text-esmeralda uppercase">Fajr (Alvorada)</span>
+                        <p id="timeFajr" class="font-serif text-2xl font-bold text-escuro">04:48</p>
+                    </div>
+                    <div class="p-4 bg-creme rounded-2xl border border-dourado/30 text-center space-y-1">
+                        <span class="text-xs font-bold text-esmeralda uppercase">Dhuhr (Meio-dia)</span>
+                        <p id="timeDhuhr" class="font-serif text-2xl font-bold text-escuro">11:58</p>
+                    </div>
+                    <div class="p-4 bg-creme rounded-2xl border border-dourado/30 text-center space-y-1">
+                        <span class="text-xs font-bold text-esmeralda uppercase">Asr (Tarde)</span>
+                        <p id="timeAsr" class="font-serif text-2xl font-bold text-escuro">15:12</p>
+                    </div>
+                    <div class="p-4 bg-creme rounded-2xl border border-dourado/30 text-center space-y-1">
+                        <span class="text-xs font-bold text-esmeralda uppercase">Maghrib (Pôr do Sol)</span>
+                        <p id="timeMaghrib" class="font-serif text-2xl font-bold text-escuro">17:35</p>
+                    </div>
+                    <div class="p-4 bg-creme rounded-2xl border border-dourado/30 text-center space-y-1 col-span-2 sm:col-span-1">
+                        <span class="text-xs font-bold text-esmeralda uppercase">Isha (Noite)</span>
+                        <p id="timeIsha" class="font-serif text-2xl font-bold text-escuro">18:52</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salat Tab 2: Guia do Wudhu -->
+            <div id="tab-wudhu" class="hidden space-y-6">
                 <h3 class="font-serif text-xl font-bold text-escuro border-l-4 border-dourado pl-3">Passo a Passo da Ablução (Wudhu)</h3>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div class="p-4 bg-creme rounded-xl border border-dourado/20 text-center space-y-2">
-                        <div class="w-12 h-12 rounded-full bg-esmeralda text-white flex items-center justify-center font-bold text-xl mx-auto">1</div>
-                        <h4 class="font-bold text-sm text-escuro">Intenção (Niyyah) & Mãos</h4>
+                        <div class="w-10 h-10 rounded-full bg-esmeralda text-white flex items-center justify-center font-bold text-lg mx-auto">1</div>
+                        <h4 class="font-bold text-sm text-escuro">Intenção & Lavas Mãos</h4>
                         <p class="text-xs text-gray-600">Diga <i>Bismillah</i> e lave as mãos até os pulsos 3 vezes, limpando entre os dedos.</p>
                     </div>
                     <div class="p-4 bg-creme rounded-xl border border-dourado/20 text-center space-y-2">
-                        <div class="w-12 h-12 rounded-full bg-esmeralda text-white flex items-center justify-center font-bold text-xl mx-auto">2</div>
+                        <div class="w-10 h-10 rounded-full bg-esmeralda text-white flex items-center justify-center font-bold text-lg mx-auto">2</div>
                         <h4 class="font-bold text-sm text-escuro">Boca e Nariz</h4>
-                        <p class="text-xs text-gray-600">Enxágue a boca 3 vezes e inspire água suavemente pelo nariz assoando em seguida 3 vezes.</p>
+                        <p class="text-xs text-gray-600">Enxágue a boca 3 vezes e aspire água suavemente pelo nariz assoando em seguida 3 vezes.</p>
                     </div>
                     <div class="p-4 bg-creme rounded-xl border border-dourado/20 text-center space-y-2">
-                        <div class="w-12 h-12 rounded-full bg-esmeralda text-white flex items-center justify-center font-bold text-xl mx-auto">3</div>
+                        <div class="w-10 h-10 rounded-full bg-esmeralda text-white flex items-center justify-center font-bold text-lg mx-auto">3</div>
                         <h4 class="font-bold text-sm text-escuro">Rosto e Braços</h4>
-                        <p class="text-xs text-gray-600">Lave o rosto 3 vezes (da testa ao queixo). Lave o braço direito e depois esquerdo até o cotovelo 3 vezes.</p>
+                        <p class="text-xs text-gray-600">Lave o rosto 3 vezes. Lave o braço direito e depois o esquerdo até ao cotovelo 3 vezes.</p>
                     </div>
                     <div class="p-4 bg-creme rounded-xl border border-dourado/20 text-center space-y-2">
-                        <div class="w-12 h-12 rounded-full bg-esmeralda text-white flex items-center justify-center font-bold text-xl mx-auto">4</div>
-                        <h4 class="font-bold text-sm text-escuro">Cabeça, Orelhas e Pés</h4>
-                        <p class="text-xs text-gray-600">Passe as mãos úmidas sobre a cabeça e orelhas. Lave o pé direito e depois o esquerdo até o tornozelo 3 vezes.</p>
+                        <div class="w-10 h-10 rounded-full bg-esmeralda text-white flex items-center justify-center font-bold text-lg mx-auto">4</div>
+                        <h4 class="font-bold text-sm text-escuro">Cabeça e Pés</h4>
+                        <p class="text-xs text-gray-600">Passe as mãos úmidas na cabeça e orelhas. Lave o pé direito e depois o esquerdo até os tornozelos 3 vezes.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Tab Salat Steps -->
+            <!-- Salat Tab 3: Passos da Oração -->
             <div id="tab-salatSteps" class="hidden space-y-6">
                 <h3 class="font-serif text-xl font-bold text-escuro border-l-4 border-dourado pl-3">Estrutura de Uma Oração (Raka'ah)</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="p-5 bg-creme rounded-xl border border-gray-200">
                         <h4 class="font-bold text-esmeralda text-base mb-2">1. Takbir & Recitação (Qiyam)</h4>
-                        <p class="text-xs text-gray-700 leading-relaxed">Em pé, levante as mãos até as orelhas dizendo <b>Allahu Akbar</b>. Coloque a mão direita sobre a esquerda no peito e recite a Surah Al-Fatihah.</p>
+                        <p class="text-xs text-gray-700 leading-relaxed">Em pé virado para a Qibla, diga <b>Allahu Akbar</b> e recite a Surah Al-Fatihah e outra passagem do Alcorão.</p>
                     </div>
                     <div class="p-5 bg-creme rounded-xl border border-gray-200">
                         <h4 class="font-bold text-esmeralda text-base mb-2">2. Inclinação (Ruku)</h4>
-                        <p class="text-xs text-gray-700 leading-relaxed">Incline-se com as costas retas, apoiando as mãos nos joelhos, dizendo <i>"Subhana Rabbiyal 'Adheem"</i> 3 vezes.</p>
+                        <p class="text-xs text-gray-700 leading-relaxed">Incline-se com as costas retas dizendo <i>"Subhana Rabbiyal 'Adheem"</i> (Glorificado seja o meu Senhor Supremo) 3 vezes.</p>
                     </div>
                     <div class="p-5 bg-creme rounded-xl border border-gray-200">
                         <h4 class="font-bold text-esmeralda text-base mb-2">3. Prostração (Sujud)</h4>
-                        <p class="text-xs text-gray-700 leading-relaxed">Toque a testa, nariz, palmas, joelhos e ponta dos pés no chão dizendo <i>"Subhana Rabbiyal A'la"</i> 3 vezes.</p>
+                        <p class="text-xs text-gray-700 leading-relaxed">Prostre-se no chão com testa, nariz e palmas dizendo <i>"Subhana Rabbiyal A'la"</i> (Glorificado seja o meu Senhor Altíssimo) 3 vezes.</p>
                     </div>
-                </div>
-            </div>
-
-            <!-- Tab Horários Completo -->
-            <div id="tab-horarios" class="hidden space-y-4">
-                <h3 class="font-serif text-xl font-bold text-escuro">Tabela de Horários por Cidade em Moçambique</h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs sm:text-sm">
-                        <thead class="bg-marinho text-dourado uppercase text-xs">
-                            <tr>
-                                <th class="p-3">Cidade/Província</th>
-                                <th class="p-3">Fajr</th>
-                                <th class="p-3">Dhuhr</th>
-                                <th class="p-3">Asr</th>
-                                <th class="p-3">Maghrib</th>
-                                <th class="p-3">Isha</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200 text-gray-700">
-                            <tr><td class="p-3 font-semibold">Maputo</td><td class="p-3">04:48</td><td class="p-3">11:58</td><td class="p-3">15:12</td><td class="p-3">17:35</td><td class="p-3">18:52</td></tr>
-                            <tr><td class="p-3 font-semibold">Beira (Sofala)</td><td class="p-3">04:35</td><td class="p-3">11:45</td><td class="p-3">15:02</td><td class="p-3">17:20</td><td class="p-3">18:38</td></tr>
-                            <tr><td class="p-3 font-semibold">Nampula</td><td class="p-3">04:15</td><td class="p-3">11:30</td><td class="p-3">14:48</td><td class="p-3">17:05</td><td class="p-3">18:20</td></tr>
-                            <tr><td class="p-3 font-semibold">Quelimane (Zambézia)</td><td class="p-3">04:25</td><td class="p-3">11:38</td><td class="p-3">14:55</td><td class="p-3">17:12</td><td class="p-3">18:28</td></tr>
-                            <tr><td class="p-3 font-semibold">Pemba (Cabo Delgado)</td><td class="p-3">04:10</td><td class="p-3">11:25</td><td class="p-3">14:42</td><td class="p-3">17:00</td><td class="p-3">18:15</td></tr>
-                            <tr><td class="p-3 font-semibold">Tete</td><td class="p-3">04:40</td><td class="p-3">11:50</td><td class="p-3">15:08</td><td class="p-3">17:25</td><td class="p-3">18:42</td></tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- VIEW 3: BIBLIOTECA DIGITAL -->
     <main id="view-biblioteca" class="view-section max-w-7xl mx-auto px-4 py-8 flex-grow">
         <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-6">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b pb-4 gap-4">
                 <div>
                     <h1 class="font-serif text-3xl font-bold text-escuro">📖 Biblioteca Digital I.M.</h1>
-                    <p class="text-xs sm:text-sm text-gray-600">Alcorão Sagrado, Os 42 Hadiths de Imam Nawawi e Histórias dos Sahabas.</p>
+                    <p class="text-xs sm:text-sm text-gray-600">Acesse o Alcorão, Hadiths de An-Nawawi, Sahih Bukhari, Yassarnal Quran, Tauhid e Sahabas.</p>
                 </div>
+                <!-- Sub-tab Navigation corresponding to handwritten plan -->
                 <div class="flex flex-wrap gap-2">
-                    <button onclick="showBibTab('alcorao')" id="btnBibAlcorao" class="px-4 py-2 rounded-xl text-xs font-bold bg-esmeralda text-white">Alcorão</button>
-                    <button onclick="showBibTab('nawawi')" id="btnBibNawawi" class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">42 Nawawi</button>
-                    <button onclick="showBibTab('sahabas')" id="btnBibSahabas" class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Sahabas</button>
+                    <button onclick="showBibTab('alcorao')" id="btnBibAlcorao" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-esmeralda text-white">Alcorão</button>
+                    <button onclick="showBibTab('nawawi')" id="btnBibNawawi" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">42 Nawawi</button>
+                    <button onclick="showBibTab('bukhari')" id="btnBibBukhari" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Sahih Bukhari</button>
+                    <button onclick="showBibTab('yassarnal')" id="btnBibYassarnal" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Yassarnal Quran</button>
+                    <button onclick="showBibTab('tauhid')" id="btnBibTauhid" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Estudo Tauhid</button>
+                    <button onclick="showBibTab('guia')" id="btnBibGuia" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Islam Guia</button>
+                    <button onclick="showBibTab('sahabas')" id="btnBibSahabas" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Sahabas</button>
                 </div>
             </div>
 
-            <!-- Subtab Alcorão -->
+            <!-- Subtab 1: Alcorão -->
             <div id="bib-alcorao" class="space-y-4">
-                <div class="flex justify-between items-center bg-creme p-3 rounded-xl border">
-                    <input type="text" id="quranSearch" onkeyup="filterSurahs()" placeholder="Pesquisar Surah (ex: Al-Fatihah, Ya-Sin, Al-Ikhlas)..." class="w-full px-3 py-2 bg-white rounded-lg border text-xs focus:outline-none">
-                </div>
+                <input type="text" id="quranSearch" onkeyup="filterSurahs()" placeholder="Pesquisar Surah (ex: Al-Fatihah, Ya-Sin, Al-Ikhlas)..." class="w-full px-4 py-2.5 bg-creme rounded-xl border text-xs focus:outline-none focus:ring-1 focus:ring-esmeralda">
                 <div id="surahList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <!-- Surah 1 -->
-                    <div class="p-4 bg-creme rounded-xl border border-dourado/20 hover:border-esmeralda transition cursor-pointer" onclick="openSurahModal('Al-Fatihah', '1. A Abertura', 'بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ۝ ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَالَمِينَ ۝ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ۝ مَالِكِ يَوْمِ ٱلدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ ۝ صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّالِّينَ', 'Em nome de Allah, o Clemente, o Misericordioso. Louvado seja Allah, Senhor do Universo. O Clemente, o Misericordioso. SOBERANO do Dia do Juízo. Só a Ti adoramos e só de Ti buscamos ajuda. Guia-nos à via reta...')">
+                    <div class="p-4 bg-creme rounded-xl border border-dourado/20 hover:border-esmeralda transition cursor-pointer" onclick="openSurahModal('Al-Fatihah', '1. A Abertura', 'بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ۝ ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَالَمِينَ ۝ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ۝ مَالِكِ يَوْمِ ٱلدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ ۝ صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّالِّينَ', 'Em nome de Allah, o Clemente, o Misericordioso. Louvado seja Allah, Senhor do Universo. O Clemente, o Misericordioso. Soberano do Dia do Juízo. Só a Ti adoramos e só de Ti buscamos ajuda. Guia-nos à via reta...')">
                         <div class="flex justify-between items-center">
                             <span class="w-8 h-8 rounded-full bg-esmeralda text-white font-bold text-xs flex items-center justify-center">1</span>
                             <span class="font-arabic text-xl text-dourado font-bold">الفاتحة</span>
@@ -408,7 +485,16 @@
                         <h4 class="font-bold text-sm text-escuro mt-2">Al-Fatihah</h4>
                         <p class="text-xs text-gray-500">7 Versículos • Mequense</p>
                     </div>
-                    <!-- Surah 112 -->
+
+                    <div class="p-4 bg-creme rounded-xl border border-dourado/20 hover:border-esmeralda transition cursor-pointer" onclick="openSurahModal('Ya-Sin', '36. Ya-Sin', 'يس ۝ وَٱلْقُرْءَانِ ٱلْحَكِيمِ ۝ إِنَّكَ لَمِنَ ٱلْمُرْسَلِينَ ۝ عَلَىٰ صِرَٰطٍ مُّسْتَقِيمٍ', 'Ya-Sin. Pelo Alcorão sábio. Em verdade, tu és dos mensageiros, em uma via reta.')">
+                        <div class="flex justify-between items-center">
+                            <span class="w-8 h-8 rounded-full bg-esmeralda text-white font-bold text-xs flex items-center justify-center">36</span>
+                            <span class="font-arabic text-xl text-dourado font-bold">يس</span>
+                        </div>
+                        <h4 class="font-bold text-sm text-escuro mt-2">Ya-Sin</h4>
+                        <p class="text-xs text-gray-500">83 Versículos • Mequense</p>
+                    </div>
+
                     <div class="p-4 bg-creme rounded-xl border border-dourado/20 hover:border-esmeralda transition cursor-pointer" onclick="openSurahModal('Al-Ikhlas', '112. A Sinceridade', 'قُلْ هُوَ ٱللَّهُ أَحَدٌ ۝ ٱللَّهُ ٱلصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُۥ كُفُوًا أَحَدٌ', 'Dize: Ele é Allah, o Único! Allah, o Absoluto! Jamais gerou ou foi gerado, e ninguém é comparável a Ele.')">
                         <div class="flex justify-between items-center">
                             <span class="w-8 h-8 rounded-full bg-esmeralda text-white font-bold text-xs flex items-center justify-center">112</span>
@@ -417,132 +503,165 @@
                         <h4 class="font-bold text-sm text-escuro mt-2">Al-Ikhlas</h4>
                         <p class="text-xs text-gray-500">4 Versículos • Mequense</p>
                     </div>
-                    <!-- Surah 113 -->
-                    <div class="p-4 bg-creme rounded-xl border border-dourado/20 hover:border-esmeralda transition cursor-pointer" onclick="openSurahModal('Al-Falaq', '113. A Alvorada', 'قُلْ أَعُوذُ بِرَبِّ ٱلْفَلَقِ ۝ مِن شَرِّ مَا خَلَقَ ۝ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِن شَرِّ ٱلنَّفَّٰثَٰتِ فِي ٱلْعُقَدِ ۝ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ', 'Dize: Refugio-me no Senhor da Alvorada, do mal do que Ele criou, do mal da noite quando se estende...')">
-                        <div class="flex justify-between items-center">
-                            <span class="w-8 h-8 rounded-full bg-esmeralda text-white font-bold text-xs flex items-center justify-center">113</span>
-                            <span class="font-arabic text-xl text-dourado font-bold">الفلق</span>
-                        </div>
-                        <h4 class="font-bold text-sm text-escuro mt-2">Al-Falaq</h4>
-                        <p class="text-xs text-gray-500">5 Versículos • Mequense</p>
+                </div>
+            </div>
+
+            <!-- Subtab 2: 42 Hadith de An-Nawawi -->
+            <div id="bib-nawawi" class="hidden space-y-4">
+                <div class="p-4 bg-creme rounded-xl border border-dourado/30 space-y-2">
+                    <span class="px-2 py-0.5 bg-dourado text-marinho font-bold text-xs rounded">Hadith #1</span>
+                    <h3 class="font-serif text-lg font-bold text-escuro">As Ações São Julgadas Pelas Intenções</h3>
+                    <p class="font-arabic text-lg text-dourado font-bold leading-relaxed text-right">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى</p>
+                    <p class="text-xs text-gray-700 leading-relaxed">"As ações dependem das intenções, e cada homem terá apenas o que intentou." (Bukhari & Muslim)</p>
+                </div>
+                <div class="p-4 bg-creme rounded-xl border border-dourado/30 space-y-2">
+                    <span class="px-2 py-0.5 bg-dourado text-marinho font-bold text-xs rounded">Hadith #2</span>
+                    <h3 class="font-serif text-lg font-bold text-escuro">Islam, Iman e Ihsan (Diálogo de Gabriel)</h3>
+                    <p class="font-arabic text-lg text-dourado font-bold leading-relaxed text-right">الإِحْسَانُ أَنْ تَعْبُدَ اللَّهَ كَأَنَّكَ تَرَاهُ</p>
+                    <p class="text-xs text-gray-700 leading-relaxed">"Ihsan é adorar a Allah como se O estivesses vendo, pois se não O ves, Ele certamente te vê." (Muslim)</p>
+                </div>
+            </div>
+
+            <!-- Subtab 3: Sahih Al-Bukhari -->
+            <div id="bib-bukhari" class="hidden space-y-4">
+                <div class="p-4 bg-creme rounded-xl border border-dourado/30 space-y-2">
+                    <span class="px-2 py-0.5 bg-esmeralda text-white font-bold text-xs rounded">Sahih Al-Bukhari #8</span>
+                    <h3 class="font-serif text-lg font-bold text-escuro">Os Cinco Pilares do Islam</h3>
+                    <p class="font-arabic text-lg text-dourado font-bold leading-relaxed text-right">بُنِيَ الإِسْلاَمُ عَلَى خَمْسٍ</p>
+                    <p class="text-xs text-gray-700 leading-relaxed">"O Islam é construído sobre cinco pilares: testemunhar que não há divindade além de Allah e que Muhammad é Seu mensageiro, estabelecer o Salat, pagar o Zakat, realizar o Hajj e jejuar o Ramadan."</p>
+                </div>
+            </div>
+
+            <!-- Subtab 4: Yassarnal Quran -->
+            <div id="bib-yassarnal" class="hidden space-y-4">
+                <div class="p-5 bg-creme rounded-xl border border-dourado/30 space-y-3">
+                    <h3 class="font-serif text-lg font-bold text-escuro">Apostila Yassarnal Quran — Leitura Fácil</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed">Guia gradual de alfabetização para leitura do Alcorão Sagrado com junção de letras e sinais vocálicos.</p>
+                    <div class="p-3 bg-white rounded-lg border text-center font-arabic text-2xl text-dourado font-bold space-x-4">
+                        <span>بَ - بِ - بُ</span> | <span>تَ - تِ - تُ</span> | <span>ثَ - ثِ - ثُ</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Subtab 42 Hadiths -->
-            <div id="bib-nawawi" class="hidden space-y-4">
-                <div class="p-4 bg-creme rounded-xl border space-y-3">
-                    <span class="px-2 py-1 bg-dourado text-marinho font-bold text-xs rounded">Hadith #1</span>
-                    <h3 class="font-serif text-lg font-bold text-escuro">As Ações São Julgadas Pelas Intenções</h3>
-                    <p class="font-arabic text-lg text-dourado font-bold leading-relaxed">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى</p>
-                    <p class="text-xs text-gray-700 leading-relaxed">"As ações são conforme as intenções, e cada homem terá apenas o que intentou." (Relatado por Bukhari e Muslim)</p>
-                </div>
-                <div class="p-4 bg-creme rounded-xl border space-y-3">
-                    <span class="px-2 py-1 bg-dourado text-marinho font-bold text-xs rounded">Hadith #2</span>
-                    <h3 class="font-serif text-lg font-bold text-escuro">Islam, Iman e Ihsan</h3>
-                    <p class="font-arabic text-lg text-dourado font-bold leading-relaxed">الإِحْسَانُ أَنْ تَعْبُدَ اللَّهَ كَأَنَّكَ تَرَاهُ</p>
-                    <p class="text-xs text-gray-700 leading-relaxed">"Ihsan é adorar a Allah como se O estivesses vendo, pois se não O ves, Ele certamente te vê." (Relatado por Muslim)</p>
+            <!-- Subtab 5: Estudo de Tauhid (100 Capítulos) -->
+            <div id="bib-tauhid" class="hidden space-y-4">
+                <div class="p-5 bg-creme rounded-xl border border-dourado/30 space-y-3">
+                    <span class="px-2 py-0.5 bg-esmeralda text-white text-xs font-bold rounded">100 Capítulos de Tauhid</span>
+                    <h3 class="font-serif text-xl font-bold text-escuro">O Significado do Unicidade de Allah (Kitab At-Tawheed)</h3>
+                    <p class="text-xs text-gray-700 leading-relaxed"><b>Capítulo 1:</b> A obrigação do Tauhid e a virtude daqueles que cumprem a adoração exclusiva a Allah SWT sem associar parceiros.</p>
                 </div>
             </div>
 
-            <!-- Subtab Sahabas -->
+            <!-- Subtab 6: Islam Guia -->
+            <div id="bib-guia" class="hidden space-y-4">
+                <div class="p-5 bg-creme rounded-xl border border-dourado/30 space-y-3">
+                    <h3 class="font-serif text-xl font-bold text-escuro">Manual Completo ISLAM GUIA</h3>
+                    <p class="text-xs text-gray-700 leading-relaxed">Manual sintético com normas fundamentais de comportamento, etiqueta na mesquita, respeito aos pais e conduta ética no quotidiano moçambicano.</p>
+                </div>
+            </div>
+
+            <!-- Subtab 7: Sahabas -->
             <div id="bib-sahabas" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="p-4 bg-creme rounded-xl border border-dourado/30 space-y-2">
                     <h3 class="font-serif text-lg font-bold text-esmeralda">Abu Bakr As-Siddiq (R.A.)</h3>
-                    <p class="text-xs text-gray-600 leading-relaxed">O primeiro Califa do Islam e o amigo mais leal do Profeta Muhammad (S.A.W.), conhecido por sua extrema generosidade e fé inabalável.</p>
+                    <p class="text-xs text-gray-600 leading-relaxed">O primeiro Califa do Islam e o companheiro mais próximo do Profeta Muhammad (S.A.W.), exemplar em lealdade e doação.</p>
                 </div>
                 <div class="p-4 bg-creme rounded-xl border border-dourado/30 space-y-2">
                     <h3 class="font-serif text-lg font-bold text-esmeralda">Bilal ibn Rabah (R.A.)</h3>
-                    <p class="text-xs text-gray-600 leading-relaxed">O primeiro Muezzin (chamador para a oração) do Islam, símbolo supremo de perseverança, igualdade e fé inabalável perante a perseguição.</p>
+                    <p class="text-xs text-gray-600 leading-relaxed">O primeiro Muezzin do Islam, símbolo supremo de firmeza na fé, igualdade e resistência contra a opressão.</p>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- VIEW 4: MADRASSA ONLINE -->
     <main id="view-madrassa" class="view-section max-w-7xl mx-auto px-4 py-8 flex-grow">
         <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-6">
             <div>
                 <h1 class="font-serif text-3xl font-bold text-escuro">🎓 Madrassa Online</h1>
-                <p class="text-xs sm:text-sm text-gray-600">Cursos interativos de Alfabetização em Árabe, Tajweed e Fiqh Básico.</p>
+                <p class="text-xs sm:text-sm text-gray-600">Aulas interativas de Alfabetização em Árabe, Yassarnal Quran, Tajweed e Fiqh.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="p-5 rounded-2xl bg-creme border border-dourado/30 space-y-3">
-                    <span class="px-3 py-1 rounded-full bg-esmeralda text-white text-xs font-bold">Módulo 1</span>
-                    <h3 class="font-serif text-xl font-bold text-escuro">Alfabeto Árabe (Alif-Ba-Ta)</h3>
-                    <p class="text-xs text-gray-600 leading-relaxed">Aprenda a pronúncia e forma escrita de cada uma das 28 letras do alfabeto árabe.</p>
-                    <button onclick="startLesson('Alfabeto Árabe')" class="w-full py-2 bg-esmeralda text-white rounded-xl text-xs font-bold hover:bg-dourado hover:text-marinho transition">Começar Lição</button>
+                <div class="p-5 rounded-2xl bg-creme border border-dourado/30 space-y-3 flex flex-col justify-between">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-esmeralda text-white text-xs font-bold">Módulo 1</span>
+                        <h3 class="font-serif text-lg font-bold text-escuro mt-2">Alfabeto Árabe (Alif-Ba-Ta)</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">Pronúncia e escrita correta das 28 letras do alfabeto árabe.</p>
+                    </div>
+                    <button onclick="startLesson('Alfabeto Árabe')" class="w-full py-2 bg-esmeralda text-white rounded-xl text-xs font-bold hover:bg-dourado hover:text-marinho transition mt-3">Começar Lição</button>
                 </div>
 
-                <div class="p-5 rounded-2xl bg-creme border border-dourado/30 space-y-3">
-                    <span class="px-3 py-1 rounded-full bg-esmeralda text-white text-xs font-bold">Módulo 2</span>
-                    <h3 class="font-serif text-xl font-bold text-escuro">Yassarnal Quran</h3>
-                    <p class="text-xs text-gray-600 leading-relaxed">Exercícios de junção de vogais curtas (Fatha, Kasra, Damma) e formação de palavras.</p>
-                    <button onclick="startLesson('Yassarnal Quran')" class="w-full py-2 bg-esmeralda text-white rounded-xl text-xs font-bold hover:bg-dourado hover:text-marinho transition">Começar Lição</button>
+                <div class="p-5 rounded-2xl bg-creme border border-dourado/30 space-y-3 flex flex-col justify-between">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-esmeralda text-white text-xs font-bold">Módulo 2</span>
+                        <h3 class="font-serif text-lg font-bold text-escuro mt-2">Leitura Yassarnal Quran</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">Exercícios práticos de junção de vogais curtas (Fatha, Kasra, Damma) e Sukun.</p>
+                    </div>
+                    <button onclick="startLesson('Yassarnal Quran')" class="w-full py-2 bg-esmeralda text-white rounded-xl text-xs font-bold hover:bg-dourado hover:text-marinho transition mt-3">Start Yassarnal</button>
                 </div>
 
-                <div class="p-5 rounded-2xl bg-creme border border-dourado/30 space-y-3">
-                    <span class="px-3 py-1 rounded-full bg-esmeralda text-white text-xs font-bold">Módulo 3</span>
-                    <h3 class="font-serif text-xl font-bold text-escuro">Regras de Tajweed</h3>
-                    <p class="text-xs text-gray-600 leading-relaxed">Fundamentos de recitação correta: Noon Sakinah, Tanween e pontos de articulação (Makhraj).</p>
-                    <button onclick="startLesson('Tajweed')" class="w-full py-2 bg-esmeralda text-white rounded-xl text-xs font-bold hover:bg-dourado hover:text-marinho transition">Começar Lição</button>
+                <div class="p-5 rounded-2xl bg-creme border border-dourado/30 space-y-3 flex flex-col justify-between">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-esmeralda text-white text-xs font-bold">Módulo 3</span>
+                        <h3 class="font-serif text-lg font-bold text-escuro mt-2">Regras de Tajweed</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">Fundamentos de recitação: Noon Sakinah, Tanween, Madd e Makhraj.</p>
+                    </div>
+                    <button onclick="startLesson('Tajweed')" class="w-full py-2 bg-esmeralda text-white rounded-xl text-xs font-bold hover:bg-dourado hover:text-marinho transition mt-3">Estudar Tajweed</button>
                 </div>
             </div>
 
-            <!-- Classroom Player Area -->
             <div id="classroomArea" class="hidden p-6 bg-marinho text-white rounded-2xl space-y-4">
                 <div class="flex justify-between items-center border-b border-dourado/30 pb-3">
                     <h3 id="currentLessonTitle" class="font-serif text-xl font-bold text-douradoClaro">Lição</h3>
                     <button onclick="closeLesson()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
                 </div>
-                <p id="currentLessonContent" class="text-sm text-gray-200 leading-relaxed">Carregando conteúdo da aula...</p>
+                <p id="currentLessonContent" class="text-xs sm:text-sm text-gray-200 leading-relaxed">Carregando conteúdo interativo da aula...</p>
             </div>
         </div>
     </main>
 
-    <!-- VIEW 5: COMUNIDADE & ZAKAT -->
     <main id="view-comunidade" class="view-section max-w-7xl mx-auto px-4 py-8 flex-grow">
         <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-8">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b pb-4 gap-4">
                 <div>
-                    <h1 class="font-serif text-3xl font-bold text-escuro">🤲 Comunidade Islâmica & Zakat</h1>
-                    <p class="text-xs sm:text-sm text-gray-600">Calculadora de Zakat em Meticais (MZN) e apoio a novos muçulmanos.</p>
+                    <h1 class="font-serif text-3xl font-bold text-escuro">🤲 Comunidade Islâmica</h1>
+                    <p class="text-xs sm:text-sm text-gray-600">Calculadora de Zakat (MZN), Guia do Revertido e Gestão Financeira Halal.</p>
                 </div>
-                <div class="flex gap-2">
+                <div class="flex flex-wrap gap-2">
                     <button onclick="showComTab('zakat')" id="btnComZakat" class="px-4 py-2 rounded-xl text-xs font-bold bg-esmeralda text-white">Calculadora Zakat</button>
                     <button onclick="showComTab('revertidos')" id="btnComRevertidos" class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Quero Ser Muçulmano</button>
+                    <button onclick="showComTab('financeira')" id="btnComFinanceira" class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Gestão Financeira Halal</button>
                 </div>
             </div>
 
-            <!-- Zakat Calculator -->
+            <!-- Subtab: Calculadora Zakat -->
             <div id="com-zakat" class="space-y-6">
                 <div class="bg-creme p-6 rounded-2xl border border-dourado/30 max-w-xl mx-auto space-y-4">
-                    <h3 class="font-serif text-xl font-bold text-escuro text-center">Calculadora de Zakat (2.5%)</h3>
+                    <h3 class="font-serif text-xl font-bold text-escuro text-center">Calculadora de Zakat em Meticais (2.5%)</h3>
                     <div class="space-y-3 text-xs">
                         <div>
-                            <label class="block font-semibold text-gray-700 mb-1">Dinheiro em Banco / Em mãos (MZN)</label>
+                            <label class="block font-semibold text-gray-700 mb-1">Dinheiro em Poupança / Banco / Mãos (MZN)</label>
                             <input type="number" id="zakatCash" placeholder="0.00" class="w-full p-2.5 rounded-xl border bg-white focus:outline-none focus:ring-1 focus:ring-esmeralda">
                         </div>
                         <div>
-                            <label class="block font-semibold text-gray-700 mb-1">Valor de Ouro e Prata Possuídos (MZN)</label>
+                            <label class="block font-semibold text-gray-700 mb-1">Valor de Ouro e Prata (MZN)</label>
                             <input type="number" id="zakatGold" placeholder="0.00" class="w-full p-2.5 rounded-xl border bg-white focus:outline-none focus:ring-1 focus:ring-esmeralda">
                         </div>
                         <div>
-                            <label class="block font-semibold text-gray-700 mb-1">Investimentos e Mercadorias para Venda (MZN)</label>
+                            <label class="block font-semibold text-gray-700 mb-1">Mercadorias de Negócio / Investimentos (MZN)</label>
                             <input type="number" id="zakatBusiness" placeholder="0.00" class="w-full p-2.5 rounded-xl border bg-white focus:outline-none focus:ring-1 focus:ring-esmeralda">
                         </div>
                         <button onclick="calculateZakat()" class="w-full py-3 bg-esmeralda text-white font-bold rounded-xl text-sm hover:bg-dourado hover:text-marinho transition">Calcular Zakat Devido</button>
                     </div>
 
                     <div id="zakatResult" class="hidden p-4 bg-marinho text-center rounded-xl space-y-1">
-                        <span class="text-xs text-gray-300">Total Obrigatório de Zakat:</span>
+                        <span class="text-xs text-gray-300">Total de Zakat a Contribuir:</span>
                         <div id="zakatTotal" class="font-serif text-2xl font-bold text-douradoClaro">0.00 MZN</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Revertidos Shahada -->
+            <!-- Subtab: Revertidos (Quero Ser Muçulmano) -->
             <div id="com-revertidos" class="hidden space-y-4 max-w-2xl mx-auto text-center">
                 <h3 class="font-serif text-2xl font-bold text-escuro">A Testemunha de Fé (Shahada)</h3>
                 <div class="p-6 bg-creme rounded-2xl border border-dourado space-y-3">
@@ -551,16 +670,148 @@
                     <p class="text-xs text-gray-600">"Testemunho que não há outra divindade além de Allah, e testemunho que Muhammad é o Seu Mensageiro."</p>
                 </div>
             </div>
+
+            <!-- Subtab: Gestão Financeira Halal -->
+            <div id="com-financeira" class="hidden space-y-4 max-w-2xl mx-auto">
+                <h3 class="font-serif text-xl font-bold text-escuro">Princípios de Gestão Financeira Halal</h3>
+                <div class="p-5 bg-creme rounded-2xl border space-y-2 text-xs text-gray-700 leading-relaxed">
+                    <p>• <b>Proibição da Riba (Juros):</b> Evitar transações financeiras baseadas em cobrança de juros usurários.</p>
+                    <p>• <b>Investimentos Permissíveis:</b> Aplicar capital exclusivamente em negócios e empreendimentos éticos e transparentes.</p>
+                    <p>• <b>Solidariedade & Sadaqah:</b> Purificar os ganhos através da caridade voluntária e auxílio aos necessitados.</p>
+                </div>
+            </div>
         </div>
     </main>
 
-    <!-- VIEW 6: TASBIH DIGITAL -->
+    <main id="view-quiz" class="view-section max-w-7xl mx-auto px-4 py-8 flex-grow">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b pb-4 gap-4">
+                <div>
+                    <h1 class="font-serif text-3xl font-bold text-escuro">🎮 Jogos & Quizzes Islâmicos</h1>
+                    <p class="text-xs sm:text-sm text-gray-600">Escolha o modo de jogo e teste seus conhecimentos gerais e do Alcorão.</p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="showGameTab('quiz-hadith')" id="btnGameQuizHadith" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-esmeralda text-white">Quiz 42 Hadith</button>
+                    <button onclick="showGameTab('quiz-alcorao')" id="btnGameQuizAlcorao" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Quiz Alcorão</button>
+                    <button onclick="showGameTab('sopa')" id="btnGameSopa" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Sopa de Letras</button>
+                    <button onclick="showGameTab('puzzle')" id="btnGamePuzzle" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-700">Puzzle Islâmico</button>
+                </div>
+            </div>
+
+            <!-- Quiz 42 Hadith -->
+            <div id="game-quiz-hadith" class="p-6 bg-creme rounded-2xl border border-dourado/30 max-w-2xl mx-auto space-y-4">
+                <span class="px-2 py-0.5 bg-dourado text-marinho text-xs font-bold rounded">Quiz #1 — An-Nawawi</span>
+                <h3 id="hadithQuestionText" class="font-serif text-lg font-bold text-escuro">De acordo com o 1º Hadith de An-Nawawi, em que se baseiam as ações humanas?</h3>
+                <div class="space-y-2 text-xs">
+                    <button onclick="checkGameAnswer(true)" class="w-full text-left p-3 rounded-xl bg-white border hover:bg-esmeralda hover:text-white transition">A) Nas intenções (Niyyah)</button>
+                    <button onclick="checkGameAnswer(false)" class="w-full text-left p-3 rounded-xl bg-white border hover:bg-esmeralda hover:text-white transition">B) Apenas nas palavras faladas</button>
+                </div>
+                <div id="gameMsgBox" class="hidden p-3 rounded-xl text-center font-bold text-xs"></div>
+            </div>
+
+            <!-- Quiz Alcorão -->
+            <div id="game-quiz-alcorao" class="hidden p-6 bg-creme rounded-2xl border border-dourado/30 max-w-2xl mx-auto space-y-4">
+                <span class="px-2 py-0.5 bg-esmeralda text-white text-xs font-bold rounded">Quiz Alcorão</span>
+                <h3 class="font-serif text-lg font-bold text-escuro">Qual é a primeira Surah do Alcorão Sagrado?</h3>
+                <div class="space-y-2 text-xs">
+                    <button onclick="checkGameAnswer(true)" class="w-full text-left p-3 rounded-xl bg-white border hover:bg-esmeralda hover:text-white transition">A) Surah Al-Fatihah</button>
+                    <button onclick="checkGameAnswer(false)" class="w-full text-left p-3 rounded-xl bg-white border hover:bg-esmeralda hover:text-white transition">B) Surah Al-Baqarah</button>
+                </div>
+            </div>
+
+            <!-- Sopa de Letras -->
+            <div id="game-sopa" class="hidden p-6 bg-creme rounded-2xl border border-dourado/30 max-w-md mx-auto space-y-4 text-center">
+                <h3 class="font-serif text-xl font-bold text-escuro">Sopa de Letras Islâmica</h3>
+                <p class="text-xs text-gray-600">Palavras escondidas: <b>SALAT, ZAKAT, ISLAM, ALCORAO, TAUHID</b></p>
+                <div class="grid grid-cols-5 gap-1 font-mono text-sm max-w-xs mx-auto bg-marinho text-dourado p-3 rounded-xl font-bold">
+                    <span>S</span><span>A</span><span>L</span><span>A</span><span>T</span>
+                    <span>Z</span><span>A</span><span>K</span><span>A</span><span>T</span>
+                    <span>I</span><span>S</span><span>L</span><span>A</span><span>M</span>
+                    <span>Q</span><span>U</span><span>R</span><span>A</span><span>N</span>
+                    <span>T</span><span>A</span><span>U</span><span>H</span><span>I</span>
+                </div>
+            </div>
+
+            <!-- Puzzle Islâmico -->
+            <div id="game-puzzle" class="hidden p-6 bg-creme rounded-2xl border border-dourado/30 max-w-md mx-auto space-y-4 text-center">
+                <h3 class="font-serif text-xl font-bold text-escuro">Puzzle de Conhecimento</h3>
+                <p class="text-xs text-gray-600">Ordene os Pilares do Islam na sequência correta:</p>
+                <div class="space-y-1.5 text-xs text-left max-w-xs mx-auto">
+                    <div class="p-2 bg-white rounded border font-semibold">1. Shahada (Testemunho)</div>
+                    <div class="p-2 bg-white rounded border font-semibold">2. Salat (Oração)</div>
+                    <div class="p-2 bg-white rounded border font-semibold">3. Zakat (Caridade)</div>
+                    <div class="p-2 bg-white rounded border font-semibold">4. Sawm (Jejum no Ramadan)</div>
+                    <div class="p-2 bg-white rounded border font-semibold">5. Hajj (Peregrinação)</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main id="view-loja" class="view-section max-w-7xl mx-auto px-4 py-8 flex-grow">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b pb-4 gap-4">
+                <div>
+                    <h1 class="font-serif text-3xl font-bold text-escuro">🛍️ Loja Virtual Islâmica</h1>
+                    <p class="text-xs sm:text-sm text-gray-600">Livros, roupas, acessórios e alimentos halal com entrega em Moçambique.</p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterStore('todos')" class="px-3 py-1 rounded-lg text-xs font-bold bg-esmeralda text-white">Todos</button>
+                    <button onclick="filterStore('livros')" class="px-3 py-1 rounded-lg text-xs font-bold bg-gray-100 text-gray-700">Livros</button>
+                    <button onclick="filterStore('roupas')" class="px-3 py-1 rounded-lg text-xs font-bold bg-gray-100 text-gray-700">Roupas</button>
+                    <button onclick="filterStore('acessorios')" class="px-3 py-1 rounded-lg text-xs font-bold bg-gray-100 text-gray-700">Acessórios</button>
+                    <button onclick="filterStore('comidas')" class="px-3 py-1 rounded-lg text-xs font-bold bg-gray-100 text-gray-700">Comidas</button>
+                </div>
+            </div>
+
+            <div id="storeProductsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Product 1 -->
+                <div class="product-item p-4 bg-creme rounded-2xl border border-dourado/20 space-y-3 flex flex-col justify-between" data-category="livros">
+                    <div>
+                        <div class="h-36 bg-emerald-900/10 rounded-xl flex items-center justify-center text-4xl text-esmeralda">📖</div>
+                        <h4 class="font-serif text-base font-bold text-escuro mt-3">Alcorão Sagrado Traduzido</h4>
+                        <p class="text-xs text-gray-600">Texto em Árabe com tradução em Português e capa luxo.</p>
+                    </div>
+                    <div class="flex justify-between items-center pt-2">
+                        <span class="font-bold text-esmeralda text-sm">1,500 MZN</span>
+                        <button onclick="orderProduct('Alcorão Sagrado Traduzido')" class="px-3 py-1.5 bg-esmeralda text-white rounded-lg text-xs font-bold hover:bg-dourado hover:text-marinho">Encomendar</button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-item p-4 bg-creme rounded-2xl border border-dourado/20 space-y-3 flex flex-col justify-between" data-category="acessorios">
+                    <div>
+                        <div class="h-36 bg-emerald-900/10 rounded-xl flex items-center justify-center text-4xl text-esmeralda">📿</div>
+                        <h4 class="font-serif text-base font-bold text-escuro mt-3">Tasbih de Madeira Artesanal</h4>
+                        <p class="text-xs text-gray-600">99 contas com acabamento especial para recitação.</p>
+                    </div>
+                    <div class="flex justify-between items-center pt-2">
+                        <span class="font-bold text-esmeralda text-sm">450 MZN</span>
+                        <button onclick="orderProduct('Tasbih de Madeira')" class="px-3 py-1.5 bg-esmeralda text-white rounded-lg text-xs font-bold hover:bg-dourado hover:text-marinho">Encomendar</button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-item p-4 bg-creme rounded-2xl border border-dourado/20 space-y-3 flex flex-col justify-between" data-category="roupas">
+                    <div>
+                        <div class="h-36 bg-emerald-900/10 rounded-xl flex items-center justify-center text-4xl text-esmeralda">👔</div>
+                        <h4 class="font-serif text-base font-bold text-escuro mt-3">Jubbah Tradicional</h4>
+                        <p class="text-xs text-gray-600">Túnica masculina de algodão premium confortável.</p>
+                    </div>
+                    <div class="flex justify-between items-center pt-2">
+                        <span class="font-bold text-esmeralda text-sm">2,200 MZN</span>
+                        <button onclick="orderProduct('Jubbah Tradicional')" class="px-3 py-1.5 bg-esmeralda text-white rounded-lg text-xs font-bold hover:bg-dourado hover:text-marinho">Encomendar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
     <main id="view-tasbih" class="view-section max-w-4xl mx-auto px-4 py-8 flex-grow">
         <div class="bg-white rounded-2xl p-8 card-shadow border border-dourado/20 text-center space-y-6">
             <h1 class="font-serif text-3xl font-bold text-escuro">📿 Tasbih Digital Interativo</h1>
-            <p class="text-xs text-gray-600">Selecione sua invocação e clique na conta central para registar o seu Dhikr.</p>
+            <p class="text-xs text-gray-600">Selecione o seu Dhikr e toque no botão central para registar cada invocação.</p>
 
-            <select id="tasbihPhraseSelect" onchange="changeTasbihPhrase()" class="px-4 py-2 border rounded-xl text-xs sm:text-sm font-semibold text-escuro bg-creme">
+            <select id="tasbihPhraseSelect" class="px-4 py-2 border rounded-xl text-xs sm:text-sm font-semibold text-escuro bg-creme focus:outline-none">
                 <option value="Subhanallah">سُبْحَانَ ٱللَّٰهِ (Subhanallah)</option>
                 <option value="Alhamdulillah">ٱلْحَمْدُ لِلَّٰهِ (Alhamdulillah)</option>
                 <option value="Allahu Akbar">ٱللَّٰهُ أَكْبَرُ (Allahu Akbar)</option>
@@ -573,90 +824,16 @@
             </div>
 
             <div class="flex justify-center gap-4">
-                <button onclick="resetTasbihFull()" class="px-4 py-2 bg-red-600 text-white rounded-xl text-xs font-bold hover:bg-red-700"><i class="fa-solid fa-rotate-right mr-1"></i> Reiniciar</button>
+                <button onclick="resetTasbihFull()" class="px-4 py-2 bg-red-600 text-white rounded-xl text-xs font-bold hover:bg-red-700 transition"><i class="fa-solid fa-rotate-right mr-1"></i> Reiniciar</button>
             </div>
         </div>
     </main>
 
-    <!-- VIEW 7: JOGOS & QUIZZES -->
-    <main id="view-quiz" class="view-section max-w-7xl mx-auto px-4 py-8 flex-grow">
-        <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-6">
-            <div>
-                <h1 class="font-serif text-3xl font-bold text-escuro">🎮 Jogos & Quizzes Islâmicos</h1>
-                <p class="text-xs sm:text-sm text-gray-600">Testa e consolida os teus conhecimentos sobre o Islam de forma divertida.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Quiz Widget -->
-                <div class="p-6 bg-creme rounded-2xl border border-dourado/30 space-y-4">
-                    <h3 class="font-serif text-xl font-bold text-escuro">Quiz do Conhecimento Islâmico</h3>
-                    <div id="quizBox" class="space-y-3">
-                        <p id="quizQuestion" class="text-sm font-semibold text-gray-800">Qual é a primeira Surah do Alcorão Sagrado?</p>
-                        <div id="quizOptions" class="space-y-2">
-                            <button onclick="checkAnswer(true)" class="w-full text-left p-2.5 rounded-xl bg-white border text-xs hover:bg-esmeralda hover:text-white transition">A) Surah Al-Fatihah</button>
-                            <button onclick="checkAnswer(false)" class="w-full text-left p-2.5 rounded-xl bg-white border text-xs hover:bg-esmeralda hover:text-white transition">B) Surah Al-Baqarah</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Word Search Preview -->
-                <div class="p-6 bg-creme rounded-2xl border border-dourado/30 space-y-4 text-center">
-                    <h3 class="font-serif text-xl font-bold text-escuro">Sopa de Letras Islâmica</h3>
-                    <p class="text-xs text-gray-600">Encontre palavras como: <b>SALAT, ZAKAT, ISLAM, ALCORAO, TAVID</b></p>
-                    <div class="grid grid-cols-5 gap-1 font-mono text-sm max-w-xs mx-auto bg-marinho text-dourado p-3 rounded-xl">
-                        <span>S</span><span>A</span><span>L</span><span>A</span><span>T</span>
-                        <span>Z</span><span>A</span><span>K</span><span>A</span><span>T</span>
-                        <span>I</span><span>S</span><span>L</span><span>A</span><span>M</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- VIEW 8: LOJA VIRTUAL -->
-    <main id="view-loja" class="view-section max-w-7xl mx-auto px-4 py-8 flex-grow">
-        <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-6">
-            <div>
-                <h1 class="font-serif text-3xl font-bold text-escuro">🛍️ Loja Virtual Islâmica</h1>
-                <p class="text-xs sm:text-sm text-gray-600">Livros, roupas, acessórios e artigos religiosos com entrega em Moçambique.</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Item 1 -->
-                <div class="p-4 bg-creme rounded-2xl border border-dourado/20 space-y-3 flex flex-col justify-between">
-                    <div>
-                        <div class="h-40 bg-gray-200 rounded-xl flex items-center justify-center text-4xl text-esmeralda">📖</div>
-                        <h4 class="font-serif text-base font-bold text-escuro mt-3">Alcorão Sagrado Traduzido</h4>
-                        <p class="text-xs text-gray-600">Edição com texto em Árabe e tradução em Português.</p>
-                    </div>
-                    <div class="flex justify-between items-center pt-2">
-                        <span class="font-bold text-esmeralda text-sm">1,500 MZN</span>
-                        <button onclick="orderProduct('Alcorão Sagrado Traduzido')" class="px-3 py-1.5 bg-esmeralda text-white rounded-lg text-xs font-bold hover:bg-dourado hover:text-marinho">Encomendar</button>
-                    </div>
-                </div>
-
-                <!-- Item 2 -->
-                <div class="p-4 bg-creme rounded-2xl border border-dourado/20 space-y-3 flex flex-col justify-between">
-                    <div>
-                        <div class="h-40 bg-gray-200 rounded-xl flex items-center justify-center text-4xl text-esmeralda">📿</div>
-                        <h4 class="font-serif text-base font-bold text-escuro mt-3">Tasbih de Madeira Artesanal</h4>
-                        <p class="text-xs text-gray-600">99 contas acabamento especial para oração.</p>
-                    </div>
-                    <div class="flex justify-between items-center pt-2">
-                        <span class="font-bold text-esmeralda text-sm">450 MZN</span>
-                        <button onclick="orderProduct('Tasbih de Madeira')" class="px-3 py-1.5 bg-esmeralda text-white rounded-lg text-xs font-bold hover:bg-dourado hover:text-marinho">Encomendar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- VIEW 9: MEMBROS I.M. -->
     <main id="view-membros" class="view-section max-w-3xl mx-auto px-4 py-8 flex-grow">
         <div class="bg-white rounded-2xl p-6 sm:p-8 card-shadow border border-dourado/20 space-y-6">
             <div class="text-center">
                 <h1 class="font-serif text-3xl font-bold text-escuro">🆔 Cadastro de Membro I.M.</h1>
-                <p class="text-xs sm:text-sm text-gray-600">Junte-se à comunidade oficial e receba a sua identificação digital.</p>
+                <p class="text-xs sm:text-sm text-gray-600">Obtenha o seu cartão digital de membro da comunidade islâmica em Moçambique.</p>
             </div>
 
             <form onsubmit="generateMemberCard(event)" class="space-y-4 text-xs">
@@ -666,15 +843,15 @@
                 </div>
                 <div>
                     <label class="block font-semibold text-gray-700 mb-1">Província / Cidade</label>
-                    <input type="text" id="memCity" required placeholder="Ex: Maputo, Beira, Nampula" class="w-full p-3 rounded-xl border bg-creme focus:outline-none focus:ring-1 focus:ring-esmeralda">
+                    <input type="text" id="memCity" required placeholder="Ex: Maputo, Beira, Nampula, Quelimane" class="w-full p-3 rounded-xl border bg-creme focus:outline-none focus:ring-1 focus:ring-esmeralda">
                 </div>
-                <button type="submit" class="w-full py-3 bg-esmeralda text-white font-bold rounded-xl text-sm hover:bg-dourado hover:text-marinho transition">Gerar Cartão de Membro</button>
+                <button type="submit" class="w-full py-3 bg-esmeralda text-white font-bold rounded-xl text-sm hover:bg-dourado hover:text-marinho transition">Gerar Cartão Digital</button>
             </form>
 
-            <div id="memberCardPreview" class="hidden p-6 bg-gradient-to-r from-marinho to-escuro rounded-2xl border-2 border-dourado text-white space-y-4">
+            <div id="memberCardPreview" class="hidden p-6 bg-gradient-to-r from-marinho to-escuro rounded-2xl border-2 border-dourado text-white space-y-4 shadow-xl">
                 <div class="flex justify-between items-center border-b border-dourado/30 pb-2">
                     <span class="font-serif text-dourado font-bold text-lg">MEMBRO I.M. 🇲🇿</span>
-                    <span class="text-xs text-douradoClaro font-mono">ID: #2026-889</span>
+                    <span id="cardMemberId" class="text-xs text-douradoClaro font-mono">ID: #2026-889</span>
                 </div>
                 <div>
                     <h3 id="cardName" class="font-bold text-lg text-white">Nome do Membro</h3>
@@ -684,7 +861,7 @@
         </div>
     </main>
 
-    <!-- SURAH MODAL -->
+    <!-- SURAH MODAL DIALOG -->
     <div id="surahModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-xl w-full p-6 space-y-4 max-h-[85vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b pb-2">
@@ -696,7 +873,6 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer class="bg-marinho text-creme border-t-4 border-dourado mt-12 py-8 px-4 text-center">
         <div class="max-w-7xl mx-auto space-y-4">
             <a href="#" onclick="switchView('home')" class="font-serif text-2xl text-dourado font-bold inline-block">☪ ISLAM GUIA</a>
@@ -706,7 +882,7 @@
     </footer>
 
     <script>
-        // SPA View Switcher Logic
+        // SPA View Switcher
         function switchView(viewId) {
             const views = document.querySelectorAll('.view-section');
             views.forEach(v => v.classList.remove('active'));
@@ -725,7 +901,7 @@
 
         document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
 
-        // Search Filter for Home Cards
+        // Search Filter for Cards
         function filterHomeCards() {
             const query = document.getElementById('homeSearch').value.toLowerCase();
             const cards = document.querySelectorAll('#homeCardsContainer .card-item');
@@ -741,22 +917,63 @@
             });
         }
 
+        // Hadith do Dia Generator
+        const hadithsList = [
+            { source: "Sahih Al-Bukhari", arabic: "إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ", text: "As ações dependem das intenções, e cada pessoa terá apenas aquilo que intentou." },
+            { source: "Sahih Muslim", arabic: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ", text: "O melhor dentre vós é aquele que aprende o Alcorão e o ensina." },
+            { source: "Sahih Al-Bukhari", arabic: "لاَ يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ", text: "Nenhum de vós crê verdadeiramente até que deseje para o seu irmão o que deseja para si mesmo." }
+        ];
+
+        function getNewDailyHadith() {
+            const randomIndex = Math.floor(Math.random() * hadithsList.length);
+            const h = hadithsList[randomIndex];
+            document.getElementById('hadithSourceTag').innerText = h.source;
+            document.getElementById('dailyHadithArabic').innerText = h.arabic;
+            document.getElementById('dailyHadithText').innerText = `"${h.text}"`;
+        }
+
+        // City Prayer Schedules
+        const prayerSchedules = {
+            "Maputo": { fajr: "04:48", dhuhr: "11:58", asr: "15:12", maghrib: "17:35", isha: "18:52" },
+            "Beira": { fajr: "04:35", dhuhr: "11:45", asr: "15:02", maghrib: "17:20", isha: "18:38" },
+            "Nampula": { fajr: "04:15", dhuhr: "11:30", asr: "14:48", maghrib: "17:05", isha: "18:20" },
+            "Quelimane": { fajr: "04:25", dhuhr: "11:38", asr: "14:55", maghrib: "17:12", isha: "18:28" },
+            "Pemba": { fajr: "04:10", dhuhr: "11:25", asr: "14:42", maghrib: "17:00", isha: "18:15" },
+            "Tete": { fajr: "04:40", dhuhr: "11:50", asr: "15:08", maghrib: "17:25", isha: "18:42" },
+            "Chimoio": { fajr: "04:38", dhuhr: "11:48", asr: "15:05", maghrib: "17:22", isha: "18:40" },
+            "Lichinga": { fajr: "04:20", dhuhr: "11:32", asr: "14:50", maghrib: "17:08", isha: "18:22" },
+            "Inhambane": { fajr: "04:42", dhuhr: "11:52", asr: "15:08", maghrib: "17:30", isha: "18:46" },
+            "Xai-Xai": { fajr: "04:45", dhuhr: "11:55", asr: "15:10", maghrib: "17:32", isha: "18:49" }
+        };
+
+        function changeCitySchedule() {
+            const city = document.getElementById('citySelect').value;
+            const times = prayerSchedules[city];
+            if (times) {
+                document.getElementById('currentCityName').innerText = city;
+                document.getElementById('timeFajr').innerText = times.fajr;
+                document.getElementById('timeDhuhr').innerText = times.dhuhr;
+                document.getElementById('timeAsr').innerText = times.asr;
+                document.getElementById('timeMaghrib').innerText = times.maghrib;
+                document.getElementById('timeIsha').innerText = times.isha;
+            }
+        }
+
         // Salat Subtabs
         function showSalatTab(tabName) {
-            document.getElementById('tab-wudhu').classList.add('hidden');
-            document.getElementById('tab-salatSteps').classList.add('hidden');
-            document.getElementById('tab-horarios').classList.add('hidden');
-
+            ['horarios', 'wudhu', 'salatSteps'].forEach(t => document.getElementById('tab-' + t).classList.add('hidden'));
             document.getElementById('tab-' + tabName).classList.remove('hidden');
         }
 
         // Biblioteca Subtabs
         function showBibTab(tabName) {
-            document.getElementById('bib-alcorao').classList.add('hidden');
-            document.getElementById('bib-nawawi').classList.add('hidden');
-            document.getElementById('bib-sahabas').classList.add('hidden');
-
-            document.getElementById('bib-' + tabName).classList.remove('hidden');
+            const tabs = ['alcorao', 'nawawi', 'bukhari', 'yassarnal', 'tauhid', 'guia', 'sahabas'];
+            tabs.forEach(t => {
+                const el = document.getElementById('bib-' + t);
+                if (el) el.classList.add('hidden');
+            });
+            const activeTab = document.getElementById('bib-' + tabName);
+            if (activeTab) activeTab.classList.remove('hidden');
         }
 
         // Surah Modal
@@ -775,7 +992,7 @@
         function startLesson(title) {
             const classroom = document.getElementById('classroomArea');
             document.getElementById('currentLessonTitle').innerText = 'Lição: ' + title;
-            document.getElementById('currentLessonContent').innerText = 'Bem-vindo à aula de ' + title + '. Estude a pronunciacao correta e memorize cada caractere diariamente.';
+            document.getElementById('currentLessonContent').innerText = 'Bem-vindo à aula de ' + title + '. Estude a pronúncia correta e memorize cada caractere diariamente.';
             classroom.classList.remove('hidden');
         }
 
@@ -785,9 +1002,7 @@
 
         // Community Subtabs
         function showComTab(tabName) {
-            document.getElementById('com-zakat').classList.add('hidden');
-            document.getElementById('com-revertidos').classList.add('hidden');
-
+            ['zakat', 'revertidos', 'financeira'].forEach(t => document.getElementById('com-' + t).classList.add('hidden'));
             document.getElementById('com-' + tabName).classList.remove('hidden');
         }
 
@@ -809,6 +1024,7 @@
         function countTasbih() {
             tasbihCount++;
             document.getElementById('tasbihBigCount').innerText = tasbihCount;
+            if (navigator.vibrate) navigator.vibrate(40);
         }
 
         function resetTasbihFull() {
@@ -816,16 +1032,36 @@
             document.getElementById('tasbihBigCount').innerText = '0';
         }
 
-        // Quiz Logic
-        function checkAnswer(isCorrect) {
+        // Game Tabs & Logic
+        function showGameTab(tabName) {
+            ['quiz-hadith', 'quiz-alcorao', 'sopa', 'puzzle'].forEach(t => document.getElementById('game-' + t).classList.add('hidden'));
+            document.getElementById('game-' + tabName).classList.remove('hidden');
+        }
+
+        function checkGameAnswer(isCorrect) {
+            const box = document.getElementById('gameMsgBox');
+            box.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
             if (isCorrect) {
-                alert('Parabéns! Resposta correta.');
+                box.classList.add('bg-green-100', 'text-green-800');
+                box.innerText = '✨ Resposta Correta! MashaAllah!';
             } else {
-                alert('Incorreto. A resposta correta é a Surah Al-Fatihah.');
+                box.classList.add('bg-red-100', 'text-red-800');
+                box.innerText = '❌ Resposta incorreta. Tente novamente!';
             }
         }
 
-        // Store WhatsApp Order Simulator
+        // Store Filter & WhatsApp Order
+        function filterStore(category) {
+            const items = document.querySelectorAll('#storeProductsContainer .product-item');
+            items.forEach(item => {
+                if (category === 'todos' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
         function orderProduct(productName) {
             const msg = encodeURIComponent("Olá, gostaria de encomendar: " + productName + " pelo portal Islam Guia.");
             window.open("https://wa.me/258840000000?text=" + msg, "_blank");
@@ -836,9 +1072,11 @@
             e.preventDefault();
             const name = document.getElementById('memName').value;
             const city = document.getElementById('memCity').value;
+            const randomId = Math.floor(1000 + Math.random() * 9000);
 
             document.getElementById('cardName').innerText = name;
             document.getElementById('cardCity').innerText = city + ', Moçambique';
+            document.getElementById('cardMemberId').innerText = 'ID: #2026-' + randomId;
             document.getElementById('memberCardPreview').classList.remove('hidden');
         }
     </script>
