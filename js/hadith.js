@@ -3,72 +3,97 @@
 // HADITH DO DIA - ISLAM MOÇAMBIQUE
 // ==========================================
 
-async function loadHadith() {
+export async function loadHadith() {
 
   try {
 
-    // Caminho correto para o GitHub Pages
-    const caminhoHadith =
-      '/projeto-Islam-Mocambique-/data/hadiths.json';
+    // ==========================================
+    // CARREGAR HADITHS
+    // Caminho relativo, compatível com GitHub Pages
+    // ==========================================
 
-    const response = await fetch(caminhoHadith, {
-      cache: 'no-cache'
-    });
+    const response = await fetch(
+      './data/hadiths.json',
+      {
+        cache: 'no-cache'
+      }
+    );
 
     if (!response.ok) {
       throw new Error(
-        `Erro HTTP ${response.status} ao carregar hadiths.json`
+        `Erro HTTP ${response.status} ao carregar data/hadiths.json`
       );
     }
 
     const hadiths = await response.json();
 
+    // ==========================================
+    // VALIDAR FICHEIRO JSON
+    // ==========================================
+
     if (!Array.isArray(hadiths) || hadiths.length === 0) {
-      throw new Error('Nenhum Hadith encontrado.');
+      throw new Error(
+        'hadiths.json não contém Hadiths válidos.'
+      );
     }
 
-    // Dia atual do mês
-    const today = new Date().getDate().toString();
+    // ==========================================
+    // DATA ATUAL
+    // ==========================================
 
-    let hadithDia =
+    const hoje = new Date();
+
+    const diaAtual = hoje.getDate().toString();
+
+    // ==========================================
+    // LOCALSTORAGE
+    // ==========================================
+
+    let hadithSalvo =
       localStorage.getItem('hadithDia');
 
     let diaSalvo =
       localStorage.getItem('diaSalvo');
 
-    let hadithSelecionado;
+    let hadithSelecionado = null;
 
 
     // ==========================================
     // VERIFICAR SE É UM NOVO DIA
     // ==========================================
 
-    if (diaSalvo !== today || !hadithDia) {
+    if (
+      diaSalvo !== diaAtual ||
+      !hadithSalvo
+    ) {
 
       // Procurar Hadith correspondente ao dia
-      const encontrado = hadiths.find(
-        hadith => String(hadith.dia) === today
+      hadithSelecionado = hadiths.find(
+        hadith =>
+          String(hadith.dia) === diaAtual
       );
 
 
-      if (encontrado) {
+      // ==========================================
+      // CASO NÃO EXISTA HADITH PARA O DIA
+      // ==========================================
 
-        hadithSelecionado = encontrado;
+      if (!hadithSelecionado) {
 
-      } else {
-
-        // Se não existir Hadith para aquele dia,
-        // escolher um aleatoriamente
         hadithSelecionado =
           hadiths[
             Math.floor(
               Math.random() * hadiths.length
             )
           ];
+
       }
 
 
-      // Guardar o Hadith escolhido
+      // ==========================================
+      // GUARDAR HADITH
+      // ==========================================
+
       localStorage.setItem(
         'hadithDia',
         JSON.stringify(hadithSelecionado)
@@ -76,21 +101,26 @@ async function loadHadith() {
 
       localStorage.setItem(
         'diaSalvo',
-        today
+        diaAtual
       );
 
     } else {
 
-      // Recuperar o Hadith já guardado
+      // ==========================================
+      // RECUPERAR HADITH GUARDADO
+      // ==========================================
+
       try {
 
         hadithSelecionado =
-          JSON.parse(hadithDia);
+          JSON.parse(hadithSalvo);
 
       } catch (erro) {
 
-        // Se o LocalStorage estiver corrompido,
-        // escolher novamente
+        console.warn(
+          'LocalStorage corrompido. Selecionando novo Hadith.'
+        );
+
         hadithSelecionado =
           hadiths[
             Math.floor(
@@ -102,12 +132,14 @@ async function loadHadith() {
           'hadithDia',
           JSON.stringify(hadithSelecionado)
         );
+
       }
+
     }
 
 
     // ==========================================
-    // ELEMENTOS DA PÁGINA
+    // ELEMENTOS DO HTML
     // ==========================================
 
     const arabico =
@@ -121,6 +153,17 @@ async function loadHadith() {
 
     const reflexao =
       document.querySelector('.reflexao');
+
+
+    // ==========================================
+    // VERIFICAR SE O HADITH É VÁLIDO
+    // ==========================================
+
+    if (!hadithSelecionado) {
+      throw new Error(
+        'Não foi possível selecionar um Hadith.'
+      );
+    }
 
 
     // ==========================================
@@ -128,40 +171,57 @@ async function loadHadith() {
     // ==========================================
 
     if (arabico) {
+
       arabico.textContent =
         hadithSelecionado.arabico || '';
+
     }
 
     if (traducao) {
+
       traducao.textContent =
         hadithSelecionado.traducao || '';
+
     }
 
     if (fonte) {
+
       fonte.textContent =
-        `Fonte: ${hadithSelecionado.fonte || ''}`;
+        hadithSelecionado.fonte
+          ? `Fonte: ${hadithSelecionado.fonte}`
+          : '';
+
     }
 
     if (reflexao) {
+
       reflexao.textContent =
         hadithSelecionado.reflexao || '';
+
     }
 
 
+    // ==========================================
+    // CONSOLE
+    // ==========================================
+
     console.log(
-      'Hadith do dia carregado:',
+      '✅ Hadith do dia carregado:',
       hadithSelecionado
     );
 
   } catch (error) {
 
     console.error(
-      'Erro ao carregar Hadith:',
+      '❌ Erro ao carregar Hadith:',
       error
     );
 
-    // Mostrar uma mensagem apenas se
-    // os elementos existirem
+
+    // ==========================================
+    // MENSAGEM DE ERRO NA PÁGINA
+    // ==========================================
+
     const arabico =
       document.querySelector('.arabico');
 
@@ -174,41 +234,34 @@ async function loadHadith() {
     const reflexao =
       document.querySelector('.reflexao');
 
+
     if (arabico) {
+
       arabico.textContent =
         'Não foi possível carregar o Hadith.';
+
     }
 
     if (traducao) {
+
       traducao.textContent =
-        'Verifique a ligação à internet e tente novamente.';
+        'Verifique o ficheiro data/hadiths.json.';
+
     }
 
     if (fonte) {
+
       fonte.textContent = '';
+
     }
 
     if (reflexao) {
+
       reflexao.textContent = '';
+
     }
+
   }
-}
-
-
-// ==========================================
-// INICIAR QUANDO A PÁGINA ESTIVER PRONTA
-// ==========================================
-
-if (document.readyState === 'loading') {
-
-  document.addEventListener(
-    'DOMContentLoaded',
-    loadHadith
-  );
-
-} else {
-
-  loadHadith();
 
 }
 ```
