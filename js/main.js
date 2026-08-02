@@ -51,10 +51,12 @@ function startCarousel() {
   }, 5000);
 }
 
-// Carregar slides ao iniciar
-loadSlides();
-
-// Carregar Hadith do dia
-import('./hadith.js').then(module => {
-  module.loadHadith();
+// Carregar Hadith do dia somente depois do HTML estar pronto
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const module = await import('./hadith.js');
+    await module.loadHadith();
+  } catch (error) {
+    console.error('Erro ao iniciar Hadith do dia:', error);
+  }
 });
