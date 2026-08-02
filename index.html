@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 ISLAM GUIA — Portal Islâmico de Moçambique 🇲🇿</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Naskh+Arabic:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --verde-esmeralda: #0d7377;
+            --verde-escuro: #084c4f;
+            --verde-claro: #14a085;
+            --dourado: #d4af37;
+            --dourado-claro: #f0d878;
+            --creme: #faf8f0;
+            --creme-escuro: #f0ece0;
+            --azul-marinho: #1a1a2e;
+            --texto: #2c3e50;
+            --texto-suave: #666666;
+            --branco: #ffffff;
+            --sombra: 0 10px 30px rgba(13, 115, 119, 0.12);
+            --transicao: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', 'Amiri', sans-serif;
+            background: var(--creme);
+            color: var(--texto);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(circle at 15% 30%, rgba(13,115,119,0.04) 0%, transparent 50%),
+                radial-gradient(circle at 85% 70%, rgba(212,175,55,0.04) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--azul-marinho) 0%, var(--verde-escuro) 60%, var(--verde-esmeralda) 100%);
+            overflow: hidden;
+            padding: 4rem 1.5rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(212,175,55,0.04) 12px, rgba(212,175,55,0.04) 24px);
+            pointer-events: none;
+        }
+
+        .arabesco-top {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%23d4af37' fill-opacity='0.18' d='M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,0 L0,0 Z'/%3E%3C/svg%3E") no-repeat center top;
+            background-size: cover;
+        }
+
+        .arabesco-bottom {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%23d4af37' fill-opacity='0.18' d='M0,60 C240,0 480,120 720,60 C960,0 1200,120 1440,60 L1440,120 L0,120 Z'/%3E%3C/svg%3E") no-repeat center bottom;
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 1.8rem;
+            border: 2px solid var(--dourado);
+            border-radius: 50px;
+            color: var(--dourado-claro);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            background: rgba(26, 26, 46, 0.4);
+            backdrop-filter: blur(5px);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); }
+            50% { box-shadow: 0 0 20px 8px rgba(212,175,55,0.15); }
+        }
+
+        .hero h1 {
+            font-family: 'Amiri', serif;
+            font-size: clamp(2.5rem, 5.5vw, 4.8rem);
+            color: var(--dourado);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .hero .bismillah {
+            font-family: 'Noto Naskh Arabic', serif;
+            font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+            color: var(--dourado-claro);
+            margin-bottom: 1.2rem;
+            opacity: 0.95;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: rgba(255,255,255,0.9);
+            max-width: 680px;
+            margin: 0 auto 2rem;
+            font-weight: 300;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 550px;
+            margin: 0 auto 1.5rem;
+            z-index: 5;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3.2rem;
+            border-radius: 50px;
+            border: 2px solid var(--dourado);
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--texto);
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            transition: var(--transicao);
+        }
+
+        .search-input:focus {
+            background: var(--branco);
+            box-shadow: 0 8px 30px rgba(212,175,55,0.4);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--verde-esmeralda);
+            font-size: 1.2rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--dourado);
+            font-size: 1.8rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-12px); }
+            60% { transform: translateX(-50%) translateY(-6px); }
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(26,26,46,0.96);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--dourado);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 2rem;
+        }
+
+        .nav-logo {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            color: var(--dourado);
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo i {
+            color: var(--verde-claro);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--dourado);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.4rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--creme);
+            text-decoration: none;
+            padding: 0.5rem 0.9rem;
+            border-radius: 8px;
+            transition: var(--transicao);
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--verde-esmeralda);
+            color: var(--dourado-claro);
+            transform: translateY(-2px);
+        }
+
+        .prayer-widget {
+            max-width: 1200px;
+            margin: -40px auto 3rem;
+            position: relative;
+            z-index: 10;
+            background: var(--branco);
+            border-radius: 20px;
+            padding: 1.8rem;
+            box-shadow: var(--sombra);
+            border: 1px solid rgba(212,175,55,0.3);
+        }
+
+        .prayer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--creme-escuro);
+            padding-bottom: 1rem;
+        }
+
+        .prayer-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--verde-escuro);
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+        }
+
+        .city-select {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--verde-esmeralda);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            color: var(--verde-escuro);
+            outline: none;
+            cursor: pointer;
+            background: var(--creme);
+        }
+
+        .prayer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1rem;
+        }
+
+        .prayer-card {
+            background: var(--creme);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(13,115,119,0.1);
+            transition: var(--transicao);
+        }
+
+        .prayer-card.active {
+            background: linear-gradient(135deg, var(--verde-esmeralda), var(--verde-escuro));
+            color: var(--branco);
+            border-color: var(--dourado);
+            transform: scale(1.03);
+        }
+
+        .prayer-card.active .prayer-name, 
+        .prayer-card.active .prayer-time {
+            color: var(--dourado-claro);
+        }
+
+        .prayer-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--texto-suave);
+            text-transform: uppercase;
+        }
+
+        .prayer-time {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--verde-escuro);
+            margin-top: 4px;
+        }
+
+        section {
+            position: relative;
+            padding: 3rem 2rem 5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Amiri', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            color: var(--verde-escuro);
+            margin-bottom: 0.8rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--dourado), transparent);
+        }
+
+        .section-header p {
+            color: var(--texto-suave);
+            max-width: 650px;
+            margin: 1.2rem auto 0;
+            font-size: 1.05rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .portal-card {
+            background: var(--branco);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            transition: var(--transicao);
+            position: relative;
+            border: 1px solid rgba(212,175,55,0.2);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portal-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--verde-esmeralda), var(--dourado), var(--verde-esmeralda));
+        }
+
+        .portal-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(13,115,119,0.2);
+            border-color: var(--dourado);
+        }
+
+        .portal-icon-box {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            position: relative;
+            color: var(--branco);
+            overflow: hidden;
+        }
+
+        .portal-icon-box::after {
+            content: '';
+            position: absolute;
+            width: 200%; height: 200%;
+            background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.06) 20px, rgba(255,255,255,0.06) 40px);
+            animation: rotateBg 30s linear infinite;
+        }
+
+        @keyframes rotateBg {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Color themes for cards */
+        .bg-salat { background: linear-gradient(135deg, #0d7377, #14a085); }
+        .bg-alcuro { background: linear-gradient(135deg, #1a5276, #2e86ab); }
+        .bg-tasbih { background: linear-gradient(135deg, #7d3c98, #a569bd); }
+        .bg-zakat { background: linear-gradient(135deg, #b9770e, #d4af37); }
+        .bg-madrassa { background: linear-gradient(135deg, #1e8449, #27ae60); }
+        .bg-nawawi { background: linear-gradient(135deg, #922b21, #c0392b); }
+        .bg-sahabas { background: linear-gradient(135deg, #283747, #34495e); }
+        .bg-games { background: linear-gradient(135deg, #d35400, #e67e22); }
+        .bg-revert { background: linear-gradient(135deg, #117a65, #16a085); }
+        .bg-comunidade { background: linear-gradient(135deg, #512e5f, #76448a); }
+        .bg-biblioteca { background: linear-gradient(135deg, #1f618d, #2980b9); }
+        .bg-loja { background: linear-gradient(135deg, #78281f, #943126); }
+
+        .portal-body {
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .portal-body h3 {
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            color: var(--verde-escuro);
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .portal-body p {
+            color: var(--texto-suave);
+            font-size: 0.92rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .portal-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(135deg, var(--verde-esmeralda), var(--verde-claro));
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: var(--transicao);
+            align-self: flex-start;
+        }
+
+        .portal-card:hover .portal-btn {
+            background: linear-gradient(135deg, var(--dourado), var(--dourado-claro));
+            color: var(--azul-marinho);
+        }
+
+        .daily-widgets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .widget-box {
+            background: var(--branco);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--sombra);
+            border: 1px solid rgba(212,175,55,0.25);
+        }
+
+        .widget-box h3 {
+            font-family: 'Amiri', serif;
+            color: var(--verde-escuro);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hadith-quote {
+            font-family: 'Amiri', serif;
+            font-size: 1.25rem;
+            color: var(--verde-escuro);
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+            font-style: italic;
+        }
+
+        .hadith-translation {
+            color: var(--texto);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .hadith-ref {
+            font-size: 0.82rem;
+            color: var(--dourado);
+            font-weight: 600;
+        }
+
+        /* Fast Tasbih Widget */
+        .tasbih-widget-counter {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .tasbih-display {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--verde-esmeralda);
+            font-family: monospace;
+            margin: 0.5rem 0;
+        }
+
+        .tasbih-phrase {
+            font-family: 'Noto Naskh Arabic', serif;
+            font-size: 1.5rem;
+            color: var(--dourado);
+            margin-bottom: 1rem;
+        }
+
+        .tasbih-btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .btn-counter {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--verde-esmeralda), var(--verde-escuro));
+            color: white;
+            border: 2px solid var(--dourado);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transicao);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .btn-counter:active {
+            transform: scale(0.92);
+        }
+
+        .btn-reset {
+            background: #e74c3c;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            align-self: center;
+        }
+
+        .highlight-section {
+            background: linear-gradient(135deg, var(--verde-escuro), var(--verde-esmeralda));
+            border-radius: 30px;
+            padding: 3.5rem 3rem;
+            margin: 4rem auto;
+            max-width: 1400px;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            box-shadow: 0 15px 40px rgba(8,76,79,0.3);
+        }
+
+        .highlight-section::before {
+            content: '☪';
+            position: absolute;
+            font-size: 22rem;
+            opacity: 0.04;
+            top: -60px;
+            right: -40px;
+            font-family: serif;
+        }
+
+        .highlight-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .highlight-text h2 {
+            font-family: 'Amiri', serif;
+            font-size: 2.4rem;
+            color: var(--dourado-claro);
+            margin-bottom: 1rem;
+        }
+
+        .highlight-text p {
+            font-size: 1.05rem;
+            opacity: 0.92;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.2rem;
+            background: rgba(255,255,255,0.08);
+            border-radius: 16px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(212,175,55,0.3);
+        }
+
+        .stat-item .number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--dourado-claro);
+            display: block;
+        }
+
+        .stat-item .label {
+            font-size: 0.85rem;
+            opacity: 0.85;
+        }
+
+        footer {
+            background: var(--azul-marinho);
+            color: var(--creme);
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            border-top: 4px solid var(--dourado);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            color: var(--dourado);
+            margin-bottom: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .footer-quote {
+            font-family: 'Amiri', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--dourado-claro);
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            text-align: left;
+            margin: 2.5rem 0;
+            border-top: 1px solid rgba(212,175,55,0.15);
+            border-bottom: 1px solid rgba(212,175,55,0.15);
+            padding: 2rem 0;
+        }
+
+        .footer-col h4 {
+            color: var(--dourado);
+            font-family: 'Amiri', serif;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-col ul li a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: var(--transicao);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--dourado-claro);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            font-size: 0.88rem;
+            opacity: 0.75;
+            padding-top: 1rem;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 900px) {
+            .menu-toggle { display: block; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: rgba(26,26,46,0.98);
+                padding: 1rem 2rem;
+                border-bottom: 2px solid var(--dourado);
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a { width: 100%; padding: 0.8rem 1rem; }
+            .highlight-content { grid-template-columns: 1fr; gap: 2rem; }
+            .highlight-section { padding: 2.5rem 1.5rem; }
+            section { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero" id="inicio">
+        <div class="arabesco-top"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fa-solid => fa-star-and-crescent"></i> Portal Islâmico de Moçambique 🇲🇿
+            </div>
+            <div class="bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+            <h1>ISLAM GUIA</h1>
+            <p>Seu centro integrado de conhecimento, aprendizado e prática do Islam em Moçambique. Explore nossos portais e ferramentas abaixo.</p>
+            
+            <!-- Dynamic Search Bar -->
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Pesquisar por Salat, Alcorão, Zakat, Madrassa, Tasbih..." onkeyup="filterCards()">
+            </div>
+        </div>
+        <div class="arabesco-bottom"></div>
+        <div class="scroll-indicator" onclick="document.getElementById('navegacao').scrollIntoView({behavior:'smooth'})">
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </header>
+
+    <nav id="navegacao">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fa-solid fa-mosque"></i> ISLAM GUIA
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active"><i class="fa-solid fa-house"></i> Início</a></li>
+                <li><a href="horario-salat/index.html"><i class="fa-solid fa-clock"></i> Horários Salat</a></li>
+                <li><a href="salat/index.html"><i class="fa-solid fa-person-praying"></i> Guia Salat</a></li>
+                <li><a href="biblioteca.html"><i class="fa-solid fa-book"></i> Biblioteca I.M.</a></li>
+                <li><a href="madrassa.html"><i class="fa-solid fa-graduation-cap"></i> Madrassa</a></li>
+                <li><a href="comunidade.html"><i class="fa-solid fa-users"></i> Comunidade</a></li>
+                <li><a href="quiz.html"><i class="fa-solid fa-gamepad"></i> Quizzes</a></li>
+                <li><a href="loja.html"><i class="fa-solid fa-store"></i> Loja</a></li>
+                <li><a href="membros.html"><i class="fa-solid fa-id-card"></i> Membros I.M.</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="prayer-widget fade-in">
+        <div class="prayer-header">
+            <div class="prayer-title">
+                <i class="fa-solid fa-clock" style="color: var(--dourado);"></i>
+                <strong>Horários das Orações em Moçambique</strong>
+            </div>
+            <div>
+                <select id="citySelect" class="city-select" onchange="updatePrayerTimes()">
+                    <option value="maputo">Maputo</option>
+                    <option value="beira">Beira</option>
+                    <option value="nampula">Nampula</option>
+                    <option value="quelimane">Quelimane</option>
+                    <option value="pemba">Pemba</option>
+                    <option value="tete">Tete</option>
+                </select>
+            </div>
+        </div>
+        <div class="prayer-grid" id="prayerGrid">
+            <div class="prayer-card" id="card-fajr">
+                <div class="prayer-name">Fajr (Alvorada)</div>
+                <div class="prayer-time" id="time-fajr">04:48</div>
+            </div>
+            <div class="prayer-card" id="card-dhuhr">
+                <div class="prayer-name">Dhuhr (Meio-Dia)</div>
+                <div class="prayer-time" id="time-dhuhr">11:58</div>
+            </div>
+            <div class="prayer-card active" id="card-asr">
+                <div class="prayer-name">Asr (Tarde)</div>
+                <div class="prayer-time" id="time-asr">15:12</div>
+            </div>
+            <div class="prayer-card" id="card-maghrib">
+                <div class="prayer-name">Maghrib (Por do Sol)</div>
+                <div class="prayer-time" id="time-maghrib">17:35</div>
+            </div>
+            <div class="prayer-card" id="card-isha">
+                <div class="prayer-name">Isha (Noite)</div>
+                <div class="prayer-time" id="time-isha">18:52</div>
+            </div>
+        </div>
+    </div>
+
+    <section id="portais">
+        <div class="section-header fade-in">
+            <h2>🕌 Nossos Portais e Recursos</h2>
+            <p>Acesse o conteúdo autêntico organizado por categorias essenciais da fé e da prática diária.</p>
+        </div>
+
+        <div class="cards-grid" id="cardsGrid">
+            
+            <!-- Card 1: Horários & Guia de Salat -->
+            <a href="horario-salat/index.html" class="portal-card fade-in" data-tags="horario salat oração namaz tempos maputo beira nampula wudhu">
+                <div class="portal-icon-box bg-salat">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <div class="portal-body">
+                    <h3>HORÁRIO DO SALAT & GUIA <i class="fa-solid fa-arrow-right"></i></h3>
+                    <p>Tempos de oração para províncias de Moçambique, guia passo a passo da oração e instruções de Wudhu (ablução).</p>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px;">
+                        <span style="font-size:0.75rem; background:rgba(13,115,119,0.15); color:var(--verde-escuro); padding:3px 8px; border-radius:12px;">horario-salat/</span>
+                        <span style="font-size:0.75rem; background:rgba(13,115,119,0.15); color:var(--verde-escuro); padding:3px 8px; border-radius:12px;">salat/</span>
+                    </div>
+                    <span class="portal-btn">Ver Horários & Salat <i class="fa-solid fa-chevron-right"></i></span>
+                </div>
+            </a>
+
+            <!-- Card 2: Biblioteca Digital I.M. -->
+            <div class="portal-card fade-in" data-tags="biblioteca digital im alcorao nawawi bukhari yassarnal tauhid guia sahabas">
+                <div class="portal-icon-box bg-alcuro">
+                    <i class="fa-solid fa-book-quran"></i>
+                </div>
+                <div class="portal-body">
+                    <h3>BIBLIOTECA DIGITAL I.M. <i class="fa-solid fa-arrow-right"></i></h3>
+                    <p>Acervo central com o Alcorão Sagrado, Hadiths, Tauhid, Yassarnal Quran e Histórias dos Sahabas.</p>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 15px;">
+                        <a href="alcorao/index.html" style="font-size:0.78rem; background:var(--creme-escuro); color:var(--verde-escuro); padding:4px 10px; border-radius:12px; text-decoration:none; font-weight:600;"><i class="fa-solid fa-quran"></i> Alcorão</a>
+                        <a href="nawawi/index.html" style="font-size:0.78rem; background:var(--creme-escuro); color:var(--verde-escuro); padding:4px 10px; border-radius:12px; text-decoration:none; font-weight:600;"><i class="fa-solid fa-scroll"></i> 42 Nawawi</a>
+                        <a href="sahabas/index.html" style="font-size:0.78rem; background:var(--creme-escuro); color:var(--verde-escuro); padding:4px 10px; border-radius:12px; text-decoration:none; font-weight:600;"><i class="fa-solid fa-user-shield"></i> Sahabas</a>
+                        <a href="guia/index.html" style="font-size:0.78rem; background:var(--creme-escuro); color:var(--verde-escuro); padding:4px 10px; border-radius:12px; text-decoration:none; font-weight:600;"><i class="fa-solid fa-compass"></i> Guia</a>
+                    </div>
+                    <a href="biblioteca.html" class="portal-btn">Explorar Biblioteca <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Card 3: Madrassa Online -->
+            <a href="madrassa.html" class="portal-card fade-in" data-tags="madrassa online estudo tajweed arabe criancas adultos Yassarnal">
+                <div class="portal-icon-box bg-madrassa">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="portal-body">
+                    <h3>MADRASSA ONLINE <i class="fa-solid fa-arrow-right"></i></h3>
+                    <p>Cursos presenciais e virtuais de alfabetização em Árabe, Yassarnal Quran, regras de Tajweed e Fiqh.</p>
+                    <span class="portal-btn">Entrar na Madrassa <i class="fa-solid fa-chevron-right"></i></span>
+                </div>
+            </a>
+
+            <!-- Card 4: Comunidade Islâmica -->
+            <div class="portal-card fade-in" data-tags="comunidade islamica tasbih quero ser muculmano gestao financeira zakat">
+                <div class="portal-icon-box bg-comunidade">
+                    <i class="fa-solid fa-people-group"></i>
+                </div>
+                <div class="portal-body">
+                    <h3>COMUNIDADE ISLÂMICA <i class="fa-solid fa-arrow-right"></i></h3>
+                    <p>Rede de união, suporte a novos muçulmanos, gestão financeira islâmica e cálculo de Zakat.</p>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 15px;">
+                        <a href="tasbih/index.html" style="font-size:0.75rem; background:var(--creme-escuro); color:var(--verde-escuro); padding:3px 8px; border-radius:10px; text-decoration:none;"><i class="fa-solid fa-dhikr"></i> Tasbih</a>
+                        <a href="quero-ser-muculmano/index.html" style="font-size:0.75rem; background:var(--creme-escuro); color:var(--verde-escuro); padding:3px 8px; border-radius:10px; text-decoration:none;"><i class="fa-solid fa-heart"></i> Novo Muçulmano</a>
+                        <a href="gestao-financeira/index.html" style="font-size:0.75rem; background:var(--creme-escuro); color:var(--verde-escuro); padding:3px 8px; border-radius:10px; text-decoration:none;"><i class="fa-solid fa-chart-pie"></i> Gestão Financeira</a>
+                        <a href="zakat/index.html" style="font-size:0.75rem; background:var(--creme-escuro); color:var(--verde-escuro); padding:3px 8px; border-radius:10px; text-decoration:none;"><i class="fa-solid fa-calculator"></i> Zakat</a>
+                    </div>
+                    <a href="comunidade.html" class="portal-btn">Acessar Comunidade <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Card 5: Quizzes & Jogos Islâmicos -->
+            <div class="portal-card fade-in" data-tags="quiz islamico jogos nawawi alcorao sopa de letras puzzle">
+                <div class="portal-icon-box bg-games">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+                <div class="portal-body">
+                    <h3>QUIZZES E JOGOS ISLÂMICOS <i class="fa-solid fa-arrow-right"></i></h3>
+                    <p>Teste e aprimore o seu conhecimento com jogos educativos e quizzes interativos.</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 15px;">
+                        <a href="quiz-nawawi/index.html" style="font-size:0.72rem; background:var(--creme-escuro); color:var(--verde-escuro); padding:4px 6px; border-radius:8px; text-decoration:none; font-weight:500;">🎮 Quiz 42 Hadiths</a>
+                        <a href="quiz-alcorao/index.html" style="font-size:0.72rem; background:var(--creme-escuro); color:var(--verde-escuro); padding:4px 6px; border-radius:8px; text-decoration:none; font-weight:500;">📖 Quiz Alcorão</a>
+                        <a href="sopa-letras/index.html" style="font-size:0.72rem; background:var(--creme-escuro); color:var(--verde-escuro); padding:4px 6px; border-radius:8px; text-decoration:none; font-weight:500;">🔤 Sopa de Letras</a>
+                        <a href="puzzle-islamico/index.html" style="font-size:0.72rem; background:var(--creme-escuro); color:var(--verde-escuro); padding:4px 6px; border-radius:8px; text-decoration:none; font-weight:500;">🧩 Puzzle Islâmico</a>
+                    </div>
+                    <a href="quiz.html" class="portal-btn">Ver Todos os Jogos <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Card 6: Loja Virtual Islâmica -->
+            <div class="portal-card fade-in" data-tags="loja virtual produtos livros roupas acessorios comidas outros produtos">
+                <div class="portal-icon-box bg-loja">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <div class="portal-body">
+                    <h3>LOJA VIRTUAL <i class="fa-solid fa-arrow-right"></i></h3>
+                    <p>Artigos e produtos islâmicos selecionados com entrega em Moçambique.</p>
+                    <div style="display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 15px;">
+                        <span style="font-size:0.72rem; background:rgba(212,175,55,0.15); color:var(--texto); padding:2px 7px; border-radius:10px;">📚 Livros</span>
+                        <span style="font-size:0.72rem; background:rgba(212,175,55,0.15); color:var(--texto); padding:2px 7px; border-radius:10px;">👔 Roupas</span>
+                        <span style="font-size:0.72rem; background:rgba(212,175,55,0.15); color:var(--texto); padding:2px 7px; border-radius:10px;">📿 Acessórios</span>
+                        <span style="font-size:0.72rem; background:rgba(212,175,55,0.15); color:var(--texto); padding:2px 7px; border-radius:10px;">🌴 Comidas Halal</span>
+                    </div>
+                    <a href="loja.html" class="portal-btn">Visitar Loja <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Card 7: Membros I.M. -->
+            <a href="membros.html" class="portal-card fade-in" data-tags="membros im cadastro perfil comunidade apoio sobre">
+                <div class="portal-icon-box bg-sahabas">
+                    <i class="fa-solid fa-id-card"></i>
+                </div>
+                <div class="portal-body">
+                    <h3>MEMBROS I.M. <i class="fa-solid fa-arrow-right"></i></h3>
+                    <p>Área exclusiva para cadastro de membros, colaboradores e voluntários do projeto Islam Moçambique.</p>
+                    <span class="portal-btn">Área de Membros <i class="fa-solid fa-chevron-right"></i></span>
+                </div>
+            </a>
+
+            <!-- Card 8: Tasbih Digital Direto -->
+            <a href="tasbih/index.html" class="portal-card fade-in" data-tags="tasbih digital dhikr zikr rosario contador">
+                <div class="portal-icon-box bg-tasbih">
+                    <i class="fa-solid fa-dhikr"></i>
+                </div>
+                <div class="portal-body">
+                    <h3>TASBIH DIGITAL <i class="fa-solid fa-arrow-right"></i></h3>
+                    <p>Ferramenta interativa de Dhikr com salvamento automático de contagem e frases configuráveis.</p>
+                    <span class="portal-btn">Abrir Tasbih <i class="fa-solid fa-chevron-right"></i></span>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <section style="background: var(--creme-escuro); padding: 4rem 2rem; border-radius: 30px;" class="fade-in">
+        <div class="section-header" style="margin-bottom: 2rem;">
+            <h2>⚡ Ferramentas Rápidas</h2>
+            <p>Aproveite momentos de reflexão com o Hadith do dia e o contador de Tasbih imediato.</p>
+        </div>
+
+        <div class="daily-widgets-grid">
+            <!-- Hadith of the Day -->
+            <div class="widget-box">
+                <h3><i class="fa-solid fa-quote-left" style="color: var(--dourado);"></i> Hadith do Dia</h3>
+                <div class="hadith-quote">"خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ"</div>
+                <div class="hadith-translation">"O melhor entre vós é aquele que aprende o Alcorão e o ensina aos outros."</div>
+                <div class="hadith-ref">— Relatado por Al-Bukhari</div>
+            </div>
+
+            <!-- Fast Tasbih Widget -->
+            <div class="widget-box tasbih-widget-counter">
+                <h3><i class="fa-solid fa-fingerprint" style="color: var(--verde-esmeralda);"></i> Contador Rápido</h3>
+                <div class="tasbih-phrase" id="tasbihPhrase">سُبْحَانَ ٱللَّٰهِ (Subhanallah)</div>
+                <div class="tasbih-display" id="tasbihCount">0</div>
+                <div class="tasbih-btn-group">
+                    <button class="btn-counter" onclick="incrementTasbih()"><i class="fa-solid fa-plus"></i></button>
+                    <button class="btn-reset" onclick="resetTasbih()" title="Reiniciar"><i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="highlight-section fade-in">
+        <div class="highlight-content">
+            <div class="highlight-text">
+                <h2>🌙 Fortalecendo a Ummah em Moçambique</h2>
+                <p>O <strong>ISLAM GUIA</strong> é uma iniciativa criada para unificar, educar e inspirar os muçulmanos de Moçambique com conteúdos autênticos em língua portuguesa.</p>
+                <p>Nossa missão é facilitar o conhecimento islâmico para crianças, jovens, adultos e novos revertidos.</p>
+            </div>
+            <div class="highlight-stats">
+                <div class="stat-item">
+                    <span class="number">12+</span>
+                    <span class="label">Portais Ativos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="number">100%</span>
+                    <span class="label">Gratuito</span>
+                </div>
+                <div class="stat-item">
+                    <span class="number">🇲🇿</span>
+                    <span class="label">Moçambique</span>
+                </div>
+                <div class="stat-item">
+                    <span class="number">24/7</span>
+                    <span class="label">Acesso Online</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <a href="index.html" class="footer-logo">☪ ISLAM GUIA</a>
+            <div class="footer-quote">
+                "Procurem o conhecimento do berço até à sepultura."<br>
+                <small style="opacity: 0.8; font-size: 0.9rem;">— Sabedoria Islâmica</small>
+            </div>
+
+            <div class="footer-links-grid">
+                <div class="footer-col">
+                    <h4>Principal</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="horario-salat/index.html">Horário do Salat</a></li>
+                        <li><a href="salat/index.html">Guia do Salat & Wudhu</a></li>
+                        <li><a href="madrassa.html">Madrassa Online</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Biblioteca I.M.</h4>
+                    <ul>
+                        <li><a href="alcorao/index.html">Alcorão Sagrado</a></li>
+                        <li><a href="nawawi/index.html">42 Hadiths An-Nawawi</a></li>
+                        <li><a href="sahabas/index.html">Histórias dos Sahabas</a></li>
+                        <li><a href="guia/index.html">Islam Guia</a></li>
+                        <li><a href="biblioteca.html">Todos os Livros</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Jogos & Ferramentas</h4>
+                    <ul>
+                        <li><a href="quiz-nawawi/index.html">Quiz 42 Hadiths</a></li>
+                        <li><a href="quiz-alcorao/index.html">Quiz do Alcorão</a></li>
+                        <li><a href="sopa-letras/index.html">Sopa de Letras</a></li>
+                        <li><a href="puzzle-islamico/index.html">Puzzle Islâmico</a></li>
+                        <li><a href="tasbih/index.html">Tasbih Digital</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Comunidade & Loja</h4>
+                    <ul>
+                        <li><a href="comunidade.html">Comunidade Islâmica</a></li>
+                        <li><a href="quero-ser-muculmano/index.html">Quero Ser Muçulmano</a></li>
+                        <li><a href="gestao-financeira/index.html">Gestão Financeira</a></li>
+                        <li><a href="zakat/index.html">Calculadora de Zakat</a></li>
+                        <li><a href="loja.html">Loja Virtual</a></li>
+                        <li><a href="membros.html">Membros I.M.</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 ISLAM GUIA — Portal Islâmico de Moçambique 🇲🇿</p>
+                <p style="margin-top: 5px; color: var(--dourado-claro);">Feito com 💚 para a Ummah em Moçambique</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // 2. Dynamic Card Search Filter
+        function filterCards() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.portal-card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('h3').innerText.toLowerCase();
+                const text = card.querySelector('p').innerText.toLowerCase();
+                const tags = card.getAttribute('data-tags') || '';
+
+                if (title.includes(input) || text.includes(input) || tags.includes(input)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 3. Mozambique Prayer Times Simulator
+        const cityData = {
+            maputo: { fajr: "04:48", dhuhr: "11:58", asr: "15:12", maghrib: "17:35", isha: "18:52" },
+            beira: { fajr: "04:35", dhuhr: "11:45", asr: "15:02", maghrib: "17:20", isha: "18:38" },
+            nampula: { fajr: "04:15", dhuhr: "11:30", asr: "14:48", maghrib: "17:05", isha: "18:20" },
+            quelimane: { fajr: "04:25", dhuhr: "11:38", asr: "14:55", maghrib: "17:12", isha: "18:28" },
+            pemba: { fajr: "04:10", dhuhr: "11:25", asr: "14:42", maghrib: "17:00", isha: "18:15" },
+            tete: { fajr: "04:40", dhuhr: "11:50", asr: "15:08", maghrib: "17:25", isha: "18:42" }
+        };
+
+        function updatePrayerTimes() {
+            const city = document.getElementById('citySelect').value;
+            const data = cityData[city];
+
+            if (data) {
+                document.getElementById('time-fajr').innerText = data.fajr;
+                document.getElementById('time-dhuhr').innerText = data.dhuhr;
+                document.getElementById('time-asr').innerText = data.asr;
+                document.getElementById('time-maghrib').innerText = data.maghrib;
+                document.getElementById('time-isha').innerText = data.isha;
+            }
+        }
+
+        // 4. Fast Tasbih Counter
+        let count = 0;
+        const phrases = [
+            "سُبْحَانَ ٱللَّٰهِ (Subhanallah)",
+            "ٱلْحَمْدُ لِلَّٰهِ (Alhamdulillah)",
+            "ٱللَّٰهُ أَكْبَرُ (Allahu Akbar)",
+            "لَا إِلَٰهَ إِلَّا ٱللَّٰهُ (La ilaha illallah)"
+        ];
+        let phraseIdx = 0;
+
+        function incrementTasbih() {
+            count++;
+            document.getElementById('tasbihCount').innerText = count;
+
+            if (count % 33 === 0) {
+                phraseIdx = (phraseIdx + 1) % phrases.length;
+                document.getElementById('tasbihPhrase').innerText = phrases[phraseIdx];
+            }
+        }
+
+        function resetTasbih() {
+            count = 0;
+            phraseIdx = 0;
+            document.getElementById('tasbihCount').innerText = 0;
+            document.getElementById('tasbihPhrase').innerText = phrases[0];
+        }
+
+        // 5. Scroll Fade-In Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
