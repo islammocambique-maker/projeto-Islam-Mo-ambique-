@@ -1,33 +1,89 @@
 export async function loadHadith() {
-  const response = await fetch('data/hadiths.json');
-  const hadiths = await response.json();
+  try {
+    const response = await fetch('./data/hadiths.json', {
+      cache: 'no-cache'
+    });
 
-  // Obter o dia do Hadith
-  const today = new Date().getDate().toString();
-
-  // Verificar se já existe um Hadith salvo na memória
-  let hadithDia = localStorage.getItem('hadithDia');
-  let diaSalvo = localStorage.getItem('diaSalvo');
-
-  if (diaSalvo !== today || !hadithDia) {
-    // Selecionar aleatoriamente ou sequencialmente
-    const index = hadiths.findIndex(h => h.dia === today);
-    let hadithSelecionado;
-    if (index !== -1) {
-      hadithSelecionado = hadiths[index];
-    } else {
-      // Se não encontrar, pegar aleatório
-      hadithSelecionado = hadiths[Math.floor(Math.random() * hadiths.length)];
+    if (!response.ok) {
+      throw new Error(`Erro ao carregar hadiths.json: ${response.status}`);
     }
-    localStorage.setItem('hadithDia', JSON.stringify(hadithSelecionado));
-    localStorage.setItem('diaSalvo', today);
-  } else {
-    hadithSelecionado = JSON.parse(hadithDia);
-  }
 
-  // Mostrar na tela
-  document.querySelector('.arabico').textContent = hadithSelecionado.arabico;
-  document.querySelector('.traducao').textContent = hadithSelecionado.traducao;
-  document.querySelector('.fonte').textContent = `Fonte: ${hadithSelecionado.fonte}`;
-  document.querySelector('.reflexao').textContent = hadithSelecionado.reflexao;
+    const hadiths = await response.json();
+
+    if (!Array.isArray(hadiths) || hadiths.length === 0) {
+      throw new Error('O arquivo hadiths.json está vazio ou inválido.');
+    }
+
+    // Dia do mês: 1, 2, 3... 31
+    const today = new Date().getDate().toString();
+
+    let hadithSelecionado = null;
+
+    const diaSalvo = localStorage.getItem('hadithDiaData');
+    const hadithSalvo = localStorage.getItem('hadithDia');
+
+    // Usar o Hadith guardado se ainda for o mesmo dia
+    if (diaSalvo === today && hadithSalvo) {
+      try {
+        hadithSelecionado = JSON.parse(hadithSalvo);
+      } catch (e) {
+        hadithSelecionado = null;
+      }
+    }
+
+    // Se não houver Hadith salvo para hoje,
+    // procurar o Hadith correspondente ao dia
+    if (!hadithSelecionado) {
+      hadithSelecionado = hadiths.find(
+        h => String(h.dia) === today
+      );
+
+      // Se não existir para esse dia, escolher um aleatório
+      if (!hadithSelecionado) {
+        hadithSelecionado =
+          hadiths[Math.floor(Math.random() * hadiths.length)];
+      }
+
+      localStorage.setItem(
+        'hadithDia',
+        JSON.stringify(hadithSelecionado)
+      );
+
+      localStorage.setItem(
+        'hadithDiaData',
+        today
+      );
+    }
+
+    // Procurar os elementos na página
+    const arabico = document.querySelector('.arabico');
+    const traducao = document.querySelector('.traducao');
+    const fonte = document.querySelector('.fonte');
+    const reflexao = document.querySelector('.reflexao');
+
+    // Se os elementos não existirem, não quebrar a página
+    if (!arabico || !traducao || !fonte || !reflexao) {
+      console.warn(
+        'Elementos do Hadith do dia não encontrados no index.html.'
+      );
+      return;
+    }
+
+    // Mostrar Hadith
+    arabico.textContent = hadithSelecionado.arabico || '';
+    traducao.textContent = hadithSelecionado.traducao || '';
+    fonte.textContent =
+      `Fonte: ${hadithSelecionado.fonte || 'Desconhecida'}`;
+    reflexao.textContent = hadithSelecionado.reflexao || '';
+
+  } catch (error) {
+    console.error('Erro no Hadith do dia:', error);
+
+    const traducao = document.querySelector('.traducao');
+
+    if (traducao) {
+      traducao.textContent =
+        'Não foi possível carregar o Hadith do dia.';
+    }
+  }
 }
