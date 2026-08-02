@@ -1,33 +1,35 @@
 async function loadHadith() {
   try {
-    const response = await fetch('data/hadiths.json');
+    const response = await fetch('./data/hadiths.json');
 
     if (!response.ok) {
-      throw new Error('Não foi possível carregar hadiths.json');
+      throw new Error('Erro ao carregar hadiths.json');
     }
 
     const hadiths = await response.json();
 
-    if (!Array.isArray(hadiths) || hadiths.length === 0) {
-      throw new Error('Nenhum Hadith encontrado.');
-    }
-
-    const today = new Date().getDate().toString();
-
-    let hadithDia = localStorage.getItem('hadithDia');
-    let diaSalvo = localStorage.getItem('diaSalvo');
+    const hoje = new Date();
+    const diaDoMes = hoje.getDate().toString();
 
     let hadithSelecionado;
 
-    if (diaSalvo !== today || !hadithDia) {
+    // Verifica se já existe um Hadith guardado para hoje
+    const salvo = localStorage.getItem('hadithDia');
+    const diaSalvo = localStorage.getItem('diaSalvo');
 
-      const index = hadiths.findIndex(
-        h => h.dia === today
+    if (salvo && diaSalvo === diaDoMes) {
+
+      hadithSelecionado = JSON.parse(salvo);
+
+    } else {
+
+      // Procura o Hadith correspondente ao dia
+      hadithSelecionado = hadiths.find(
+        hadith => String(hadith.dia) === diaDoMes
       );
 
-      if (index !== -1) {
-        hadithSelecionado = hadiths[index];
-      } else {
+      // Se não existir, escolhe um aleatório
+      if (!hadithSelecionado) {
         hadithSelecionado =
           hadiths[Math.floor(Math.random() * hadiths.length)];
       }
@@ -37,14 +39,13 @@ async function loadHadith() {
         JSON.stringify(hadithSelecionado)
       );
 
-      localStorage.setItem('diaSalvo', today);
-
-    } else {
-
-      hadithSelecionado = JSON.parse(hadithDia);
-
+      localStorage.setItem(
+        'diaSalvo',
+        diaDoMes
+      );
     }
 
+    // Mostrar Hadith
     const arabico = document.querySelector('.arabico');
     const traducao = document.querySelector('.traducao');
     const fonte = document.querySelector('.fonte');
@@ -60,18 +61,26 @@ async function loadHadith() {
 
     if (fonte) {
       fonte.textContent =
-        `Fonte: ${hadithSelecionado.fonte}`;
+        'Fonte: ' + hadithSelecionado.fonte;
     }
 
     if (reflexao) {
       reflexao.textContent = hadithSelecionado.reflexao;
     }
 
-  } catch (error) {
+  } catch (erro) {
 
-    console.error('Erro ao carregar Hadith:', error);
+    console.error('Erro no Hadith do Dia:', erro);
 
+    const traducao = document.querySelector('.traducao');
+
+    if (traducao) {
+      traducao.textContent =
+        'Não foi possível carregar o Hadith.';
+    }
   }
 }
 
+
+// Executar automaticamente
 loadHadith();
