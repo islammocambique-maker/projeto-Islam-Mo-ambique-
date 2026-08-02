@@ -1,89 +1,128 @@
-export async function loadHadith() {
+// ===============================
+// MENU RESPONSIVO
+// ===============================
+
+const menuToggle = document.querySelector('.menu-toggle');
+const menu = document.querySelector('.menu');
+
+if (menuToggle && menu) {
+  menuToggle.addEventListener('click', () => {
+    menu.classList.toggle('show');
+  });
+}
+
+
+// ===============================
+// CARROSSEL DE SLIDES
+// ===============================
+
+let slides = [];
+let currentSlideIndex = 0;
+let carouselInterval = null;
+
+const carouselContainer = document.getElementById('carousel');
+
+async function loadSlides() {
+  if (!carouselContainer) return;
+
   try {
-    const response = await fetch('./data/hadiths.json', {
-      cache: 'no-cache'
-    });
+    const response = await fetch('data/slides.json');
 
     if (!response.ok) {
-      throw new Error(`Erro ao carregar hadiths.json: ${response.status}`);
+      throw new Error(`Erro HTTP: ${response.status}`);
     }
 
-    const hadiths = await response.json();
+    slides = await response.json();
 
-    if (!Array.isArray(hadiths) || hadiths.length === 0) {
-      throw new Error('O arquivo hadiths.json está vazio ou inválido.');
+    if (!Array.isArray(slides) || slides.length === 0) {
+      throw new Error('slides.json está vazio ou inválido.');
     }
 
-    // Dia do mês: 1, 2, 3... 31
-    const today = new Date().getDate().toString();
-
-    let hadithSelecionado = null;
-
-    const diaSalvo = localStorage.getItem('hadithDiaData');
-    const hadithSalvo = localStorage.getItem('hadithDia');
-
-    // Usar o Hadith guardado se ainda for o mesmo dia
-    if (diaSalvo === today && hadithSalvo) {
-      try {
-        hadithSelecionado = JSON.parse(hadithSalvo);
-      } catch (e) {
-        hadithSelecionado = null;
-      }
-    }
-
-    // Se não houver Hadith salvo para hoje,
-    // procurar o Hadith correspondente ao dia
-    if (!hadithSelecionado) {
-      hadithSelecionado = hadiths.find(
-        h => String(h.dia) === today
-      );
-
-      // Se não existir para esse dia, escolher um aleatório
-      if (!hadithSelecionado) {
-        hadithSelecionado =
-          hadiths[Math.floor(Math.random() * hadiths.length)];
-      }
-
-      localStorage.setItem(
-        'hadithDia',
-        JSON.stringify(hadithSelecionado)
-      );
-
-      localStorage.setItem(
-        'hadithDiaData',
-        today
-      );
-    }
-
-    // Procurar os elementos na página
-    const arabico = document.querySelector('.arabico');
-    const traducao = document.querySelector('.traducao');
-    const fonte = document.querySelector('.fonte');
-    const reflexao = document.querySelector('.reflexao');
-
-    // Se os elementos não existirem, não quebrar a página
-    if (!arabico || !traducao || !fonte || !reflexao) {
-      console.warn(
-        'Elementos do Hadith do dia não encontrados no index.html.'
-      );
-      return;
-    }
-
-    // Mostrar Hadith
-    arabico.textContent = hadithSelecionado.arabico || '';
-    traducao.textContent = hadithSelecionado.traducao || '';
-    fonte.textContent =
-      `Fonte: ${hadithSelecionado.fonte || 'Desconhecida'}`;
-    reflexao.textContent = hadithSelecionado.reflexao || '';
+    buildCarousel();
+    startCarousel();
 
   } catch (error) {
-    console.error('Erro no Hadith do dia:', error);
-
-    const traducao = document.querySelector('.traducao');
-
-    if (traducao) {
-      traducao.textContent =
-        'Não foi possível carregar o Hadith do dia.';
-    }
+    console.error('Erro ao carregar slides:', error);
   }
 }
+
+
+function buildCarousel() {
+  carouselContainer.innerHTML = '';
+
+  slides.forEach((slide) => {
+
+    const slideDiv = document.createElement('div');
+
+    slideDiv.className = 'slide';
+
+    slideDiv.innerHTML = `
+      <h3>${slide.titulo}</h3>
+
+      <p>${slide.descricao}</p>
+
+      <a href="${slide.link}" class="btn">
+        ${slide.botao}
+      </a>
+    `;
+
+    carouselContainer.appendChild(slideDiv);
+  });
+}
+
+
+function showSlide(index) {
+
+  if (!carouselContainer || slides.length === 0) return;
+
+  if (index >= slides.length) {
+    currentSlideIndex = 0;
+  } else if (index < 0) {
+    currentSlideIndex = slides.length - 1;
+  } else {
+    currentSlideIndex = index;
+  }
+
+  carouselContainer.style.transform =
+    `translateY(-${currentSlideIndex * 100}%)`;
+}
+
+
+function startCarousel() {
+
+  showSlide(currentSlideIndex);
+
+  if (carouselInterval) {
+    clearInterval(carouselInterval);
+  }
+
+  carouselInterval = setInterval(() => {
+
+    currentSlideIndex++;
+
+    showSlide(currentSlideIndex);
+
+  }, 5000);
+}
+
+
+// ===============================
+// INICIAR SLIDES
+// ===============================
+
+loadSlides();
+
+
+// ===============================
+// HADITH DO DIA
+// ===============================
+
+import('./hadith.js')
+  .then(module => {
+    if (typeof module.loadHadith === 'function') {
+      module.loadHadith();
+    }
+  })
+  .catch(error => {
+    console.error('Erro ao carregar Hadith:', error);
+  });
