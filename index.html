@@ -1,5 +1,5 @@
+```html
 <!DOCTYPE html>
-
 <html lang="pt-MZ">
 <head>
   <meta charset="UTF-8">
@@ -7,23 +7,15 @@
 
   <title>Islam Moçambique</title>
 
-<meta
-name="description"
-content="Islam Moçambique - Conhecimento, educação islâmica, Madrassa, biblioteca e comunidade."
+  <meta name="description" content="Islam Moçambique - Conhecimento, educação islâmica, Alcorão, Hadith, Madrassa e comunidade islâmica.">
 
->
-
-  <meta name="theme-color" content="#064e3b">
+  <link rel="icon" type="image/jpeg" href="logo.jpeg">
 
   <style>
-    /* =====================================================
-       RESET
-    ===================================================== */
-
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     html {
@@ -32,10 +24,9 @@ content="Islam Moçambique - Conhecimento, educação islâmica, Madrassa, bibli
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #f5f5f5;
+      background: #f5f7f5;
       color: #222;
       line-height: 1.6;
-      transition: background .3s ease, color .3s ease;
     }
 
     a {
@@ -43,257 +34,267 @@ content="Islam Moçambique - Conhecimento, educação islâmica, Madrassa, bibli
       color: inherit;
     }
 
-
-    /* =====================================================
-       MODO ESCURO
-    ===================================================== */
-
-    body.dark {
-      background: #101412;
-      color: #f1f1f1;
-    }
-
-    body.dark .card,
-    body.dark .hadith-box,
-    body.dark .about-box,
-    body.dark .contact-box {
-      background: #18201c;
-      color: #f1f1f1;
-    }
-
-    body.dark .search-box {
-      background: #18201c;
-    }
-
-    body.dark .search-box input {
-      color: white;
-    }
-
-
-    /* =====================================================
-       HEADER
-    ===================================================== */
+    /* =========================
+       CABEÇALHO
+    ========================= */
 
     header {
+      background: linear-gradient(135deg, #064d32, #087443);
+      color: white;
       position: sticky;
       top: 0;
       z-index: 1000;
-
-      background: #064e3b;
-      color: white;
-
-      box-shadow: 0 2px 10px rgba(0,0,0,.2);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
     }
 
-    .header-content {
+    .header-inner {
       max-width: 1200px;
       margin: auto;
-
       min-height: 72px;
+      padding: 10px 18px;
 
       display: flex;
       align-items: center;
       justify-content: space-between;
-
-      padding: 10px 18px;
       gap: 15px;
     }
 
-
-    /* =====================================================
-       LOGO
-    ===================================================== */
-
-    .logo-area {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-
+      gap: 12px;
       min-width: 0;
     }
 
-    .logo-area img {
+    .brand img {
       width: 52px;
       height: 52px;
-
       object-fit: cover;
-
       border-radius: 50%;
-
-      border: 2px solid #d4af37;
-
+      border: 2px solid #fff;
       background: white;
     }
 
-    .logo-text {
-      font-size: 18px;
-      font-weight: bold;
-      color: #fff;
-      white-space: nowrap;
+    .brand-text {
+      min-width: 0;
     }
 
-
-    /* =====================================================
-       CONTROLOS DO HEADER
-    ===================================================== */
-
-    .header-buttons {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .brand-text h1 {
+      font-size: 19px;
+      line-height: 1.2;
     }
 
-    .icon-btn {
-      width: 40px;
-      height: 40px;
-
-      border: none;
-      border-radius: 50%;
-
-      background: #0b6b50;
-      color: white;
-
-      cursor: pointer;
-
-      font-size: 18px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .brand-text p {
+      font-size: 11px;
+      opacity: 0.9;
     }
 
-    .icon-btn:hover {
-      background: #d4af37;
-      color: #111;
-    }
+    /* =========================
+       MENU
+    ========================= */
 
     .menu-toggle {
       display: none;
-    }
-
-
-    /* =====================================================
-       MENU
-    ===================================================== */
-
-    nav {
-      background: #043d2e;
-    }
-
-    .menu {
-      max-width: 1200px;
-      margin: auto;
-
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-
-      list-style: none;
-    }
-
-    .menu li a {
-      display: block;
-
-      padding: 12px 13px;
-
-      color: white;
-
-      font-size: 14px;
-      font-weight: bold;
-
-      transition: background .2s ease;
-    }
-
-    .menu li a:hover {
-      background: #d4af37;
-      color: #111;
-    }
-
-
-    /* =====================================================
-       PESQUISA
-    ===================================================== */
-
-    .search-section {
-      max-width: 900px;
-      margin: 20px auto 10px;
-
-      padding: 0 15px;
-    }
-
-    .search-box {
-      display: flex;
-      align-items: center;
-
-      background: white;
-
-      border-radius: 30px;
-
-      padding: 5px 8px 5px 18px;
-
-      box-shadow: 0 2px 8px rgba(0,0,0,.1);
-    }
-
-    .search-box input {
-      flex: 1;
-
       border: none;
-      outline: none;
-
       background: transparent;
-
-      font-size: 15px;
-
-      padding: 10px;
-    }
-
-    .search-box button {
-      width: 42px;
-      height: 42px;
-
-      border: none;
-      border-radius: 50%;
-
-      background: #064e3b;
       color: white;
-
+      font-size: 28px;
       cursor: pointer;
     }
 
-
-    /* =====================================================
-       CARROSSEL
-    ===================================================== */
-
-    .carousel-section {
-      max-width: 1000px;
-
-      margin: 20px auto;
-
-      padding: 0 15px;
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      list-style: none;
     }
 
+    .menu a {
+      display: block;
+      padding: 9px 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .menu a:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      background:
+        linear-gradient(rgba(0,60,38,0.82), rgba(0,60,38,0.82)),
+        url("logo.jpeg") center/cover;
+
+      min-height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 50px 20px;
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .hero h2 {
+      font-size: clamp(30px, 6vw, 52px);
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 17px;
+      max-width: 700px;
+      margin: auto;
+      opacity: 0.95;
+    }
+
+    .hero-buttons {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 11px 20px;
+      border-radius: 7px;
+      font-weight: bold;
+      font-size: 14px;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #d4a72c;
+      color: #111;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .btn-light {
+      background: white;
+      color: #064d32;
+    }
+
+    .btn-light:hover {
+      transform: translateY(-2px);
+    }
+
+    /* =========================
+       SEÇÕES
+    ========================= */
+
+    section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 50px 18px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .section-title h2 {
+      color: #064d32;
+      font-size: 28px;
+      margin-bottom: 7px;
+    }
+
+    .section-title p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* =========================
+       HADITH DO DIA
+    ========================= */
+
+    .hadith-section {
+      background: #fff;
+    }
+
+    .hadith-card {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      border-radius: 14px;
+      padding: 30px 25px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+      border-top: 4px solid #087443;
+      text-align: center;
+    }
+
+    .hadith-label {
+      display: inline-block;
+      background: #064d32;
+      color: white;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .arabico {
+      font-size: 27px;
+      line-height: 2;
+      direction: rtl;
+      font-family: "Traditional Arabic", "Amiri", serif;
+      color: #064d32;
+      margin-bottom: 20px;
+    }
+
+    .traducao {
+      font-size: 19px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .fonte {
+      color: #777;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .reflexao {
+      font-size: 15px;
+      color: #555;
+      font-style: italic;
+    }
+
+    /* =========================
+       CARROSSEL
+    ========================= */
+
     .carousel-wrapper {
-      height: 250px;
-
+      max-width: 1000px;
+      height: 300px;
+      margin: auto;
       overflow: hidden;
-
-      border-radius: 18px;
-
-      background: #064e3b;
-
-      box-shadow: 0 5px 20px rgba(0,0,0,.18);
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+      background: #064d32;
     }
 
     #carousel {
       height: 100%;
-
-      transition: transform .7s ease-in-out;
+      transition: transform 0.7s ease;
     }
 
     .slide {
       height: 100%;
-
       padding: 35px 25px;
 
       display: flex;
@@ -302,259 +303,132 @@ content="Islam Moçambique - Conhecimento, educação islâmica, Madrassa, bibli
       justify-content: center;
 
       text-align: center;
-
       color: white;
     }
 
+    .slide:nth-child(even) {
+      background: #087443;
+    }
+
     .slide h3 {
-      color: #d4af37;
-
       font-size: 25px;
-
       margin-bottom: 12px;
     }
 
     .slide p {
-      max-width: 700px;
-
-      font-size: 16px;
-
-      margin-bottom: 20px;
-    }
-
-    .btn {
-      display: inline-block;
-
-      background: #d4af37;
-      color: #111;
-
-      padding: 10px 22px;
-
-      border-radius: 25px;
-
-      font-weight: bold;
-
-      transition: transform .2s ease, opacity .2s ease;
-    }
-
-    .btn:hover {
-      transform: scale(1.04);
-      opacity: .9;
-    }
-
-
-    /* =====================================================
-       TÍTULOS
-    ===================================================== */
-
-    .section-title {
-      text-align: center;
-
-      color: #064e3b;
-
-      margin: 30px 15px 15px;
-
-      font-size: 25px;
-    }
-
-    body.dark .section-title {
-      color: #d4af37;
-    }
-
-    .section-title::after {
-      content: "";
-
-      display: block;
-
-      width: 55px;
-      height: 3px;
-
-      background: #d4af37;
-
-      margin: 8px auto;
-    }
-
-
-    /* =====================================================
-       HADITH DO DIA
-    ===================================================== */
-
-    .hadith-section {
-      max-width: 900px;
-
-      margin: auto;
-
-      padding: 0 15px;
-    }
-
-    .hadith-box {
-      background: white;
-
-      border-radius: 18px;
-
-      padding: 28px;
-
-      box-shadow: 0 3px 15px rgba(0,0,0,.1);
-
-      border-top: 4px solid #d4af37;
-    }
-
-    .arabico {
-      direction: rtl;
-
-      text-align: center;
-
-      font-size: 25px;
-
-      line-height: 2;
-
-      margin-bottom: 20px;
-
-      color: #064e3b;
-
-      font-family: "Times New Roman", serif;
-    }
-
-    body.dark .arabico {
-      color: #d4af37;
-    }
-
-    .traducao {
-      text-align: center;
-
-      font-size: 17px;
-
-      font-style: italic;
-
-      margin-bottom: 15px;
-    }
-
-    .fonte {
-      text-align: center;
-
-      font-size: 14px;
-
-      font-weight: bold;
-
-      color: #777;
-
-      margin-bottom: 15px;
-    }
-
-    .reflexao {
-      background: rgba(212,175,55,.12);
-
-      border-left: 4px solid #d4af37;
-
-      padding: 15px;
-
-      border-radius: 8px;
-
+      max-width: 720px;
       font-size: 15px;
+      margin-bottom: 20px;
     }
 
+    .slide .btn {
+      background: #d4a72c;
+      color: #111;
+    }
 
-    /* =====================================================
+    /* =========================
        CARTÕES
-    ===================================================== */
+    ========================= */
 
     .cards {
-      max-width: 1100px;
-
-      margin: 25px auto;
-
-      padding: 0 15px;
-
       display: grid;
-
-      grid-template-columns:
-        repeat(auto-fit, minmax(220px, 1fr));
-
-      gap: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
     }
 
     .card {
       background: white;
-
-      border-radius: 15px;
-
-      padding: 22px;
-
+      border-radius: 12px;
+      padding: 25px 20px;
       text-align: center;
-
-      box-shadow: 0 3px 12px rgba(0,0,0,.08);
-
-      transition: transform .2s ease;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+      transition: 0.2s;
     }
 
     .card:hover {
       transform: translateY(-4px);
+      box-shadow: 0 7px 20px rgba(0,0,0,0.11);
     }
 
-    .card h3 {
-      color: #064e3b;
-
-      margin-bottom: 8px;
-    }
-
-    body.dark .card h3 {
-      color: #d4af37;
-    }
-
-    .card p {
-      font-size: 14px;
-
-      margin-bottom: 15px;
-    }
-
-
-    /* =====================================================
-       SOBRE / CONTACTO
-    ===================================================== */
-
-    .about-box,
-    .contact-box {
-      max-width: 900px;
-
-      margin: 20px auto;
-
-      padding: 25px;
-
-      background: white;
-
-      border-radius: 15px;
-
-      box-shadow: 0 3px 12px rgba(0,0,0,.08);
-    }
-
-    .about-box p,
-    .contact-box p {
+    .card-icon {
+      font-size: 35px;
       margin-bottom: 10px;
     }
 
-    .email {
-      color: #064e3b;
-      font-weight: bold;
+    .card h3 {
+      color: #064d32;
+      margin-bottom: 8px;
+      font-size: 18px;
     }
 
-    body.dark .email {
-      color: #d4af37;
+    .card p {
+      color: #666;
+      font-size: 13px;
+      margin-bottom: 15px;
     }
 
+    .card .btn {
+      background: #064d32;
+      color: white;
+    }
 
-    /* =====================================================
+    /* =========================
+       RODAPÉ
+    ========================= */
+
+    footer {
+      background: #032d1e;
+      color: white;
+      padding: 40px 18px 20px;
+      margin-top: 20px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: auto;
+
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+
+    footer h3 {
+      margin-bottom: 12px;
+      color: #d4a72c;
+    }
+
+    footer p,
+    footer a {
+      font-size: 13px;
+      color: #ddd;
+    }
+
+    footer a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 30px auto 0;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      text-align: center;
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    /* =========================
        WHATSAPP FLUTUANTE
-    ===================================================== */
+    ========================= */
 
     .whatsapp-float {
       position: fixed;
-
       right: 18px;
       bottom: 18px;
+      z-index: 2000;
 
       width: 58px;
       height: 58px;
-
       border-radius: 50%;
 
       background: #25D366;
@@ -565,115 +439,52 @@ content="Islam Moçambique - Conhecimento, educação islâmica, Madrassa, bibli
       justify-content: center;
 
       font-size: 29px;
+      font-weight: bold;
 
-      box-shadow: 0 4px 15px rgba(0,0,0,.3);
-
-      z-index: 2000;
-
-      transition: transform .2s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      transition: 0.2s;
     }
 
     .whatsapp-float:hover {
-      transform: scale(1.1);
+      transform: scale(1.08);
     }
 
+    /* =========================
+       RESPONSIVO
+    ========================= */
 
-    /* =====================================================
-       FOOTER
-    ===================================================== */
-
-    footer {
-      margin-top: 40px;
-
-      background: #043d2e;
-
-      color: white;
-
-      text-align: center;
-
-      padding: 30px 15px;
-    }
-
-    footer img {
-      width: 55px;
-      height: 55px;
-
-      object-fit: cover;
-
-      border-radius: 50%;
-
-      border: 2px solid #d4af37;
-
-      margin-bottom: 10px;
-    }
-
-    footer p {
-      font-size: 13px;
-
-      margin: 5px 0;
-    }
-
-    footer .gold {
-      color: #d4af37;
-      font-weight: bold;
-    }
-
-
-    /* =====================================================
-       MOBILE
-    ===================================================== */
-
-    @media (max-width: 768px) {
-
-      .header-content {
-        min-height: 62px;
-      }
-
-      .logo-area img {
-        width: 45px;
-        height: 45px;
-      }
-
-      .logo-text {
-        font-size: 16px;
-      }
+    @media (max-width: 850px) {
 
       .menu-toggle {
-        display: flex;
-      }
-
-      nav {
-        position: relative;
+        display: block;
       }
 
       .menu {
         display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+
+        background: #064d32;
 
         flex-direction: column;
+        align-items: stretch;
 
-        width: 100%;
-
-        background: #043d2e;
+        padding: 10px;
+        box-shadow: 0 5px 12px rgba(0,0,0,0.2);
       }
 
       .menu.show {
         display: flex;
       }
 
-      .menu li {
-        width: 100%;
-
-        text-align: center;
-
-        border-top: 1px solid rgba(255,255,255,.08);
-      }
-
-      .menu li a {
-        padding: 14px;
+      .menu a {
+        padding: 12px 15px;
       }
 
       .carousel-wrapper {
-        height: 300px;
+        height: 340px;
       }
 
       .slide h3 {
@@ -683,684 +494,573 @@ content="Islam Moçambique - Conhecimento, educação islâmica, Madrassa, bibli
       .slide p {
         font-size: 14px;
       }
+    }
+
+    @media (max-width: 500px) {
+
+      .header-inner {
+        padding: 8px 12px;
+      }
+
+      .brand img {
+        width: 45px;
+        height: 45px;
+      }
+
+      .brand-text h1 {
+        font-size: 16px;
+      }
+
+      .hero {
+        min-height: 330px;
+      }
+
+      .hero h2 {
+        font-size: 30px;
+      }
+
+      .hero p {
+        font-size: 14px;
+      }
 
       .arabico {
         font-size: 22px;
       }
 
-      .hadith-box {
-        padding: 20px;
+      .traducao {
+        font-size: 16px;
+      }
+
+      .carousel-wrapper {
+        height: 370px;
+      }
+
+      .slide {
+        padding: 25px 18px;
       }
     }
   </style>
-
 </head>
 
 <body>
 
-  <!-- ===================================================
+  <!-- =========================
        CABEÇALHO
-  ==================================================== -->
+  ========================== -->
 
   <header>
+    <div class="header-inner">
 
-```
-<div class="header-content">
+      <a href="index.html" class="brand">
+        <img src="logo.jpeg" alt="Logo Islam Moçambique">
 
-  <a href="./index.html" class="logo-area">
-
-    <img
-      src="./logo.jpeg"
-      alt="Islam Moçambique"
-    >
-
-    <span class="logo-text">
-      Islam Moçambique
-    </span>
-
-  </a>
-
-
-  <div class="header-buttons">
-
-    <button
-      class="icon-btn"
-      id="themeToggle"
-      aria-label="Alternar modo claro e escuro"
-      title="Modo claro/escuro"
-    >
-      ☾
-    </button>
-
-    <button
-      class="icon-btn menu-toggle"
-      aria-label="Abrir menu"
-      aria-expanded="false"
-    >
-      ☰
-    </button>
-
-  </div>
-
-</div>
-
-
-<!-- =================================================
-     MENU PRINCIPAL
-================================================== -->
-
-<nav>
-
-  <ul class="menu">
-
-    <li>
-      <a href="#apoio">
-        APOIO E OUTROS PAGAMENTOS
+        <div class="brand-text">
+          <h1>Islam Moçambique</h1>
+          <p>Conhecimento • Educação • Comunidade</p>
+        </div>
       </a>
-    </li>
 
-    <li>
-      <a href="#membros">
-        MEMBROS I.M
-      </a>
-    </li>
+      <button class="menu-toggle" aria-label="Abrir menu">
+        ☰
+      </button>
 
-    <li>
-      <a href="#biblioteca">
-        BIBLIOTECA DIGITAL I.M
-      </a>
-    </li>
+      <nav>
+        <ul class="menu">
 
-    <li>
-      <a href="#madrassa">
-        MADRASSA ONLINE
-      </a>
-    </li>
+          <li>
+            <a href="index.html">Início</a>
+          </li>
 
-    <li>
-      <a href="#comunidade">
-        COMUNIDADE ISLÂMICA
-      </a>
-    </li>
+          <li>
+            <a href="alcorao/">Alcorão</a>
+          </li>
 
-    <li>
-      <a href="#quiz">
-        QUIZ ISLÂMICO
-      </a>
-    </li>
+          <li>
+            <a href="biblioteca.html">Biblioteca</a>
+          </li>
 
-    <li>
-      <a href="#loja">
-        LOJA VIRTUAL
-      </a>
-    </li>
+          <li>
+            <a href="madrassa.html">Madrassa</a>
+          </li>
 
-    <li>
-      <a href="#sobre">
-        SOBRE NÓS
-      </a>
-    </li>
+          <li>
+            <a href="comunidade.html">Comunidade</a>
+          </li>
 
-  </ul>
+          <li>
+            <a href="quiz.html">Quiz</a>
+          </li>
 
-</nav>
-```
+          <li>
+            <a href="loja.html">Loja</a>
+          </li>
 
+          <li>
+            <a href="sobre.html">Sobre Nós</a>
+          </li>
+
+        </ul>
+      </nav>
+
+    </div>
   </header>
 
-  <!-- ===================================================
-       PESQUISA
-  ==================================================== -->
 
-  <section class="search-section">
+  <!-- =========================
+       HERO
+  ========================== -->
 
-```
-<div class="search-box">
+  <section class="hero">
 
-  <input
-    type="search"
-    id="searchInput"
-    placeholder="Pesquisar no Islam Moçambique..."
-    autocomplete="off"
-  >
+    <div class="hero-content">
 
-  <button
-    type="button"
-    id="searchButton"
-    aria-label="Pesquisar"
-  >
-    🔍
-  </button>
+      <h2>Islam Moçambique</h2>
 
-</div>
-```
+      <p>
+        Um espaço dedicado ao conhecimento islâmico,
+        educação, Alcorão, Hadith e fortalecimento da
+        comunidade muçulmana em Moçambique.
+      </p>
 
-  </section>
+      <div class="hero-buttons">
 
-  <!-- ===================================================
-       CARROSSEL PRINCIPAL
-  ==================================================== -->
+        <a href="biblioteca.html" class="btn btn-primary">
+          📚 Biblioteca Digital
+        </a>
 
-  <section class="carousel-section">
+        <a href="madrassa.html" class="btn btn-light">
+          🎓 Madrassa Online
+        </a>
 
-```
-<div class="carousel-wrapper">
+      </div>
 
-  <div id="carousel">
-    <!-- Os slides são carregados por main.js -->
-  </div>
-
-</div>
-```
+    </div>
 
   </section>
 
-  <!-- ===================================================
+
+  <!-- =========================
        HADITH DO DIA
-  ==================================================== -->
-
-  <h2 class="section-title">
-    Hadith do Dia
-  </h2>
+  ========================== -->
 
   <section class="hadith-section">
 
-```
-<div class="hadith-box">
+    <div class="section-title">
+      <h2>📖 Hadith do Dia</h2>
+      <p>Uma mensagem para reflexão diária</p>
+    </div>
 
-  <div class="arabico">
-    A carregar...
-  </div>
+    <div class="hadith-card">
 
-  <div class="traducao">
-    A carregar o Hadith do dia...
-  </div>
+      <div class="hadith-label">
+        HADITH DO DIA
+      </div>
 
-  <div class="fonte">
-    Fonte:
-  </div>
+      <div class="arabico">
+        A carregar...
+      </div>
 
-  <div class="reflexao">
-    A carregar reflexão...
-  </div>
+      <div class="traducao">
+        A carregar...
+      </div>
 
-</div>
-```
+      <div class="fonte">
+        A carregar...
+      </div>
 
-  </section>
+      <div class="reflexao">
+        A carregar...
+      </div>
 
-  <!-- ===================================================
-       MÓDULOS
-  ==================================================== -->
-
-  <h2 class="section-title">
-    Explore o Islam Moçambique
-  </h2>
-
-  <section class="cards">
-
-```
-<div class="card" id="apoio">
-
-  <h3>
-    🤲 Apoio
-  </h3>
-
-  <p>
-    Apoie o Projeto Islam Moçambique
-    e contribua para a continuidade
-    do nosso trabalho.
-  </p>
-
-  <a href="#" class="btn">
-    Fazer apoio
-  </a>
-
-</div>
-
-
-<div class="card" id="membros">
-
-  <h3>
-    👥 Membros I.M
-  </h3>
-
-  <p>
-    Faça parte da nossa comunidade
-    e acompanhe as atividades
-    do Islam Moçambique.
-  </p>
-
-  <a href="#" class="btn">
-    Acessar
-  </a>
-
-</div>
-
-
-<div class="card" id="biblioteca">
-
-  <h3>
-    📚 Biblioteca Digital
-  </h3>
-
-  <p>
-    Acesse livros e materiais
-    de conhecimento islâmico.
-  </p>
-
-  <a href="#" class="btn">
-    Biblioteca
-  </a>
-
-</div>
-
-
-<div class="card" id="madrassa">
-
-  <h3>
-    📖 Madrassa Online
-  </h3>
-
-  <p>
-    Aprenda a leitura do Alcorão,
-    Tajweed e conhecimentos islâmicos.
-  </p>
-
-  <a href="#" class="btn">
-    Entrar na Madrassa
-  </a>
-
-</div>
-
-
-<div class="card" id="comunidade">
-
-  <h3>
-    🕌 Comunidade Islâmica
-  </h3>
-
-  <p>
-    Um espaço para a comunidade
-    islâmica de Moçambique.
-  </p>
-
-  <a href="#" class="btn">
-    Comunidade
-  </a>
-
-</div>
-
-
-<div class="card" id="quiz">
-
-  <h3>
-    🧠 Quiz Islâmico
-  </h3>
-
-  <p>
-    Teste os seus conhecimentos
-    sobre o Islam.
-  </p>
-
-  <a href="#" class="btn">
-    Fazer Quiz
-  </a>
-
-</div>
-
-
-<div class="card" id="loja">
-
-  <h3>
-    🛍️ Loja Virtual
-  </h3>
-
-  <p>
-    Encontre livros e outros
-    produtos disponíveis.
-  </p>
-
-  <a href="#" class="btn">
-    Visitar Loja
-  </a>
-
-</div>
-
-
-<div class="card">
-
-  <h3>
-    💳 Pagamentos
-  </h3>
-
-  <p>
-    Consulte os serviços e formas
-    de pagamento disponíveis.
-  </p>
-
-  <a href="#" class="btn">
-    Pagamentos
-  </a>
-
-</div>
-```
+    </div>
 
   </section>
 
-  <!-- ===================================================
-       SOBRE NÓS
-  ==================================================== -->
 
-  <section id="sobre">
-
-```
-<h2 class="section-title">
-  Sobre Nós
-</h2>
-
-<div class="about-box">
-
-  <p>
-    <strong>Islam Moçambique</strong> é um projeto
-    dedicado à divulgação do conhecimento islâmico,
-    educação, leitura do Alcorão, Hadith e formação
-    da comunidade muçulmana.
-  </p>
-
-  <p>
-    O projeto procura disponibilizar conteúdos
-    educativos e ferramentas digitais para facilitar
-    o acesso ao conhecimento islâmico.
-  </p>
-
-</div>
-```
-
-  </section>
-
-  <!-- ===================================================
-       CONTACTO
-  ==================================================== -->
+  <!-- =========================
+       SLIDES
+  ========================== -->
 
   <section>
 
-```
-<h2 class="section-title">
-  Contacte-nos
-</h2>
+    <div class="section-title">
+      <h2>🌙 Islam Moçambique</h2>
+      <p>Descubra o que temos para si</p>
+    </div>
 
-<div class="contact-box">
+    <div class="carousel-wrapper">
 
-  <p>
-    📱 WhatsApp:
-    <strong>860 407 269</strong>
-  </p>
+      <div id="carousel"></div>
 
-  <p>
-    📧 E-mail:
-    <a
-      class="email"
-      href="mailto:Islammocambique@gmail.com"
-    >
-      Islammocambique@gmail.com
-    </a>
-  </p>
-
-</div>
-```
+    </div>
 
   </section>
 
-  <!-- ===================================================
-       FOOTER
-  ==================================================== -->
+
+  <!-- =========================
+       ACESSO RÁPIDO
+  ========================== -->
+
+  <section>
+
+    <div class="section-title">
+      <h2>Explore o Projeto</h2>
+      <p>Conheça os nossos principais espaços</p>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+
+        <div class="card-icon">📖</div>
+
+        <h3>Alcorão</h3>
+
+        <p>
+          Leia e explore o Livro de Allah.
+        </p>
+
+        <a href="alcorao/" class="btn">
+          Abrir
+        </a>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">📚</div>
+
+        <h3>Biblioteca Digital</h3>
+
+        <p>
+          Livros e materiais de conhecimento islâmico.
+        </p>
+
+        <a href="biblioteca.html" class="btn">
+          Explorar
+        </a>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">🎓</div>
+
+        <h3>Madrassa Online</h3>
+
+        <p>
+          Aprenda e desenvolva o seu conhecimento islâmico.
+        </p>
+
+        <a href="madrassa.html" class="btn">
+          Começar
+        </a>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">🕌</div>
+
+        <h3>Comunidade</h3>
+
+        <p>
+          Fortaleça os laços da nossa Ummah.
+        </p>
+
+        <a href="comunidade.html" class="btn">
+          Entrar
+        </a>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">🧠</div>
+
+        <h3>Quiz Islâmico</h3>
+
+        <p>
+          Teste os seus conhecimentos sobre o Islam.
+        </p>
+
+        <a href="quiz.html" class="btn">
+          Jogar
+        </a>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">🛒</div>
+
+        <h3>Loja Virtual</h3>
+
+        <p>
+          Produtos e materiais para apoiar o projeto.
+        </p>
+
+        <a href="loja.html" class="btn">
+          Ver Loja
+        </a>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">🤝</div>
+
+        <h3>Ser Membro</h3>
+
+        <p>
+          Faça parte da comunidade Islam Moçambique.
+        </p>
+
+        <!--
+          ESTE ARQUIVO AINDA PODE NÃO EXISTIR.
+          NÃO ALTERAR O LINK.
+          Quando membros.html for criado na raiz,
+          este botão funcionará automaticamente.
+        -->
+
+        <a href="membros.html" class="btn">
+          Ser Membro
+        </a>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">💚</div>
+
+        <h3>Apoiar o Projeto</h3>
+
+        <p>
+          Ajude-nos a continuar a desenvolver este projeto.
+        </p>
+
+        <a href="apoio.html" class="btn">
+          Apoiar
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       OUTROS RECURSOS
+  ========================== -->
+
+  <section>
+
+    <div class="section-title">
+      <h2>Mais Recursos</h2>
+      <p>Ferramentas e conteúdos islâmicos</p>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-icon">🕋</div>
+        <h3>Como Fazer Salat</h3>
+        <p>Aprenda a realizar a oração.</p>
+        <a href="salat/" class="btn">Abrir</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📿</div>
+        <h3>Tasbih</h3>
+        <p>Ferramenta digital para o seu Dhikr.</p>
+        <a href="tasbih/" class="btn">Abrir</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">⏰</div>
+        <h3>Horário de Salat</h3>
+        <p>Consulte os horários das orações.</p>
+        <a href="horario-salat/" class="btn">Abrir</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📜</div>
+        <h3>42 Hadiths de Nawawi</h3>
+        <p>Estude os famosos Hadiths de An-Nawawi.</p>
+        <a href="nawawi/" class="btn">Estudar</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🧩</div>
+        <h3>Puzzle Islâmico</h3>
+        <p>Aprenda de forma divertida.</p>
+        <a href="puzzle-islamico/" class="btn">Jogar</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🔤</div>
+        <h3>Sopa de Letras</h3>
+        <p>Teste os seus conhecimentos.</p>
+        <a href="sopa-letras/" class="btn">Jogar</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🧠</div>
+        <h3>Quiz do Alcorão</h3>
+        <p>Teste os seus conhecimentos do Alcorão.</p>
+        <a href="quiz-alcorao/" class="btn">Jogar</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">👥</div>
+        <h3>Sahabas</h3>
+        <p>Conheça os companheiros do Profeta ﷺ.</p>
+        <a href="sahabas/" class="btn">Conhecer</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">💰</div>
+        <h3>Zakat</h3>
+        <p>Aprenda sobre a Zakat.</p>
+        <a href="zakat/" class="btn">Abrir</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🌙</div>
+        <h3>Quero Ser Muçulmano</h3>
+        <p>Informações para quem deseja conhecer o Islam.</p>
+        <a href="quero-ser-muculmano/" class="btn">Conhecer</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>Gestão Financeira</h3>
+        <p>Ferramentas para organização financeira.</p>
+        <a href="gestao-financeira/" class="btn">Abrir</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📘</div>
+        <h3>Guias</h3>
+        <p>Guias e materiais educativos islâmicos.</p>
+        <a href="guia/" class="btn">Ver Guias</a>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       RODAPÉ
+  ========================== -->
 
   <footer>
 
-```
-<img
-  src="./logo.jpeg"
-  alt="Islam Moçambique"
->
+    <div class="footer-inner">
 
-<p class="gold">
-  Islam Moçambique
-</p>
+      <div>
 
-<p>
-  Conhecimento • Educação • Comunidade
-</p>
+        <h3>Islam Moçambique</h3>
 
-<p>
-  © <span id="currentYear"></span>
-  Islam Moçambique
-</p>
+        <p>
+          Projeto dedicado à educação islâmica,
+          divulgação do conhecimento e fortalecimento
+          da comunidade muçulmana em Moçambique.
+        </p>
 
-<p>
-  Todos os direitos reservados.
-</p>
-```
+      </div>
+
+
+      <div>
+
+        <h3>Links</h3>
+
+        <p>
+          <a href="biblioteca.html">Biblioteca Digital</a>
+        </p>
+
+        <p>
+          <a href="madrassa.html">Madrassa Online</a>
+        </p>
+
+        <p>
+          <a href="comunidade.html">Comunidade</a>
+        </p>
+
+        <p>
+          <a href="apoio.html">Apoiar o Projeto</a>
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>Contacto</h3>
+
+        <p>
+          📱 WhatsApp:
+          <a
+            href="https://wa.me/258860407269"
+            target="_blank"
+            rel="noopener">
+            860407269
+          </a>
+        </p>
+
+        <p>
+          ✉️
+          <a href="mailto:Islammocambique@gmail.com">
+            Islammocambique@gmail.com
+          </a>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      © 2026 Islam Moçambique.
+      Todos os direitos reservados.
+
+    </div>
 
   </footer>
 
-  <!-- ===================================================
+
+  <!-- =========================
        WHATSAPP FLUTUANTE
-  ==================================================== -->
+  ========================== -->
 
-<a
-class="whatsapp-float"
-href="https://wa.me/258860407269"
-target="_blank"
-rel="noopener noreferrer"
-aria-label="Contactar Islam Moçambique pelo WhatsApp"
-title="WhatsApp"
+  <a
+    class="whatsapp-float"
+    href="https://wa.me/258860407269"
+    target="_blank"
+    rel="noopener"
+    aria-label="Contactar pelo WhatsApp">
 
->
-
-```
-☎
-```
+    ☎
 
   </a>
 
-  <!-- ===================================================
-       JAVASCRIPT
-  ==================================================== -->
 
-  <script type="module" src="./Js/main.js"></script>
+  <!-- =========================
+       JAVASCRIPT PRINCIPAL
+  ========================== -->
 
-  <script>
-
-    /* =================================================
-       MODO CLARO / ESCURO
-    ================================================== */
-
-    const themeToggle =
-      document.getElementById('themeToggle');
-
-    const savedTheme =
-      localStorage.getItem('islamTheme');
-
-    if (savedTheme === 'dark') {
-      document.body.classList.add('dark');
-
-      if (themeToggle) {
-        themeToggle.textContent = '☀';
-      }
-    }
-
-    if (themeToggle) {
-
-      themeToggle.addEventListener('click', () => {
-
-        document.body.classList.toggle('dark');
-
-        const dark =
-          document.body.classList.contains('dark');
-
-        localStorage.setItem(
-          'islamTheme',
-          dark ? 'dark' : 'light'
-        );
-
-        themeToggle.textContent =
-          dark ? '☀' : '☾';
-
-      });
-
-    }
-
-
-    /* =================================================
-       PESQUISA
-    ================================================== */
-
-    const searchInput =
-      document.getElementById('searchInput');
-
-    const searchButton =
-      document.getElementById('searchButton');
-
-
-    function realizarPesquisa() {
-
-      if (!searchInput) return;
-
-      const termo =
-        searchInput.value.trim().toLowerCase();
-
-      if (!termo) return;
-
-      const elementos =
-        document.querySelectorAll(
-          '.card, .about-box, .contact-box'
-        );
-
-      let encontrado = false;
-
-      elementos.forEach(elemento => {
-
-        const texto =
-          elemento.textContent.toLowerCase();
-
-        if (texto.includes(termo)) {
-
-          if (!encontrado) {
-
-            elemento.scrollIntoView({
-              behavior: 'smooth',
-              block: 'center'
-            });
-
-            encontrado = true;
-
-          }
-
-        }
-
-      });
-
-      if (!encontrado) {
-
-        alert(
-          'Não encontramos resultados para: ' +
-          searchInput.value
-        );
-
-      }
-
-    }
-
-
-    if (searchButton) {
-
-      searchButton.addEventListener(
-        'click',
-        realizarPesquisa
-      );
-
-    }
-
-
-    if (searchInput) {
-
-      searchInput.addEventListener(
-        'keydown',
-        (event) => {
-
-          if (event.key === 'Enter') {
-            realizarPesquisa();
-          }
-
-        }
-      );
-
-    }
-
-
-    /* =================================================
-       ANO AUTOMÁTICO
-    ================================================== */
-
-    const currentYear =
-      document.getElementById('currentYear');
-
-    if (currentYear) {
-      currentYear.textContent =
-        new Date().getFullYear();
-    }
-
-
-    /* =================================================
-       MENU MOBILE
-    ================================================== */
-
-    const menuToggle =
-      document.querySelector('.menu-toggle');
-
-    const menu =
-      document.querySelector('.menu');
-
-    if (menuToggle && menu) {
-
-      menuToggle.addEventListener(
-        'click',
-        () => {
-
-          const aberto =
-            menu.classList.toggle('show');
-
-          menuToggle.setAttribute(
-            'aria-expanded',
-            aberto ? 'true' : 'false'
-          );
-
-        }
-      );
-
-
-      // Fechar o menu depois de clicar
-      // num item no telemóvel
-
-      menu.querySelectorAll('a').forEach(link => {
-
-        link.addEventListener('click', () => {
-
-          menu.classList.remove('show');
-
-          menuToggle.setAttribute(
-            'aria-expanded',
-            'false'
-          );
-
-        });
-
-      });
-
-    }
-
-  </script>
+  <script src="js/main.js"></script>
 
 </body>
 </html>
+```
