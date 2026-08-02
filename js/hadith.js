@@ -1,128 +1,77 @@
-// ===============================
-// MENU RESPONSIVO
-// ===============================
-
-const menuToggle = document.querySelector('.menu-toggle');
-const menu = document.querySelector('.menu');
-
-if (menuToggle && menu) {
-  menuToggle.addEventListener('click', () => {
-    menu.classList.toggle('show');
-  });
-}
-
-
-// ===============================
-// CARROSSEL DE SLIDES
-// ===============================
-
-let slides = [];
-let currentSlideIndex = 0;
-let carouselInterval = null;
-
-const carouselContainer = document.getElementById('carousel');
-
-async function loadSlides() {
-  if (!carouselContainer) return;
-
+async function loadHadith() {
   try {
-    const response = await fetch('data/slides.json');
+    const response = await fetch('data/hadiths.json');
 
     if (!response.ok) {
-      throw new Error(`Erro HTTP: ${response.status}`);
+      throw new Error('Não foi possível carregar hadiths.json');
     }
 
-    slides = await response.json();
+    const hadiths = await response.json();
 
-    if (!Array.isArray(slides) || slides.length === 0) {
-      throw new Error('slides.json está vazio ou inválido.');
+    if (!Array.isArray(hadiths) || hadiths.length === 0) {
+      throw new Error('Nenhum Hadith encontrado.');
     }
 
-    buildCarousel();
-    startCarousel();
+    const today = new Date().getDate().toString();
+
+    let hadithDia = localStorage.getItem('hadithDia');
+    let diaSalvo = localStorage.getItem('diaSalvo');
+
+    let hadithSelecionado;
+
+    if (diaSalvo !== today || !hadithDia) {
+
+      const index = hadiths.findIndex(
+        h => h.dia === today
+      );
+
+      if (index !== -1) {
+        hadithSelecionado = hadiths[index];
+      } else {
+        hadithSelecionado =
+          hadiths[Math.floor(Math.random() * hadiths.length)];
+      }
+
+      localStorage.setItem(
+        'hadithDia',
+        JSON.stringify(hadithSelecionado)
+      );
+
+      localStorage.setItem('diaSalvo', today);
+
+    } else {
+
+      hadithSelecionado = JSON.parse(hadithDia);
+
+    }
+
+    const arabico = document.querySelector('.arabico');
+    const traducao = document.querySelector('.traducao');
+    const fonte = document.querySelector('.fonte');
+    const reflexao = document.querySelector('.reflexao');
+
+    if (arabico) {
+      arabico.textContent = hadithSelecionado.arabico;
+    }
+
+    if (traducao) {
+      traducao.textContent = hadithSelecionado.traducao;
+    }
+
+    if (fonte) {
+      fonte.textContent =
+        `Fonte: ${hadithSelecionado.fonte}`;
+    }
+
+    if (reflexao) {
+      reflexao.textContent = hadithSelecionado.reflexao;
+    }
 
   } catch (error) {
-    console.error('Erro ao carregar slides:', error);
-  }
-}
 
-
-function buildCarousel() {
-  carouselContainer.innerHTML = '';
-
-  slides.forEach((slide) => {
-
-    const slideDiv = document.createElement('div');
-
-    slideDiv.className = 'slide';
-
-    slideDiv.innerHTML = `
-      <h3>${slide.titulo}</h3>
-
-      <p>${slide.descricao}</p>
-
-      <a href="${slide.link}" class="btn">
-        ${slide.botao}
-      </a>
-    `;
-
-    carouselContainer.appendChild(slideDiv);
-  });
-}
-
-
-function showSlide(index) {
-
-  if (!carouselContainer || slides.length === 0) return;
-
-  if (index >= slides.length) {
-    currentSlideIndex = 0;
-  } else if (index < 0) {
-    currentSlideIndex = slides.length - 1;
-  } else {
-    currentSlideIndex = index;
-  }
-
-  carouselContainer.style.transform =
-    `translateY(-${currentSlideIndex * 100}%)`;
-}
-
-
-function startCarousel() {
-
-  showSlide(currentSlideIndex);
-
-  if (carouselInterval) {
-    clearInterval(carouselInterval);
-  }
-
-  carouselInterval = setInterval(() => {
-
-    currentSlideIndex++;
-
-    showSlide(currentSlideIndex);
-
-  }, 5000);
-}
-
-
-// ===============================
-// INICIAR SLIDES
-// ===============================
-
-loadSlides();
-
-
-// ===============================
-// HADITH DO DIA
-// ===============================
-
-import('./hadith.js')
-  .then(module => {
-    if (typeof module.loadHadith === 'function') {
-      module.loadHadith();
-    }
-  })
-  .catch(error => {
     console.error('Erro ao carregar Hadith:', error);
-  });
+
+  }
+}
+
+loadHadith();
