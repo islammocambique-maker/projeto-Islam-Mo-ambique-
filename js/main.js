@@ -1,62 +1,270 @@
-// Menu responsivo
-const menuToggle = document.querySelector('.menu-toggle');
-const menu = document.querySelector('.menu');
+// ==========================================
+// ISLAM MOÇAMBIQUE
+// JAVASCRIPT PRINCIPAL
+// ==========================================
 
-menuToggle.addEventListener('click', () => {
-  menu.classList.toggle('show');
-});
 
-// Carrossel de slides
-let slides = [];
-let currentSlideIndex = 0;
-const carouselContainer = document.getElementById('carousel');
+// ==========================================
+// MENU RESPONSIVO
+// ==========================================
 
-async function loadSlides() {
-  const response = await fetch('data/slides.json');
-  slides = await response.json();
-  buildCarousel();
-  startCarousel();
-}
+document.addEventListener("DOMContentLoaded", () => {
 
-function buildCarousel() {
-  carouselContainer.innerHTML = '';
-  slides.forEach((slide, index) => {
-    const slideDiv = document.createElement('div');
-    slideDiv.className = 'slide';
-    slideDiv.innerHTML = `
-      <h3>${slide.titulo}</h3>
-      <p>${slide.descricao}</p>
-      <a href="${slide.link}" class="btn">${slide.botao}</a>
-    `;
-    carouselContainer.appendChild(slideDiv);
-  });
-}
+  const menuToggle = document.querySelector(".menu-toggle");
+  const menu = document.querySelector(".menu");
 
-function showSlide(index) {
-  const totalSlides = slides.length;
-  if (index >= totalSlides) index = 0;
-  if (index < 0) index = totalSlides -1;
-  currentSlideIndex = index;
-  const translateY = -index * 100;
-  carouselContainer.style.transform = `translateY(${translateY}%)`;
-}
+  if (menuToggle && menu) {
 
-let carouselInterval;
+    menuToggle.addEventListener("click", () => {
+      menu.classList.toggle("show");
+    });
 
-function startCarousel() {
-  showSlide(currentSlideIndex);
-  carouselInterval = setInterval(() => {
-    currentSlideIndex++;
-    showSlide(currentSlideIndex);
-  }, 5000);
-}
+    // Fechar menu depois de clicar num link
+    menu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        menu.classList.remove("show");
+      });
+    });
 
-// Carregar Hadith do dia somente depois do HTML estar pronto
-document.addEventListener('DOMContentLoaded', async () => {
-  try {
-    const module = await import('./hadith.js');
-    await module.loadHadith();
-  } catch (error) {
-    console.error('Erro ao iniciar Hadith do dia:', error);
   }
+
+
+// ==========================================
+// CARROSSEL / SLIDES
+// ==========================================
+
+  const carousel = document.getElementById("carousel");
+
+  if (carousel) {
+
+    let slides = [];
+    let currentSlide = 0;
+    let carouselInterval = null;
+
+
+    // --------------------------------------
+    // CARREGAR SLIDES
+    // --------------------------------------
+
+    async function loadSlides() {
+
+      try {
+
+        const response = await fetch("data/slides.json", {
+          cache: "no-cache"
+        });
+
+        if (!response.ok) {
+          throw new Error(
+            "Não foi possível carregar slides.json"
+          );
+        }
+
+        slides = await response.json();
+
+        if (!Array.isArray(slides) || slides.length === 0) {
+
+          carousel.innerHTML = `
+            <div class="slide">
+              <h3>Islam Moçambique</h3>
+              <p>
+                Bem-vindo ao nosso projeto.
+              </p>
+            </div>
+          `;
+
+          return;
+        }
+
+        buildCarousel();
+        startCarousel();
+
+      } catch (error) {
+
+        console.error(
+          "Erro ao carregar slides:",
+          error
+        );
+
+        // Não deixar a página quebrar caso
+        // slides.json tenha algum problema.
+
+        carousel.innerHTML = `
+          <div class="slide">
+            <h3>Islam Moçambique</h3>
+
+            <p>
+              Conhecimento, educação e comunidade islâmica.
+            </p>
+
+            <a href="guia/" class="btn">
+              VER GUIAS
+            </a>
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    // --------------------------------------
+    // CONSTRUIR CARROSSEL
+    // --------------------------------------
+
+    function buildCarousel() {
+
+      carousel.innerHTML = "";
+
+      slides.forEach((slide) => {
+
+        const slideElement =
+          document.createElement("div");
+
+        slideElement.className = "slide";
+
+        slideElement.innerHTML = `
+          <h3>${escapeHTML(slide.titulo || "")}</h3>
+
+          <p>
+            ${escapeHTML(slide.descricao || "")}
+          </p>
+
+          ${
+            slide.link
+              ? `
+                <a
+                  href="${escapeAttribute(slide.link)}"
+                  class="btn">
+                  ${escapeHTML(slide.botao || "ABRIR")}
+                </a>
+              `
+              : ""
+          }
+        `;
+
+        carousel.appendChild(slideElement);
+
+      });
+
+      // O #carousel contém todos os slides
+      // um abaixo do outro.
+      carousel.style.height =
+        `${slides.length * 100}%`;
+
+    }
+
+
+    // --------------------------------------
+    // MOSTRAR SLIDE
+    // --------------------------------------
+
+    function showSlide(index) {
+
+      if (!slides.length) return;
+
+      if (index >= slides.length) {
+        currentSlide = 0;
+      }
+
+      if (index < 0) {
+        currentSlide = slides.length - 1;
+      }
+
+      const translateY =
+        -(currentSlide * (100 / slides.length));
+
+      carousel.style.transform =
+        `translateY(${translateY}%)`;
+
+    }
+
+
+    // --------------------------------------
+    // INICIAR SLIDE AUTOMÁTICO
+    // --------------------------------------
+
+    function startCarousel() {
+
+      if (carouselInterval) {
+        clearInterval(carouselInterval);
+      }
+
+      showSlide(currentSlide);
+
+      carouselInterval = setInterval(() => {
+
+        currentSlide++;
+
+        if (currentSlide >= slides.length) {
+          currentSlide = 0;
+        }
+
+        showSlide(currentSlide);
+
+      }, 5000);
+
+    }
+
+
+    // --------------------------------------
+    // PROTEÇÃO CONTRA HTML INDESEJADO
+    // --------------------------------------
+
+    function escapeHTML(value) {
+
+      const div =
+        document.createElement("div");
+
+      div.textContent = value;
+
+      return div.innerHTML;
+
+    }
+
+
+    function escapeAttribute(value) {
+
+      return String(value)
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    // --------------------------------------
+    // INICIAR
+    // --------------------------------------
+
+    loadSlides();
+
+  }
+
+
+// ==========================================
+// HADITH DO DIA
+// ==========================================
+
+  import("./hadith.js")
+    .then(module => {
+
+      if (
+        module &&
+        typeof module.loadHadith === "function"
+      ) {
+
+        module.loadHadith();
+
+      }
+
+    })
+    .catch(error => {
+
+      console.error(
+        "Erro ao carregar hadith.js:",
+        error
+      );
+
+    });
+
 });
