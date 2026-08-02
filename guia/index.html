@@ -18,9 +18,7 @@
             --texto: #2c3e50;
             --branco: #ffffff;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: 'Poppins', 'Amiri', sans-serif;
             background: var(--creme);
@@ -28,7 +26,6 @@
             overflow-x: hidden;
             line-height: 1.7;
         }
-
         body::before {
             content: '';
             position: fixed;
@@ -36,13 +33,10 @@
             width: 100%; height: 100%;
             background-image: 
                 radial-gradient(circle at 20% 50%, rgba(13,115,119,0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(212,175,55,0.03) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(13,115,119,0.02) 0%, transparent 50%);
+                radial-gradient(circle at 80% 80%, rgba(212,175,55,0.03) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
-
-        /* ===== HERO ===== */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -54,7 +48,6 @@
             background: linear-gradient(135deg, var(--azul-marinho) 0%, var(--verde-escuro) 50%, var(--verde-esmeralda) 100%);
             overflow: hidden;
         }
-
         .hero::before {
             content: '';
             position: absolute;
@@ -62,7 +55,6 @@
             background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(212,175,55,0.03) 10px, rgba(212,175,55,0.03) 20px);
             pointer-events: none;
         }
-
         .arabesco-top {
             position: absolute;
             top: 0; left: 0; right: 0;
@@ -70,7 +62,6 @@
             background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%23d4af37' fill-opacity='0.15' d='M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,0 L0,0 Z'/%3E%3C/svg%3E") no-repeat center top;
             background-size: cover;
         }
-
         .arabesco-bottom {
             position: absolute;
             bottom: 0; left: 0; right: 0;
@@ -78,14 +69,12 @@
             background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%23d4af37' fill-opacity='0.15' d='M0,60 C240,0 480,120 720,60 C960,0 1200,120 1440,60 L1440,120 L0,120 Z'/%3E%3C/svg%3E") no-repeat center bottom;
             background-size: cover;
         }
-
         .hero-content {
             position: relative;
             z-index: 2;
             padding: 2rem;
             max-width: 900px;
         }
-
         .hero-badge {
             display: inline-block;
             padding: 0.5rem 2rem;
@@ -98,12 +87,10 @@
             margin-bottom: 2rem;
             animation: pulse 3s ease-in-out infinite;
         }
-
         @keyframes pulse {
             0%, 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); }
             50% { box-shadow: 0 0 20px 10px rgba(212,175,55,0.1); }
         }
-
         .hero h1 {
             font-family: 'Amiri', serif;
             font-size: clamp(2.5rem, 6vw, 5rem);
@@ -112,7 +99,6 @@
             margin-bottom: 1rem;
             letter-spacing: 2px;
         }
-
         .hero .bismillah {
             font-family: 'Noto Naskh Arabic', serif;
             font-size: clamp(1.5rem, 3vw, 2.5rem);
@@ -120,14 +106,12 @@
             margin-bottom: 1.5rem;
             opacity: 0.9;
         }
-
         .hero p {
             font-size: 1.2rem;
             color: rgba(255,255,255,0.85);
             max-width: 600px;
             margin: 0 auto 2rem;
         }
-
         .scroll-indicator {
             position: absolute;
             bottom: 30px;
@@ -139,14 +123,11 @@
             cursor: pointer;
             z-index: 2;
         }
-
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
             40% { transform: translateX(-50%) translateY(-15px); }
             60% { transform: translateX(-50%) translateY(-8px); }
         }
-
-        /* ===== NAVEGAÇÃO ===== */
         nav {
             position: sticky;
             top: 0;
@@ -155,7 +136,6 @@
             backdrop-filter: blur(10px);
             border-bottom: 2px solid var(--dourado);
         }
-
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -165,7 +145,6 @@
             padding: 0 2rem;
             flex-wrap: wrap;
         }
-
         .nav-logo {
             font-family: 'Amiri', serif;
             font-size: 1.4rem;
@@ -174,7 +153,6 @@
             padding: 1rem 0;
             text-decoration: none;
         }
-
         .nav-links {
             display: flex;
             gap: 0.3rem;
@@ -182,7 +160,6 @@
             flex-wrap: wrap;
             justify-content: center;
         }
-
         .nav-links a {
             color: var(--creme);
             text-decoration: none;
@@ -193,26 +170,21 @@
             font-weight: 500;
             white-space: nowrap;
         }
-
         .nav-links a:hover, .nav-links a.active {
             background: var(--verde-esmeralda);
             color: var(--dourado);
             transform: translateY(-2px);
         }
-
-        /* ===== SEÇÃO PORTAIS ===== */
         section {
             position: relative;
             padding: 6rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
         }
-
         .section-header {
             text-align: center;
             margin-bottom: 4rem;
         }
-
         .section-header h2 {
             font-family: 'Amiri', serif;
             font-size: clamp(1.8rem, 4vw, 3rem);
@@ -221,7 +193,6 @@
             position: relative;
             display: inline-block;
         }
-
         .section-header h2::after {
             content: '';
             position: absolute;
@@ -232,21 +203,17 @@
             height: 3px;
             background: linear-gradient(90deg, transparent, var(--dourado), transparent);
         }
-
         .section-header p {
             color: #666;
             max-width: 600px;
             margin: 1.5rem auto 0;
             font-size: 1.1rem;
         }
-
-        /* ===== CARDS ===== */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2.5rem;
         }
-
         .portal-card {
             background: var(--branco);
             border-radius: 20px;
@@ -259,7 +226,6 @@
             color: inherit;
             display: block;
         }
-
         .portal-card::before {
             content: '';
             position: absolute;
@@ -267,12 +233,10 @@
             height: 5px;
             background: linear-gradient(90deg, var(--verde-esmeralda), var(--dourado), var(--verde-esmeralda));
         }
-
         .portal-card:hover {
             transform: translateY(-10px) scale(1.02);
             box-shadow: 0 20px 60px rgba(13,115,119,0.2);
         }
-
         .portal-icon {
             width: 100%;
             height: 180px;
@@ -283,7 +247,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .portal-icon::after {
             content: '';
             position: absolute;
@@ -291,36 +254,29 @@
             background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,0.05) 40px);
             animation: slide 20s linear infinite;
         }
-
         @keyframes slide {
             0% { transform: translate(-50%, -50%) rotate(0deg); }
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
-
-        /* Cores individuais dos portais */
         .portal-salat .portal-icon { background: linear-gradient(135deg, #0d7377, #14a085); }
         .portal-wudhu .portal-icon { background: linear-gradient(135deg, #1a5276, #2e86ab); }
         .portal-duas .portal-icon { background: linear-gradient(135deg, #7d3c98, #a569bd); }
         .portal-durudes .portal-icon { background: linear-gradient(135deg, #b9770e, #f4d03f); }
         .portal-adab .portal-icon { background: linear-gradient(135deg, #1e8449, #27ae60); }
-
         .portal-body {
             padding: 2rem;
         }
-
         .portal-body h3 {
             font-family: 'Amiri', serif;
             font-size: 1.3rem;
             color: var(--verde-escuro);
             margin-bottom: 0.8rem;
         }
-
         .portal-body p {
             color: #666;
             font-size: 0.95rem;
             margin-bottom: 1.5rem;
         }
-
         .portal-btn {
             display: inline-block;
             padding: 0.7rem 1.8rem;
@@ -334,13 +290,10 @@
             border: none;
             cursor: pointer;
         }
-
         .portal-card:hover .portal-btn {
             background: linear-gradient(135deg, var(--dourado), var(--dourado-claro));
             color: var(--azul-marinho);
         }
-
-        /* ===== HIGHLIGHT ===== */
         .highlight-section {
             background: linear-gradient(135deg, var(--verde-escuro), var(--verde-esmeralda));
             border-radius: 30px;
@@ -351,7 +304,6 @@
             overflow: hidden;
             color: white;
         }
-
         .highlight-section::before {
             content: '☪';
             position: absolute;
@@ -361,33 +313,28 @@
             right: -50px;
             font-family: serif;
         }
-
         .highlight-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
         }
-
         .highlight-text h2 {
             font-family: 'Amiri', serif;
             font-size: 2.5rem;
             color: var(--dourado);
             margin-bottom: 1rem;
         }
-
         .highlight-text p {
             font-size: 1.1rem;
             opacity: 0.9;
             margin-bottom: 2rem;
         }
-
         .highlight-stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
         }
-
         .stat-item {
             text-align: center;
             padding: 1.5rem;
@@ -396,20 +343,16 @@
             backdrop-filter: blur(5px);
             border: 1px solid rgba(212,175,55,0.3);
         }
-
         .stat-item .number {
             font-size: 2.5rem;
             font-weight: 700;
             color: var(--dourado);
             display: block;
         }
-
         .stat-item .label {
             font-size: 0.9rem;
             opacity: 0.8;
         }
-
-        /* ===== DIVIDER ===== */
         .divider {
             display: flex;
             align-items: center;
@@ -417,19 +360,15 @@
             margin: 3rem 0;
             gap: 1rem;
         }
-
         .divider-line {
             width: 100px;
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--dourado), transparent);
         }
-
         .divider-icon {
             color: var(--dourado);
             font-size: 1.5rem;
         }
-
-        /* ===== FOOTER ===== */
         footer {
             background: var(--azul-marinho);
             color: var(--creme);
@@ -437,7 +376,6 @@
             text-align: center;
             position: relative;
         }
-
         footer::before {
             content: '';
             position: absolute;
@@ -445,12 +383,10 @@
             height: 4px;
             background: linear-gradient(90deg, var(--verde-esmeralda), var(--dourado), var(--verde-esmeralda));
         }
-
         .footer-content {
             max-width: 800px;
             margin: 0 auto;
         }
-
         .footer-logo {
             font-family: 'Amiri', serif;
             font-size: 2rem;
@@ -459,7 +395,6 @@
             text-decoration: none;
             display: inline-block;
         }
-
         .footer-quote {
             font-family: 'Amiri', serif;
             font-style: italic;
@@ -468,7 +403,6 @@
             margin-bottom: 2rem;
             line-height: 1.8;
         }
-
         .footer-links {
             display: flex;
             justify-content: center;
@@ -476,15 +410,12 @@
             margin-bottom: 2rem;
             flex-wrap: wrap;
         }
-
         .footer-links a {
             color: var(--creme);
             text-decoration: none;
             transition: color 0.3s;
         }
-
         .footer-links a:hover { color: var(--dourado); }
-
         .footer-bottom {
             border-top: 1px solid rgba(212,175,55,0.2);
             padding-top: 2rem;
@@ -492,25 +423,19 @@
             font-size: 0.9rem;
             opacity: 0.7;
         }
-
-        /* ===== ANIMAÇÕES ===== */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 0.8s ease forwards;
         }
-
         @keyframes fadeInUp {
             to { opacity: 1; transform: translateY(0); }
         }
-
         .delay-1 { animation-delay: 0.1s; }
         .delay-2 { animation-delay: 0.2s; }
         .delay-3 { animation-delay: 0.3s; }
         .delay-4 { animation-delay: 0.4s; }
         .delay-5 { animation-delay: 0.5s; }
-
-        /* ===== RESPONSIVO ===== */
         @media (max-width: 768px) {
             .nav-container { flex-direction: column; padding: 0.5rem 1rem; }
             .nav-links { gap: 0.2rem; }
@@ -524,8 +449,6 @@
 <base target="_blank">
 </head>
 <body>
-
-    <!-- ===== HERO ===== -->
     <header class="hero" id="inicio">
         <div class="arabesco-top"></div>
         <div class="hero-content">
@@ -538,7 +461,6 @@
         <div class="scroll-indicator" onclick="document.getElementById('navegacao').scrollIntoView({behavior:'smooth'})">▼</div>
     </header>
 
-    <!-- ===== NAVEGAÇÃO ===== -->
     <nav id="navegacao">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">☪ ISLAM GUIA</a>
@@ -553,7 +475,6 @@
         </div>
     </nav>
 
-    <!-- ===== PORTAIS ===== -->
     <section id="portais">
         <div class="section-header fade-in">
             <h2>🕌 Nossos Portais</h2>
@@ -561,7 +482,6 @@
         </div>
 
         <div class="cards-grid">
-            <!-- Salat -->
             <a href="salat/index.html" class="portal-card portal-salat fade-in delay-1">
                 <div class="portal-icon">🙏</div>
                 <div class="portal-body">
@@ -571,7 +491,6 @@
                 </div>
             </a>
 
-            <!-- Wudhu -->
             <a href="wudhu/index.html" class="portal-card portal-wudhu fade-in delay-2">
                 <div class="portal-icon">💧</div>
                 <div class="portal-body">
@@ -581,7 +500,6 @@
                 </div>
             </a>
 
-            <!-- Du'as -->
             <a href="duas/index.html" class="portal-card portal-duas fade-in delay-3">
                 <div class="portal-icon">📖</div>
                 <div class="portal-body">
@@ -591,7 +509,6 @@
                 </div>
             </a>
 
-            <!-- Durudes -->
             <a href="durudes/index.html" class="portal-card portal-durudes fade-in delay-4">
                 <div class="portal-icon">📿</div>
                 <div class="portal-body">
@@ -601,7 +518,6 @@
                 </div>
             </a>
 
-            <!-- Adab -->
             <a href="adab/index.html" class="portal-card portal-adab fade-in delay-5">
                 <div class="portal-icon">🧕</div>
                 <div class="portal-body">
@@ -613,7 +529,6 @@
         </div>
     </section>
 
-    <!-- ===== HIGHLIGHT ===== -->
     <div class="highlight-section fade-in">
         <div class="highlight-content">
             <div class="highlight-text">
@@ -630,14 +545,12 @@
         </div>
     </div>
 
-    <!-- ===== DIVIDER ===== -->
     <div class="divider">
         <div class="divider-line"></div>
         <div class="divider-icon">☪</div>
         <div class="divider-line"></div>
     </div>
 
-    <!-- ===== FOOTER ===== -->
     <footer>
         <div class="footer-content">
             <a href="index.html" class="footer-logo">☪ ISLAM GUIA</a>
