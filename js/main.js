@@ -1,270 +1,134 @@
-// ==========================================
-// ISLAM MOÇAMBIQUE
-// JAVASCRIPT PRINCIPAL
-// ==========================================
-
-
-// ==========================================
+// ===============================
 // MENU RESPONSIVO
-// ==========================================
+// ===============================
 
-document.addEventListener("DOMContentLoaded", () => {
+const menuToggle = document.querySelector('.menu-toggle');
+const menu = document.querySelector('.menu');
 
-  const menuToggle = document.querySelector(".menu-toggle");
-  const menu = document.querySelector(".menu");
+if (menuToggle && menu) {
+  menuToggle.addEventListener('click', () => {
+    menu.classList.toggle('show');
+  });
 
-  if (menuToggle && menu) {
-
-    menuToggle.addEventListener("click", () => {
-      menu.classList.toggle("show");
+  document.querySelectorAll('.menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('show');
     });
+  });
+}
 
-    // Fechar menu depois de clicar num link
-    menu.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        menu.classList.remove("show");
-      });
-    });
 
-  }
+// ===============================
+// CARROSSEL
+// ===============================
 
+let slides = [];
+let currentSlideIndex = 0;
+let carouselInterval;
 
-// ==========================================
-// CARROSSEL / SLIDES
-// ==========================================
+const carouselContainer =
+  document.getElementById('carousel');
 
-  const carousel = document.getElementById("carousel");
 
-  if (carousel) {
+async function loadSlides() {
 
-    let slides = [];
-    let currentSlide = 0;
-    let carouselInterval = null;
+  if (!carouselContainer) return;
 
+  try {
 
-    // --------------------------------------
-    // CARREGAR SLIDES
-    // --------------------------------------
+    const response =
+      await fetch('data/slides.json');
 
-    async function loadSlides() {
-
-      try {
-
-        const response = await fetch("data/slides.json", {
-          cache: "no-cache"
-        });
-
-        if (!response.ok) {
-          throw new Error(
-            "Não foi possível carregar slides.json"
-          );
-        }
-
-        slides = await response.json();
-
-        if (!Array.isArray(slides) || slides.length === 0) {
-
-          carousel.innerHTML = `
-            <div class="slide">
-              <h3>Islam Moçambique</h3>
-              <p>
-                Bem-vindo ao nosso projeto.
-              </p>
-            </div>
-          `;
-
-          return;
-        }
-
-        buildCarousel();
-        startCarousel();
-
-      } catch (error) {
-
-        console.error(
-          "Erro ao carregar slides:",
-          error
-        );
-
-        // Não deixar a página quebrar caso
-        // slides.json tenha algum problema.
-
-        carousel.innerHTML = `
-          <div class="slide">
-            <h3>Islam Moçambique</h3>
-
-            <p>
-              Conhecimento, educação e comunidade islâmica.
-            </p>
-
-            <a href="guia/" class="btn">
-              VER GUIAS
-            </a>
-          </div>
-        `;
-
-      }
-
-    }
-
-
-    // --------------------------------------
-    // CONSTRUIR CARROSSEL
-    // --------------------------------------
-
-    function buildCarousel() {
-
-      carousel.innerHTML = "";
-
-      slides.forEach((slide) => {
-
-        const slideElement =
-          document.createElement("div");
-
-        slideElement.className = "slide";
-
-        slideElement.innerHTML = `
-          <h3>${escapeHTML(slide.titulo || "")}</h3>
-
-          <p>
-            ${escapeHTML(slide.descricao || "")}
-          </p>
-
-          ${
-            slide.link
-              ? `
-                <a
-                  href="${escapeAttribute(slide.link)}"
-                  class="btn">
-                  ${escapeHTML(slide.botao || "ABRIR")}
-                </a>
-              `
-              : ""
-          }
-        `;
-
-        carousel.appendChild(slideElement);
-
-      });
-
-      // O #carousel contém todos os slides
-      // um abaixo do outro.
-      carousel.style.height =
-        `${slides.length * 100}%`;
-
-    }
-
-
-    // --------------------------------------
-    // MOSTRAR SLIDE
-    // --------------------------------------
-
-    function showSlide(index) {
-
-      if (!slides.length) return;
-
-      if (index >= slides.length) {
-        currentSlide = 0;
-      }
-
-      if (index < 0) {
-        currentSlide = slides.length - 1;
-      }
-
-      const translateY =
-        -(currentSlide * (100 / slides.length));
-
-      carousel.style.transform =
-        `translateY(${translateY}%)`;
-
-    }
-
-
-    // --------------------------------------
-    // INICIAR SLIDE AUTOMÁTICO
-    // --------------------------------------
-
-    function startCarousel() {
-
-      if (carouselInterval) {
-        clearInterval(carouselInterval);
-      }
-
-      showSlide(currentSlide);
-
-      carouselInterval = setInterval(() => {
-
-        currentSlide++;
-
-        if (currentSlide >= slides.length) {
-          currentSlide = 0;
-        }
-
-        showSlide(currentSlide);
-
-      }, 5000);
-
-    }
-
-
-    // --------------------------------------
-    // PROTEÇÃO CONTRA HTML INDESEJADO
-    // --------------------------------------
-
-    function escapeHTML(value) {
-
-      const div =
-        document.createElement("div");
-
-      div.textContent = value;
-
-      return div.innerHTML;
-
-    }
-
-
-    function escapeAttribute(value) {
-
-      return String(value)
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-    }
-
-
-    // --------------------------------------
-    // INICIAR
-    // --------------------------------------
-
-    loadSlides();
-
-  }
-
-
-// ==========================================
-// HADITH DO DIA
-// ==========================================
-
-  import("./hadith.js")
-    .then(module => {
-
-      if (
-        module &&
-        typeof module.loadHadith === "function"
-      ) {
-
-        module.loadHadith();
-
-      }
-
-    })
-    .catch(error => {
-
-      console.error(
-        "Erro ao carregar hadith.js:",
-        error
+    if (!response.ok) {
+      throw new Error(
+        'Erro ao carregar slides.json'
       );
+    }
 
-    });
+    slides = await response.json();
 
-});
+    if (!Array.isArray(slides) ||
+        slides.length === 0) {
+      return;
+    }
+
+    buildCarousel();
+    startCarousel();
+
+  } catch (error) {
+
+    console.error(
+      'Erro ao carregar slides:',
+      error
+    );
+
+  }
+}
+
+
+function buildCarousel() {
+
+  carouselContainer.innerHTML = '';
+
+  slides.forEach(slide => {
+
+    const slideDiv =
+      document.createElement('div');
+
+    slideDiv.className = 'slide';
+
+    slideDiv.innerHTML = `
+      <h3>${slide.titulo}</h3>
+
+      <p>${slide.descricao}</p>
+
+      <a href="${slide.link}" class="btn">
+        ${slide.botao}
+      </a>
+    `;
+
+    carouselContainer.appendChild(
+      slideDiv
+    );
+
+  });
+}
+
+
+function showSlide(index) {
+
+  if (!slides.length) return;
+
+  if (index >= slides.length) {
+    currentSlideIndex = 0;
+  }
+
+  if (index < 0) {
+    currentSlideIndex =
+      slides.length - 1;
+  }
+
+  carouselContainer.style.transform =
+    `translateY(-${currentSlideIndex * 100}%)`;
+}
+
+
+function startCarousel() {
+
+  showSlide(currentSlideIndex);
+
+  clearInterval(carouselInterval);
+
+  carouselInterval =
+    setInterval(() => {
+
+      currentSlideIndex++;
+
+      showSlide(currentSlideIndex);
+
+    }, 5000);
+}
+
+
+// Iniciar
+loadSlides();
