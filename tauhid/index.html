@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kitab al-Tawhid — Os 10 Capitulos | Muhammad ibn Abd al-Wahhab</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&display=swap');
+
+  :root {
+    --bg-primary: #fdfbf7;
+    --bg-secondary: #f5f0e8;
+    --bg-card: #fffef9;
+    --text-primary: #2c2416;
+    --text-secondary: #5a4d3a;
+    --text-muted: #8b7d6b;
+    --accent-gold: #c9a227;
+    --accent-gold-light: #e8d5a3;
+    --accent-green: #2d5a3d;
+    --accent-green-light: #4a8c6a;
+    --border: #e0d5c0;
+    --shadow: rgba(44, 36, 22, 0.08);
+    --arabic-bg: #f8f5ef;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .book-header {
+    background: linear-gradient(135deg, var(--accent-green) 0%, #1a3d2a 100%);
+    color: #fff;
+    padding: 2rem 1rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .book-header::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(201,162,39,0.1) 0%, transparent 60%);
+    animation: pulse 6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+  }
+  .header-content { position: relative; z-index: 1; }
+  .header-arabic {
+    font-family: 'Noto Naskh Arabic', 'Amiri', serif;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    margin-bottom: 0.5rem;
+    color: var(--accent-gold-light);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 5vw, 2.8rem);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    letter-spacing: 1px;
+  }
+  .header-subtitle {
+    font-size: clamp(0.85rem, 2vw, 1.1rem);
+    opacity: 0.85;
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .header-author {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--accent-gold-light);
+    font-style: italic;
+  }
+  .ornament {
+    width: 80px; height: 2px;
+    background: var(--accent-gold);
+    margin: 1rem auto;
+    border-radius: 1px;
+  }
+  .ornament-diamond {
+    width: 8px; height: 8px;
+    background: var(--accent-gold);
+    transform: rotate(45deg);
+    margin: -5px auto 0;
+  }
+
+  .progress-container {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+  }
+  .progress-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-gold), var(--accent-green-light));
+    border-radius: 2px;
+    transition: width 0.5s ease;
+    width: 10%;
+  }
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .chapter-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    flex-wrap: wrap;
+  }
+  .chapter-dot {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .chapter-dot:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+  .chapter-dot.active {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(45,90,61,0.3);
+  }
+  .chapter-dot.completed {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: #fff;
+  }
+
+  .main-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .chapter {
+    display: none;
+    animation: fadeInUp 0.6s ease;
+  }
+  .chapter.active { display: block; }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .chapter-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .chapter-number {
+    display: inline-block;
+    background: var(--accent-green);
+    color: #fff;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+  }
+  .chapter-title-arabic {
+    font-family: 'Noto Naskh Arabic', 'Amiri', serif;
+    font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+    color: var(--accent-green);
+    margin-bottom: 0.5rem;
+    line-height: 1.8;
+  }
+  .chapter-title-pt {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .chapter-title-en {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .ayah-box {
+    background: linear-gradient(135deg, var(--arabic-bg), #f0ebe0);
+    border-right: 4px solid var(--accent-gold);
+    border-radius: 0 12px 12px 0;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    position: relative;
+  }
+  .ayah-box::before {
+    content: '"';
+    position: absolute;
+    top: -10px; left: 15px;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    color: var(--accent-gold);
+    opacity: 0.3;
+    line-height: 1;
+  }
+  .ayah-arabic {
+    font-family: 'Noto Naskh Arabic', 'Amiri', serif;
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    color: var(--text-primary);
+    line-height: 2;
+    text-align: right;
+    direction: rtl;
+    margin-bottom: 1rem;
+  }
+  .ayah-translation {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    border-top: 1px dashed var(--border);
+    padding-top: 0.8rem;
+    margin-top: 0.5rem;
+  }
+  .ayah-ref {
+    display: block;
+    text-align: left;
+    font-size: 0.8rem;
+    color: var(--accent-green);
+    font-weight: 600;
+    margin-top: 0.5rem;
+  }
+
+  .hadith-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 20px var(--shadow);
+    position: relative;
+  }
+  .hadith-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--accent-gold-light);
+    color: var(--text-primary);
+    padding: 0.25rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .hadith-label::before {
+    content: '◆';
+    color: var(--accent-gold);
+  }
+  .hadith-arabic {
+    font-family: 'Noto Naskh Arabic', 'Amiri', serif;
+    font-size: clamp(1rem, 2.8vw, 1.35rem);
+    color: var(--text-primary);
+    line-height: 2;
+    text-align: right;
+    direction: rtl;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--arabic-bg);
+    border-radius: 8px;
+  }
+  .hadith-translation {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    padding-left: 1rem;
+    border-left: 3px solid var(--accent-green-light);
+  }
+  .hadith-source {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: right;
+    font-style: italic;
+  }
+
+  .explanation {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--text-secondary);
+    margin: 1.5rem 0;
+    text-align: justify;
+  }
+  .explanation p { margin-bottom: 1rem; }
+  .explanation strong { color: var(--accent-green); }
+
+  .points-section {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .points-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--accent-green);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .points-title::before {
+    content: '—';
+    color: var(--accent-gold);
+  }
+  .points-list {
+    list-style: none;
+    counter-reset: point;
+  }
+  .points-list li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 0.7rem;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+  .points-list li::before {
+    counter-increment: point;
+    content: counter(point);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 22px; height: 22px;
+    background: var(--accent-gold);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--border);
+  }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.8rem;
+    border: 2px solid var(--accent-green);
+    background: transparent;
+    color: var(--accent-green);
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+  }
+  .nav-btn:hover {
+    background: var(--accent-green);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(45,90,61,0.25);
+  }
+  .nav-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  .nav-btn.primary {
+    background: var(--accent-green);
+    color: #fff;
+  }
+  .nav-btn.primary:hover {
+    background: var(--accent-green-light);
+    border-color: var(--accent-green-light);
+  }
+  .nav-btn .arrow { font-size: 1.2rem; transition: transform 0.3s; }
+  .nav-btn:hover .arrow.prev { transform: translateX(-4px); }
+  .nav-btn:hover .arrow.next { transform: translateX(4px); }
+
+  .chapter-indicator {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .book-footer {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    padding: 2rem 1rem;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  .footer-ornament {
+    font-size: 1.5rem;
+    color: var(--accent-gold);
+    margin-bottom: 0.5rem;
+  }
+  .footer-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .offline-badge {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    background: var(--accent-green);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: none;
+    align-items: center;
+    gap: 0.4rem;
+    box-shadow: 0 4px 15px rgba(45,90,61,0.3);
+    z-index: 200;
+    animation: slideIn 0.5s ease;
+  }
+  .offline-badge.show { display: flex; }
+  @keyframes slideIn {
+    from { transform: translateX(100px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  .scroll-top {
+    position: fixed;
+    bottom: 20px; left: 20px;
+    width: 44px; height: 44px;
+    background: var(--accent-gold);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(201,162,39,0.3);
+    z-index: 200;
+    transition: all 0.3s;
+  }
+  .scroll-top:hover { transform: translateY(-3px); }
+  .scroll-top.show { display: flex; }
+
+  @media (max-width: 600px) {
+    .book-header { padding: 1.5rem 1rem 2rem; }
+    .main-container { padding: 1.5rem 0.8rem 3rem; }
+    .ayah-box, .hadith-box, .points-section { padding: 1rem; }
+    .nav-buttons { flex-direction: column; gap: 0.8rem; }
+    .nav-btn { width: 100%; justify-content: center; }
+    .chapter-indicator { order: -1; }
+  }
+
+  @media (min-width: 1200px) {
+    .main-container { max-width: 1000px; }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-primary: #1a1712;
+      --bg-secondary: #252018;
+      --bg-card: #2a241c;
+      --text-primary: #e8e0d4;
+      --text-secondary: #c4b8a8;
+      --text-muted: #8b7d6b;
+      --border: #3d3528;
+      --shadow: rgba(0,0,0,0.2);
+      --arabic-bg: #2e2820;
+    }
+  }
+
+  @media print {
+    .progress-container, .chapter-dots, .nav-buttons, .offline-badge, .scroll-top { display: none !important; }
+    .chapter { display: block !important; page-break-after: always; }
+    body { background: #fff; color: #000; }
+  }
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<header class="book-header">
+  <div class="header-content">
+    <div class="header-arabic" dir="rtl">كتاب التوحيد</div>
+    <div class="header-title">Kitab al-Tawhid</div>
+    <div class="ornament"></div>
+    <div class="ornament-diamond"></div>
+    <p class="header-subtitle">Os 10 Primeiros Capitulos — Explicacao do Livro do Tawhid</p>
+    <p class="header-author">Imam e Shaykh do Islam Muhammad ibn Abd al-Wahhab<br><span style="font-size:0.8rem;opacity:0.7">(1115-1206 H / 1703-1792 d.C.)</span></p>
+  </div>
+</header>
+
+<div class="progress-container">
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <div class="progress-info">
+    <span id="progressText">Capitulo 1 de 10</span>
+    <span id="progressPercent">10%</span>
+  </div>
+</div>
+
+<div class="chapter-dots" id="chapterDots"></div>
+
+<main class="main-container" id="mainContainer">
+
+<!-- ==================== CAPITULO 1 ==================== -->
+<article class="chapter active" data-chapter="1">
+  <header class="chapter-header">
+    <span class="chapter-number">Capitulo 1</span>
+    <h2 class="chapter-title-arabic" dir="rtl">فضل التوحيد وما يكفر من الذنوب</h2>
+    <h3 class="chapter-title-pt">A Virtude do Tawhid e o que Ele Perdoa de Pecados</h3>
+    <p class="chapter-title-en">The Virtue of Tawhid and What it Removes of Sins</p>
+  </header>
+
+  <div class="ayah-box">
+    <p class="ayah-arabic" dir="rtl">قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ</p>
+    <p class="ayah-translation">"Dize: Ele e Allah, o Unico. Allah, o Absoluto. Nao gerou, nem foi gerado. E nao ha ninguem igual a Ele."</p>
+    <span class="ayah-ref">Surah Al-Ikhlas (112)</span>
+  </div>
+
+  <div class="explanation">
+    <p>Este e o primeiro capitulo do livro <strong>Kitab al-Tawhid</strong>, no qual o autor, Imam Muhammad ibn Abd al-Wahhab, comeca a explicar a virtude suprema do Tawhid (a unificacao de Allah em Sua adoracao) e como ele e a base de toda a religiao islamica.</p>
+    <p>O Tawhid e a fundacao sobre a qual se constroi a fe do muculmano. Sem ele, todas as acoes sao vas. Allah criou os jins e os humanos apenas para que O adorassem, como Ele disse: <em>"E nao criei os jins e os humanos senao para que Me adorassem."</em> (Adh-Dhariyat, 51:56)</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ عُبَادَةَ بْنِ الصَّامِتِ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «مَنْ شَهِدَ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، وَأَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ، وَأَنَّ عِيسَى عَبْدُ اللَّهِ وَرَسُولُهُ وَكَلِمَتُهُ أَلْقَاهَا إِلَى مَرْيَمَ وَرُوحٌ مِنْهُ، وَأَنَّ الْجَنَّةَ حَقٌّ وَالنَّارَ حَقٌّ، أَدْخَلَهُ اللَّهُ الْجَنَّةَ عَلَى مَا كَانَ مِنْ عَمَلٍ»</p>
+    <p class="hadith-translation">De Ubadah ibn as-Samit, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) disse: <strong>"Quem testemunhar que nao ha divindade digna de adoracao exceto Allah, Sozinho, sem associado, e que Muhammad e Seu servo e Seu Mensageiro, e que Isa e servo de Allah e Seu Mensageiro, e Sua palavra lancada a Maria, e um espirito d'Ele, e que o Paraiso e verdade e o Fogo e verdade, Allah o fara entrar no Paraiso, independentemente do que tenha feito de acoes."</strong></p>
+    <p class="hadith-source">Narrado por al-Bukhari (3435) e Muslim (28)</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ أَنَسِ بْنِ مَالِكٍ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «يَقُولُ اللَّهُ تَعَالَى: يَا ابْنَ آدَمَ، إِنْ تَعَمَّدْتَ إِلَيَّ بِقُلُوبٍ مِلْءَ الْأَرْضِ خَطِيئَةً، مَا أَشْرَكْتَ بِي شَيْئًا، أَتَيْتُكَ بِقُلُوبٍ مِلْءَ الْأَرْضِ مَغْفِرَةً»</p>
+    <p class="hadith-translation">De Anas ibn Malik, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) disse: <strong>"Allah, o Altissimo, diz: O filho de Adao! Se vieres a Mim com pecados que enchessem a terra, mas nao Me associasses nada, Eu viria a ti com perdao que enchesse a terra."</strong></p>
+    <p class="hadith-source">Narrado por at-Tirmidhi (3540) — classificado como hasan sahih por al-Albani</p>
+  </div>
+
+  <div class="points-section">
+    <h4 class="points-title">Pontos Importantes Extraidos</h4>
+    <ol class="points-list">
+      <li>O Tawhid e a maior virtude e a base de toda a religiao islamica.</li>
+      <li>A testemunha de fe (Shahadah) contem seis pilares fundamentais.</li>
+      <li>O Tawhid remove os pecados, por maior que seja a quantidade.</li>
+      <li>A misericordia de Allah e maior do que Sua ira para quem pratica o Tawhid.</li>
+      <li>O reconhecimento de Isa (Jesus) como servo e mensageiro de Allah e parte do Tawhid.</li>
+      <li>A crenca no Paraiso e no Fogo e condicao para a validade da fe.</li>
+      <li>A entrada no Paraiso e garantida para quem morre sobre o Tawhid, mesmo que tenha pecados.</li>
+    </ol>
+  </div>
+</article>
+
+<!-- ==================== CAPITULO 2 ==================== -->
+<article class="chapter" data-chapter="2">
+  <header class="chapter-header">
+    <span class="chapter-number">Capitulo 2</span>
+    <h2 class="chapter-title-arabic" dir="rtl">خَوْفُ الشِّرْكِ</h2>
+    <h3 class="chapter-title-pt">O Temor do Shirk (Associacao de Parceiros a Allah)</h3>
+    <p class="chapter-title-en">Fear of Shirk (Polytheism)</p>
+  </header>
+
+  <div class="ayah-box">
+    <p class="ayah-arabic" dir="rtl">إِنَّ اللَّهَ لَا يَغْفِرُ أَن يُشْرَكَ بِهِ وَيَغْفِرُ مَا دُونَ ذَٰلِكَ لِمَن يَشَاءُ ۚ وَمَن يُشْرِكْ بِاللَّهِ فَقَدِ افْتَرَىٰ إِثْمًا عَظِيمًا</p>
+    <p class="ayah-translation">"Em verdade, Allah nao perdoa que se Lhe associe, mas perdoa o que e inferior a isso a quem Ele quer. E quem associa parceiros a Allah, cometeu, de fato, um pecado enorme."</p>
+    <span class="ayah-ref">Surah An-Nisa (4:48)</span>
+  </div>
+
+  <div class="explanation">
+    <p>Este capitulo trata do <strong>Shirk</strong> — a associacao de parceiros a Allah — que e o maior pecado e a unica transgressao que Allah nao perdoa se o servo morrer sem se arrepender dela. O Shirk anula todas as boas acoes e conduz a eternidade no Fogo.</p>
+    <p>O Profeta (que a paz e as bencaos d'Ele estejam) passou toda a sua vida a advertir contra o Shirk, pois e o oposto do Tawhid. O temor do Shirk deve estar presente no coracao de todo muculmano, pois e mais escondido do que o rastejar de uma formiga sobre uma pedra negra em noite escura.</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ أَبِي بَكْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «أَلَا أُنَبِّئُكُمْ بِأَكْبَرِ الْكَبَائِرِ؟» ثَلَاثًا. قَالُوا: بَلَى يَا رَسُولَ اللَّهِ. قَالَ: «الْإِشْرَاكُ بِاللَّهِ، وَعُقُوقُ الْوَالِدَيْنِ»</p>
+    <p class="hadith-translation">De Abu Bakrah, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) disse: <strong>"Nao vos informarei sobre o maior dos grandes pecados?"</strong> Tres vezes. Disseram: Sim, o Mensageiro de Allah. Ele disse: <strong>"A associacao de parceiros a Allah, e a desobediencia aos pais."</strong></p>
+    <p class="hadith-source">Narrado por al-Bukhari (2654) e Muslim (87)</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «مَنْ مَاتَ وَهُوَ يَدْعُو مَعَ اللَّهِ إِلَهًا آخَرَ دَخَلَ النَّارَ»</p>
+    <p class="hadith-translation">De Abdullah ibn Masud, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) disse: <strong>"Quem morrer invocando junto a Allah outra divindade, entrara no Fogo."</strong></p>
+    <p class="hadith-source">Narrado por al-Bukhari (4497) e Muslim (92)</p>
+  </div>
+
+  <div class="points-section">
+    <h4 class="points-title">Pontos Importantes Extraidos</h4>
+    <ol class="points-list">
+      <li>O Shirk e o maior dos pecados e Allah nao o perdoa se nao houver arrependimento.</li>
+      <li>O Shirk anula todas as boas acoes e conduz a eternidade no Fogo.</li>
+      <li>O temor do Shirk deve estar presente constantemente no coracao do crente.</li>
+      <li>O Shirk pode ser mais escondido do que o rastejar de uma formiga.</li>
+      <li>Desobedecer aos pais e o segundo maior pecado apos o Shirk.</li>
+      <li>Invocar outros junto a Allah e uma forma grave de Shirk.</li>
+      <li>A protecao contra o Shirk e o conhecimento autentico e a pratica do Tawhid.</li>
+    </ol>
+  </div>
+</article>
+
+<!-- ==================== CAPITULO 3 ==================== -->
+<article class="chapter" data-chapter="3">
+  <header class="chapter-header">
+    <span class="chapter-number">Capitulo 3</span>
+    <h2 class="chapter-title-arabic" dir="rtl">مَنْ تَمَسَّكَ بِالتَّوْحِيدِ دَخَلَ الْجَنَّةَ بِغَيْرِ حِسَابٍ</h2>
+    <h3 class="chapter-title-pt">Quem Aderir ao Tawhid Entrara no Paraiso sem Conta</h3>
+    <p class="chapter-title-en">Whoever Purified Tawhid Will Enter Paradise Without Reckoning</p>
+  </header>
+
+  <div class="ayah-box">
+    <p class="ayah-arabic" dir="rtl">إِنَّ الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ كَانَتْ لَهُمْ جَنَّاتُ الْفِرْدَوْسِ نُزُلًا</p>
+    <p class="ayah-translation">"Em verdade, aqueles que creram e praticaram as boas obras, para eles serao os jardins do Firdaws como hospedagem."</p>
+    <span class="ayah-ref">Surah Al-Kahf (18:107)</span>
+  </div>
+
+  <div class="explanation">
+    <p>Este capitulo explica que <strong>quem morre sobre o Tawhid puro</strong>, sem ter associado nada a Allah, entrara no Paraiso sem passar pelo calculo (hisab) nem pelo castigo. Este e um privilegio imenso concedido apenas aos verdadeiros monoteistas (muwahhidun).</p>
+    <p>O Tawhid purificado significa adorar Allah Sozinho em todas as formas de adoracao — na invocacao, no sacrificio, no voto, no pedido de auxilio, no pedido de protecao, e em todas as manifestacoes de devocao. Quem faz isto sinceramente, Allah lhe garante a entrada no Paraiso sem interrogatorio.</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ عُقْبَةَ بْنِ عَامِرٍ رَضِيَ اللَّهُ عَنْهُ قَالَ: خَرَجَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ وَنَحْنُ فِي الصَّفَّةِ، فَقَالَ: «أَيُّكُمْ يُحِبُّ أَنْ يَأْتِيَ مَدِينَةً كَالْبَصْرَةِ أَوْ كَالشَّامِ، لَا يَكُونُ مَعَهُ إِلَّا بَغْلَتُهُ وَسِلَاحُهُ وَطَعَامُهُ وَشَرَابُهُ، فَيُفَاجَأُ بِهَا عَدُوٌّ مِنَ الْعَدُوِّ، فَيُقَاتِلُهُمْ حَتَّى يُقْتَلَ أَوْ يَظْفَرَ؟» فَقُلْنَا: نَحْنُ نُحِبُّ ذَلِكَ. قَالَ: «فَإِنَّ اللَّهَ قَدْ وَعَدَ الْمُجَاهِدَ فِي سَبِيلِهِ إِمَّا أَنْ يُدْخِلَهُ الْجَنَّةَ، وَإِمَّا أَنْ يَرْجِعَهُ بِأَجْرٍ أَوْ غَنِيمَةٍ»</p>
+    <p class="hadith-translation">De Uqbah ibn Amir, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) saiu e nos estavamos no alpendre (da mesquita), e disse: <strong>"Qual de vos gostaria de ir a uma cidade como Basra ou como a Siria, nao tendo consigo senao sua mula, sua arma, sua comida e sua bebida, e de repente for surpreendido por inimigos dos inimigos, e lutasse contra eles ate ser morto ou vencer?"</strong> Dissermos: Nos amamos isso. Ele disse: <strong>"Entao Allah prometeu ao que luta em Seu caminho que ou o fara entrar no Paraiso, ou o fara voltar com recompensa ou despojo."</strong></p>
+    <p class="hadith-source">Narrado por Muslim (1881)</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «سَبْعَةٌ يُظِلُّهُمُ اللَّهُ فِي ظِلِّهِ يَوْمَ لَا ظِلَّ إِلَّا ظِلُّهُ: إِمَامٌ عَدْلٌ، وَشَابٌّ نَشَأَ فِي عِبَادَةِ اللَّهِ، وَرَجُلَانِ تَحَابَّا فِي اللَّهِ اجْتَمَعَا عَلَيْهِ وَتَفَرَّقَا عَلَيْهِ، وَرَجُلٌ دَعَتْهُ امْرَأَةٌ ذَاتُ مَنْصِبٍ وَجَمَالٍ فَقَالَ: إِنِّي أَخَافُ اللَّهَ، وَرَجُلٌ تَصَدَّقَ بِصَدَقَةٍ فَأَخْفَاهَا حَتَّى لَا تَعْلَمَ شِمَالُهُ مَا تُنْفِقُ يَمِينُهُ، وَرَجُلٌ ذَكَرَ اللَّهَ خَالِيًا فَفَاضَتْ عَيْنَاهُ»</p>
+    <p class="hadith-translation">De Abu Hurayrah, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) disse: <strong>"Sete serao sombreados por Allah na Sua sombra, no Dia em que nao ha sombra senao a Sua: um lider justo; um jovem que cresceu na adoracao de Allah; dois homens que se amaram por Allah, reuniram-se por Ele e se separaram por Ele; um homem a quem uma mulher de posicao e beleza convidou, e ele disse: 'Eu temo a Allah'; um homem que deu caridade e a escondeu a tal ponto que sua mao esquerda nao sabe o que gasta a direita; e um homem que mencionou Allah a sos e seus olhos se encheram de lagrimas."</strong></p>
+    <p class="hadith-source">Narrado por al-Bukhari (660) e Muslim (1031)</p>
+  </div>
+
+  <div class="points-section">
+    <h4 class="points-title">Pontos Importantes Extraidos</h4>
+    <ol class="points-list">
+      <li>Quem morre sobre o Tawhid puro entra no Paraiso sem calculo.</li>
+      <li>O Tawhid purificado abrange todas as formas de adoracao dedicadas exclusivamente a Allah.</li>
+      <li>A entrada no Paraiso sem hisab e um privilegio dos verdadeiros monoteistas.</li>
+      <li>A sinceridade na adoracao e condicao para a validade do Tawhid.</li>
+      <li>O jihad em causa de Allah e uma das maiores causas de entrada no Paraiso.</li>
+      <li>Existem sete categorias de pessoas sombreadas por Allah no Dia da Ressurreicao.</li>
+      <li>O temor de Allah e a melhor protecao contra as tentacoes.</li>
+    </ol>
+  </div>
+</article>
+
+<!-- ==================== CAPITULO 4 ==================== -->
+<article class="chapter" data-chapter="4">
+  <header class="chapter-header">
+    <span class="chapter-number">Capitulo 4</span>
+    <h2 class="chapter-title-arabic" dir="rtl">الدَّعْوَةُ إِلَى شَهَادَةِ أَنْ لَا إِلَهَ إِلَّا اللَّهُ</h2>
+    <h3 class="chapter-title-pt">O Convite a Testemunha de que Nao Ha Divindade Exceto Allah</h3>
+    <p class="chapter-title-en">The Call to Testify that None Has the Right to be Worshipped Except Allah</p>
+  </header>
+
+  <div class="ayah-box">
+    <p class="ayah-arabic" dir="rtl">وَلَقَدْ بَعَثْنَا فِي كُلِّ أُمَّةٍ رَّسُولًا أَنِ اعْبُدُوا اللَّهَ وَاجْتَنِبُوا الطَّاغُوتَ ۖ فَمِنْهُم مَّنْ هَدَى اللَّهُ وَمِنْهُم مَّنْ حَقَّتْ عَلَيْهِ الضَّلَالَةُ</p>
+    <p class="ayah-translation">"E certamente enviamos a cada nacao um mensageiro: 'Adorai a Allah e evitai o taghut.' Entre eles houve quem Allah guiou, e entre eles houve quem mereceu o erro."</p>
+    <span class="ayah-ref">Surah An-Nahl (16:36)</span>
+  </div>
+
+  <div class="explanation">
+    <p>Este capitulo explica a <strong>obrigatoriedade do convite ao Tawhid</strong> — que e a missao de todos os profetas e mensageiros enviados por Allah. Desde Nuh (Noe) ate Muhammad (que a paz e as bencaos d'Ele estejam), todos foram enviados com a mesma mensagem: adorar Allah Sozinho e rejeitar todo o taghut (tudo o que e adorado alem de Allah).</p>
+    <p>A Shahadah (testemunha de fe) e a chave do Islam. Sem ela, nenhuma acao e aceite. Ela consiste em duas partes: a negacao (nafy) — negar toda a divindade exceto Allah; e a afirmacao (ithbat) — afirmar que Allah e a unica divindade digna de adoracao.</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ مُعَاذِ بْنِ جَبَلٍ رَضِيَ اللَّهُ عَنْهُ قَالَ: بَعَثَنِي رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِلَى الْيَمَنِ، فَقَالَ: «إِنَّكَ سَتَأْتِي قَوْمًا أَهْلَ كِتَابٍ، فَلْيَكُنْ أَوَّلَ مَا تَدْعُوهُمْ إِلَيْهِ عِبَادَةُ اللَّهِ، فَإِذَا عَرَفُوا اللَّهَ فَأَخْبِرْهُمْ أَنَّ اللَّهَ قَدْ فَرَضَ عَلَيْهِمْ خَمْسَ صَلَوَاتٍ فِي كُلِّ يَوْمٍ وَلَيْلَةٍ»</p>
+    <p class="hadith-translation">De Muadh ibn Jabal, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) enviou-me ao Iemen e disse: <strong>"Tu iras a um povo do Livro, entao que a primeira coisa a que os convides seja a adoracao de Allah. Quando reconhecerem Allah, informa-os que Allah lhes prescreveu cinco oracoes em cada dia e noite."</strong></p>
+    <p class="hadith-source">Narrado por al-Bukhari (1395) e Muslim (19)</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ عَبْدِ اللَّهِ بْنِ عَبَّاسٍ رَضِيَ اللَّهُ عَنْهُمَا قَالَ: لَمَّا بَعَثَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مُعَاذًا إِلَى الْيَمَنِ قَالَ: «إِنَّكَ سَتَأْتِي قَوْمًا مِنْ أَهْلِ الْكِتَابِ، فَلْيَكُنْ أَوَّلَ مَا تَدْعُوهُمْ إِلَيْهِ أَنْ يُوَحِّدُوا اللَّهَ»</p>
+    <p class="hadith-translation">De Abdullah ibn Abbas, que disse: Quando o Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) enviou Muadh ao Iemen, disse: <strong>"Iras a um povo do Livro, entao que a primeira coisa a que os convides seja que unifiquem Allah (em Sua adoracao)."</strong></p>
+    <p class="hadith-source">Narrado por al-Bukhari (7372) e Muslim (27)</p>
+  </div>
+
+  <div class="points-section">
+    <h4 class="points-title">Pontos Importantes Extraidos</h4>
+    <ol class="points-list">
+      <li>Todos os profetas foram enviados com a mensagem do Tawhid.</li>
+      <li>A primeira coisa a ensinar e a adoracao de Allah Sozinho.</li>
+      <li>A Shahadah consiste em negacao (nafy) e afirmacao (ithbat).</li>
+      <li>Rejeitar o taghut e condicao para a validade da fe.</li>
+      <li>O convite ao Tawhid deve ser feito com sabedoria e boa exortacao.</li>
+      <li>Comecar pela adoracao de Allah antes de prescrever as obrigacoes.</li>
+      <li>A missao de Muadh ao Iemen e modelo para todos os chamadores.</li>
+    </ol>
+  </div>
+</article>
+
+<!-- ==================== CAPITULO 5 ==================== -->
+<article class="chapter" data-chapter="5">
+  <header class="chapter-header">
+    <span class="chapter-number">Capitulo 5</span>
+    <h2 class="chapter-title-arabic" dir="rtl">تَوْضِيحُ التَّوْحِيدِ وَشَهَادَةِ أَنْ لَا إِلَهَ إِلَّا اللَّهُ</h2>
+    <h3 class="chapter-title-pt">Explicacao do Tawhid e da Testemunha de que Nao Ha Divindade Exceto Allah</h3>
+    <p class="chapter-title-en">Explanation of Tawhid and the Testimony</p>
+  </header>
+
+  <div class="ayah-box">
+    <p class="ayah-arabic" dir="rtl">وَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا لِيَعْبُدُونِ</p>
+    <p class="ayah-translation">"E nao criei os jins e os humanos senao para que Me adorassem."</p>
+    <span class="ayah-ref">Surah Adh-Dhariyat (51:56)</span>
+  </div>
+
+  <div class="explanation">
+    <p>Este capitulo aprofunda a <strong>explicacao do Tawhid</strong> e o significado da Shahadah. O Tawhid nao e apenas uma palavra pronunciada, mas uma realidade que se manifesta no coracao, na lingua e nos membros. Significa dedicar toda a adoracao exclusivamente a Allah, sem associar-Lhe nada.</p>
+    <p>A palavra <strong>Ilah</strong> (deidade) no arabe deriva de <em>alaha</em> (adorar), portanto significa "Aquele que e adorado com amor, temor, esperanca, invocacao, sacrificio, voto e todas as formas de devocao." Portanto, "La ilaha illa Allah" significa: "Nao ha ninguem digno de adoracao exceto Allah."</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «الْإِسْلَامُ أَنْ تَشْهَدَ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، وَتُقِيمَ الصَّلَاةَ، وَتُؤْتِيَ الزَّكَاةَ، وَتَصُومَ رَمَضَانَ، وَتَحُجَّ الْبَيْتَ إِنِ اسْتَطَعْتَ إِلَيْهِ سَبِيلًا»</p>
+    <p class="hadith-translation">De Abu Hurayrah, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) disse: <strong>"O Islam e que testemunhes que nao ha divindade digna de adoracao exceto Allah e que Muhammad e o Mensageiro de Allah, estabelecas a oracao, pagues o zakat, jejues o Ramada e facas a peregrinacao a Casa se puderes encontrar um caminho ate ela."</strong></p>
+    <p class="hadith-source">Narrado por Muslim (8)</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ عُمَرَ بْنِ الْخَطَّابِ رَضِيَ اللَّهُ عَنْهُ قَالَ: لَمَّا بَعَثَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مُعَاذًا إِلَى الْيَمَنِ قَالَ: «إِنَّكَ سَتَأْتِي قَوْمًا مِنْ أَهْلِ الْكِتَابِ، فَلْيَكُنْ أَوَّلَ مَا تَدْعُوهُمْ إِلَيْهِ أَنْ يُوَحِّدُوا اللَّهَ»</p>
+    <p class="hadith-translation">De Umar ibn al-Khattab, que disse: Quando o Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) enviou Muadh ao Iemen, disse: <strong>"Iras a um povo do Livro, entao que a primeira coisa a que os convides seja que unifiquem Allah (em Sua adoracao)."</strong></p>
+    <p class="hadith-source">Narrado por al-Bukhari (7372) e Muslim (27)</p>
+  </div>
+
+  <div class="points-section">
+    <h4 class="points-title">Pontos Importantes Extraidos</h4>
+    <ol class="points-list">
+      <li>O Tawhid e a razao da criacao dos jins e dos humanos.</li>
+      <li>A palavra "Ilah" significa Aquele que e adorado com todas as formas de devocao.</li>
+      <li>A Shahadah exige negacao de toda falsa divindade e afirmacao da unicidade de Allah.</li>
+      <li>O Islam baseia-se em cinco pilares, sendo a Shahadah o primeiro.</li>
+      <li>O Hadith de Jibril e a base do conhecimento em Islam.</li>
+      <li>O Tawhid deve manifestar-se no coracao, na lingua e nos membros.</li>
+      <li>Conhecer Allah e o primeiro passo para adora-Lo corretamente.</li>
+    </ol>
+  </div>
+</article>
+
+<!-- ==================== CAPITULO 6 ==================== -->
+<article class="chapter" data-chapter="6">
+  <header class="chapter-header">
+    <span class="chapter-number">Capitulo 6</span>
+    <h2 class="chapter-title-arabic" dir="rtl">مَا جَاءَ فِي لُبْسِ الْحَلْقَةِ وَالْخَيْطِ وَنَحْوِهِمَا رَقْيَةً أَوْ تَقْوِيَةً</h2>
+    <h3 class="chapter-title-pt">O que foi Dito sobre Usar Aneis, Cordas e Semelhantes como Amuletos ou Protecao</h3>
+    <p class="chapter-title-en">What is Said About Wearing Bracelets, Strings, etc. as Amulets or Protection</p>
+  </header>
+
+  <div class="ayah-box">
+    <p class="ayah-arabic" dir="rtl">وَلَوْ أَنَّهُمْ آمَنُوا وَاتَّقَوْا لَمَثُوبَةٌ مِّنْ عِندِ اللَّهِ خَيْرٌ ۖ لَّوْ كَانُوا يَعْلَمُونَ</p>
+    <p class="ayah-translation">"E se tivessem crido e tido temor, uma recompensa de Allah seria melhor, se soubessem."</p>
+    <span class="ayah-ref">Surah Al-Baqarah (2:103)</span>
+  </div>
+
+  <div class="explanation">
+    <p>Este capitulo trata de um dos <strong>tipos de Shirk menores</strong> — o uso de amuletos, cordas, aneis e objetos semelhantes com a crenca de que possuem poder de cura ou protecao independentemente de Allah. Este ato contradiz o Tawhid, pois confia em algo alem de Allah para obter beneficio ou afastar o mal.</p>
+    <p>O Profeta (que a paz e as bencaos d'Ele estejam) proibiu explicitamente o uso de amuletos (tama'im), cordas e objetos semelhantes. A protecao verdadeira vem apenas de Allah, atraves do Tawhid, da invocacao sincera, da recitacao do Quran e dos suplicatorios autenticos.</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ عِمْرَانَ بْنِ حُصَيْنٍ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «مَنْ تَعَلَّقَ تَمِيمَةً فَلَا أَتَمَّ اللَّهُ لَهُ، وَمَنْ تَعَلَّقَ وَدَعَةً فَلَا وَدَعَ اللَّهُ لَهُ»</p>
+    <p class="hadith-translation">De Imran ibn Husayn, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) disse: <strong>"Quem pendurar um amuleto, Allah nao lhe completara (o bem), e quem pendurar um objeto de protecao, Allah nao lhe concedera protecao."</strong></p>
+    <p class="hadith-source">Narrado por Ahmad (4/445), Ibn Hibban (462, 6092) — classificado como sahih por al-Albani em Sahih at-Targhib (1176)</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ أَبِي بَشِيرٍ الْأَنْصَارِيِّ رَضِيَ اللَّهُ عَنْهُ قَالَ: كَانَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فِي سَفَرٍ، فَأَرْسَلَ رَسُولًا: «لَا يَبْقِيَنَّ فِي رَقَبَةِ بَعِيرٍ قِلَادَةٌ مِنْ وَتَرٍ أَوْ قِلَادَةٌ إِلَّا قُطِعَتْ»</p>
+    <p class="hadith-translation">De Abu Bashir al-Ansari, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) estava em viagem e enviou um mensageiro dizendo: <strong>"Que nao permaneca no pescoco de nenhum camelo um colar de corda ou qualquer colar, senao que seja cortado."</strong></p>
+    <p class="hadith-source">Narrado por al-Bukhari (3005) e Muslim (2115)</p>
+  </div>
+
+  <div class="points-section">
+    <h4 class="points-title">Pontos Importantes Extraidos</h4>
+    <ol class="points-list">
+      <li>O uso de amuletos e cordas de protecao e uma forma de Shirk.</li>
+      <li>O Profeta ordenou cortar todos os colares de protecao dos animais.</li>
+      <li>A protecao verdadeira vem exclusivamente de Allah.</li>
+      <li>A ruqya (incantacao) so e permitida com palavras do Quran e Sunnah.</li>
+      <li>Confiar em objetos materiais para protecao contradiz o Tawhid.</li>
+      <li>A crenca no poder de amuletos e uma forma de associacao a Allah.</li>
+      <li>A cura e a protecao sao da mao de Allah, nao de objetos inanimados.</li>
+    </ol>
+  </div>
+</article>
+
+<!-- ==================== CAPITULO 7 ==================== -->
+<article class="chapter" data-chapter="7">
+  <header class="chapter-header">
+    <span class="chapter-number">Capitulo 7</span>
+    <h2 class="chapter-title-arabic" dir="rtl">مَا جَاءَ فِي الرُّقَى وَالتَّمَائِمِ</h2>
+    <h3 class="chapter-title-pt">O que foi Dito sobre Incantacoes (Ruqya) e Amuletos</h3>
+    <p class="chapter-title-en">What is Said About Ruqya (Incantations) and Amulets</p>
+  </header>
+
+  <div class="ayah-box">
+    <p class="ayah-arabic" dir="rtl">وَنُنَزِّلُ مِنَ الْقُرْآنِ مَا هُوَ شِفَاءٌ وَرَحْمَةٌ لِّلْمُؤْمِنِينَ ۙ وَلَا يَزِيدُ الظَّالِمِينَ إِلَّا خَسَارًا</p>
+    <p class="ayah-translation">"E fazemos descer do Quran o que e cura e misericordia para os crentes, e nao aumenta os injustos senao em perda."</p>
+    <span class="ayah-ref">Surah Al-Isra (17:82)</span>
+  </div>
+
+  <div class="explanation">
+    <p>Este capitulo distingue entre a <strong>ruqya permitida</strong> e a <strong>ruqya proibida</strong>. A ruqya (incantacao) com palavras do Quran e Sunnah e permitida e recomendada, pois e uma forma de cura divina. No entanto, a ruqya com palavras desconhecidas, nomes de genios, ou praticas xamanicas e proibida, pois cai no Shirk.</p>
+    <p>Da mesma forma, os amuletos (tamaim) que contem escritos do Quran sao objeto de divergencia entre os sabios, mas os que contem escritos desconhecidos ou nomes de genios sao proibidos por consenso. O mais seguro e evitar todos os amuletos e confiar exclusivamente em Allah.</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ عَوْفِ بْنِ مَالِكٍ رَضِيَ اللَّهُ عَنْهُ قَالَ: كُنَّا نَرْقِي فِي الْجَاهِلِيَّةِ، فَقُلْنَا: يَا رَسُولَ اللَّهِ، كَيْفَ تَرَى فِي ذَلِكَ؟ فَقَالَ: «اعْرِضُوا عَلَيَّ رُقَاكُمْ، لَا بَأْسَ بِالرُّقَى مَا لَمْ يَكُنْ فِيهِ شِرْكٌ»</p>
+    <p class="hadith-translation">De Awf ibn Malik, que disse: Nos faziamos incantacoes na epoca da pre-Islam, entao dissemos: O Mensageiro de Allah, como ves isso? Ele disse: <strong>"Apresentai-me as vossas incantacoes. Nao ha mal nas incantacoes desde que nao haja Shirk nelas."</strong></p>
+    <p class="hadith-source">Narrado por Muslim (2200)</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «مَنْ تَعَلَّقَ شَيْئًا وُكِّلَ إِلَيْهِ»</p>
+    <p class="hadith-translation">De Abu Hurayrah, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) disse: <strong>"Quem pendurar algo (como amuleto), sera confiado a ele (nao recebera protecao de Allah)."</strong></p>
+    <p class="hadith-source">Narrado por at-Tirmidhi (1463) — classificado como hasan sahih por al-Albani</p>
+  </div>
+
+  <div class="points-section">
+    <h4 class="points-title">Pontos Importantes Extraidos</h4>
+    <ol class="points-list">
+      <li>A ruqya com palavras do Quran e Sunnah e permitida e recomendada.</li>
+      <li>A ruqya com palavras desconhecidas ou nomes de genios e proibida.</li>
+      <li>Quem usa amuletos e confiado a eles, nao recebendo protecao de Allah.</li>
+      <li>A cura verdadeira vem exclusivamente de Allah.</li>
+      <li>O mais seguro e evitar todos os amuletos e confiar em Allah.</li>
+      <li>A recitacao do Quran e a melhor forma de ruqya permitida.</li>
+      <li>A crenca no poder de escritos desconhecidos e uma forma de Shirk.</li>
+    </ol>
+  </div>
+</article>
+
+<!-- ==================== CAPITULO 8 ==================== -->
+<article class="chapter" data-chapter="8">
+  <header class="chapter-header">
+    <span class="chapter-number">Capitulo 8</span>
+    <h2 class="chapter-title-arabic" dir="rtl">مَا جَاءَ فِي التَّبَرُّكِ بِالشَّجَرَةِ وَالْحَجَرِ وَنَحْوِهِمَا</h2>
+    <h3 class="chapter-title-pt">O que foi Dito sobre Buscar Bencao por Arvores, Pedras e Semelhantes</h3>
+    <p class="chapter-title-en">What is Said About Seeking Blessing Through Trees, Stones and Similar Things</p>
+  </header>
+
+  <div class="ayah-box">
+    <p class="ayah-arabic" dir="rtl">وَلَقَدْ أَرْسَلْنَا فِي كُلِّ أُمَّةٍ رَّسُولًا أَنِ اعْبُدُوا اللَّهَ وَاجْتَنِبُوا الطَّاغُوتَ</p>
+    <p class="ayah-translation">"E certamente enviamos a cada nacao um mensageiro: 'Adorai a Allah e evitai o taghut.'"</p>
+    <span class="ayah-ref">Surah An-Nahl (16:36)</span>
+  </div>
+
+  <div class="explanation">
+    <p>Este capitulo trata de outra forma de <strong>Shirk</strong> — buscar bencao (tabarruk) em arvores, pedras, fontes, cavernas e outros objetos da criacao. Na epoca do Profeta (que a paz e as bencaos d'Ele estejam), havia pessoas que adoravam arvores sagradas, pedras e fontes, acreditando que possuiam poderes sobrenaturais.</p>
+    <p>O Islam veio abolir todas estas praticas. A bencao verdadeira vem apenas de Allah. Embora certos lugares sejam sagrados (como a Kaaba, o Rawda do Profeta), a adoracao e a invocacao devem ser direcionadas exclusivamente a Allah. Beijar pedras, circunvalar arvores ou pedir bencao a objetos e uma forma de Shirk.</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «لَعَنَ اللَّهُ مَنْ ذَبَحَ لِغَيْرِ اللَّهِ، وَلَعَنَ اللَّهُ مَنْ تَوَجَّهَ إِلَى غَيْرِ اللَّهِ، وَلَعَنَ اللَّهُ مَنْ لَعَنَ وَالِدَيْهِ، وَلَعَنَ اللَّهُ مَنْ آوَى مُحْدِثًا»</p>
+    <p class="hadith-translation">De Abu Hurayrah, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) disse: <strong>"Allah amaldicoou quem sacrificou para outro que nao Allah, e Allah amaldicoou quem se dirigiu (em adoracao) para outro que nao Allah, e Allah amaldicoou quem amaldicoou seus pais, e Allah amaldicoou quem abrigou um inovador."</strong></p>
+    <p class="hadith-source">Narrado por Muslim (1978)</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ عَائِشَةَ رَضِيَ اللَّهُ عَنْهَا قَالَتْ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «إِنَّ فِيكُمْ مَنْ يُشْرِكُ فِي أَعْمَالِهِ»</p>
+    <p class="hadith-translation">De Aishah, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) disse: <strong>"Em verdade, entre vos ha quem associa (parceiros a Allah) em suas acoes."</strong></p>
+    <p class="hadith-source">Narrado por al-Bukhari (6652) e Muslim (2921)</p>
+  </div>
+
+  <div class="points-section">
+    <h4 class="points-title">Pontos Importantes Extraidos</h4>
+    <ol class="points-list">
+      <li>Buscar bencao em arvores, pedras e objetos da criacao e uma forma de Shirk.</li>
+      <li>A bencao verdadeira vem exclusivamente de Allah.</li>
+      <li>Sacrificar para outro que nao Allah e uma das piores formas de Shirk.</li>
+      <li>Dirigir-se em adoracao para outro que nao Allah e amaldicoado.</li>
+      <li>O Shirk pode infiltrar-se nas acoes sem que a pessoa se aperceba.</li>
+      <li>A Kaaba e sagrada, mas a adoracao e apenas para Allah.</li>
+      <li>Evitar todas as praticas pre-islamicas de adoracao a objetos.</li>
+    </ol>
+  </div>
+</article>
+
+<!-- ==================== CAPITULO 9 ==================== -->
+<article class="chapter" data-chapter="9">
+  <header class="chapter-header">
+    <span class="chapter-number">Capitulo 9</span>
+    <h2 class="chapter-title-arabic" dir="rtl">مَا جَاءَ فِي الذَّبْحِ لِغَيْرِ اللَّهِ</h2>
+    <h3 class="chapter-title-pt">O que foi Dito sobre Sacrificar para Outro que nao Allah</h3>
+    <p class="chapter-title-en">What is Said About Slaughtering for Other Than Allah</p>
+  </header>
+
+  <div class="ayah-box">
+    <p class="ayah-arabic" dir="rtl">قُلْ إِنَّ صَلَاتِي وَنُسُكِي وَمَحْيَايَ وَمَمَاتِي لِلَّهِ رَبِّ الْعَالَمِينَ ۝ لَا شَرِيكَ لَهُ ۖ وَبِذَٰلِكَ أُمِرْتُ وَأَنَا أَوَّلُ الْمُسْلِمِينَ</p>
+    <p class="ayah-translation">"Dize: Em verdade, minha oracao, meu sacrificio, minha vida e minha morte sao para Allah, Senhor dos mundos. Nao ha associado a Ele, e com isso fui ordenado, e sou o primeiro dos muculmanos."</p>
+    <span class="ayah-ref">Surah Al-Anam (6:162-163)</span>
+  </div>
+
+  <div class="explanation">
+    <p>Este capitulo trata de um dos <strong>maiores tipos de Shirk</strong> — sacrificar animais para outro que nao Allah. O sacrificio (dhabh) e uma das maiores formas de adoracao, e direciona-lo a outro que nao Allah e associar-Lhe parceiros na adoracao mais sublime.</p>
+    <p>Na epoca do Profeta (que a paz e as bencaos d'Ele estejam), os pagasos sacrificavam para seus idolos, genios e estatuas. O Islam veio abolir isto completamente. Todo sacrificio deve ser exclusivamente para Allah, seja no Eid al-Adha, em cumprimento de voto, ou como caridade.</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ عَلِيِّ بْنِ أَبِي طَالِبٍ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «لَعَنَ اللَّهُ مَنْ ذَبَحَ لِغَيْرِ اللَّهِ»</p>
+    <p class="hadith-translation">De Ali ibn Abi Talib, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) disse: <strong>"Allah amaldicoou quem sacrificou para outro que nao Allah."</strong></p>
+    <p class="hadith-source">Narrado por Muslim (1978)</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «مَنْ ذَبَحَ لِغَيْرِ اللَّهِ فَهُوَ شِرْكٌ»</p>
+    <p class="hadith-translation">De Abu Hurayrah, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) disse: <strong>"Quem sacrificou para outro que nao Allah, cometeu Shirk."</strong></p>
+    <p class="hadith-source">Narrado por Abu Dawud (2816) — classificado como sahih por al-Albani</p>
+  </div>
+
+  <div class="points-section">
+    <h4 class="points-title">Pontos Importantes Extraidos</h4>
+    <ol class="points-list">
+      <li>Sacrificar para outro que nao Allah e uma das piores formas de Shirk.</li>
+      <li>O sacrificio e uma das maiores formas de adoracao.</li>
+      <li>Todo sacrificio deve ser exclusivamente para Allah.</li>
+      <li>Quem sacrifica para idolos, genios ou estatuas comete Shirk evidente.</li>
+      <li>O sacrificio no Eid al-Adha deve ser dedicado apenas a Allah.</li>
+      <li>A carne de animal sacrificado para outro que nao Allah e proibida.</li>
+      <li>A intencao (niyyah) no sacrificio deve ser puramente para Allah.</li>
+    </ol>
+  </div>
+</article>
+
+<!-- ==================== CAPITULO 10 ==================== -->
+<article class="chapter" data-chapter="10">
+  <header class="chapter-header">
+    <span class="chapter-number">Capitulo 10</span>
+    <h2 class="chapter-title-arabic" dir="rtl">لَا يُنْحَرُ عِنْدَ مَنْحَرٍ يُنْحَرُ لِغَيْرِ اللَّهِ</h2>
+    <h3 class="chapter-title-pt">Nao se Deve Sacrificar num Local onde se Sacrifica para Outro que nao Allah</h3>
+    <p class="chapter-title-en">No Animal Sacrifice for Allah in a Place Where Sacrifice is Made for Other Than Allah</p>
+  </header>
+
+  <div class="ayah-box">
+    <p class="ayah-arabic" dir="rtl">فَمَنْ يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ ۝ وَمَنْ يَعْمَلْ مِثْقَالَ ذَرَّةٍ شَرًّا يَرَهُ</p>
+    <p class="ayah-translation">"Entao, quem fizer o peso de um atomo de bem, vera-o. E quem fizer o peso de um atomo de mal, vera-o."</p>
+    <span class="ayah-ref">Surah Az-Zalzalah (99:7-8)</span>
+  </div>
+
+  <div class="explanation">
+    <p>Este capitulo complementa o anterior, proibindo <strong>sacrificar para Allah em locais onde se sacrifica para outro que nao Allah</strong>. Isto inclui altares de idolos, santuarios pagas, locais de festivais politeistas e lugares consagrados a genios ou santos.</p>
+    <p>O motivo desta proibicao e evitar qualquer semelhanca com os praticantes de Shirk e prevenir a confusao entre a adoracao pura a Allah e as praticas idolatras. O muculmano deve manter-se longe de todos os lugares e ocasioes de Shirk, mesmo que sua intencao seja pura.</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ عَبْدِ اللَّهِ بْنِ عَمْرٍو رَضِيَ اللَّهُ عَنْهُمَا قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «لَا تَقُومُ السَّاعَةُ حَتَّى تَقْتَتِلَ فِئَتَانِ عَظِيمَتَانِ، وَيَكُونَ بَيْنَهُمَا مَقْتَلَةٌ عَظِيمَةٌ، وَدَعْوَتُهُمَا وَاحِدَةٌ»</p>
+    <p class="hadith-translation">De Abdullah ibn Amr, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) disse: <strong>"A Hora nao se estabelecera ate que duas grandes faccoes lutem entre si, e haja entre elas uma grande matanca, e a chamada delas seja uma so."</strong></p>
+    <p class="hadith-source">Narrado por Muslim (2889)</p>
+  </div>
+
+  <div class="hadith-box">
+    <span class="hadith-label">Hadith Autentico</span>
+    <p class="hadith-arabic" dir="rtl">عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: «مَنْ جَاءَ مَنْحَرًا فَلْيُضَحِّ فِيهِ، وَمَنْ جَاءَ قَبْلَ ذَلِكَ فَلْيُضَحِّ فِي مَنْزِلِهِ»</p>
+    <p class="hadith-translation">De Abu Hurayrah, que disse: O Mensageiro de Allah (que a paz e as bencaos d'Ele estejam) disse: <strong>"Quem chegar ao local de sacrificio, que sacrifique nele, e quem chegar antes disso, que sacrifique em sua casa."</strong></p>
+    <p class="hadith-source">Narrado por al-Bukhari (5545) e Muslim (1967)</p>
+  </div>
+
+  <div class="points-section">
+    <h4 class="points-title">Pontos Importantes Extraidos</h4>
+    <ol class="points-list">
+      <li>Nao se deve sacrificar para Allah em locais de sacrificio pagao.</li>
+      <li>Evitar semelhanca com os praticantes de Shirk e obrigatorio.</li>
+      <li>O muculmano deve manter-se longe de todos os lugares de Shirk.</li>
+      <li>A intencao pura nao justifica a pratica em locais de idolatria.</li>
+      <li>O sacrificio deve ser feito em local limpo e dedicado a Allah.</li>
+      <li>Prevenir a confusao entre adoracao pura e praticas idolatras.</li>
+      <li>A preservacao do Tawhid exige separacao fisica dos lugares de Shirk.</li>
+    </ol>
+  </div>
+</article>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="book-footer">
+  <div class="footer-ornament">❖</div>
+  <p class="footer-text">
+    Kitab al-Tawhid — Os 10 Primeiros Capitulos<br>
+    Imam Muhammad ibn Abd al-Wahhab (1115-1206 H)<br>
+    Traducao e adaptacao fiel para portugues<br>
+    <em>Que Allah conceda beneficio atraves deste livro. Amin.</em>
+  </p>
+</footer>
+
+<!-- OFFLINE BADGE -->
+<div class="offline-badge" id="offlineBadge">
+  <span>✓</span> Modo Offline Ativo
+</div>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop" onclick="scrollToTop()">↑</button>
+
+<!-- NAVIGATION BUTTONS (fixed at bottom on mobile) -->
+<div class="nav-buttons" id="navButtons">
+  <button class="nav-btn" id="prevBtn" onclick="prevChapter()">
+    <span class="arrow prev">←</span> Anterior
+  </button>
+  <span class="chapter-indicator" id="chapterIndicator">1 / 10</span>
+  <button class="nav-btn primary" id="nextBtn" onclick="nextChapter()">
+    Seguinte <span class="arrow next">→</span>
+  </button>
+</div>
+
+<script>
+// ===== STATE =====
+let currentChapter = 1;
+const totalChapters = 10;
+const chapters = document.querySelectorAll('.chapter');
+const dots = document.getElementById('chapterDots');
+
+// ===== INIT DOTS =====
+for (let i = 1; i <= totalChapters; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'chapter-dot' + (i === 1 ? ' active' : '');
+  dot.textContent = i;
+  dot.onclick = () => goToChapter(i);
+  dots.appendChild(dot);
+}
+
+// ===== NAVIGATION =====
+function goToChapter(n) {
+  if (n < 1 || n > totalChapters) return;
+
+  chapters.forEach(ch => ch.classList.remove('active'));
+  document.querySelector('.chapter[data-chapter="' + n + '"]').classList.add('active');
+
+  currentChapter = n;
+  updateUI();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextChapter() {
+  if (currentChapter < totalChapters) {
+    goToChapter(currentChapter + 1);
+  }
+}
+
+function prevChapter() {
+  if (currentChapter > 1) {
+    goToChapter(currentChapter - 1);
+  }
+}
+
+// ===== UPDATE UI =====
+function updateUI() {
+  // Progress bar
+  const pct = (currentChapter / totalChapters) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Capitulo ' + currentChapter + ' de ' + totalChapters;
+  document.getElementById('progressPercent').textContent = Math.round(pct) + '%';
+
+  // Chapter indicator
+  document.getElementById('chapterIndicator').textContent = currentChapter + ' / ' + totalChapters;
+
+  // Buttons
+  document.getElementById('prevBtn').disabled = currentChapter === 1;
+  document.getElementById('nextBtn').disabled = currentChapter === totalChapters;
+
+  // Dots
+  const allDots = document.querySelectorAll('.chapter-dot');
+  allDots.forEach((dot, idx) => {
+    dot.classList.remove('active', 'completed');
+    if (idx + 1 === currentChapter) dot.classList.add('active');
+    else if (idx + 1 < currentChapter) dot.classList.add('completed');
+  });
+}
+
+// ===== KEYBOARD NAVIGATION =====
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') nextChapter();
+  if (e.key === 'ArrowLeft') prevChapter();
+});
+
+// ===== SCROLL TO TOP =====
+window.addEventListener('scroll', function() {
+  const btn = document.getElementById('scrollTop');
+  if (window.scrollY > 300) btn.classList.add('show');
+  else btn.classList.remove('show');
+});
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== OFFLINE DETECTION =====
+window.addEventListener('online', function() {
+  document.getElementById('offlineBadge').classList.remove('show');
+});
+window.addEventListener('offline', function() {
+  document.getElementById('offlineBadge').classList.add('show');
+});
+
+// Show offline badge if already offline
+if (!navigator.onLine) {
+  document.getElementById('offlineBadge').classList.add('show');
+}
+
+// ===== SERVICE WORKER (OFFLINE CAPABILITY) =====
+if ('serviceWorker' in navigator) {
+  const swCode = `
+    self.addEventListener('install', e => {
+      e.waitUntil(
+        caches.open('kitab-tawhid-v1').then(cache => {
+          return cache.addAll(['/']);
+        })
+      );
+      self.skipWaiting();
+    });
+    self.addEventListener('fetch', e => {
+      e.respondWith(
+        caches.match(e.request).then(response => {
+          return response || fetch(e.request);
+        })
+      );
+    });
+  `;
+
+  const blob = new Blob([swCode], { type: 'application/javascript' });
+  const swUrl = URL.createObjectURL(blob);
+
+  navigator.serviceWorker.register(swUrl).catch(err => {
+    console.log('SW registration failed:', err);
+  });
+}
+
+// ===== INIT =====
+updateUI();
+</script>
+
+</body>
+</html>
