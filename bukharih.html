@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahih Al-Bukhari - Livro 1, Volume 1 | ISLAM MOÇAMBIQUE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #c9a84c;
+            --dark-gold: #a8892f;
+            --cream: #faf8f3;
+            --dark: #1a1a1a;
+            --text: #2c2c2c;
+            --light-gold: #f5efe0;
+            --border: #e0d5b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Amiri', 'Georgia', serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--dark-gold), var(--gold));
+        }
+
+        .header::after {
+            content: '❁';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: var(--gold);
+            background: var(--cream);
+            padding: 0 1rem;
+            border-radius: 50%;
+        }
+
+        .org-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .org-subtitle {
+            font-size: 0.85rem;
+            color: #aaa;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .book-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 1rem 0 0.5rem;
+            color: white;
+        }
+
+        .book-subtitle {
+            font-size: 1.1rem;
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .book-info {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+
+        /* Contact Bar */
+        .contact-bar {
+            background: var(--light-gold);
+            padding: 0.8rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--dark);
+        }
+
+        .contact-bar a {
+            color: var(--dark-gold);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-bar span {
+            margin: 0 0.8rem;
+            color: var(--gold);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .intro {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .intro h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .intro p {
+            font-size: 1rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--gold);
+            font-size: 1.5rem;
+            letter-spacing: 1rem;
+        }
+
+        /* Hadith Card */
+        .hadith-card {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hadith-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .hadith-header {
+            background: linear-gradient(135deg, var(--light-gold) 0%, #f0e6d0 100%);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hadith-number {
+            background: var(--dark);
+            color: var(--gold);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hadith-book-info {
+            font-size: 0.8rem;
+            color: #666;
+            text-align: right;
+        }
+
+        .hadith-body {
+            padding: 2rem 1.5rem;
+        }
+
+        /* Arabic Text */
+        .arabic-text {
+            font-family: 'Noto Naskh Arabic', 'Amiri', serif;
+            font-size: 1.4rem;
+            line-height: 2.4;
+            text-align: right;
+            direction: rtl;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #faf8f3 0%, #f5efe0 100%);
+            border-radius: 8px;
+            border-right: 4px solid var(--gold);
+        }
+
+        .arabic-text .bismillah {
+            font-size: 1.6rem;
+            color: var(--dark-gold);
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Portuguese Translation */
+        .portuguese-text {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--text);
+            padding: 0 0.5rem;
+        }
+
+        .portuguese-text .label {
+            display: inline-block;
+            background: var(--gold);
+            color: white;
+            padding: 0.15rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+        }
+
+        .portuguese-text .narrator {
+            font-weight: 700;
+            color: var(--dark-gold);
+        }
+
+        .portuguese-text .reference {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border);
+            font-size: 0.85rem;
+            color: #777;
+            font-style: italic;
+        }
+
+        /* Chapter Title */
+        .chapter-title {
+            background: var(--dark);
+            color: var(--gold);
+            padding: 1.2rem 1.5rem;
+            margin: 3rem 0 2rem;
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .chapter-title::before,
+        .chapter-title::after {
+            content: '✦';
+            margin: 0 1rem;
+            color: var(--gold);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .footer-desc {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-contact a {
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-contact a:hover {
+            color: white;
+        }
+
+        .footer-copy {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 1rem;
+        }
+
+        /* Decorative elements */
+        .ornament {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 1rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header {
+                padding: 1.5rem 1rem;
+            }
+
+            .book-title {
+                font-size: 1.4rem;
+            }
+
+            .org-name {
+                font-size: 1.1rem;
+            }
+
+            .arabic-text {
+                font-size: 1.15rem;
+                padding: 1rem;
+            }
+
+            .portuguese-text {
+                font-size: 0.95rem;
+            }
+
+            .hadith-body {
+                padding: 1.5rem 1rem;
+            }
+
+            .contact-bar {
+                font-size: 0.75rem;
+            }
+
+            .contact-bar span {
+                margin: 0 0.3rem;
+            }
+
+            .footer-contact {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--cream);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--dark-gold);
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="org-name">ISLAM MOÇAMBIQUE</div>
+        <div class="org-subtitle">Estudos Islâmicos — Biblioteca Digital</div>
+        <h1 class="book-title">Sahih Al-Bukhari</h1>
+        <div class="book-subtitle">O Livro do Início da Revelação</div>
+        <div class="book-info">Livro 1 • Volume 1 • Os Primeiros 10 Hadiths</div>
+    </header>
+
+    <!-- Contact Bar -->
+    <div class="contact-bar">
+        <span>📧 <a href="mailto:Islammocambique@gmail.com">Islammocambique@gmail.com</a></span>
+        <span>|</span>
+        <span>📱 <a href="tel:+258860407269">+258 860 407 269</a></span>
+        <span>|</span>
+        <span>🌐 Biblioteca Digital de Estudos Islâmicos</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <div class="intro">
+            <h2>Kitab Bad' al-Wahy (كتاب بدء الوحي)</h2>
+            <p>Este é o primeiro livro de Sahih Al-Bukhari, que trata do início da revelação do Alcorão ao Profeta Muhammad (que a paz e as bênçãos de Allah estejam sobre ele). Aqui apresentamos os primeiros dez hadiths autênticos deste livro fundamental.</p>
+        </div>
+
+        <div class="ornament">۞</div>
+
+        <!-- Chapter Title -->
+        <div class="chapter-title">
+            Capítulo: Como começou a revelação ao Mensageiro de Allah
+        </div>
+
+        <!-- Hadith 1 -->
+        <div class="hadith-card">
+            <div class="hadith-header">
+                <div class="hadith-number">1</div>
+                <div class="hadith-book-info">Sahih Al-Bukhari<br>Livro 1, Hadith 1</div>
+            </div>
+            <div class="hadith-body">
+                <div class="arabic-text">
+                    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+                    حَدَّثَنَا الْحُمَيْدِيُّ عَبْدُ اللَّهِ بْنُ الزُّبَيْرِ، قَالَ: حَدَّثَنَا سُفْيَانُ، قَالَ: حَدَّثَنَا يَحْيَى بْنُ سَعِيدٍ الأَنْصَارِيُّ، قَالَ: أَخْبَرَنِي مُحَمَّدُ بْنُ إِبْرَاهِيمَ التَّيْمِيُّ، أَنَّهُ سَمِعَ عَلْقَمَةَ بْنَ وَقَّاصٍ اللَّيْثِيَّ، يَقُولُ: سَمِعْتُ عُمَرَ بْنَ الْخَطَّابِ، عَلَى الْمِنْبَرِ، قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، يَقُولُ: «إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا، أَوِ امْرَأَةٍ يَتَزَوَّجُهَا، فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ»
+                </div>
+                <div class="portuguese-text">
+                    <span class="label">Tradução</span>
+                    <p>Narrado por <span class="narrator">Al-Humaydi Abdullah ibn Az-Zubayr</span>: Sufyan nos relatou, que Yahya ibn Sa'id Al-Ansari relatou, que Muhammad ibn Ibrahim At-Taymi lhe informou que ouviu Alqamah ibn Waqas Al-Laithi dizer: Ouvi Umar ibn Al-Khattab no púlpito dizer: Ouvi o Mensageiro de Allah (que a paz e as bênçãos de Allah estejam sobre ele) dizer:</p>
+                    <p style="margin-top: 0.8rem; font-style: italic; color: var(--dark-gold);">"As ações são julgadas apenas pelas intenções, e cada pessoa terá apenas o que pretendia. Portanto, quem emigrou para Allah e Seu Mensageiro, sua emigração será para Allah e Seu Mensageiro. E quem emigrou para obter algum benefício mundano ou para casar-se com uma mulher, sua emigração será para aquilo para que emigrou."</p>
+                    <div class="reference">Referência: Sahih Al-Bukhari 1 — Também narrado por Muslim</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hadith 2 -->
+        <div class="hadith-card">
+            <div class="hadith-header">
+                <div class="hadith-number">2</div>
+                <div class="hadith-book-info">Sahih Al-Bukhari<br>Livro 1, Hadith 2</div>
+            </div>
+            <div class="hadith-body">
+                <div class="arabic-text">
+                    حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مُحَمَّدٍ، قَالَ: حَدَّثَنَا هِشَامُ بْنُ يُوسُفَ، قَالَ: أَخْبَرَنَا مَعْمَرٌ، عَنِ الزُّهْرِيِّ، عَنْ عُرْوَةَ بْنِ الزُّبَيْرِ، عَنْ عَائِشَةَ أُمِّ الْمُؤْمِنِينَ، أَنَّهَا قَالَتْ: أَوَّلُ مَا بَدَأَ بِهِ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مِنَ الوَحْيِ، الرُّؤْيَا الصَّالِحَةُ فِي النَّوْمِ، فَكَانَ لاَ يَرَى رُؤْيَا إِلاَّ جَاءَتْ مِثْلَ فَلَقِ الصُّبْحِ، ثُمَّ حُبِّبَ إِلَيْهِ الْخَلاَءُ، وَكَانَ يَخْلُو بِغَارِ حِرَاءٍ فَيَتَحَنَّثُ فِيهِ... (الْوَحْنَةُ) تَعْنِي: التَّعَبَّدَ، وَالنَّاسُ يَقُولُونَ: تَحَنَّثَ، إِذَا تَعَبَّدَ، قَالَتْ عَائِشَةُ رَضِيَ اللَّهُ عَنْهَا: فَيَرْجِعُ إِلَى خَدِيجَةَ بِنْتِ خُوَيْلِدٍ رَضِيَ اللَّهُ عَنْهَا، فَيَتَزَوَّدُ لَهَا... حَتَّى جَاءَهُ الْحَقُّ وَهُوَ فِي غَارِ حِرَاءٍ، فَجَاءَهُ الْمَلَكُ فَقَالَ: اقْرَأْ. فَقَالَ: مَا أَنَا بِقَارِئٍ. قَالَ: فَأَخَذَنِي فَغَطَّنِي حَتَّى بَلَغَ مِنِّي الْجَهْدُ، ثُمَّ أَرْسَلَنِي فَقَالَ: اقْرَأْ. فَقُلْتُ: مَا أَنَا بِقَارِئٍ. فَأَخَذَنِي فَغَطَّنِي الثَّانِيَةَ حَتَّى بَلَغَ مِنِّي الْجَهْدُ، ثُمَّ أَرْسَلَنِي فَقَالَ: اقْرَأْ. فَقُلْتُ: مَا أَنَا بِقَارِئٍ. فَأَخَذَنِي فَغَطَّنِي الثَّالِثَةَ، ثُمَّ أَرْسَلَنِي فَقَالَ: ﴿اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ * خَلَقَ الإِنْسَانَ مِنْ عَلَقٍ * اقْرَأْ وَرَبُّكَ الأَكْرَمُ * الَّذِي عَلَّمَ بِالْقَلَمِ * عَلَّمَ الإِنْسَانَ مَا لَمْ يَعْلَمْ﴾ [العلق: 1-5]. فَرَجَعَ بِهَا رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَرْجُفُ فُؤَادُهُ، فَدَخَلَ عَلَى خَدِيجَةَ بِنْتِ خُوَيْلِدٍ رَضِيَ اللَّهُ عَنْهَا، فَقَالَ: زَمِّلُونِي زَمِّلُونِي. فَزَمَّلُوهُ حَتَّى ذَهَبَ عَنْهُ الْوَجْعُ، فَقَالَ لِخَدِيجَةَ: يَا خَدِيجَةُ، لَقَدْ خَشِيتُ عَلَى نَفْسِي. فَأَخْبَرَهَا الْخَبَرَ. فَقَالَتْ خَدِيجَةُ: كَلاَ وَاللَّهِ، لاَ يُخْزِيكَ اللَّهُ أَبَدًا، إِنَّكَ لَتَصِلُ الرَّحِمَ، وَتَحْمِلُ الْكَلَّ، وَتَكْسِبُ الْمَعْدُومَ، وَتَقْرِي الضَّيْفَ، وَتُعِينُ عَلَى نَوَائِبِ الْحَقِّ
+                </div>
+                <div class="portuguese-text">
+                    <span class="label">Tradução</span>
+                    <p>Narrado por <span class="narrator">Aishah</span> (que Allah esteja satisfeito com ela), a Mãe dos Crentes: O início da revelação ao Mensageiro de Allah (que a paz e as bênçãos de Allah estejam sobre ele) foram os sonhos verdadeiros durante o sono. Ele não via um sonho que não se realizasse como o clarear da manhã. Depois, passou a gostar da solidão e passava a retirar-se para a caverna de Hira, onde se dedicava à adoração... (a adoração) significava a devoção. As pessoas dizem "tahannuth" quando se dedicam à adoração.</p>
+                    <p style="margin-top: 0.8rem;">Aishah (que Allah esteja satisfeito com ela) disse: Ele retornava para Khadijah bint Khuwaylid (que Allah esteja satisfeito com ela), e ela lhe preparava provisões... até que a Verdade lhe veio enquanto estava na caverna de Hira. O anjo veio até ele e disse: "Leia!" Ele disse: "Não sei ler." O anjo me pegou e me apertou até que senti grande esforço, depois me soltou e disse: "Leia!" Eu disse: "Não sei ler." Ele me pegou e me apertou pela segunda vez até que senti grande esforço, depois me soltou e disse: "Leia!" Eu disse: "Não sei ler." Ele me pegou e me apertou pela terceira vez, depois me soltou e disse:</p>
+                    <p style="margin-top: 0.8rem; font-style: italic; color: var(--dark-gold); direction: rtl; text-align: right;">"Leia em nome do teu Senhor que criou. Criou o homem de um coágulo. Leia, e o teu Senhor é o mais Generoso, Aquele que ensinou pelo cálamo, ensinou ao homem o que não sabia." [Al-Alaq: 1-5]</p>
+                    <p style="margin-top: 0.8rem;">O Mensageiro de Allah (que a paz e as bênçãos de Allah estejam sobre ele) retornou com isso, tremendo seu coração. Entrou junto a Khadijah bint Khuwaylid (que Allah esteja satisfeito com ela) e disse: "Cubram-me! Cubram-me!" Eles o cobriram até que a angústia passou. Então disse a Khadijah: "Ó Khadijah, temi por mim mesmo." E lhe contou o que aconteceu. Khadijah disse: "Não, por Allah, Allah nunca te humilhará. Pois tu manténs os laços de parentesco, carregas o fardo dos fracos, ganhas para os necessitados, acolhes o hóspede e auxilias nas calamidades da verdade."</p>
+                    <div class="reference">Referência: Sahih Al-Bukhari 2 — Narrado por Aishah</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hadith 3 -->
+        <div class="hadith-card">
+            <div class="hadith-header">
+                <div class="hadith-number">3</div>
+                <div class="hadith-book-info">Sahih Al-Bukhari<br>Livro 1, Hadith 3</div>
+            </div>
+            <div class="hadith-body">
+                <div class="arabic-text">
+                    حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ، قَالَ: حَدَّثَنَا اللَّيْثُ، عَنْ عُقَيْلٍ، عَنِ ابْنِ شِهَابٍ، قَالَ: أَخْبَرَنِي عُرْوَةُ بْنُ الزُّبَيْرِ، أَنَّ عَائِشَةَ أُمَّ الْمُؤْمِنِينَ رَضِيَ اللَّهُ عَنْهَا، قَالَتْ: وَكَانَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَرَى الرُّؤْيَا فِي النَّوْمِ، تَكُونُ كَالْفَلَقِ الصَّابِحِ. فَجَاءَهُ الْمَلَكُ فَقَالَ: يَا مُحَمَّدُ، أَنْتَ رَسُولُ اللَّهِ. قَالَ: فَرَجَعَ إِلَى خَدِيجَةَ، فَقَالَ: زَمِّلُونِي زَمِّلُونِي. فَذَعَرَتْ، ثُمَّ ذَعَرَتْ، فَقَالَتْ: خَيْرًا أَبْشِرْ. أَلَا تَرَى أَنَّ اللَّهَ لَنْ يُخْزِيَكَ أَبَدًا؟ وَاللَّهِ إِنَّكَ لَتَصِلُ الرَّحِمَ، وَتَحْمِلُ الْكَلَّ، وَتَكْسِبُ الْمَعْدُومَ، وَتَقْرِي الضَّيْفَ، وَتُعِينُ عَلَى نَوَائِبِ الْحَقِّ
+                </div>
+                <div class="portuguese-text">
+                    <span class="label">Tradução</span>
+                    <p>Narrado por <span class="narrator">Aishah</span> (que Allah esteja satisfeito com ela): O Mensageiro de Allah (que a paz e as bênçãos de Allah estejam sobre ele) via os sonhos no sono, e eles se realizavam como o clarear da manhã. O anjo veio até ele e disse: "Ó Muhammad, tu és o Mensageiro de Allah." Ele retornou a Khadijah e disse: "Cubram-me! Cubram-me!" Ela ficou alarmada, depois se acalmou e disse: "Alegre-te com boas novas! Não vês que Allah nunca te humilhará? Por Allah, tu manténs os laços de parentesco, carregas o fardo dos fracos, ganhas para os necessitados, acolhes o hóspede e auxilias nas calamidades da verdade."</p>
+                    <div class="reference">Referência: Sahih Al-Bukhari 3 — Narrado por Aishah</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hadith 4 -->
+        <div class="hadith-card">
+            <div class="hadith-header">
+                <div class="hadith-number">4</div>
+                <div class="hadith-book-info">Sahih Al-Bukhari<br>Livro 1, Hadith 4</div>
+            </div>
+            <div class="hadith-body">
+                <div class="arabic-text">
+                    حَدَّثَنَا مُسَدَّدٌ، قَالَ: حَدَّثَنَا يَحْيَى، عَنْ شُعْبَةَ، عَنْ مُحَمَّدِ بْنِ إِبْرَاهِيمَ، عَنْ عَلْقَمَةَ بْنِ وَقَّاصٍ، قَالَ: سَمِعْتُ عُمَرَ بْنَ الْخَطَّابِ، عَلَى الْمِنْبَرِ، قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، يَقُولُ: «إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا، أَوِ امْرَأَةٍ يَتَزَوَّجُهَا، فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ»
+                </div>
+                <div class="portuguese-text">
+                    <span class="label">Tradução</span>
+                    <p>Narrado por <span class="narrator">Alqamah ibn Waqas</span>: Ouvi Umar ibn Al-Khattab no púlpito dizer: Ouvi o Mensageiro de Allah (que a paz e as bênçãos de Allah estejam sobre ele) dizer:</p>
+                    <p style="margin-top: 0.8rem; font-style: italic; color: var(--dark-gold);">"As ações são julgadas apenas pelas intenções, e cada pessoa terá apenas o que pretendia. Portanto, quem emigrou para Allah e Seu Mensageiro, sua emigração será para Allah e Seu Mensageiro. E quem emigrou para obter algum benefício mundano ou para casar-se com uma mulher, sua emigração será para aquilo para que emigrou."</p>
+                    <div class="reference">Referência: Sahih Al-Bukhari 4 — Narrado por Umar ibn Al-Khattab</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hadith 5 -->
+        <div class="hadith-card">
+            <div class="hadith-header">
+                <div class="hadith-number">5</div>
+                <div class="hadith-book-info">Sahih Al-Bukhari<br>Livro 1, Hadith 5</div>
+            </div>
+            <div class="hadith-body">
+                <div class="arabic-text">
+                    حَدَّثَنَا مُحَمَّدُ بْنُ يُوسُفَ، قَالَ: حَدَّثَنَا سُفْيَانُ، عَنِ الأَعْمَشِ، عَنْ أَبِي وَائِلٍ، عَنْ عَبْدِ اللَّهِ، قَالَ: جَاءَ رَجُلٌ إِلَى النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، فَقَالَ: يَا رَسُولَ اللَّهِ، أَيُّ الأَعْمَالِ أَحَبُّ إِلَى اللَّهِ؟ قَالَ: «الصَّلاَةُ عَلَى وَقْتِهَا» قَالَ: ثُمَّ أَيٌّ؟ قَالَ: «بِرُّ الْوَالِدَيْنِ» قَالَ: ثُمَّ أَيٌّ؟ قَالَ: «الْجِهَادُ فِي سَبِيلِ اللَّهِ»
+                </div>
+                <div class="portuguese-text">
+                    <span class="label">Tradução</span>
+                    <p>Narrado por <span class="narrator">Abdullah</span>: Um homem veio ao Profeta (que a paz e as bênçãos de Allah estejam sobre ele) e disse: "Ó Mensageiro de Allah, qual ação é mais amada a Allah?" Ele respondeu: <span style="font-style: italic; color: var(--dark-gold);">"A oração no seu tempo determinado."</span> O homem perguntou: "E depois?" Ele disse: <span style="font-style: italic; color: var(--dark-gold);">"A bondade para com os pais."</span> O homem perguntou: "E depois?" Ele disse: <span style="font-style: italic; color: var(--dark-gold);">"A Jihad no caminho de Allah."</span></p>
+                    <div class="reference">Referência: Sahih Al-Bukhari 5 — Narrado por Abdullah ibn Mas'ud</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hadith 6 -->
+        <div class="hadith-card">
+            <div class="hadith-header">
+                <div class="hadith-number">6</div>
+                <div class="hadith-book-info">Sahih Al-Bukhari<br>Livro 1, Hadith 6</div>
+            </div>
+            <div class="hadith-body">
+                <div class="arabic-text">
+                    حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مُحَمَّدٍ، قَالَ: حَدَّثَنَا أَبُو عَامِرٍ عَبْدُ الْمَلِكِ بْنُ عَمْرٍو، قَالَ: حَدَّثَنَا سُلَيْمَانُ بْنُ بِلاَلٍ، عَنْ عَبْدِ اللَّهِ بْنِ دِينَارٍ، عَنِ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا، قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، يَقُولُ: «بُنِيَ الإِسْلاَمُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، وَإِقَامِ الصَّلاَةِ، وَإِيتَاءِ الزَّكَاةِ، وَالْحَجِّ، وَصَوْمِ رَمَضَانَ»
+                </div>
+                <div class="portuguese-text">
+                    <span class="label">Tradução</span>
+                    <p>Narrado por <span class="narrator">Ibn Umar</span> (que Allah esteja satisfeito com ambos): Ouvi o Mensageiro de Allah (que a paz e as bênçãos de Allah estejam sobre ele) dizer:</p>
+                    <p style="margin-top: 0.8rem; font-style: italic; color: var(--dark-gold);">"O Islam foi construído sobre cinco pilares: testemunhar que não há divindade digna de adoração exceto Allah, e que Muhammad é o Mensageiro de Allah, estabelecer a oração, dar o Zakat, realizar o Hajj, e jejuar no mês de Ramadan."</p>
+                    <div class="reference">Referência: Sahih Al-Bukhari 6 — Narrado por Ibn Umar</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hadith 7 -->
+        <div class="hadith-card">
+            <div class="hadith-header">
+                <div class="hadith-number">7</div>
+                <div class="hadith-book-info">Sahih Al-Bukhari<br>Livro 1, Hadith 7</div>
+            </div>
+            <div class="hadith-body">
+                <div class="arabic-text">
+                    حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مُحَمَّدٍ، قَالَ: حَدَّثَنَا سُفْيَانُ، عَنْ عَمْرٍو، عَنْ سَعِيدِ بْنِ جُبَيْرٍ، عَنِ ابْنِ عَبَّاسٍ رَضِيَ اللَّهُ عَنْهُمَا، قَالَ: بَعَثَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ مُعَاذًا إِلَى الْيَمَنِ، فَقَالَ: «إِنَّكَ سَتَأْتِي قَوْمًا أَهْلَ كِتَابٍ، فَإِذَا جِئْتَهُمْ فَادْعُهُمْ إِلَى أَنْ يَشْهَدُوا أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، فَإِنْ هُمْ أَطَاعُوا لَكَ بِذَلِكَ، فَأَخْبِرْهُمْ أَنَّ اللَّهَ قَدْ فَرَضَ عَلَيْهِمْ خَمْسَ صَلَوَاتٍ فِي كُلِّ يَوْمٍ وَلَيْلَةٍ، فَإِنْ هُمْ أَطَاعُوا لَكَ بِذَلِكَ، فَأَخْبِرْهُمْ أَنَّ اللَّهَ قَدْ فَرَضَ عَلَيْهِمْ صَدَقَةً تُؤْخَذُ مِنْ أَغْنِيَائِهِمْ، فَتُرَدُّ عَلَى فُقَرَائِهِمْ»
+                </div>
+                <div class="portuguese-text">
+                    <span class="label">Tradução</span>
+                    <p>Narrado por <span class="narrator">Ibn Abbas</span> (que Allah esteja satisfeito com ambos): O Profeta (que a paz e as bênçãos de Allah estejam sobre ele) enviou Mu'adh ao Iêmen e disse:</p>
+                    <p style="margin-top: 0.8rem; font-style: italic; color: var(--dark-gold);">"Tu encontrarás um povo do Livro. Quando os encontrares, convida-os a testemunhar que não há divindade digna de adoração exceto Allah, e que Muhammad é o Mensageiro de Allah. Se eles obedecerem a isso, informa-os que Allah lhes prescreveu cinco orações em cada dia e noite. Se eles obedecerem a isso, informa-os que Allah lhes prescreveu uma caridade (Zakat) que será tirada dos ricos entre eles e devolvida aos pobres entre eles."</p>
+                    <div class="reference">Referência: Sahih Al-Bukhari 7 — Narrado por Ibn Abbas</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hadith 8 -->
+        <div class="hadith-card">
+            <div class="hadith-header">
+                <div class="hadith-number">8</div>
+                <div class="hadith-book-info">Sahih Al-Bukhari<br>Livro 1, Hadith 8</div>
+            </div>
+            <div class="hadith-body">
+                <div class="arabic-text">
+                    حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ، قَالَ: حَدَّثَنَا اللَّيْثُ، عَنْ عُقَيْلٍ، عَنِ ابْنِ شِهَابٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، قَالَ: «مَنْ يُطِعِ الرَّسُولَ فَقَدْ أَطَاعَ اللَّهَ، وَمَنْ تَوَلَّى فَمَا أَرْسَلْنَاكَ عَلَيْهِمْ حَفِيظًا»
+                </div>
+                <div class="portuguese-text">
+                    <span class="label">Tradução</span>
+                    <p>Narrado por <span class="narrator">Abu Hurayrah</span> (que Allah esteja satisfeito com ele): O Mensageiro de Allah (que a paz e as bênçãos de Allah estejam sobre ele) disse:</p>
+                    <p style="margin-top: 0.8rem; font-style: italic; color: var(--dark-gold);">"Quem obedece ao Mensageiro, de fato obedeceu a Allah. E quem se afasta, não te enviamos sobre eles como guardião."</p>
+                    <div class="reference">Referência: Sahih Al-Bukhari 8 — Narrado por Abu Hurayrah</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hadith 9 -->
+        <div class="hadith-card">
+            <div class="hadith-header">
+                <div class="hadith-number">9</div>
+                <div class="hadith-book-info">Sahih Al-Bukhari<br>Livro 1, Hadith 9</div>
+            </div>
+            <div class="hadith-body">
+                <div class="arabic-text">
+                    حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مَسْلَمَةَ، عَنْ مَالِكٍ، عَنْ هِشَامِ بْنِ عُرْوَةَ، عَنْ أَبِيهِ، عَنْ عَائِشَةَ أُمِّ الْمُؤْمِنِينَ رَضِيَ اللَّهُ عَنْهَا، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، قَالَ: «مَنْ أَحْدَثَ فِي أَمْرِنَا هَذَا مَا لَيْسَ مِنْهُ، فَهُوَ رَدٌّ»
+                </div>
+                <div class="portuguese-text">
+                    <span class="label">Tradução</span>
+                    <p>Narrado por <span class="narrator">Aishah</span> (que Allah esteja satisfeito com ela), a Mãe dos Crentes: O Mensageiro de Allah (que a paz e as bênçãos de Allah estejam sobre ele) disse:</p>
+                    <p style="margin-top: 0.8rem; font-style: italic; color: var(--dark-gold);">"Quem introduzir nesta nossa religião algo que não é dela, será rejeitado."</p>
+                    <div class="reference">Referência: Sahih Al-Bukhari 9 — Narrado por Aishah</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hadith 10 -->
+        <div class="hadith-card">
+            <div class="hadith-header">
+                <div class="hadith-number">10</div>
+                <div class="hadith-book-info">Sahih Al-Bukhari<br>Livro 1, Hadith 10</div>
+            </div>
+            <div class="hadith-body">
+                <div class="arabic-text">
+                    حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ، قَالَ: حَدَّثَنَا اللَّيْثُ، عَنْ عُقَيْلٍ، عَنِ ابْنِ شِهَابٍ، عَنْ سَعِيدِ بْنِ الْمُسَيَّبِ، عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ، أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، قَالَ: «لاَ يُؤْمِنُ أَحَدُكُمْ حَتَّى أَكُونَ أَحَبَّ إِلَيْهِ مِنْ وَالِدِهِ وَوَلَدِهِ وَالنَّاسِ أَجْمَعِينَ»
+                </div>
+                <div class="portuguese-text">
+                    <span class="label">Tradução</span>
+                    <p>Narrado por <span class="narrator">Abu Hurayrah</span> (que Allah esteja satisfeito com ele): O Mensageiro de Allah (que a paz e as bênçãos de Allah estejam sobre ele) disse:</p>
+                    <p style="margin-top: 0.8rem; font-style: italic; color: var(--dark-gold);">"Nenhum de vós terá fé completa até que eu seja mais amado a ele do que seu pai, seu filho e toda a humanidade junta."</p>
+                    <div class="reference">Referência: Sahih Al-Bukhari 10 — Narrado por Abu Hurayrah</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider">❁ ❁ ❁</div>
+
+        <div style="text-align: center; padding: 2rem 0; color: #777; font-size: 0.9rem;">
+            <p>Esta é uma compilação dos primeiros 10 hadiths de Sahih Al-Bukhari, Livro 1, Volume 1.</p>
+            <p style="margin-top: 0.5rem;">Para acesso à coleção completa, visite a Biblioteca Digital ISLAM MOÇAMBIQUE.</p>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">ISLAM MOÇAMBIQUE</div>
+        <div class="footer-desc">Estudos Islâmicos — Biblioteca Digital de Referência</div>
+        <div class="footer-contact">
+            <a href="mailto:Islammocambique@gmail.com">📧 Islammocambique@gmail.com</a>
+            <a href="tel:+258860407269">📱 +258 860 407 269</a>
+        </div>
+        <div class="footer-copy">
+            © 2026 ISLAM MOÇAMBIQUE — Todos os direitos reservados<br>
+            Sahih Al-Bukhari — Compilação para fins educativos e de estudo
+        </div>
+    </footer>
+
+</body>
+</html>
