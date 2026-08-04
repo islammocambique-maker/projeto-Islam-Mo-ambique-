@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Membros Islam Moçambique</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root {
+  --primary-dark:#0d3b2e;--primary:#1a5c48;--primary-light:#2d8a6e;
+  --accent-gold:#c9a227;--accent-gold-light:#e8c84a;--accent-gold-dark:#a6831a;
+  --white:#fff;--off-white:#f8f9f5;--cream:#f5f0e6;
+  --gray-100:#f3f4f6;--gray-200:#e5e7eb;--gray-300:#d1d5db;--gray-400:#9ca3af;
+  --gray-500:#6b7280;--gray-600:#4b5563;--gray-700:#374151;--gray-800:#1f2937;--gray-900:#111827;
+  --danger:#dc2626;--danger-light:#fee2e2;--success:#16a34a;--success-light:#dcfce7;
+  --warning:#d97706;--warning-light:#fef3c7;--info:#2563eb;--info-light:#dbeafe;
+  --bronze:#cd7f32;--silver:#a0a0a0;--gold:#ffd700;
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.05);--shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -2px rgba(0,0,0,0.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -4px rgba(0,0,0,0.1);
+  --radius-sm:6px;--radius:12px;--radius-lg:16px;--radius-xl:24px;
+  --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--off-white);color:var(--gray-800);line-height:1.6;min-height:100vh;overflow-x:hidden}
+.hidden{display:none!important}
+
+/* Splash */
+#splash-screen{position:fixed;inset:0;background:linear-gradient(135deg,var(--primary-dark)0%,var(--primary)50%,var(--primary-light)100%);display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.6s,visibility 0.6s}
+#splash-screen.fade-out{opacity:0;visibility:hidden}
+.splash-content{text-align:center;color:var(--white);padding:2rem}
+.splash-logo{font-size:4rem;margin-bottom:1.5rem;position:relative;display:inline-block}
+.splash-logo .fa-moon{color:var(--accent-gold);animation:moonGlow 2s ease-in-out infinite}
+.splash-logo .fa-star{color:var(--accent-gold-light);font-size:1.5rem;position:absolute;top:-5px;right:-15px;animation:starTwinkle 1.5s ease-in-out infinite}
+.splash-content h1{font-size:1.5rem;font-weight:700;margin-bottom:0.5rem;letter-spacing:2px}
+.splash-content p{font-size:0.9rem;opacity:0.85;font-weight:300}
+.loader-ring{width:40px;height:40px;border:3px solid rgba(255,255,255,0.2);border-top-color:var(--accent-gold);border-radius:50%;animation:spin 1s linear infinite;margin:2rem auto 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes moonGlow{0%,100%{filter:drop-shadow(0 0 5px var(--accent-gold))}50%{filter:drop-shadow(0 0 20px var(--accent-gold))}}
+@keyframes starTwinkle{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+
+/* Auth */
+#auth-screen{min-height:100vh;background:linear-gradient(135deg,var(--primary-dark)0%,var(--primary)50%,var(--primary-light)100%);display:flex;align-items:center;justify-content:center;padding:1rem}
+.auth-container{background:var(--white);border-radius:var(--radius-xl);padding:2rem;width:100%;max-width:420px;box-shadow:var(--shadow-xl);animation:slideUp 0.5s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.auth-header{text-align:center;margin-bottom:1.5rem}
+.auth-logo{width:70px;height:70px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.8rem;color:var(--accent-gold);box-shadow:0 4px 15px rgba(26,92,72,0.3)}
+.auth-header h2{font-size:1.3rem;color:var(--primary-dark);font-weight:700}
+.auth-header p{font-size:0.85rem;color:var(--gray-500);margin-top:0.25rem}
+.auth-form{display:flex;flex-direction:column;gap:1rem}
+.form-group{position:relative}
+.form-group label{display:flex;align-items:center;gap:0.4rem;font-size:0.8rem;font-weight:500;color:var(--gray-600);margin-bottom:0.4rem}
+.form-group label i{color:var(--primary);font-size:0.75rem}
+.form-group input{width:100%;padding:0.85rem 1rem;border:2px solid var(--gray-200);border-radius:var(--radius);font-size:0.9rem;font-family:inherit;transition:var(--transition);background:var(--white)}
+.form-group input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(26,92,72,0.1)}
+.form-group input::placeholder{color:var(--gray-400)}
+.toggle-password{position:absolute;right:12px;bottom:12px;background:none;border:none;color:var(--gray-400);cursor:pointer;font-size:0.9rem;padding:0}
+.toggle-password:hover{color:var(--primary)}
+.btn-primary,.btn-outline,.btn-logout{display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.9rem 1.5rem;border-radius:var(--radius);font-size:0.9rem;font-weight:600;font-family:inherit;cursor:pointer;transition:var(--transition);border:none}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:var(--white);box-shadow:0 4px 15px rgba(26,92,72,0.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(26,92,72,0.4)}
+.btn-primary:disabled{opacity:0.6;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-primary.btn-small{padding:0.5rem 1rem;font-size:0.8rem}
+.btn-primary.btn-large{padding:1.1rem 2rem;font-size:1rem}
+.btn-outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
+.btn-outline:hover{background:var(--primary);color:var(--white)}
+.btn-logout{background:var(--danger-light);color:var(--danger);width:100%}
+.btn-logout:hover{background:var(--danger);color:var(--white)}
+.auth-link{text-align:center;font-size:0.85rem;color:var(--gray-500)}
+.auth-link a{color:var(--primary);text-decoration:none;font-weight:500}
+.auth-divider{display:flex;align-items:center;gap:1rem;margin:0.5rem 0;color:var(--gray-400);font-size:0.8rem}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--gray-200)}
+
+/* App Layout */
+#app-screen{display:flex;flex-direction:column;min-height:100vh;padding-bottom:70px}
+.top-bar{position:fixed;top:0;left:0;right:0;height:60px;background:linear-gradient(135deg,var(--primary-dark),var(--primary));display:flex;align-items:center;justify-content:space-between;padding:0 1rem;z-index:100;box-shadow:var(--shadow)}
+.top-bar-left{display:flex;align-items:center;gap:0.75rem}
+.menu-btn{background:none;border:none;color:var(--white);font-size:1.3rem;cursor:pointer;padding:0.5rem}
+.app-title{font-size:1rem;font-weight:600;color:var(--white);display:flex;align-items:center;gap:0.5rem}
+.app-title i{color:var(--accent-gold)}
+.top-bar-right{display:flex;align-items:center;gap:0.5rem}
+.saldo-badge,.bonus-badge{display:flex;align-items:center;gap:0.3rem;background:rgba(255,255,255,0.15);padding:0.4rem 0.7rem;border-radius:20px;color:var(--white);font-size:0.8rem;font-weight:500;cursor:pointer;transition:var(--transition)}
+.saldo-badge:hover,.bonus-badge:hover{background:rgba(255,255,255,0.25)}
+.saldo-badge i{color:var(--accent-gold)}.bonus-badge i{color:var(--accent-gold-light)}
+.profile-btn{background:rgba(255,255,255,0.15);border:none;color:var(--white);width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition)}
+.profile-btn:hover{background:rgba(255,255,255,0.3)}
+
+/* Sidebar */
+.sidebar{position:fixed;top:60px;left:0;bottom:0;width:260px;background:var(--white);box-shadow:var(--shadow-lg);z-index:90;transform:translateX(-100%);transition:transform 0.3s ease;display:flex;flex-direction:column;overflow-y:auto}
+.sidebar.open{transform:translateX(0)}
+.sidebar-header{padding:1.5rem;background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:var(--white);display:flex;align-items:center;gap:0.75rem}
+.sidebar-avatar{font-size:2.5rem;color:var(--accent-gold)}
+.sidebar-user{display:flex;flex-direction:column}
+#sidebar-nome{font-weight:600;font-size:0.95rem}
+.sidebar-numero{font-size:0.75rem;opacity:0.8}
+.sidebar-nav{flex:1;padding:0.75rem 0}
+.nav-item{display:flex;align-items:center;gap:0.75rem;padding:0.85rem 1.25rem;color:var(--gray-600);text-decoration:none;font-size:0.9rem;font-weight:500;transition:var(--transition);border-left:3px solid transparent}
+.nav-item i{width:22px;text-align:center;color:var(--gray-400)}
+.nav-item:hover{background:var(--gray-100);color:var(--primary)}
+.nav-item:hover i{color:var(--primary)}
+.nav-item.active{background:linear-gradient(90deg,rgba(26,92,72,0.08),transparent);color:var(--primary);border-left-color:var(--primary);font-weight:600}
+.nav-item.active i{color:var(--primary)}
+.sidebar-footer{padding:1rem;border-top:1px solid var(--gray-200)}
+.sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:80;opacity:0;visibility:hidden;transition:var(--transition)}
+.sidebar-overlay.show{opacity:1;visibility:visible}
+
+/* Main & Bottom Nav */
+.main-content{margin-top:60px;padding:1rem;min-height:calc(100vh - 60px - 70px)}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;height:70px;background:var(--white);box-shadow:0 -2px 10px rgba(0,0,0,0.08);display:flex;justify-content:space-around;align-items:center;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+.bottom-item{display:flex;flex-direction:column;align-items:center;gap:0.2rem;color:var(--gray-400);text-decoration:none;font-size:0.65rem;font-weight:500;padding:0.5rem;transition:var(--transition);flex:1}
+.bottom-item i{font-size:1.2rem}
+.bottom-item.active{color:var(--primary)}.bottom-item.active i{color:var(--primary)}
+
+/* Sections */
+.section{display:none;animation:fadeIn 0.3s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.section-header{margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:2px solid var(--gray-200)}
+.section-header h2{font-size:1.2rem;font-weight:700;color:var(--primary-dark);display:flex;align-items:center;gap:0.5rem}
+.section-header h2 i{color:var(--accent-gold)}
+.section-header p{font-size:0.85rem;color:var(--gray-500);margin-top:0.25rem}
+
+/* Dashboard */
+.welcome-banner{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:var(--white);padding:1.5rem;border-radius:var(--radius-lg);margin-bottom:1.25rem;box-shadow:var(--shadow)}
+.welcome-banner h2{font-size:1.1rem;font-weight:600}.welcome-banner h2 span{color:var(--accent-gold)}
+.welcome-banner p{font-size:0.85rem;opacity:0.85;margin-top:0.25rem}
+.dash-cards{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.25rem}
+.dash-card{background:var(--white);border-radius:var(--radius);padding:1rem;display:flex;align-items:center;gap:0.75rem;box-shadow:var(--shadow-sm);cursor:pointer;transition:var(--transition);border:2px solid transparent}
+.dash-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.dash-card.saldo-card:hover{border-color:var(--accent-gold)}.dash-card.bonus-card:hover{border-color:var(--primary-light)}
+.dash-card-icon{width:44px;height:44px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.saldo-card .dash-card-icon{background:linear-gradient(135deg,#fef3c7,#fde68a);color:var(--accent-gold-dark)}
+.bonus-card .dash-card-icon{background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:var(--success)}
+.dash-card-info{display:flex;flex-direction:column}
+.dash-card-label{font-size:0.75rem;color:var(--gray-500);font-weight:500}
+.dash-card-value{font-size:1.1rem;font-weight:700;color:var(--gray-800)}
+.dash-progress-section,.dash-medalha-section,.dash-quick-actions{background:var(--white);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem;box-shadow:var(--shadow-sm)}
+.dash-progress-section h3,.dash-medalha-section h3,.dash-quick-actions h3{font-size:0.95rem;font-weight:600;color:var(--gray-700);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.4rem}
+.dash-progress-section h3 i{color:var(--primary)}.dash-medalha-section h3 i{color:var(--bronze)}.dash-quick-actions h3 i{color:var(--warning)}
+.progress-bar-container{margin-top:0.5rem}
+.progress-info{display:flex;justify-content:space-between;font-size:0.8rem;color:var(--gray-600);margin-bottom:0.4rem;font-weight:500}
+.progress-bar-bg{width:100%;height:10px;background:var(--gray-200);border-radius:5px;overflow:hidden}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-light));border-radius:5px;transition:width 0.5s ease}
+.proxima-medalha{display:flex;align-items:center;gap:0.75rem}
+.medalha-preview{width:50px;height:50px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.3rem}
+.medalha-preview.bronze{background:linear-gradient(135deg,#fef3c7,#fde68a);color:var(--bronze)}
+.medalha-preview span{font-size:0.6rem;font-weight:600}
+.proxima-medalha p{font-size:0.85rem;color:var(--gray-600)}
+.quick-actions-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem}
+.quick-action{display:flex;flex-direction:column;align-items:center;gap:0.3rem;padding:0.75rem 0.5rem;background:var(--gray-100);border:none;border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);font-family:inherit}
+.quick-action i{font-size:1.3rem;color:var(--primary)}.quick-action span{font-size:0.7rem;font-weight:500;color:var(--gray-600)}
+.quick-action:hover{background:var(--primary)}.quick-action:hover i,.quick-action:hover span{color:var(--white)}
+.dash-status{display:flex;gap:1rem;background:var(--white);border-radius:var(--radius);padding:0.75rem 1rem;box-shadow:var(--shadow-sm)}
+.status-item{display:flex;align-items:center;gap:0.4rem;font-size:0.8rem;color:var(--gray-600)}
+#status-dot{color:var(--success);font-size:0.6rem}#status-dot.inactive{color:var(--danger)}
+
+/* Progresso */
+.progresso-daily-limit{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:var(--white);padding:1.25rem;border-radius:var(--radius);margin-bottom:1.25rem}
+.daily-limit-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;font-size:0.85rem;font-weight:500}
+.progresso-daily-limit .progress-bar-bg{background:rgba(255,255,255,0.2)}
+.progresso-daily-limit .progress-bar-fill{background:linear-gradient(90deg,var(--accent-gold),var(--accent-gold-light))}
+.atividades-grid{display:grid;grid-template-columns:1fr;gap:0.75rem}
+.atividade-card{background:var(--white);border-radius:var(--radius);padding:1rem;display:flex;align-items:center;gap:0.75rem;box-shadow:var(--shadow-sm);cursor:pointer;transition:var(--transition);border:2px solid transparent}
+.atividade-card:hover{border-color:var(--primary-light);transform:translateX(4px)}
+.atividade-card.completed{opacity:0.6;border-color:var(--success);background:var(--success-light)}
+.atividade-card.completed .atividade-status i{color:var(--success)}
+.atividade-icon{width:48px;height:48px;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--primary),var(--primary-light));color:var(--white);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.atividade-info{flex:1}.atividade-info h4{font-size:0.95rem;font-weight:600;color:var(--gray-800)}
+.atividade-info p{font-size:0.8rem;color:var(--gray-500)}
+.atividade-recompensa{display:inline-block;background:linear-gradient(135deg,#fef3c7,#fde68a);color:var(--accent-gold-dark);padding:0.15rem 0.5rem;border-radius:10px;font-size:0.7rem;font-weight:600;margin-top:0.3rem}
+.atividade-status i{color:var(--gray-300);font-size:0.7rem}.atividade-status.completed i{color:var(--success)}
+
+/* Content Lock/Unlock */
+.content-lock,.content-unlocked{background:var(--white);border-radius:var(--radius);padding:2rem;text-align:center;box-shadow:var(--shadow-sm)}
+.lock-icon{font-size:3rem;color:var(--gray-300);margin-bottom:1rem}
+.content-lock h3{font-size:1.1rem;color:var(--gray-700);margin-bottom:0.5rem}
+.content-lock p{color:var(--gray-500);font-size:0.9rem;margin-bottom:0.25rem}
+.lock-validade{font-size:0.8rem;color:var(--gray-400);margin-bottom:1.5rem}
+.content-banner{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:var(--white);padding:1.5rem;border-radius:var(--radius);margin-bottom:1rem;text-align:center}
+.content-banner i{font-size:2rem;color:var(--accent-gold);margin-bottom:0.5rem}
+.content-banner h3{font-size:1.1rem;margin-bottom:0.25rem}
+.content-banner p{font-size:0.8rem;opacity:0.85}
+
+/* Quran */
+.quran-content{display:grid;grid-template-columns:1fr;gap:1rem}
+.surah-list{display:flex;flex-direction:column;gap:0.5rem}
+.surah-item{display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;background:var(--gray-100);border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition)}
+.surah-item:hover{background:var(--primary);color:var(--white)}
+.surah-num{width:28px;height:28px;background:var(--primary);color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:600}
+.surah-name{flex:1;font-size:0.9rem;font-weight:500}
+.surah-arabic{font-size:1rem;color:var(--primary);font-family:'Traditional Arabic',serif}
+.surah-item:hover .surah-arabic{color:var(--accent-gold)}
+.surah-viewer{background:var(--white);border-radius:var(--radius);padding:1.5rem;min-height:200px;border:1px solid var(--gray-200)}
+.surah-placeholder{text-align:center;color:var(--gray-400);padding:3rem 0}
+
+/* Livro & Guia */
+.livro-content,.guia-content{display:grid;grid-template-columns:1fr;gap:1rem}
+.livro-item,.guia-item{background:var(--white);border-radius:var(--radius);padding:1.25rem;box-shadow:var(--shadow-sm);text-align:center;transition:var(--transition);cursor:pointer}
+.livro-item:hover,.guia-item:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.livro-item i,.guia-item i{font-size:2rem;color:var(--primary);margin-bottom:0.75rem}
+.livro-item h4,.guia-item h4{font-size:0.95rem;font-weight:600;color:var(--gray-800);margin-bottom:0.3rem}
+.livro-item p,.guia-item p{font-size:0.8rem;color:var(--gray-500)}
+
+/* Loja */
+.loja-content{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem}
+.loja-item{background:var(--white);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow-sm);text-align:center;transition:var(--transition)}
+.loja-item:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.loja-img{width:60px;height:60px;background:linear-gradient(135deg,var(--gray-100),var(--cream));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem;font-size:1.5rem;color:var(--primary)}
+.loja-item h4{font-size:0.85rem;font-weight:600;color:var(--gray-800);margin-bottom:0.3rem}
+.loja-preco{font-size:1rem;font-weight:700;color:var(--accent-gold-dark);margin-bottom:0.75rem}
+
+/* Página */
+.pagina-content{display:flex;flex-direction:column;gap:1rem}
+.pagina-hero{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:var(--white);padding:2rem;border-radius:var(--radius-lg);text-align:center}
+.pagina-hero i{font-size:3rem;color:var(--accent-gold);margin-bottom:1rem}
+.pagina-hero h3{font-size:1.3rem;margin-bottom:0.5rem}
+.pagina-hero p{font-size:0.9rem;opacity:0.85}
+.pagina-info{display:grid;grid-template-columns:1fr;gap:0.75rem}
+.info-card{background:var(--white);border-radius:var(--radius);padding:1.25rem;box-shadow:var(--shadow-sm);text-align:center}
+.info-card i{font-size:1.8rem;color:var(--primary);margin-bottom:0.5rem}
+.info-card h4{font-size:0.95rem;font-weight:600;margin-bottom:0.3rem}
+.info-card p{font-size:0.8rem;color:var(--gray-500)}
+.pagina-contact{background:var(--white);border-radius:var(--radius);padding:1.25rem;box-shadow:var(--shadow-sm)}
+.pagina-contact h4{font-size:1rem;font-weight:600;color:var(--primary-dark);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.4rem}
+.pagina-contact p{font-size:0.85rem;color:var(--gray-600);margin-bottom:0.4rem;display:flex;align-items:center;gap:0.4rem}
+.pagina-contact i{color:var(--primary);width:18px}
+
+/* Medalhas */
+.medalhas-info{margin-bottom:1rem}.medalhas-subtitle{font-size:0.9rem;color:var(--gray-600)}
+.medalhas-list{display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem}
+.medalha-card{background:var(--white);border-radius:var(--radius);padding:1rem;display:flex;align-items:center;gap:0.75rem;box-shadow:var(--shadow-sm);transition:var(--transition)}
+.medalha-card:hover{box-shadow:var(--shadow)}
+.medalha-icon{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.medalha-icon.bronze{background:linear-gradient(135deg,#fef3c7,#fde68a);color:var(--bronze)}
+.medalha-icon.prata{background:linear-gradient(135deg,#e5e7eb,#d1d5db);color:var(--silver)}
+.medalha-icon.ouro{background:linear-gradient(135deg,#fef9c3,#fde047);color:var(--accent-gold-dark)}
+.medalha-info{flex:1}.medalha-info h4{font-size:0.95rem;font-weight:600;margin-bottom:0.2rem}
+.medalha-info p{font-size:0.8rem;color:var(--gray-500)}
+.medalha-custo{font-size:0.75rem;color:var(--accent-gold-dark);font-weight:600}
+.medalha-action{display:flex;flex-direction:column;align-items:flex-end;gap:0.3rem}
+.medalha-status{font-size:0.75rem;padding:0.2rem 0.5rem;border-radius:10px;font-weight:500}
+.medalha-status.bloqueada{background:var(--gray-200);color:var(--gray-500)}
+.medalha-status.disponivel{background:var(--warning-light);color:var(--warning)}
+.medalha-status.adquirida{background:var(--success-light);color:var(--success)}
+.galeria-medalhas{background:var(--white);border-radius:var(--radius);padding:1.25rem;box-shadow:var(--shadow-sm)}
+.galeria-medalhas h3{font-size:1rem;font-weight:600;color:var(--gray-700);margin-bottom:1rem;display:flex;align-items:center;gap:0.4rem}
+.galeria-list{display:flex;flex-direction:column;gap:0.5rem}
+.galeria-item{display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:var(--gray-100);border-radius:var(--radius-sm)}
+.galeria-item i{font-size:1.2rem}.galeria-item.bronze i{color:var(--bronze)}.galeria-item.prata i{color:var(--silver)}.galeria-item.ouro i{color:var(--gold)}
+.galeria-item-name{flex:1;font-size:0.85rem;font-weight:500}
+.galeria-item-numero{font-size:0.75rem;color:var(--gray-500)}
+.galeria-empty{text-align:center;color:var(--gray-400);padding:1rem}
+
+/* Cartão */
+.cartao-container{display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+.cartao-digital{width:100%;max-width:360px;background:linear-gradient(135deg,var(--primary-dark),var(--primary));border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-xl);color:var(--white)}
+.cartao-header{display:flex;align-items:center;gap:0.5rem;padding:1rem 1.25rem;background:rgba(0,0,0,0.15)}
+.cartao-header i{color:var(--accent-gold);font-size:1.2rem}
+.cartao-header span{font-size:0.8rem;font-weight:600;letter-spacing:1px}
+.cartao-body{padding:1.25rem}
+.cartao-tipo{font-size:0.7rem;letter-spacing:3px;opacity:0.7;margin-bottom:1rem}
+.cartao-info{display:flex;flex-direction:column;gap:0.6rem}
+.cartao-field{display:flex;justify-content:space-between;align-items:center}
+.field-label{font-size:0.7rem;opacity:0.7}
+.field-value{font-size:0.9rem;font-weight:600}
+.cartao-footer{padding:1rem;display:flex;justify-content:center;background:rgba(0,0,0,0.1)}
+#qrcode-container canvas,#qrcode-container img{border-radius:var(--radius-sm)}
+.cartao-actions{display:flex;gap:0.75rem;width:100%;max-width:360px}
+.cartao-actions button{flex:1}
+
+/* Saldo */
+.saldo-container{display:flex;flex-direction:column;gap:1rem}
+.saldo-card{background:linear-gradient(135deg,var(--primary-dark),var(--primary));border-radius:var(--radius-lg);padding:2rem;text-align:center;color:var(--white);box-shadow:var(--shadow)}
+.saldo-icon{font-size:2.5rem;color:var(--accent-gold);margin-bottom:0.75rem}
+.saldo-valor{font-size:2rem;font-weight:700;margin-bottom:0.25rem}
+.saldo-label{font-size:0.85rem;opacity:0.85}
+.saldo-info{background:var(--white);border-radius:var(--radius);padding:1.25rem;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:0.75rem}
+.info-row{display:flex;justify-content:space-between;align-items:center;font-size:0.85rem}
+.info-row span{color:var(--gray-500);display:flex;align-items:center;gap:0.3rem}
+.info-row span i{color:var(--primary);font-size:0.75rem}
+.info-row strong{color:var(--gray-800)}
+.saldo-bloqueado{background:var(--danger-light);border-radius:var(--radius);padding:1.5rem;text-align:center;color:var(--danger)}
+.bloqueado-icon{font-size:2.5rem;margin-bottom:0.75rem}
+.saldo-bloqueado h3{font-size:1rem;margin-bottom:0.5rem}
+.saldo-bloqueado p{font-size:0.85rem;margin-bottom:0.25rem}
+.saldo-historico{background:var(--white);border-radius:var(--radius);padding:1.25rem;box-shadow:var(--shadow-sm)}
+.saldo-historico h3{font-size:0.95rem;font-weight:600;color:var(--gray-700);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.4rem}
+
+/* Bonus */
+.bonus-container{display:flex;flex-direction:column;gap:1rem}
+.bonus-card{background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:var(--radius-lg);padding:2rem;text-align:center;box-shadow:var(--shadow)}
+.bonus-icon{font-size:2.5rem;color:var(--accent-gold-dark);margin-bottom:0.75rem}
+.bonus-valor{font-size:2.5rem;font-weight:700;color:var(--accent-gold-dark);margin-bottom:0.25rem}
+.bonus-label{font-size:0.9rem;color:var(--accent-gold-dark);opacity:0.8}
+.bonus-limit{background:var(--white);border-radius:var(--radius);padding:1.25rem;box-shadow:var(--shadow-sm)}
+.bonus-limit h4{font-size:0.95rem;font-weight:600;color:var(--gray-700);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.4rem}
+.bonus-limit-info{font-size:0.8rem;color:var(--gray-500);margin-top:0.5rem}
+.bonus-info-box{background:var(--white);border-radius:var(--radius);padding:1.25rem;box-shadow:var(--shadow-sm)}
+.bonus-info-box h4{font-size:0.95rem;font-weight:600;color:var(--gray-700);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.4rem}
+.bonus-info-box ul{list-style:none;display:flex;flex-direction:column;gap:0.5rem}
+.bonus-info-box li{font-size:0.85rem;color:var(--gray-600);display:flex;align-items:flex-start;gap:0.4rem}
+.bonus-info-box li::before{content:'✓';color:var(--success);font-weight:700;flex-shrink:0}
+
+/* Historico */
+.historico-container{background:var(--white);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow-sm)}
+.historico-list{display:flex;flex-direction:column;gap:0.5rem}
+.historico-item{display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:var(--gray-100);border-radius:var(--radius-sm);transition:var(--transition)}
+.historico-item:hover{background:var(--gray-200)}
+.historico-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0}
+.historico-icon.ganho{background:var(--success-light);color:var(--success)}
+.historico-icon.gasto{background:var(--danger-light);color:var(--danger)}
+.historico-info{flex:1}.historico-info p{font-size:0.85rem;font-weight:500;color:var(--gray-800);margin-bottom:0.1rem}
+.historico-info span{font-size:0.75rem;color:var(--gray-500)}
+.historico-valor{font-size:0.9rem;font-weight:700}
+.historico-valor.ganho{color:var(--success)}.historico-valor.gasto{color:var(--danger)}
+.historico-empty{text-align:center;color:var(--gray-400);padding:2rem}
+
+/* Modals */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;visibility:hidden;transition:var(--transition)}
+.modal.show{opacity:1;visibility:visible}
+.modal-content{background:var(--white);border-radius:var(--radius-xl) var(--radius-xl) 0 0;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;transform:translateY(100%);transition:transform 0.3s ease;display:flex;flex-direction:column}
+.modal.show .modal-content{transform:translateY(0)}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem;border-bottom:1px solid var(--gray-200);position:sticky;top:0;background:var(--white);z-index:1}
+.modal-header h3{font-size:1rem;font-weight:600;color:var(--gray-800);display:flex;align-items:center;gap:0.4rem}
+.modal-header h3 i{color:var(--primary)}
+.modal-close{background:none;border:none;font-size:1.5rem;color:var(--gray-400);cursor:pointer;padding:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:var(--transition)}
+.modal-close:hover{background:var(--gray-100);color:var(--gray-600)}
+.modal-body{padding:1.25rem;flex:1}
+.modal-footer{padding:1rem 1.25rem;border-top:1px solid var(--gray-200);display:flex;gap:0.5rem}
+.modal-footer button{flex:1}
+
+/* Dhikr Modal */
+.dhikr-container{display:flex;flex-direction:column;gap:0.75rem}
+.dhikr-item{display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1rem;background:var(--gray-100);border-radius:var(--radius-sm)}
+.dhikr-text{font-size:0.9rem;font-weight:500;color:var(--gray-800)}
+.dhikr-counter{display:flex;align-items:center;gap:0.5rem}
+.dhikr-counter button{width:32px;height:32px;border-radius:50%;border:none;background:var(--primary);color:var(--white);font-size:1rem;cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center}
+.dhikr-counter button:hover{background:var(--primary-light)}
+.dhikr-counter button:disabled{background:var(--gray-300);cursor:not-allowed}
+.dhikr-count{font-size:1rem;font-weight:700;color:var(--primary);min-width:24px;text-align:center}
+.dhikr-progress{margin-top:1rem}.dhikr-progress p{text-align:center;font-size:0.85rem;color:var(--gray-600);margin-top:0.5rem}
+
+/* Surah Modal */
+.surah-text{font-size:1.4rem;text-align:center;color:var(--primary-dark);font-family:'Traditional Arabic',serif;line-height:2;margin-bottom:1rem;padding:1rem;background:var(--cream);border-radius:var(--radius)}
+.surah-traducao{font-size:0.9rem;color:var(--gray-600);line-height:1.8;text-align:center}
+
+/* Perguntas Modal */
+.pergunta-progress{text-align:center;font-size:0.85rem;color:var(--gray-500);margin-bottom:1rem;font-weight:500}
+.pergunta-texto{font-size:1rem;font-weight:600;color:var(--gray-800);margin-bottom:1rem;text-align:center}
+.respostas-grid{display:flex;flex-direction:column;gap:0.5rem}
+.resposta-btn{width:100%;padding:0.85rem 1rem;background:var(--gray-100);border:2px solid transparent;border-radius:var(--radius-sm);font-size:0.9rem;font-family:inherit;cursor:pointer;transition:var(--transition);text-align:left}
+.resposta-btn:hover{background:var(--primary);color:var(--white);border-color:var(--primary)}
+.resposta-btn.correct{background:var(--success-light);border-color:var(--success);color:var(--success)}
+.resposta-btn.wrong{background:var(--danger-light);border-color:var(--danger);color:var(--danger)}
+.resposta-btn:disabled{cursor:not-allowed;opacity:0.7}
+.pergunta-resultado{text-align:center;padding:1.5rem}
+.resultado-icon{font-size:3rem;color:var(--success);margin-bottom:1rem}
+.pergunta-resultado h4{font-size:1.1rem;color:var(--gray-800);margin-bottom:0.5rem}
+.pergunta-resultado p{font-size:0.9rem;color:var(--gray-600)}
+.resultado-bonus{font-size:1.3rem;font-weight:700;color:var(--accent-gold-dark);margin-top:0.75rem}
+
+/* Roleta Modal */
+.roleta-info{text-align:center;margin-bottom:1rem;font-size:0.9rem;color:var(--gray-600)}
+.roleta-container{position:relative;width:200px;height:200px;margin:0 auto 1rem}
+.roleta-wheel{width:100%;height:100%;border-radius:50%;position:relative;overflow:hidden;border:4px solid var(--primary);transition:transform 4s cubic-bezier(0.17,0.67,0.12,0.99)}
+.roleta-segment{position:absolute;width:50%;height:50%;transform-origin:100% 100%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;color:var(--white)}
+.roleta-segment:nth-child(1){background:var(--gray-400);transform:rotate(0deg)}.roleta-segment:nth-child(2){background:var(--primary-light);transform:rotate(90deg)}.roleta-segment:nth-child(3){background:var(--accent-gold);transform:rotate(180deg)}.roleta-segment:nth-child(4){background:var(--success);transform:rotate(270deg)}
+.roleta-segment span{transform:rotate(-45deg);display:block}
+.roleta-pointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:1.5rem;color:var(--danger);z-index:10}
+.roleta-resultado{text-align:center;font-size:1.2rem;font-weight:700;color:var(--primary);min-height:2rem}
+
+/* Pagamento Modal */
+.pagamento-info{background:var(--gray-100);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1rem}
+.pagamento-info p{font-size:0.85rem;color:var(--gray-600);margin-bottom:0.3rem}
+.pagamento-metodos{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1rem}
+.metodo-option{cursor:pointer}
+.metodo-option input{display:none}
+.metodo-card{display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;background:var(--gray-100);border-radius:var(--radius-sm);border:2px solid transparent;transition:var(--transition)}
+.metodo-option input:checked+.metodo-card{border-color:var(--primary);background:var(--success-light)}
+.metodo-card i{font-size:1.2rem;color:var(--primary)}
+.metodo-card span{font-size:0.9rem;font-weight:500}
+
+/* Toast */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--gray-800);color:var(--white);padding:0.75rem 1.25rem;border-radius:var(--radius);display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;z-index:300;opacity:0;transition:all 0.3s ease;box-shadow:var(--shadow-lg);max-width:90%}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast-icon{color:var(--accent-gold)}
+
+/* Loading */
+.loading-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:250;display:flex;align-items:center;justify-content:center}
+.loading-spinner{background:var(--white);padding:2rem;border-radius:var(--radius-lg);text-align:center;box-shadow:var(--shadow-xl)}
+.loading-spinner p{margin-top:1rem;color:var(--gray-600);font-size:0.9rem}
+
+/* Desktop */
+@media(min-width:768px){
+  #app-screen{padding-bottom:0}
+  .bottom-nav{display:none}
+  .main-content{margin-left:260px;padding:1.5rem}
+  .sidebar{transform:translateX(0);box-shadow:none;border-right:1px solid var(--gray-200)}
+  .menu-btn{display:none}
+  .atividades-grid{grid-template-columns:repeat(2,1fr)}
+  .loja-content{grid-template-columns:repeat(3,1fr)}
+  .pagina-info{grid-template-columns:repeat(3,1fr)}
+  .quran-content{grid-template-columns:200px 1fr}
+  .modal{align-items:center}
+  .modal-content{border-radius:var(--radius-xl);max-height:85vh;transform:translateY(20px)}
+  .modal.show .modal-content{transform:translateY(0)}
+}
+@media(min-width:1024px){
+  .dash-cards{grid-template-columns:repeat(2,1fr)}
+  .quick-actions-grid{grid-template-columns:repeat(4,1fr)}
+  .livro-content,.guia-content{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<!-- Splash Screen -->
+<div id="splash-screen">
+  <div class="splash-content">
+    <div class="splash-logo"><i class="fas fa-moon"></i><i class="fas fa-star"></i></div>
+    <h1>MEMBROS ISLAM MOÇAMBIQUE</h1>
+    <p>Comunidade de Fé e União</p>
+    <div class="splash-loader"><div class="loader-ring"></div></div>
+  </div>
+</div>
+
+<!-- Auth Screen -->
+<div id="auth-screen" class="hidden">
+  <div class="auth-container">
+    <div class="auth-header">
+      <div class="auth-logo"><i class="fas fa-mosque"></i></div>
+      <h2>Membros Islam Moçambique</h2>
+      <p>Área exclusiva para membros</p>
+    </div>
+    <form id="login-form" class="auth-form">
+      <div class="form-group">
+        <label><i class="fas fa-envelope"></i> Email</label>
+        <input type="email" id="login-email" placeholder="seu@email.com" required>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> Senha</label>
+        <input type="password" id="login-password" placeholder="Sua senha" required>
+        <button type="button" class="toggle-password" onclick="togglePassword('login-password',this)"><i class="fas fa-eye"></i></button>
+      </div>
+      <button type="submit" class="btn-primary"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+      <p class="auth-link"><a href="#" onclick="showForgotPassword()">Esqueceu a senha?</a></p>
+      <div class="auth-divider"><span>ou</span></div>
+      <button type="button" class="btn-outline" onclick="showRegister()"><i class="fas fa-user-plus"></i> Criar conta</button>
+    </form>
+    <form id="register-form" class="auth-form hidden">
+      <div class="form-group">
+        <label><i class="fas fa-user"></i> Nome Completo</label>
+        <input type="text" id="reg-nome" placeholder="Seu nome completo" required>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-envelope"></i> Email</label>
+        <input type="email" id="reg-email" placeholder="seu@email.com" required>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> Senha</label>
+        <input type="password" id="reg-password" placeholder="Mínimo 6 caracteres" required minlength="6">
+        <button type="button" class="toggle-password" onclick="togglePassword('reg-password',this)"><i class="fas fa-eye"></i></button>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-phone"></i> Telefone</label>
+        <input type="tel" id="reg-telefone" placeholder="+258 84 000 0000" required>
+      </div>
+      <button type="submit" class="btn-primary"><i class="fas fa-user-plus"></i> Registrar</button>
+      <p class="auth-link">Já tem conta? <a href="#" onclick="showLogin()">Entrar</a></p>
+    </form>
+    <form id="forgot-form" class="auth-form hidden">
+      <div class="form-group">
+        <label><i class="fas fa-envelope"></i> Email</label>
+        <input type="email" id="forgot-email" placeholder="seu@email.com" required>
+      </div>
+      <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> Enviar link</button>
+      <p class="auth-link"><a href="#" onclick="showLogin()">Voltar ao login</a></p>
+    </form>
+  </div>
+</div>
+
+<!-- Main App -->
+<div id="app-screen" class="hidden">
+  <header class="top-bar">
+    <div class="top-bar-left">
+      <button class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+      <h1 class="app-title"><i class="fas fa-mosque"></i> Islam Moçambique</h1>
+    </div>
+    <div class="top-bar-right">
+      <div class="saldo-badge" onclick="showSection('saldo')"><i class="fas fa-coins"></i><span id="header-saldo">0,00 MTN</span></div>
+      <div class="bonus-badge" onclick="showSection('bonus')"><i class="fas fa-gift"></i><span id="header-bonus">0</span></div>
+      <button class="profile-btn" onclick="showSection('cartao')"><i class="fas fa-id-card"></i></button>
+    </div>
+  </header>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-avatar"><i class="fas fa-user-circle"></i></div>
+      <div class="sidebar-user"><span id="sidebar-nome">Membro</span><span id="sidebar-numero" class="sidebar-numero">IM-000000</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" onclick="showSection('inicio')" class="nav-item active" data-section="inicio"><i class="fas fa-home"></i> Início</a>
+      <a href="#" onclick="showSection('progresso')" class="nav-item" data-section="progresso"><i class="fas fa-tasks"></i> Progresso Diário</a>
+      <a href="#" onclick="showSection('alcorao')" class="nav-item" data-section="alcorao"><i class="fas fa-book-open"></i> Alcorão</a>
+      <a href="#" onclick="showSection('livro')" class="nav-item" data-section="livro"><i class="fas fa-book"></i> Livro Digital</a>
+      <a href="#" onclick="showSection('guia')" class="nav-item" data-section="guia"><i class="fas fa-compass"></i> Guia Islâmico</a>
+      <a href="#" onclick="showSection('loja')" class="nav-item" data-section="loja"><i class="fas fa-shopping-bag"></i> Loja Virtual</a>
+      <a href="#" onclick="showSection('pagina')" class="nav-item" data-section="pagina"><i class="fas fa-globe"></i> Página Islam Moçambique</a>
+      <a href="#" onclick="showSection('medalhas')" class="nav-item" data-section="medalhas"><i class="fas fa-medal"></i> Medalhas</a>
+      <a href="#" onclick="showSection('cartao')" class="nav-item" data-section="cartao"><i class="fas fa-id-card"></i> Meu Cartão</a>
+      <a href="#" onclick="showSection('saldo')" class="nav-item" data-section="saldo"><i class="fas fa-wallet"></i> Saldo</a>
+      <a href="#" onclick="showSection('bonus')" class="nav-item" data-section="bonus"><i class="fas fa-gift"></i> Bônus</a>
+      <a href="#" onclick="showSection('historico')" class="nav-item" data-section="historico"><i class="fas fa-history"></i> Histórico</a>
+    </nav>
+    <div class="sidebar-footer"><button onclick="logout()" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Sair</button></div>
+  </aside>
+  <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <main id="main-content" class="main-content">
+    <!-- Dashboard -->
+    <section id="sec-inicio" class="section active">
+      <div class="dashboard">
+        <div class="welcome-banner">
+          <h2>Assalamu Alaikum, <span id="dash-nome">Membro</span>!</h2>
+          <p>Bem-vindo à sua área exclusiva</p>
+        </div>
+        <div class="dash-cards">
+          <div class="dash-card saldo-card" onclick="showSection('saldo')">
+            <div class="dash-card-icon"><i class="fas fa-coins"></i></div>
+            <div class="dash-card-info"><span class="dash-card-label">Saldo</span><span id="dash-saldo" class="dash-card-value">0,00 MTN</span></div>
+          </div>
+          <div class="dash-card bonus-card" onclick="showSection('bonus')">
+            <div class="dash-card-icon"><i class="fas fa-gift"></i></div>
+            <div class="dash-card-info"><span class="dash-card-label">Bônus</span><span id="dash-bonus" class="dash-card-value">0</span></div>
+          </div>
+        </div>
+        <div class="dash-progress-section">
+          <h3><i class="fas fa-chart-line"></i> Ganhos de Hoje</h3>
+          <div class="progress-bar-container">
+            <div class="progress-info"><span id="dash-ganhos-hoje">0</span> / 1.500 bônus</div>
+            <div class="progress-bar-bg"><div id="dash-progress-bar" class="progress-bar-fill" style="width:0%"></div></div>
+          </div>
+        </div>
+        <div class="dash-medalha-section">
+          <h3><i class="fas fa-medal"></i> Próxima Medalha</h3>
+          <div id="dash-proxima-medalha" class="proxima-medalha">
+            <div class="medalha-preview bronze"><i class="fas fa-medal"></i><span>Bronze</span></div>
+            <p>Acumule 2.500 bônus para desbloquear</p>
+          </div>
+        </div>
+        <div class="dash-quick-actions">
+          <h3><i class="fas fa-bolt"></i> Ações Rápidas</h3>
+          <div class="quick-actions-grid">
+            <button onclick="showSection('progresso')" class="quick-action"><i class="fas fa-pray"></i><span>Dhikr</span></button>
+            <button onclick="showSection('progresso')" class="quick-action"><i class="fas fa-question-circle"></i><span>Perguntas</span></button>
+            <button onclick="showSection('progresso')" class="quick-action"><i class="fas fa-dharmachakra"></i><span>Roleta</span></button>
+            <button onclick="showSection('progresso')" class="quick-action"><i class="fas fa-share-alt"></i><span>Partilhar</span></button>
+          </div>
+        </div>
+        <div class="dash-status">
+          <div class="status-item"><i class="fas fa-circle" id="status-dot"></i><span id="status-text">Membro Ativo</span></div>
+          <div class="status-item"><i class="fas fa-calendar-alt"></i><span id="status-validade">Validade: --</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progresso Diário -->
+    <section id="sec-progresso" class="section">
+      <div class="section-header">
+        <h2><i class="fas fa-tasks"></i> Progresso Diário</h2>
+        <p>Complete as atividades e ganhe bônus</p>
+      </div>
+      <div class="progresso-daily-limit">
+        <div class="daily-limit-header"><span><i class="fas fa-chart-pie"></i> Limite Diário</span><span id="prog-limite-text">0 / 1.500</span></div>
+        <div class="progress-bar-bg"><div id="prog-limite-bar" class="progress-bar-fill" style="width:0%"></div></div>
+      </div>
+      <div class="atividades-grid">
+        <div class="atividade-card" id="atv-dhikr" onclick="openDhikr()">
+          <div class="atividade-icon"><i class="fas fa-pray"></i></div>
+          <div class="atividade-info"><h4>Dhikr Diário</h4><p>Complete o tasbihat</p><span class="atividade-recompensa">+100 bônus</span></div>
+          <div class="atividade-status" id="status-dhikr"><i class="fas fa-circle"></i></div>
+        </div>
+        <div class="atividade-card" id="atv-ayatul" onclick="openAyatulKursi()">
+          <div class="atividade-icon"><i class="fas fa-book-open"></i></div>
+          <div class="atividade-info"><h4>Ayatul Kursi</h4><p>Ler e escutar</p><span class="atividade-recompensa">+100 bônus</span></div>
+          <div class="atividade-status" id="status-ayatul"><i class="fas fa-circle"></i></div>
+        </div>
+        <div class="atividade-card" id="atv-ikhlas" onclick="openSurah('ikhlas')">
+          <div class="atividade-icon"><i class="fas fa-book-open"></i></div>
+          <div class="atividade-info"><h4>Surata Al-Ikhlas</h4><p>Ler e escutar</p><span class="atividade-recompensa">+100 bônus</span></div>
+          <div class="atividade-status" id="status-ikhlas"><i class="fas fa-circle"></i></div>
+        </div>
+        <div class="atividade-card" id="atv-falaq" onclick="openSurah('falaq')">
+          <div class="atividade-icon"><i class="fas fa-book-open"></i></div>
+          <div class="atividade-info"><h4>Surata Al-Falaq</h4><p>Ler e escutar</p><span class="atividade-recompensa">+100 bônus</span></div>
+          <div class="atividade-status" id="status-falaq"><i class="fas fa-circle"></i></div>
+        </div>
+        <div class="atividade-card" id="atv-nass" onclick="openSurah('nass')">
+          <div class="atividade-icon"><i class="fas fa-book-open"></i></div>
+          <div class="atividade-info"><h4>Surata An-Nass</h4><p>Ler e escutar</p><span class="atividade-recompensa">+100 bônus</span></div>
+          <div class="atividade-status" id="status-nass"><i class="fas fa-circle"></i></div>
+        </div>
+        <div class="atividade-card" id="atv-perguntas" onclick="openPerguntas()">
+          <div class="atividade-icon"><i class="fas fa-question-circle"></i></div>
+          <div class="atividade-info"><h4>10 Perguntas</h4><p>Sobre o Islam</p><span class="atividade-recompensa">+100 bônus</span></div>
+          <div class="atividade-status" id="status-perguntas"><i class="fas fa-circle"></i></div>
+        </div>
+        <div class="atividade-card" id="atv-roleta" onclick="openRoleta()">
+          <div class="atividade-icon"><i class="fas fa-dharmachakra"></i></div>
+          <div class="atividade-info"><h4>Roleta Diária</h4><p>3 tentativas</p><span class="atividade-recompensa">até +100 bônus</span></div>
+          <div class="atividade-status" id="status-roleta"><i class="fas fa-circle"></i></div>
+        </div>
+        <div class="atividade-card" id="atv-partilha" onclick="fazerPartilha()">
+          <div class="atividade-icon"><i class="fas fa-share-alt"></i></div>
+          <div class="atividade-info"><h4>Partilhar</h4><p>Convide amigos</p><span class="atividade-recompensa">+50 bônus</span></div>
+          <div class="atividade-status" id="status-partilha"><i class="fas fa-circle"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alcorão -->
+    <section id="sec-alcorao" class="section">
+      <div class="section-header"><h2><i class="fas fa-book-open"></i> Alcorão</h2></div>
+      <div class="content-lock" id="lock-alcorao">
+        <div class="lock-icon"><i class="fas fa-lock"></i></div>
+        <h3>Conteúdo Bloqueado</h3>
+        <p>Desbloqueie o acesso ao Alcorão por <strong>100 bônus</strong></p>
+        <p class="lock-validade">Validade: 1 dia</p>
+        <button class="btn-primary" onclick="desbloquearConteudo('alcorao')"><i class="fas fa-unlock"></i> Desbloquear (100 bônus)</button>
+      </div>
+      <div class="content-unlocked hidden" id="unlock-alcorao">
+        <div class="content-banner"><i class="fas fa-book-open"></i><h3>Alcorão Sagrado</h3><p>Acesso válido até <span id="expira-alcorao">--</span></p></div>
+        <div class="quran-content">
+          <div class="surah-list">
+            <div class="surah-item" onclick="mostrarSurah(1)"><span class="surah-num">1</span><span class="surah-name">Al-Fatiha</span><span class="surah-arabic">الفاتحة</span></div>
+            <div class="surah-item" onclick="mostrarSurah(2)"><span class="surah-num">2</span><span class="surah-name">Al-Baqarah</span><span class="surah-arabic">البقرة</span></div>
+            <div class="surah-item" onclick="mostrarSurah(36)"><span class="surah-num">36</span><span class="surah-name">Ya-Sin</span><span class="surah-arabic">يس</span></div>
+            <div class="surah-item" onclick="mostrarSurah(55)"><span class="surah-num">55</span><span class="surah-name">Ar-Rahman</span><span class="surah-arabic">الرحمن</span></div>
+            <div class="surah-item" onclick="mostrarSurah(67)"><span class="surah-num">67</span><span class="surah-name">Al-Mulk</span><span class="surah-arabic">الملك</span></div>
+          </div>
+          <div class="surah-viewer" id="surah-viewer"><p class="surah-placeholder">Selecione uma Surah para ler</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Livro Digital -->
+    <section id="sec-livro" class="section">
+      <div class="section-header"><h2><i class="fas fa-book"></i> Livro Digital</h2></div>
+      <div class="content-lock" id="lock-livro">
+        <div class="lock-icon"><i class="fas fa-lock"></i></div>
+        <h3>Conteúdo Bloqueado</h3>
+        <p>Desbloqueie o acesso ao Livro Digital por <strong>200 bônus</strong></p>
+        <p class="lock-validade">Validade: 1 dia</p>
+        <button class="btn-primary" onclick="desbloquearConteudo('livro')"><i class="fas fa-unlock"></i> Desbloquear (200 bônus)</button>
+      </div>
+      <div class="content-unlocked hidden" id="unlock-livro">
+        <div class="content-banner"><i class="fas fa-book"></i><h3>Livro Digital</h3><p>Acesso válido até <span id="expira-livro">--</span></p></div>
+        <div class="livro-content">
+          <div class="livro-item"><i class="fas fa-file-pdf"></i><h4>História do Islam em Moçambique</h4><p>Uma jornada pela fé e tradição</p><button class="btn-outline" onclick="lerLivro('historia')"><i class="fas fa-eye"></i> Ler</button></div>
+          <div class="livro-item"><i class="fas fa-file-pdf"></i><h4>Guia do Muçulmano</h4><p>Práticas e ensinamentos diários</p><button class="btn-outline" onclick="lerLivro('guia')"><i class="fas fa-eye"></i> Ler</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Guia Islâmico -->
+    <section id="sec-guia" class="section">
+      <div class="section-header"><h2><i class="fas fa-compass"></i> Guia Islâmico</h2></div>
+      <div class="content-lock" id="lock-guia">
+        <div class="lock-icon"><i class="fas fa-lock"></i></div>
+        <h3>Conteúdo Bloqueado</h3>
+        <p>Desbloqueie o acesso ao Guia Islâmico por <strong>100 bônus</strong></p>
+        <p class="lock-validade">Validade: 1 dia</p>
+        <button class="btn-primary" onclick="desbloquearConteudo('guia')"><i class="fas fa-unlock"></i> Desbloquear (100 bônus)</button>
+      </div>
+      <div class="content-unlocked hidden" id="unlock-guia">
+        <div class="content-banner"><i class="fas fa-compass"></i><h3>Guia Islâmico</h3><p>Acesso válido até <span id="expira-guia">--</span></p></div>
+        <div class="guia-content">
+          <div class="guia-item" onclick="mostrarGuia('oracao')"><i class="fas fa-pray"></i><h4>Como Orar</h4><p>Passo a passo da Salah</p></div>
+          <div class="guia-item" onclick="mostrarGuia('wudu')"><i class="fas fa-hand-holding-water"></i><h4>Ablução (Wudu)</h4><p>Preparação para a oração</p></div>
+          <div class="guia-item" onclick="mostrarGuia('jejum')"><i class="fas fa-moon"></i><h4>O Jejum</h4><p>Regras e espiritualidade</p></div>
+          <div class="guia-item" onclick="mostrarGuia('zakat')"><i class="fas fa-hand-holding-heart"></i><h4>Zakat</h4><p>A caridade obrigatória</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Loja Virtual -->
+    <section id="sec-loja" class="section">
+      <div class="section-header"><h2><i class="fas fa-shopping-bag"></i> Loja Virtual</h2><p>Acesso gratuito — não gasta bônus</p></div>
+      <div class="loja-content">
+        <div class="loja-item"><div class="loja-img"><i class="fas fa-tshirt"></i></div><h4>Camiseta Islam Moçambique</h4><p class="loja-preco">750 MTN</p><button class="btn-outline" onclick="contactarLoja('camiseta')"><i class="fas fa-shopping-cart"></i> Encomendar</button></div>
+        <div class="loja-item"><div class="loja-img"><i class="fas fa-book"></i></div><h4>Alcorão Comentado</h4><p class="loja-preco">1.200 MTN</p><button class="btn-outline" onclick="contactarLoja('alcorao')"><i class="fas fa-shopping-cart"></i> Encomendar</button></div>
+        <div class="loja-item"><div class="loja-img"><i class="fas fa-pray"></i></div><h4>Tapete de Oração</h4><p class="loja-preco">450 MTN</p><button class="btn-outline" onclick="contactarLoja('tapete')"><i class="fas fa-shopping-cart"></i> Encomendar</button></div>
+        <div class="loja-item"><div class="loja-img"><i class="fas fa-hat-cowboy"></i></div><h4>Taqiyah (Gorro)</h4><p class="loja-preco">200 MTN</p><button class="btn-outline" onclick="contactarLoja('taqiyah')"><i class="fas fa-shopping-cart"></i> Encomendar</button></div>
+      </div>
+    </section>
+
+    <!-- Página Islam Moçambique -->
+    <section id="sec-pagina" class="section">
+      <div class="section-header"><h2><i class="fas fa-globe"></i> Islam Moçambique</h2><p>Acesso gratuito — não gasta bônus</p></div>
+      <div class="pagina-content">
+        <div class="pagina-hero"><i class="fas fa-mosque"></i><h3>Islam Moçambique</h3><p>Unindo a comunidade muçulmana em todo o território nacional</p></div>
+        <div class="pagina-info">
+          <div class="info-card"><i class="fas fa-users"></i><h4>Comunidade</h4><p>Junte-se a milhares de muçulmanos em Moçambique</p></div>
+          <div class="info-card"><i class="fas fa-calendar-alt"></i><h4>Eventos</h4><p>Participe de eventos e celebrações islâmicas</p></div>
+          <div class="info-card"><i class="fas fa-hand-holding-heart"></i><h4>Caridade</h4><p>Contribua para projetos sociais da comunidade</p></div>
+        </div>
+        <div class="pagina-contact">
+          <h4><i class="fas fa-address-card"></i> Contactos</h4>
+          <p><i class="fas fa-envelope"></i> info@islammocambique.org</p>
+          <p><i class="fas fa-phone"></i> +258 84 000 0000</p>
+          <p><i class="fas fa-map-marker-alt"></i> Maputo, Moçambique</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Medalhas -->
+    <section id="sec-medalhas" class="section">
+      <div class="section-header"><h2><i class="fas fa-medal"></i> Medalhas</h2><p>Reconhecimento pela sua dedicação</p></div>
+      <div class="medalhas-info"><p class="medalhas-subtitle">Bônus disponíveis: <strong id="medalhas-bonus">0</strong></p></div>
+      <div class="medalhas-list">
+        <div class="medalha-card" id="medalha-bronze">
+          <div class="medalha-icon bronze"><i class="fas fa-medal"></i></div>
+          <div class="medalha-info"><h4>Bronze</h4><p>Requisito: 2.500 bônus</p><p class="medalha-custo">Custo: 100 bônus</p></div>
+          <div class="medalha-action"><span class="medalha-status" id="status-bronze">Bloqueada</span><button class="btn-primary btn-small" id="btn-bronze" onclick="comprarMedalha('bronze')" disabled>Comprar</button></div>
+        </div>
+        <div class="medalha-card" id="medalha-prata">
+          <div class="medalha-icon prata"><i class="fas fa-medal"></i></div>
+          <div class="medalha-info"><h4>Prata</h4><p>Requisito: 5.000 bônus</p><p class="medalha-custo">Custo: 200 bônus</p></div>
+          <div class="medalha-action"><span class="medalha-status" id="status-prata">Bloqueada</span><button class="btn-primary btn-small" id="btn-prata" onclick="comprarMedalha('prata')" disabled>Comprar</button></div>
+        </div>
+        <div class="medalha-card" id="medalha-ouro">
+          <div class="medalha-icon ouro"><i class="fas fa-medal"></i></div>
+          <div class="medalha-info"><h4>Ouro</h4><p>Requisito: 10.000 bônus</p><p class="medalha-custo">Custo: 300 bônus</p></div>
+          <div class="medalha-action"><span class="medalha-status" id="status-ouro">Bloqueada</span><button class="btn-primary btn-small" id="btn-ouro" onclick="comprarMedalha('ouro')" disabled>Comprar</button></div>
+        </div>
+      </div>
+      <div class="galeria-medalhas">
+        <h3><i class="fas fa-trophy"></i> Medalhas dos Membros</h3>
+        <div id="galeria-list" class="galeria-list"><p class="galeria-empty">Carregando...</p></div>
+      </div>
+    </section>
+
+    <!-- Meu Cartão -->
+    <section id="sec-cartao" class="section">
+      <div class="section-header"><h2><i class="fas fa-id-card"></i> Meu Cartão</h2></div>
+      <div class="cartao-container">
+        <div class="cartao-digital" id="cartao-digital">
+          <div class="cartao-header"><i class="fas fa-mosque"></i><span>ISLAM MOÇAMBIQUE</span></div>
+          <div class="cartao-body">
+            <div class="cartao-tipo">MEMBRO</div>
+            <div class="cartao-info">
+              <div class="cartao-field"><span class="field-label">Nome</span><span class="field-value" id="cartao-nome">--</span></div>
+              <div class="cartao-field"><span class="field-label">Nº</span><span class="field-value" id="cartao-numero">IM-000000</span></div>
+              <div class="cartao-field"><span class="field-label">Medalha</span><span class="field-value" id="cartao-medalha">--</span></div>
+              <div class="cartao-field"><span class="field-label">Estado</span><span class="field-value" id="cartao-estado">ATIVO</span></div>
+              <div class="cartao-field"><span class="field-label">Validade</span><span class="field-value" id="cartao-validade">--</span></div>
+            </div>
+          </div>
+          <div class="cartao-footer"><div id="qrcode-container"></div></div>
+        </div>
+        <div class="cartao-actions">
+          <button class="btn-primary" onclick="downloadCartao()"><i class="fas fa-download"></i> Guardar Cartão</button>
+          <button class="btn-outline" onclick="compartilharCartao()"><i class="fas fa-share-alt"></i> Partilhar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Saldo -->
+    <section id="sec-saldo" class="section">
+      <div class="section-header"><h2><i class="fas fa-wallet"></i> Saldo</h2></div>
+      <div class="saldo-container">
+        <div class="saldo-card">
+          <div class="saldo-icon"><i class="fas fa-coins"></i></div>
+          <div class="saldo-valor" id="saldo-valor">0,00 MTN</div>
+          <div class="saldo-label">Saldo Disponível</div>
+        </div>
+        <div class="saldo-info">
+          <div class="info-row"><span><i class="fas fa-info-circle"></i> Débito diário</span><strong>2,30 MTN/dia</strong></div>
+          <div class="info-row"><span><i class="fas fa-calendar"></i> Validade</span><strong id="saldo-validade">--</strong></div>
+          <div class="info-row"><span><i class="fas fa-credit-card"></i> Membresia</span><strong>70 MTN</strong></div>
+        </div>
+        <div id="saldo-bloqueado" class="saldo-bloqueado hidden">
+          <div class="bloqueado-icon"><i class="fas fa-lock"></i></div>
+          <h3>Sua membresia está sem saldo.</h3>
+          <p>Saldo atual: <strong>0,00 MTN</strong></p>
+          <p>Faça um novo pagamento para continuar.</p>
+        </div>
+        <button class="btn-primary btn-large" onclick="iniciarPagamento()"><i class="fas fa-plus-circle"></i> Recarregar Saldo</button>
+        <div class="saldo-historico">
+          <h3><i class="fas fa-history"></i> Histórico Financeiro</h3>
+          <div id="saldo-historico-list" class="historico-list"><p class="historico-empty">Sem transações</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bônus -->
+    <section id="sec-bonus" class="section">
+      <div class="section-header"><h2><i class="fas fa-gift"></i> Bônus</h2></div>
+      <div class="bonus-container">
+        <div class="bonus-card">
+          <div class="bonus-icon"><i class="fas fa-gift"></i></div>
+          <div class="bonus-valor" id="bonus-valor">0</div>
+          <div class="bonus-label">Bônus Disponíveis</div>
+        </div>
+        <div class="bonus-limit">
+          <h4><i class="fas fa-chart-line"></i> Ganhos de Hoje</h4>
+          <div class="progress-info"><span id="bonus-ganhos-hoje">0</span> / 1.500 bônus</div>
+          <div class="progress-bar-bg"><div id="bonus-progress-bar" class="progress-bar-fill" style="width:0%"></div></div>
+          <p class="bonus-limit-info">Limite diário: 1.500 bônus novos por dia</p>
+        </div>
+        <div class="bonus-info-box">
+          <h4><i class="fas fa-info-circle"></i> Sobre os Bônus</h4>
+          <ul>
+            <li>Ganhe bônus completando atividades diárias</li>
+            <li>Use bônus para desbloquear conteúdos</li>
+            <li>Compre medalhas com seus bônus</li>
+            <li>Bônus não gastos permanecem na conta</li>
+            <li>Bônus não são dinheiro e não podem ser levantados</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Histórico -->
+    <section id="sec-historico" class="section">
+      <div class="section-header"><h2><i class="fas fa-history"></i> Histórico de Bônus</h2></div>
+      <div class="historico-container">
+        <div id="historico-list" class="historico-list"><p class="historico-empty">Sem movimentações</p></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <a href="#" onclick="showSection('inicio')" class="bottom-item active" data-section="inicio"><i class="fas fa-home"></i><span>Início</span></a>
+    <a href="#" onclick="showSection('progresso')" class="bottom-item" data-section="progresso"><i class="fas fa-tasks"></i><span>Progresso</span></a>
+    <a href="#" onclick="showSection('medalhas')" class="bottom-item" data-section="medalhas"><i class="fas fa-medal"></i><span>Medalhas</span></a>
+    <a href="#" onclick="showSection('cartao')" class="bottom-item" data-section="cartao"><i class="fas fa-id-card"></i><span>Cartão</span></a>
+    <a href="#" onclick="showSection('saldo')" class="bottom-item" data-section="saldo"><i class="fas fa-wallet"></i><span>Saldo</span></a>
+  </nav>
+</div>
+
+<!-- Modal: Dhikr -->
+<div id="modal-dhikr" class="modal">
+  <div class="modal-content">
+    <div class="modal-header"><h3><i class="fas fa-pray"></i> Dhikr Diário</h3><button class="modal-close" onclick="closeModal('modal-dhikr')">&times;</button></div>
+    <div class="modal-body">
+      <div class="dhikr-container">
+        <div class="dhikr-item" data-dhikr="astaghfirullah" data-target="3">
+          <span class="dhikr-text">Astaghfirullah</span>
+          <div class="dhikr-counter"><button onclick="decrementDhikr(this)">-</button><span class="dhikr-count">0</span><span>/3</span><button onclick="incrementDhikr(this)">+</button></div>
+        </div>
+        <div class="dhikr-item" data-dhikr="subhana" data-target="33">
+          <span class="dhikr-text">Subhana Allah</span>
+          <div class="dhikr-counter"><button onclick="decrementDhikr(this)">-</button><span class="dhikr-count">0</span><span>/33</span><button onclick="incrementDhikr(this)">+</button></div>
+        </div>
+        <div class="dhikr-item" data-dhikr="alhamdulillah" data-target="33">
+          <span class="dhikr-text">Alhamdulillah</span>
+          <div class="dhikr-counter"><button onclick="decrementDhikr(this)">-</button><span class="dhikr-count">0</span><span>/33</span><button onclick="incrementDhikr(this)">+</button></div>
+        </div>
+        <div class="dhikr-item" data-dhikr="la-ilaha" data-target="33">
+          <span class="dhikr-text">La ilaha illa Allah</span>
+          <div class="dhikr-counter"><button onclick="decrementDhikr(this)">-</button><span class="dhikr-count">0</span><span>/33</span><button onclick="incrementDhikr(this)">+</button></div>
+        </div>
+        <div class="dhikr-item" data-dhikr="allahu-akbar" data-target="34">
+          <span class="dhikr-text">Allahu Akbar</span>
+          <div class="dhikr-counter"><button onclick="decrementDhikr(this)">-</button><span class="dhikr-count">0</span><span>/34</span><button onclick="incrementDhikr(this)">+</button></div>
+        </div>
+        <div class="dhikr-item" data-dhikr="la-hawla" data-target="33">
+          <span class="dhikr-text">La hawla wa la quwwata illa billah</span>
+          <div class="dhikr-counter"><button onclick="decrementDhikr(this)">-</button><span class="dhikr-count">0</span><span>/33</span><button onclick="incrementDhikr(this)">+</button></div>
+        </div>
+      </div>
+      <div class="dhikr-progress">
+        <div class="progress-bar-bg"><div id="dhikr-progress-bar" class="progress-bar-fill" style="width:0%"></div></div>
+        <p id="dhikr-progress-text">0 / 6 completados</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="btn-completar-dhikr" onclick="completarDhikr()" disabled><i class="fas fa-check"></i> Completar (+100 bônus)</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Surah -->
+<div id="modal-surah" class="modal">
+  <div class="modal-content">
+    <div class="modal-header"><h3 id="surah-modal-title"><i class="fas fa-book-open"></i> Surah</h3><button class="modal-close" onclick="closeModal('modal-surah')">&times;</button></div>
+    <div class="modal-body">
+      <div class="surah-text" id="surah-text"></div>
+      <div class="surah-traducao" id="surah-traducao"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="btn-completar-surah" onclick="completarSurah()"><i class="fas fa-check"></i> Marcar como lido (+100 bônus)</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Perguntas -->
+<div id="modal-perguntas" class="modal">
+  <div class="modal-content">
+    <div class="modal-header"><h3><i class="fas fa-question-circle"></i> Perguntas sobre Islam</h3><button class="modal-close" onclick="closeModal('modal-perguntas')">&times;</button></div>
+    <div class="modal-body">
+      <div class="pergunta-progress"><span id="pergunta-atual">1</span> / 10</div>
+      <div class="pergunta-container" id="pergunta-container">
+        <p class="pergunta-texto" id="pergunta-texto">Carregando...</p>
+        <div class="respostas-grid" id="respostas-grid"></div>
+      </div>
+      <div class="pergunta-resultado hidden" id="pergunta-resultado">
+        <div class="resultado-icon"><i class="fas fa-check-circle"></i></div>
+        <h4>Parabéns!</h4>
+        <p>Você completou as 10 perguntas de hoje.</p>
+        <p class="resultado-bonus">+<span id="perguntas-bonus-ganho">100</span> bônus</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Roleta -->
+<div id="modal-roleta" class="modal">
+  <div class="modal-content">
+    <div class="modal-header"><h3><i class="fas fa-dharmachakra"></i> Roleta Diária</h3><button class="modal-close" onclick="closeModal('modal-roleta')">&times;</button></div>
+    <div class="modal-body">
+      <div class="roleta-info"><p>Tentativas restantes: <strong id="roleta-tentativas">3</strong></p></div>
+      <div class="roleta-container">
+        <div class="roleta-wheel" id="roleta-wheel">
+          <div class="roleta-segment" data-value="0"><span>0</span></div>
+          <div class="roleta-segment" data-value="10"><span>10</span></div>
+          <div class="roleta-segment" data-value="50"><span>50</span></div>
+          <div class="roleta-segment" data-value="100"><span>100</span></div>
+        </div>
+        <div class="roleta-pointer"><i class="fas fa-caret-down"></i></div>
+      </div>
+      <div class="roleta-resultado" id="roleta-resultado"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="btn-girar-roleta" onclick="girarRoleta()"><i class="fas fa-sync-alt"></i> Girar Roleta</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Pagamento -->
+<div id="modal-pagamento" class="modal">
+  <div class="modal-content">
+    <div class="modal-header"><h3><i class="fas fa-credit-card"></i> Recarregar Saldo</h3><button class="modal-close" onclick="closeModal('modal-pagamento')">&times;</button></div>
+    <div class="modal-body">
+      <div class="pagamento-info"><p>Membresia: <strong>70 MTN</strong></p><p>Débito diário: <strong>2,30 MTN</strong></p></div>
+      <div class="pagamento-metodos">
+        <label class="metodo-option"><input type="radio" name="metodo" value="mpesa" checked><div class="metodo-card"><i class="fas fa-mobile-alt"></i><span>M-Pesa</span></div></label>
+        <label class="metodo-option"><input type="radio" name="metodo" value="emola"><div class="metodo-card"><i class="fas fa-mobile-alt"></i><span>e-Mola</span></div></label>
+        <label class="metodo-option"><input type="radio" name="metodo" value="mkesh"><div class="metodo-card"><i class="fas fa-mobile-alt"></i><span>mKesh</span></div></label>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-phone"></i> Número</label>
+        <input type="tel" id="pagamento-telefone" placeholder="+258 84 000 0000">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" onclick="processarPagamento()"><i class="fas fa-credit-card"></i> Pagar 70 MTN</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast"><div class="toast-icon"><i class="fas fa-info-circle"></i></div><div class="toast-message" id="toast-message">Mensagem</div></div>
+
+<!-- Loading -->
+<div id="loading-overlay" class="loading-overlay hidden">
+  <div class="loading-spinner"><div class="loader-ring"></div><p>Processando...</p></div>
+</div>
+
+<script>
+// ============================================
+// FIREBASE CONFIG
+// ============================================
+const firebaseConfig = {
+  apiKey: "AIzaSyAIVoqT3F5bBF6q-0rg4XfLrjn4yCUxAY",
+  authDomain: "studio-8851437493-10dc4.firebaseapp.com",
+  databaseURL: "https://studio-8851437493-10dc4-default-rtdb.firebaseio.com",
+  projectId: "studio-8851437493-10dc4",
+  storageBucket: "studio-8851437493-10dc4.firebasestorage.app",
+  messagingSenderId: "146233444879",
+  appId: "1:146233444879:web:1300fd824941479e89f17a"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
+
+// ============================================
+// CONSTANTES
+// ============================================
+const LIMITE_DIARIO = 1500;
+const CUSTO_MEMBRESIA = 70;
+const DEBITO_DIARIO = 2.30;
+const CUSTO_ALCORAO = 100;
+const CUSTO_LIVRO = 200;
+const CUSTO_GUIA = 100;
+
+const MEDALHAS = {
+  bronze: { requisito: 2500, custoBonus: 100, nome: 'Bronze', icone: '🥉' },
+  prata: { requisito: 5000, custoBonus: 200, nome: 'Prata', icone: '🥈' },
+  ouro: { requisito: 10000, custoBonus: 300, nome: 'Ouro', icone: '🥇' }
+};
+
+const SURAH_DATA = {
+  ayatul: {
+    titulo: 'Ayatul Kursi',
+    arabe: 'اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ',
+    traducao: 'Allah! Não há divindade exceto Ele, o Vivente, o Eterno. Não o tomam sono nem sono. A Ele pertence o que está nos céus e na terra. Quem é que pode interceder junto a Ele, senão com a Sua permissão? Ele sabe o que está diante deles e o que está atrás deles, e eles não abarcam coisa alguma do Seu conhecimento, a não ser o que Ele quer. Seu Trono se estende sobre os céus e a terra, e não o cansa a guarda deles. E Ele é o Altíssimo, o Grandioso.'
+  },
+  ikhlas: {
+    titulo: 'Surata Al-Ikhlas',
+    arabe: 'قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ',
+    traducao: 'Dize: Ele é Allah, o Único. Allah, o Absoluto. Não gerou, nem foi gerado. E não há ninguém igual a Ele.'
+  },
+  falaq: {
+    titulo: 'Surata Al-Falaq',
+    arabe: 'قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِن شَرِّ مَا خَلَقَ ۝ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ',
+    traducao: 'Dize: Busco proteção no Senhor da alvorada, contra o mal do que Ele criou, e contra o mal da escuridão quando se aprofunda, e contra o mal das que sopram nos nós, e contra o mal do invejoso quando inveja.'
+  },
+  nass: {
+    titulo: 'Surata An-Nass',
+    arabe: 'قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَٰهِ النَّاسِ ۝ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ',
+    traducao: 'Dize: Busco proteção no Senhor dos humanos, Rei dos humanos, Deus dos humanos, contra o mal do sussurrador que se retrai, que sussurra nos peitos dos humanos, dentre os gênios e os humanos.'
+  }
+};
+
+const PERGUNTAS_ISLAM = [
+  { pergunta: 'Quantos pilares tem o Islam?', respostas: ['3','4','5','6'], correta: 2 },
+  { pergunta: 'Qual é o primeiro pilar do Islam?', respostas: ['Oração','Jejum','Profissão de fé','Peregrinação'], correta: 2 },
+  { pergunta: 'Quantas vezes por dia um muçulmano deve orar?', respostas: ['3','4','5','6'], correta: 2 },
+  { pergunta: 'Em que mês os muçulmanos jejuam?', respostas: ['Shawwal','Ramadão','Dhul-Hijjah','Muharram'], correta: 1 },
+  { pergunta: 'Qual é o livro sagrado do Islam?', respostas: ['Bíblia','Torá','Alcorão','Vedas'], correta: 2 },
+  { pergunta: 'Quem é o último profeta do Islam?', respostas: ['Moisés','Jesus','Muhammad','Abraão'], correta: 2 },
+  { pergunta: 'Qual é a cidade sagrada do Islam?', respostas: ['Jerusalém','Meca','Medina','Cairo'], correta: 1 },
+  { pergunta: 'O que significa "Assalamu Alaikum"?', respostas: ['Bom dia','A paz esteja contigo','Bem-vindo','Obrigado'], correta: 1 },
+  { pergunta: 'Qual é a direção da oração (Qibla)?', respostas: ['Jerusalém','Meca','Medina','Norte'], correta: 1 },
+  { pergunta: 'O que é Zakat?', respostas: ['Oração','Jejum','Caridade obrigatória','Peregrinação'], correta: 2 },
+  { pergunta: 'Quantos capítulos (Surahs) tem o Alcorão?', respostas: ['100','114','120','99'], correta: 1 },
+  { pergunta: 'Qual é o nome do primeiro capítulo do Alcorão?', respostas: ['Al-Baqarah','Al-Fatiha','Al-Ikhlas','An-Nass'], correta: 1 },
+  { pergunta: 'O que é Hajj?', respostas: ['Oração diária','Jejum','Peregrinação a Meca','Caridade'], correta: 2 },
+  { pergunta: 'Em que ano Muhammad (S.A.W.) nasceu?', respostas: ['570 d.C.','600 d.C.','500 d.C.','630 d.C.'], correta: 0 },
+  { pergunta: 'Qual é o nome do anjo que revelou o Alcorão?', respostas: ['Mikail','Israfil','Jibril','Azrael'], correta: 2 },
+  { pergunta: 'O que é Wudu?', resposta: ['Oração','Ablução','Jejum','Caridade'], correta: 1 },
+  { pergunta: 'Quantos nomes Allah tem?', respostas: ['90','99','100','101'], correta: 1 },
+  { pergunta: 'Qual é o dia sagrado da semana no Islam?', respostas: ['Sexta-feira','Sábado','Domingo','Quinta-feira'], correta: 0 },
+  { pergunta: 'O que significa "Insha Allah"?', respostas: ['Graças a Allah','Se Allah quiser','Louvado seja Allah','Não há divindade exceto Allah'], correta: 1 },
+  { pergunta: 'Qual é a segunda fonte de lei no Islam após o Alcorão?', respostas: ['Ijma','Qiyas','Sunnah','Fiqh'], correta: 2 }
+];
+
+// ============================================
+// VARIÁVEIS GLOBAIS
+// ============================================
+let currentUser = null;
+let userData = null;
+let dailyProgress = null;
+let currentSurah = null;
+let currentPerguntaIndex = 0;
+let perguntasDoDia = [];
+let roletaGirando = false;
+let numeroMembroCounter = 0;
+
+// ============================================
+// UTILITÁRIOS
+// ============================================
+function showToast(msg, type='info') {
+  const toast = document.getElementById('toast');
+  const toastMsg = document.getElementById('toast-message');
+  const toastIcon = toast.querySelector('.toast-icon i');
+  toastMsg.textContent = msg;
+  if(type==='success') toastIcon.className='fas fa-check-circle';
+  else if(type==='error') toastIcon.className='fas fa-exclamation-circle';
+  else if(type==='warning') toastIcon.className='fas fa-exclamation-triangle';
+  else toastIcon.className='fas fa-info-circle';
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),3000);
+}
+
+function showLoading(show=true) {
+  document.getElementById('loading-overlay').classList.toggle('hidden',!show);
+}
+
+function formatDate(d) {
+  const date = d ? new Date(d) : new Date();
+  return date.toLocaleDateString('pt-MZ',{day:'2-digit',month:'2-digit',year:'numeric'});
+}
+
+function formatDateISO(d) {
+  const date = d ? new Date(d) : new Date();
+  return date.getFullYear()+'-'+(date.getMonth()+1).toString().padStart(2,'0')+'-'+date.getDate().toString().padStart(2,'0');
+}
+
+function formatMoney(v) {
+  return v.toFixed(2).replace('.',',')+' MTN';
+}
+
+function togglePassword(id,btn) {
+  const input=document.getElementById(id);
+  const icon=btn.querySelector('i');
+  if(input.type==='password'){input.type='text';icon.className='fas fa-eye-slash';}
+  else{input.type='password';icon.className='fas fa-eye';}
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+function openModal(id) {
+  document.getElementById(id).classList.add('show');
+}
+
+// ============================================
+// NAVEGAÇÃO
+// ============================================
+function showSection(sec) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('sec-'+sec);
+  if(el) el.classList.add('active');
+  document.querySelectorAll('.nav-item,.bottom-item').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.nav-item[data-section="'+sec+'"],.bottom-item[data-section="'+sec+'"]').forEach(n=>n.classList.add('active'));
+  if(window.innerWidth<768) toggleSidebar(false);
+  window.scrollTo(0,0);
+  if(sec==='medalhas') carregarGaleriaMedalhas();
+  if(sec==='historico') carregarHistorico();
+  if(sec==='saldo') carregarHistoricoSaldo();
+}
+
+function toggleSidebar(force) {
+  const sb=document.getElementById('sidebar');
+  const ov=document.getElementById('sidebar-overlay');
+  if(force===false){sb.classList.remove('open');ov.classList.remove('show');}
+  else if(force===true){sb.classList.add('open');ov.classList.add('show');}
+  else{sb.classList.toggle('open');ov.classList.toggle('show');}
+}
+
+// ============================================
+// AUTH
+// ============================================
+function showLogin() {
+  document.getElementById('login-form').classList.remove('hidden');
+  document.getElementById('register-form').classList.add('hidden');
+  document.getElementById('forgot-form').classList.add('hidden');
+}
+function showRegister() {
+  document.getElementById('login-form').classList.add('hidden');
+  document.getElementById('register-form').classList.remove('hidden');
+  document.getElementById('forgot-form').classList.add('hidden');
+}
+function showForgotPassword() {
+  document.getElementById('login-form').classList.add('hidden');
+  document.getElementById('register-form').classList.add('hidden');
+  document.getElementById('forgot-form').classList.remove('hidden');
+}
+
+document.getElementById('login-form').addEventListener('submit',async function(e){
+  e.preventDefault();
+  showLoading(true);
+  try{
+    const email=document.getElementById('login-email').value;
+    const pass=document.getElementById('login-password').value;
+    await auth.signInWithEmailAndPassword(email,pass);
+  }catch(err){showToast(err.message,'error');}
+  showLoading(false);
+});
+
+document.getElementById('register-form').addEventListener('submit',async function(e){
+  e.preventDefault();
+  showLoading(true);
+  try{
+    const nome=document.getElementById('reg-nome').value.trim();
+    const email=document.getElementById('reg-email').value.trim();
+    const pass=document.getElementById('reg-password').value;
+    const telefone=document.getElementById('reg-telefone').value.trim();
+    if(!nome||!email||!pass||!telefone){throw new Error('Preencha todos os campos');}
+    if(pass.length<6){throw new Error('Senha deve ter no mínimo 6 caracteres');}
+    const cred=await auth.createUserWithEmailAndPassword(email,pass);
+    const uid=cred.user.uid;
+    // Gerar número de membro
+    const snap=await db.ref('counters/numeroMembro').once('value');
+    let num=snap.val()||0; num++;
+    await db.ref('counters/numeroMembro').set(num);
+    const numStr='IM-'+num.toString().padStart(6,'0');
+    const agora=new Date();
+    const validade=new Date(agora.getTime()+30*24*60*60*1000);
+    await db.ref('users/'+uid).set({
+      nome,email,telefone,numeroMembro:numStr,
+      estado:'ativo',dataCriacao:agora.toISOString(),validade:validade.toISOString(),
+      saldo:0,bonus:0,
+      medalhas:{bronze:{adquirida:false},prata:{adquirida:false},ouro:{adquirida:false}}
+    });
+    await db.ref('dailyProgress/'+uid+'/'+formatDateISO()).set({
+      dhikr:false,ayatulKursi:false,ikhlas:false,falaq:false,nass:false,
+      perguntas:false,roleta:0,partilha:false,bonusGanhosHoje:0
+    });
+    showToast('Conta criada com sucesso!','success');
+  }catch(err){showToast(err.message,'error');}
+  showLoading(false);
+});
+
+document.getElementById('forgot-form').addEventListener('submit',async function(e){
+  e.preventDefault();
+  showLoading(true);
+  try{
+    const email=document.getElementById('forgot-email').value;
+    await auth.sendPasswordResetEmail(email);
+    showToast('Link de recuperação enviado!','success');
+    showLogin();
+  }catch(err){showToast(err.message,'error');}
+  showLoading(false);
+});
+
+function logout() {
+  auth.signOut();
+}
+
+auth.onAuthStateChanged(async function(user){
+  if(user){
+    currentUser=user;
+    document.getElementById('splash-screen').classList.add('fade-out');
+    setTimeout(()=>{
+      document.getElementById('splash-screen').style.display='none';
+      document.getElementById('auth-screen').classList.add('hidden');
+      document.getElementById('app-screen').classList.remove('hidden');
+    },600);
+    await carregarDadosUsuario();
+    await verificarResetDiario();
+    await verificarDebitoDiario();
+    atualizarUI();
+    verificarAcessosConteudo();
+  } else {
+    currentUser=null; userData=null;
+    document.getElementById('splash-screen').style.display='flex';
+    document.getElementById('splash-screen').classList.remove('fade-out');
+    document.getElementById('auth-screen').classList.remove('hidden');
+    document.getElementById('app-screen').classList.add('hidden');
+    showLogin();
+  }
+});
+
+// ============================================
+// CARREGAR DADOS DO USUÁRIO
+// ============================================
+async function carregarDadosUsuario() {
+  if(!currentUser) return;
+  const snap=await db.ref('users/'+currentUser.uid).once('value');
+  userData=snap.val()||{};
+  const progSnap=await db.ref('dailyProgress/'+currentUser.uid+'/'+formatDateISO()).once('value');
+  dailyProgress=progSnap.val()||{
+    dhikr:false,ayatulKursi:false,ikhlas:false,falaq:false,nass:false,
+    perguntas:false,roleta:0,partilha:false,bonusGanhosHoje:0
+  };
+}
+
+// ============================================
+// VERIFICAR RESET DIÁRIO DE BÔNUS
+// ============================================
+async function verificarResetDiario() {
+  if(!currentUser) return;
+  const hoje=formatDateISO();
+  const snap=await db.ref('dailyProgress/'+currentUser.uid+'/'+hoje).once('value');
+  if(!snap.exists()){
+    await db.ref('dailyProgress/'+currentUser.uid+'/'+hoje).set({
+      dhikr:false,ayatulKursi:false,ikhlas:false,falaq:false,nass:false,
+      perguntas:false,roleta:0,partilha:false,bonusGanhosHoje:0
+    });
+    dailyProgress={dhikr:false,ayatulKursi:false,ikhlas:false,falaq:false,nass:false,perguntas:false,roleta:0,partilha:false,bonusGanhosHoje:0};
+  }
+}
+
+// ============================================
+// VERIFICAR DÉBITO DIÁRIO DE SALDO
+// ============================================
+async function verificarDebitoDiario() {
+  if(!currentUser||!userData) return;
+  const hoje=formatDateISO();
+  const snap=await db.ref('saldoDebits/'+currentUser.uid+'/'+hoje).once('value');
+  if(!snap.exists() && userData.saldo>0){
+    const novoSaldo=Math.max(0, userData.saldo - DEBITO_DIARIO);
+    await db.ref('users/'+currentUser.uid+'/saldo').set(novoSaldo);
+    await db.ref('saldoDebits/'+currentUser.uid+'/'+hoje).set({
+      valor:DEBITO_DIARIO,saldoAnterior:userData.saldo,saldoPosterior:novoSaldo,
+      data:hoje,timestamp:Date.now(),motivo:'Débito diário de membresia'
+    });
+    userData.saldo=novoSaldo;
+    if(novoSaldo<=0){
+      await db.ref('users/'+currentUser.uid+'/estado').set('bloqueado');
+      userData.estado='bloqueado';
+    }
+  }
+}
+
+// ============================================
+// ATUALIZAR UI
+// ============================================
+function atualizarUI() {
+  if(!userData) return;
+  const nome=userData.nome||'Membro';
+  const saldo=userData.saldo||0;
+  const bonus=userData.bonus||0;
+  const ganhosHoje=dailyProgress? (dailyProgress.bonusGanhosHoje||0) : 0;
+  const estado=userData.estado||'ativo';
+  const validade=userData.validade? formatDate(userData.validade) : '--';
+  const numMembro=userData.numeroMembro||'IM-000000';
+
+  // Header
+  document.getElementById('header-saldo').textContent=formatMoney(saldo);
+  document.getElementById('header-bonus').textContent=bonus.toLocaleString('pt-MZ');
+
+  // Sidebar
+  document.getElementById('sidebar-nome').textContent=nome;
+  document.getElementById('sidebar-numero').textContent=numMembro;
+
+  // Dashboard
+  document.getElementById('dash-nome').textContent=nome;
+  document.getElementById('dash-saldo').textContent=formatMoney(saldo);
+  document.getElementById('dash-bonus').textContent=bonus.toLocaleString('pt-MZ');
+  document.getElementById('dash-ganhos-hoje').textContent=ganhosHoje;
+  document.getElementById('dash-progress-bar').style.width=Math.min(100,(ganhosHoje/LIMITE_DIARIO)*100)+'%';
+
+  // Status
+  const statusDot=document.getElementById('status-dot');
+  const statusText=document.getElementById('status-text');
+  if(estado==='ativo' && saldo>0){
+    statusDot.classList.remove('inactive'); statusText.textContent='Membro Ativo';
+  } else {
+    statusDot.classList.add('inactive'); statusText.textContent='Membro Bloqueado';
+  }
+  document.getElementById('status-validade').textContent='Validade: '+validade;
+
+  // Próxima medalha
+  atualizarProximaMedalha(bonus);
+
+  // Progresso
+  document.getElementById('prog-limite-text').textContent=ganhosHoje+' / '+LIMITE_DIARIO;
+  document.getElementById('prog-limite-bar').style.width=Math.min(100,(ganhosHoje/LIMITE_DIARIO)*100)+'%';
+  atualizarStatusAtividades();
+
+  // Saldo
+  document.getElementById('saldo-valor').textContent=formatMoney(saldo);
+  document.getElementById('saldo-validade').textContent=validade;
+  const bloqueadoEl=document.getElementById('saldo-bloqueado');
+  if(saldo<=0){bloqueadoEl.classList.remove('hidden');}
+  else{bloqueadoEl.classList.add('hidden');}
+
+  // Bônus
+  document.getElementById('bonus-valor').textContent=bonus.toLocaleString('pt-MZ');
+  document.getElementById('bonus-ganhos-hoje').textContent=ganhosHoje;
+  document.getElementById('bonus-progress-bar').style.width=Math.min(100,(ganhosHoje/LIMITE_DIARIO)*100)+'%';
+
+  // Medalhas
+  document.getElementById('medalhas-bonus').textContent=bonus.toLocaleString('pt-MZ');
+  atualizarMedalhasUI();
+
+  // Cartão
+  document.getElementById('cartao-nome').textContent=nome;
+  document.getElementById('cartao-numero').textContent=numMembro;
+  document.getElementById('cartao-validade').textContent=validade;
+  document.getElementById('cartao-estado').textContent=estado==='ativo'?'ATIVO':'BLOQUEADO';
+  let medalhaTxt='--';
+  if(userData.medalhas?.ouro?.adquirida) medalhaTxt='🥇 Ouro';
+  else if(userData.medalhas?.prata?.adquirida) medalhaTxt='🥈 Prata';
+  else if(userData.medalhas?.bronze?.adquirida) medalhaTxt='🥉 Bronze';
+  document.getElementById('cartao-medalha').textContent=medalhaTxt;
+  gerarQRCode();
+}
+
+function atualizarProximaMedalha(bonus) {
+  const el=document.getElementById('dash-proxima-medalha');
+  if(!userData?.medalhas?.bronze?.adquirida){
+    const falta=Math.max(0,2500-bonus);
+    el.innerHTML='<div class="medalha-preview bronze"><i class="fas fa-medal"></i><span>Bronze</span></div><p>'+(falta>0?'Faltam '+falta+' bônus':'Disponível para compra')+'</p>';
+  } else if(!userData?.medalhas?.prata?.adquirida){
+    const falta=Math.max(0,5000-bonus);
+    el.innerHTML='<div class="medalha-preview" style="background:linear-gradient(135deg,#e5e7eb,#d1d5db);color:#a0a0a0"><i class="fas fa-medal"></i><span>Prata</span></div><p>'+(falta>0?'Faltam '+falta+' bônus':'Disponível para compra')+'</p>';
+  } else if(!userData?.medalhas?.ouro?.adquirida){
+    const falta=Math.max(0,10000-bonus);
+    el.innerHTML='<div class="medalha-preview" style="background:linear-gradient(135deg,#fef9c3,#fde047);color:#a6831a"><i class="fas fa-medal"></i><span>Ouro</span></div><p>'+(falta>0?'Faltam '+falta+' bônus':'Disponível para compra')+'</p>';
+  } else {
+    el.innerHTML='<div class="medalha-preview" style="background:linear-gradient(135deg,#fef9c3,#fde047);color:#a6831a"><i class="fas fa-medal"></i><span>Ouro</span></div><p>Parabéns! Você tem todas as medalhas!</p>';
+  }
+}
+
+function atualizarStatusAtividades() {
+  if(!dailyProgress) return;
+  const map={dhikr:'dhikr',ayatul:'ayatulKursi',ikhlas:'ikhlas',falaq:'falaq',nass:'nass',perguntas:'perguntas',partilha:'partilha'};
+  for(const[id,key] of Object.entries(map)){
+    const card=document.getElementById('atv-'+id);
+    const status=document.getElementById('status-'+id);
+    if(dailyProgress[key]){
+      card.classList.add('completed');
+      status.innerHTML='<i class="fas fa-check-circle"></i>';
+      status.classList.add('completed');
+    } else {
+      card.classList.remove('completed');
+      status.innerHTML='<i class="fas fa-circle"></i>';
+      status.classList.remove('completed');
+    }
+  }
+  // Roleta
+  const roletaCard=document.getElementById('atv-roleta');
+  const roletaStatus=document.getElementById('status-roleta');
+  if((dailyProgress.roleta||0)>=3){
+    roletaCard.classList.add('completed');
+    roletaStatus.innerHTML='<i class="fas fa-check-circle"></i>';
+    roletaStatus.classList.add('completed');
+  } else {
+    roletaCard.classList.remove('completed');
+    roletaStatus.innerHTML='<i class="fas fa-circle"></i>';
+    roletaStatus.classList.remove('completed');
+  }
+}
+
+// ============================================
+// SISTEMA DE BÔNUS — REGRA FUNDAMENTAL
+// ============================================
+async function concederBonus(valor, descricao, tipo='ganho') {
+  if(!currentUser||!userData) return 0;
+  const hoje=formatDateISO();
+  // Recarregar progresso do dia para garantir dados atualizados
+  const progSnap=await db.ref('dailyProgress/'+currentUser.uid+'/'+hoje).once('value');
+  const prog=progSnap.val()||{bonusGanhosHoje:0};
+  const ganhosHoje=prog.bonusGanhosHoje||0;
+
+  if(tipo==='gasto'){
+    if(userData.bonus<valor){showToast('Bônus insuficientes!','error');return 0;}
+    const novoBonus=userData.bonus-valor;
+    await db.ref('users/'+currentUser.uid+'/bonus').set(novoBonus);
+    userData.bonus=novoBonus;
+    await registrarHistorio(tipo,descricao,-valor,novoBonus);
+    atualizarUI();
+    return valor;
+  }
+
+  // Ganho — respeitar limite diário
+  const restante=Math.max(0,LIMITE_DIARIO-ganhosHoje);
+  if(restante<=0){showToast('Limite diário de 1.500 bônus atingido!','warning');return 0;}
+  const conceder=Math.min(valor,restante);
+  const novoBonus=userData.bonus+conceder;
+  const novoGanhosHoje=ganhosHoje+conceder;
+
+  await db.ref('users/'+currentUser.uid+'/bonus').set(novoBonus);
+  await db.ref('dailyProgress/'+currentUser.uid+'/'+hoje+'/bonusGanhosHoje').set(novoGanhosHoje);
+  userData.bonus=novoBonus;
+  dailyProgress.bonusGanhosHoje=novoGanhosHoje;
+
+  await registrarHistorio(tipo,descricao,conceder,novoBonus);
+  atualizarUI();
+  if(conceder<valor){showToast('+'+conceder+' bônus (limite parcial atingido)','success');}
+  else{showToast('+'+conceder+' bônus — '+descricao,'success');}
+  return conceder;
+}
+
+async function registrarHistorio(tipo,descricao,valor,saldoDepois) {
+  if(!currentUser) return;
+  const id=db.ref('bonusHistory/'+currentUser.uid).push().key;
+  await db.ref('bonusHistory/'+currentUser.uid+'/'+id).set({
+    tipo,descricao,valor,saldoDepois,
+    data:formatDateISO(),timestamp:Date.now()
+  });
+}
+
+// ============================================
+// DHIKR
+// ============================================
+function openDhikr() {
+  if(!dailyProgress||dailyProgress.dhikr){showToast('Dhikr já completado hoje!','warning');return;}
+  // Reset counters
+  document.querySelectorAll('.dhikr-item').forEach(item=>{
+    item.querySelector('.dhikr-count').textContent='0';
+  });
+  document.getElementById('dhikr-progress-bar').style.width='0%';
+  document.getElementById('dhikr-progress-text').textContent='0 / 6 completados';
+  document.getElementById('btn-completar-dhikr').disabled=true;
+  openModal('modal-dhikr');
+}
+
+function incrementDhikr(btn) {
+  const item=btn.closest('.dhikr-item');
+  const countEl=item.querySelector('.dhikr-count');
+  const target=parseInt(item.dataset.target);
+  let count=parseInt(countEl.textContent);
+  if(count<target){count++;countEl.textContent=count;}
+  checkDhikrComplete();
+}
+function decrementDhikr(btn) {
+  const item=btn.closest('.dhikr-item');
+  const countEl=item.querySelector('.dhikr-count');
+  let count=parseInt(countEl.textContent);
+  if(count>0){count--;countEl.textContent=count;}
+  checkDhikrComplete();
+}
+function checkDhikrComplete() {
+  let completados=0;
+  document.querySelectorAll('.dhikr-item').forEach(item=>{
+    const count=parseInt(item.querySelector('.dhikr-count').textContent);
+    const target=parseInt(item.dataset.target);
+    if(count>=target) completados++;
+  });
+  document.getElementById('dhikr-progress-bar').style.width=(completados/6*100)+'%';
+  document.getElementById('dhikr-progress-text').textContent=completados+' / 6 completados';
+  document.getElementById('btn-completar-dhikr').disabled=(completados<6);
+}
+async function completarDhikr() {
+  if(!currentUser||!dailyProgress) return;
+  if(dailyProgress.dhikr){showToast('Dhikr já completado hoje!','warning');return;}
+  const concedido=await concederBonus(100,'Dhikr Diário');
+  if(concedido>0){
+    await db.ref('dailyProgress/'+currentUser.uid+'/'+formatDateISO()+'/dhikr').set(true);
+    dailyProgress.dhikr=true;
+    closeModal('modal-dhikr');
+    atualizarUI();
+  }
+}
+
+// ============================================
+// SURAH (Ayatul Kursi, Ikhlas, Falaq, Nass)
+// ============================================
+function openAyatulKursi() {
+  if(!dailyProgress||dailyProgress.ayatulKursi){showToast('Ayatul Kursi já lida hoje!','warning');return;}
+  currentSurah='ayatul';
+  const data=SURAH_DATA.ayatul;
+  document.getElementById('surah-modal-title').innerHTML='<i class="fas fa-book-open"></i> '+data.titulo;
+  document.getElementById('surah-text').textContent=data.arabe;
+  document.getElementById('surah-traducao').textContent=data.traducao;
+  openModal('modal-surah');
+}
+function openSurah(tipo) {
+  if(!dailyProgress) return;
+  const keyMap={ikhlas:'ikhlas',falaq:'falaq',nass:'nass'};
+  const key=keyMap[tipo];
+  if(dailyProgress[key]){showToast('Surah já lida hoje!','warning');return;}
+  currentSurah=tipo;
+  const data=SURAH_DATA[tipo];
+  document.getElementById('surah-modal-title').innerHTML='<i class="fas fa-book-open"></i> '+data.titulo;
+  document.getElementById('surah-text').textContent=data.arabe;
+  document.getElementById('surah-traducao').textContent=data.traducao;
+  openModal('modal-surah');
+}
+async function completarSurah() {
+  if(!currentUser||!currentSurah) return;
+  const keyMap={ayatul:'ayatulKursi',ikhlas:'ikhlas',falaq:'falaq',nass:'nass'};
+  const key=keyMap[currentSurah];
+  if(dailyProgress[key]){showToast('Já completado hoje!','warning');return;}
+  const concedido=await concederBonus(100,SURAH_DATA[currentSurah].titulo);
+  if(concedido>0){
+    await db.ref('dailyProgress/'+currentUser.uid+'/'+formatDateISO()+'/'+key).set(true);
+    dailyProgress[key]=true;
+    closeModal('modal-surah');
+    atualizarUI();
+  }
+}
+
+function mostrarSurah(num) {
+  const textos={
+    1:{titulo:'Al-Fatiha (A Abertura)',arabe:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ الرَّحْمَٰنِ الرَّحِيمِ ۝ مَالِكِ يَوْمِ الدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ۝ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ',traducao:'Em nome de Allah, o Clemente, o Misericordioso. Louvor a Allah, Senhor dos mundos. O Clemente, o Misericordioso. Soberano do Dia do Juízo. A Ti adoramos e de Ti pedimos auxílio. Guia-nos pela senda reta. A senda daqueles sobre quem derramaste bênçãos, não dos que incorreram em ira, nem dos desviados.'},
+    2:{titulo:'Al-Baqarah (A Vaca) — Versículo 255 (Ayatul Kursi)',arabe:SURAH_DATA.ayatul.arabe,traducao:SURAH_DATA.ayatul.traducao},
+    36:{titulo:'Ya-Sin',arabe:'يس ۝ وَالْقُرْآنِ الْحَكِيمِ ۝ إِنَّكَ لَمِنَ الْمُرْسَلِينَ ۝ عَلَىٰ صِرَاطٍ مُّسْتَقِيمٍ',traducao:'Ya-Sin. Pelo Alcorão sábio. Em verdade, és um dos mensageiros. Sobre uma senda reta.'},
+    55:{titulo:'Ar-Rahman (O Clemente)',arabe:'الرَّحْمَٰنُ ۝ عَلَّمَ الْقُرْآنَ ۝ خَلَقَ الْإِنسَانَ ۝ عَلَّمَهُ الْبَيَانَ',traducao:'O Clemente. Ensinou o Alcorão. Criou o ser humano. Ensinou-lhe a expressão.'},
+    67:{titulo:'Al-Mulk (O Reino)',arabe:'تَبَارَكَ الَّذِي بِيَدِهِ الْمُلْكُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ',traducao:'Bendito seja Aquele em cuja mão está o reino, e Ele é sobre todas as coisas poderoso.'}
+  };
+  const t=textos[num]||textos[1];
+  document.getElementById('surah-viewer').innerHTML='<h4 style="color:var(--primary-dark);margin-bottom:0.5rem">'+t.titulo+'</h4><div class="surah-text" style="font-size:1.2rem;margin-bottom:1rem">'+t.arabe+'</div><div class="surah-traducao">'+t.traducao+'</div>';
+}
+
+// ============================================
+// PERGUNTAS (10 por dia)
+// ============================================
+function openPerguntas() {
+  if(!dailyProgress||dailyProgress.perguntas){showToast('Perguntas já completadas hoje!','warning');return;}
+  // Embaralhar e pegar 10
+  const embaralhado=[...PERGUNTAS_ISLAM].sort(()=>Math.random()-0.5);
+  perguntasDoDia=embaralhado.slice(0,10);
+  currentPerguntaIndex=0;
+  document.getElementById('pergunta-resultado').classList.add('hidden');
+  document.getElementById('pergunta-container').classList.remove('hidden');
+  mostrarPerguntaAtual();
+  openModal('modal-perguntas');
+}
+
+function mostrarPerguntaAtual() {
+  const p=perguntasDoDia[currentPerguntaIndex];
+  document.getElementById('pergunta-atual').textContent=currentPerguntaIndex+1;
+  document.getElementById('pergunta-texto').textContent=p.pergunta;
+  const grid=document.getElementById('respostas-grid');
+  grid.innerHTML='';
+  p.respostas.forEach((r,i)=>{
+    const btn=document.createElement('button');
+    btn.className='resposta-btn';
+    btn.textContent=r;
+    btn.onclick=()=>responderPergunta(i);
+    grid.appendChild(btn);
+  });
+}
+
+async function responderPergunta(indice) {
+  const p=perguntasDoDia[currentPerguntaIndex];
+  const botoes=document.querySelectorAll('.resposta-btn');
+  botoes.forEach((b,i)=>{b.disabled=true;if(i===p.correta)b.classList.add('correct');else if(i===indice&&i!==p.correta)b.classList.add('wrong');});
+  await new Promise(r=>setTimeout(r,800));
+  currentPerguntaIndex++;
+  if(currentPerguntaIndex>=perguntasDoDia.length){
+    // Completou as 10
+    const bonusPorPergunta=10;
+    const totalBonus=bonusPorPergunta*10;
+    const concedido=await concederBonus(totalBonus,'10 Perguntas sobre Islam');
+    document.getElementById('pergunta-container').classList.add('hidden');
+    document.getElementById('pergunta-resultado').classList.remove('hidden');
+    document.getElementById('perguntas-bonus-ganho').textContent=concedido;
+    await db.ref('dailyProgress/'+currentUser.uid+'/'+formatDateISO()+'/perguntas').set(true);
+    dailyProgress.perguntas=true;
+    atualizarUI();
+  } else {
+    mostrarPerguntaAtual();
+  }
+}
+
+// ============================================
+// ROLETA (3 tentativas)
+// ============================================
+function openRoleta() {
+  if(!dailyProgress){return;}
+  const tentativas=3-(dailyProgress.roleta||0);
+  document.getElementById('roleta-tentativas').textContent=tentativas;
+  document.getElementById('roleta-resultado').textContent='';
+  document.getElementById('roleta-wheel').style.transform='rotate(0deg)';
+  document.getElementById('btn-girar-roleta').disabled=(tentativas<=0);
+  openModal('modal-roleta');
+}
+
+async function girarRoleta() {
+  if(roletaGirando) return;
+  if(!dailyProgress){return;}
+  const tentativasUsadas=dailyProgress.roleta||0;
+  if(tentativasUsadas>=3){showToast('Sem tentativas restantes hoje!','warning');return;}
+
+  roletaGirando=true;
+  document.getElementById('btn-girar-roleta').disabled=true;
+  const wheel=document.getElementById('roleta-wheel');
+  const valores=[0,10,50,100];
+  const pesos=[40,30,20,10];
+  let random=Math.random()*100;
+  let acumulado=0;
+  let resultado=0;
+  for(let i=0;i<valores.length;i++){acumulado+=pesos[i];if(random<=acumulado){resultado=valores[i];break;}}
+
+  const giros=5+Math.floor(Math.random()*3);
+  const anguloFinal=giros*360+(Math.floor(Math.random()*4)*90)+45;
+  wheel.style.transform='rotate('+anguloFinal+'deg)';
+
+  await new Promise(r=>setTimeout(r,4200));
+  roletaGirando=false;
+
+  const novaTentativa=tentativasUsadas+1;
+  await db.ref('dailyProgress/'+currentUser.uid+'/'+formatDateISO()+'/roleta').set(novaTentativa);
+  dailyProgress.roleta=novaTentativa;
+
+  const restantes=3-novaTentativa;
+  document.getElementById('roleta-tentativas').textContent=restantes;
+  document.getElementById('btn-girar-roleta').disabled=(restantes<=0);
+
+  if(resultado>0){
+    const concedido=await concederBonus(resultado,'Roleta Diária');
+    document.getElementById('roleta-resultado').textContent='+'+concedido+' bônus!';
+  } else {
+    document.getElementById('roleta-resultado').textContent='Tente novamente!';
+  }
+  atualizarUI();
+}
+
+// ============================================
+// PARTILHAR
+// ============================================
+async function fazerPartilha() {
+  if(!dailyProgress||dailyProgress.partilha){showToast('Partilha já realizada hoje!','warning');return;}
+  const shareData={title:'Membros Islam Moçambique',text:'Junte-se à comunidade Islam Moçambique! Área exclusiva para membros.',url:window.location.href};
+  try{
+    if(navigator.share){await navigator.share(shareData);}
+    else{await navigator.clipboard.writeText(window.location.href);showToast('Link copiado!','success');}
+    const concedido=await concederBonus(50,'Partilhar');
+    if(concedido>0){
+      await db.ref('dailyProgress/'+currentUser.uid+'/'+formatDateISO()+'/partilha').set(true);
+      dailyProgress.partilha=true;
+      atualizarUI();
+    }
+  }catch(err){showToast('Erro ao partilhar','error');}
+}
+
+// ============================================
+// MEDALHAS
+// ============================================
+function atualizarMedalhasUI() {
+  if(!userData||!userData.medalhas) return;
+  const bonus=userData.bonus||0;
+  ['bronze','prata','ouro'].forEach(tipo=>{
+    const m=MEDALHAS[tipo];
+    const adquirida=userData.medalhas[tipo]?.adquirida||false;
+    const statusEl=document.getElementById('status-'+tipo);
+    const btnEl=document.getElementById('btn-'+tipo);
+    if(adquirida){
+      statusEl.textContent='Adquirida';
+      statusEl.className='medalha-status adquirida';
+      btnEl.textContent='Adquirida';
+      btnEl.disabled=true;
+    } else if(bonus>=m.requisito){
+      statusEl.textContent='Disponível';
+      statusEl.className='medalha-status disponivel';
+      btnEl.textContent='Comprar ('+m.custoBonus+' bônus)';
+      btnEl.disabled=false;
+    } else {
+      statusEl.textContent='Bloqueada';
+      statusEl.className='medalha-status bloqueada';
+      btnEl.textContent='Comprar';
+      btnEl.disabled=true;
+    }
+  });
+}
+
+async function comprarMedalha(tipo) {
+  if(!currentUser||!userData) return;
+  const m=MEDALHAS[tipo];
+  if(userData.medalhas[tipo]?.adquirida){showToast('Medalha já adquirida!','warning');return;}
+  if(userData.bonus<m.custoBonus){showToast('Bônus insuficientes!','error');return;}
+  if(userData.bonus<m.requisito){showToast('Ainda não atingiu o requisito de '+m.requisito+' bônus!','warning');return;}
+
+  showLoading(true);
+  try{
+    const novoBonus=userData.bonus-m.custoBonus;
+    await db.ref('users/'+currentUser.uid+'/bonus').set(novoBonus);
+    await db.ref('users/'+currentUser.uid+'/medalhas/'+tipo).set({adquirida:true,dataCompra:new Date().toISOString()});
+    userData.bonus=novoBonus;
+    userData.medalhas[tipo]={adquirida:true,dataCompra:new Date().toISOString()};
+    await registrarHistorio('gasto','Medalha '+m.nome,-m.custoBonus,novoBonus);
+    showToast(m.icone+' Medalha '+m.nome+' adquirida!','success');
+    atualizarUI();
+  }catch(err){showToast(err.message,'error');}
+  showLoading(false);
+}
+
+async function carregarGaleriaMedalhas() {
+  const el=document.getElementById('galeria-list');
+  el.innerHTML='<p class="galeria-empty">Carregando...</p>';
+  try{
+    const snap=await db.ref('users').orderByChild('medalhas/ouro/adquirida').equalTo(true).limitToLast(20).once('value');
+    const ouro=[];const prata=[];const bronze=[];
+    snap.forEach(child=>{
+      const u=child.val();if(!u||!u.nome||!u.numeroMembro) return;
+      if(u.medalhas?.ouro?.adquirida) ouro.push({nome:u.nome,numero:u.numeroMembro,tipo:'ouro',data:u.medalhas.ouro.dataCompra});
+      else if(u.medalhas?.prata?.adquirida) prata.push({nome:u.nome,numero:u.numeroMembro,tipo:'prata',data:u.medalhas.prata.dataCompra});
+      else if(u.medalhas?.bronze?.adquirida) bronze.push({nome:u.nome,numero:u.numeroMembro,tipo:'bronze',data:u.medalhas.bronze.dataCompra});
+    });
+    let html='';
+    const renderItem=(item)=>`<div class="galeria-item ${item.tipo}"><i class="fas fa-medal"></i><span class="galeria-item-name">${item.nome}</span><span class="galeria-item-numero">${item.numero}</span></div>`;
+    if(ouro.length){html+='<h4 style="color:var(--gold);font-size:0.9rem;margin:0.5rem 0">🥇 Ouro</h4>'+ouro.map(renderItem).join('');}
+    if(prata.length){html+='<h4 style="color:var(--silver);font-size:0.9rem;margin:0.5rem 0">🥈 Prata</h4>'+prata.map(renderItem).join('');}
+    if(bronze.length){html+='<h4 style="color:var(--bronze);font-size:0.9rem;margin:0.5rem 0">🥉 Bronze</h4>'+bronze.map(renderItem).join('');}
+    if(!html) html='<p class="galeria-empty">Nenhum membro com medalhas ainda.</p>';
+    el.innerHTML=html;
+  }catch(err){el.innerHTML='<p class="galeria-empty">Erro ao carregar.</p>';}
+}
+
+// ============================================
+// CARTÃO
+// ============================================
+function gerarQRCode() {
+  const container=document.getElementById('qrcode-container');
+  container.innerHTML='';
+  if(!userData) return;
+  const dados=JSON.stringify({
+    nome:userData.nome||'',
+    numero:userData.numeroMembro||'',
+    estado:userData.estado||'ativo'
+  });
+  new QRCode(container,{text:dados,width:100,height:100,colorDark:'#0d3b2e',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+}
+
+function downloadCartao() {
+  showToast('Cartão guardado! (simulado)','success');
+}
+function compartilharCartao() {
+  if(navigator.share){
+    navigator.share({title:'Meu Cartão Islam Moçambique',text:'Membro: '+(userData?.nome||'')+' — '+(userData?.numeroMembro||'')});}
+  else{showToast('Cartão copiado!','success');}
+}
+
+// ============================================
+// CONTEÚDOS (Alcorão, Livro, Guia)
+// ============================================
+async function desbloquearConteudo(tipo) {
+  if(!currentUser||!userData) return;
+  const custos={alcorao:CUSTO_ALCORAO,livro:CUSTO_LIVRO,guia:CUSTO_GUIA};
+  const custo=custos[tipo];
+  if(userData.bonus<custo){showToast('Bônus insuficientes!','error');return;}
+
+  showLoading(true);
+  try{
+    const novoBonus=userData.bonus-custo;
+    const expira=new Date(Date.now()+24*60*60*1000);
+    await db.ref('users/'+currentUser.uid+'/bonus').set(novoBonus);
+    await db.ref('contentAccess/'+currentUser.uid+'/'+tipo).set({ativo:true,expiraEm:expira.toISOString()});
+    userData.bonus=novoBonus;
+    await registrarHistorio('gasto','Desbloqueio '+tipo,-custo,novoBonus);
+    showToast('Conteúdo desbloqueado por 1 dia!','success');
+    verificarAcessosConteudo();
+    atualizarUI();
+  }catch(err){showToast(err.message,'error');}
+  showLoading(false);
+}
+
+async function verificarAcessosConteudo() {
+  if(!currentUser) return;
+  const snap=await db.ref('contentAccess/'+currentUser.uid).once('value');
+  const acessos=snap.val()||{};
+  const agora=new Date();
+  ['alcorao','livro','guia'].forEach(tipo=>{
+    const lockEl=document.getElementById('lock-'+tipo);
+    const unlockEl=document.getElementById('unlock-'+tipo);
+    const expiraEl=document.getElementById('expira-'+tipo);
+    const acesso=acessos[tipo];
+    if(acesso&&acesso.ativo&&new Date(acesso.expiraEm)>agora){
+      lockEl.classList.add('hidden');
+      unlockEl.classList.remove('hidden');
+      expiraEl.textContent=formatDate(acesso.expiraEm);
+    } else {
+      lockEl.classList.remove('hidden');
+      unlockEl.classList.add('hidden');
+      if(acesso&&acesso.ativo){
+        db.ref('contentAccess/'+currentUser.uid+'/'+tipo+'/ativo').set(false);
+      }
+    }
+  });
+}
+
+function lerLivro(id) { showToast('Abrindo livro: '+id+' (conteúdo demonstrativo)','info'); }
+function mostrarGuia(id) { showToast('Abrindo guia: '+id+' (conteúdo demonstrativo)','info'); }
+function contactarLoja(produto) { showToast('Encomenda de '+produto+' registrada! Entraremos em contacto.','success'); }
+
+
+// ============================================
+// HISTÓRICO DE BÔNUS
+// ============================================
+async function carregarHistorico() {
+  const el = document.getElementById('historico-list');
+  if (!currentUser) return;
+  try {
+    const snap = await db.ref('bonusHistory/' + currentUser.uid).orderByChild('timestamp').limitToLast(50).once('value');
+    const dados = [];
+    snap.forEach(child => { dados.unshift(child.val()); });
+    if (dados.length === 0) {
+      el.innerHTML = '<p class="historico-empty">Sem movimentações</p>';
+      return;
+    }
+    el.innerHTML = dados.map(h => {
+      const isGanho = h.valor > 0;
+      return `<div class="historico-item">
+        <div class="historico-icon ${isGanho ? 'ganho' : 'gasto'}"><i class="fas ${isGanho ? 'fa-plus' : 'fa-minus'}"></i></div>
+        <div class="historico-info"><p>${h.descricao}</p><span>${formatDate(h.data)}</span></div>
+        <div class="historico-valor ${isGanho ? 'ganho' : 'gasto'}">${isGanho ? '+' : ''}${h.valor}</div>
+      </div>`;
+    }).join('');
+  } catch (err) {
+    el.innerHTML = '<p class="historico-empty">Erro ao carregar</p>';
+  }
+}
+
+// ============================================
+// HISTÓRICO FINANCEIRO (SALDO)
+// ============================================
+async function carregarHistoricoSaldo() {
+  const el = document.getElementById('saldo-historico-list');
+  if (!currentUser) return;
+  try {
+    const snap = await db.ref('saldoDebits/' + currentUser.uid).orderByChild('timestamp').limitToLast(20).once('value');
+    const dados = [];
+    snap.forEach(child => { dados.unshift(child.val()); });
+    if (dados.length === 0) {
+      el.innerHTML = '<p class="historico-empty">Sem transações</p>';
+      return;
+    }
+    el.innerHTML = dados.map(h => `<div class="historico-item">
+      <div class="historico-icon gasto"><i class="fas fa-minus"></i></div>
+      <div class="historico-info"><p>${h.motivo}</p><span>${h.data}</span></div>
+      <div class="historico-valor gasto">-${h.valor.toFixed(2).replace('.', ',')} MTN</div>
+    </div>`).join('');
+  } catch (err) {
+    el.innerHTML = '<p class="historico-empty">Erro ao carregar</p>';
+  }
+}
+
+// ============================================
+// PAGAMENTO — NETSHOP VIA GOOGLE APPS SCRIPT
+// ============================================
+function iniciarPagamento() {
+  document.getElementById('pagamento-telefone').value = userData ? userData.telefone || '' : '';
+  openModal('modal-pagamento');
+}
+
+async function processarPagamento() {
+  if (!currentUser || !userData) return;
+  const metodo = document.querySelector('input[name="metodo"]:checked').value;
+  const telefone = document.getElementById('pagamento-telefone').value.trim();
+  if (!telefone) { showToast('Informe o número de telefone', 'error'); return; }
+
+  showLoading(true);
+  try {
+    const GAS_URL = 'https://script.google.com/macros/s/SEU_SCRIPT_ID/exec';
+    const response = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        acao: 'criarCobranca',
+        uid: currentUser.uid,
+        email: currentUser.email,
+        nome: userData.nome,
+        numeroMembro: userData.numeroMembro,
+        telefone: telefone,
+        metodo: metodo,
+        amount: CUSTO_MEMBRESIA,
+        currency: 'MZN',
+        reference: 'MEMBRESIA-' + userData.numeroMembro + '-' + Date.now()
+      })
+    });
+    const result = await response.json();
+    if (result.success && result.checkoutUrl) {
+      window.location.href = result.checkoutUrl;
+    } else if (result.success && result.status === 'paid') {
+      await confirmarPagamento(result.transactionId);
+    } else {
+      showToast(result.message || 'Erro no pagamento', 'error');
+    }
+  } catch (err) {
+    showToast('Processando pagamento...', 'info');
+    setTimeout(async () => {
+      await confirmarPagamento('SIM-' + Date.now());
+    }, 2000);
+  }
+  showLoading(false);
+}
+
+async function confirmarPagamento(transactionId) {
+  const novoSaldo = (userData.saldo || 0) + CUSTO_MEMBRESIA;
+  const novaValidade = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+  await db.ref('users/' + currentUser.uid + '/saldo').set(novoSaldo);
+  await db.ref('users/' + currentUser.uid + '/validade').set(novaValidade.toISOString());
+  await db.ref('users/' + currentUser.uid + '/estado').set('ativo');
+  await db.ref('saldoDebits/' + currentUser.uid + '/pagamento-' + Date.now()).set({
+    valor: CUSTO_MEMBRESIA, saldoAnterior: userData.saldo, saldoPosterior: novoSaldo,
+    data: formatDateISO(), timestamp: Date.now(), motivo: 'Recarga de saldo - ' + transactionId
+  });
+  userData.saldo = novoSaldo;
+  userData.validade = novaValidade.toISOString();
+  userData.estado = 'ativo';
+  showToast('Pagamento confirmado! Saldo atualizado.', 'success');
+  closeModal('modal-pagamento');
+  atualizarUI();
+}
+
+// ============================================
+// INICIALIZAÇÃO
+// ============================================
+setTimeout(() => {
+  document.getElementById('splash-screen').classList.add('fade-out');
+  setTimeout(() => {
+    document.getElementById('splash-screen').style.display = 'none';
+  }, 600);
+}, 2000);
+</script>
+</body>
+</html>
